@@ -230,7 +230,8 @@ class WildflowerAppController extends AppController {
             'isPage' => false,
             'isPosts' => false,
             'isHome' => $this->isHome,
-            'homePageId' => $this->homePageId
+            'homePageId' => $this->homePageId,
+            'here' => substr($this->here, strlen($this->base) - strlen($this->here)),
         );
         $this->params['Wildflower']['view'] = $params;
     	$this->set($params);
