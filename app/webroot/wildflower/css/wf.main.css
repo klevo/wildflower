@@ -22,6 +22,15 @@ a {
 }
 
 body {
+}
+
+#whiteness {
+    background: #fff;
+}
+
+#wrap,
+#footer,
+#header {
     max-width: 1000px;
     min-width: 720px;
     margin: 0 auto;
@@ -32,6 +41,14 @@ body {
     color: #2f2f2f;
     padding: 1px 0 0 0;
 }
+
+#footer {
+    margin-top: 10px;
+}
+
+    #footer a {
+        color: #ddd;
+    }
 
     #wrap a {
         color: #0000ff;

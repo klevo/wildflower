@@ -7,15 +7,28 @@
 	
 	<meta name="description" content="" />
 	
-    <link rel="icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
 	
 	<?php 
-        echo $html->css(array('/wildflower/css/wf.main')),
-             $javascript->link(array('tiny_mce/tiny_mce'));
+        echo
+        // Load your CSS files here
+        $html->css(array(
+            '/wildflower/css/wf.main',
+            '/wildflower/css/wf.switcher',
+        )),
+        // Load your Javascript here
+        $javascript->link(array(
+            'tiny_mce/tiny_mce',
+        ));
     ?>
     
-    <!--[if lte IE 7]><?php echo $html->css('wfadmin/ie67') ?><![endif]-->
+    <!--[if lte IE 7]>
+        <?php
+            // CSS file for Microsoft Internet Explorer 7 and lower
+            echo $html->css('wfadmin/ie67');
+        ?>
+    <![endif]-->
     
     <?php echo $this->element('tiny_mce') ?>
     
@@ -62,9 +75,11 @@
     ?>
 </div>
 
-<div id="wrap">
-    <?php echo $content_for_layout ?>
-    <div class="cleaner"></div>
+<div id="whiteness">
+    <div id="wrap">
+        <?php echo $content_for_layout ?>
+        <div class="cleaner"></div>
+    </div>
 </div>
 
 <p id="footer">

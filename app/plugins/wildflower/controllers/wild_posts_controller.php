@@ -156,6 +156,9 @@ class WildPostsController extends WildflowerAppController {
     
     function beforeFilter() {
     	parent::beforeFilter();
+    	
+    	$this->pageTitle = 'Blog';
+    	
     	$this->params['current']['type'] = 'post';
     	$this->params['current']['slug'] = WILDFLOWER_POSTS_INDEX;
     }
