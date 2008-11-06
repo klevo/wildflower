@@ -80,13 +80,6 @@ class WildflowerAppController extends AppController {
         $results = $this->{$this->modelClass}->search($query, array('title', 'content'));
         $this->set(compact('query', 'results'));
     }
-
-	/**
-	 * Redirect to admin_index action of current controller and exit
-	 */
-	function adminIndexRedirect() {
-		$this->redirect(array('controller' => low($this->name), 'action' => 'admin_index'), null, true);
-	}
 	
 	/**
 	 * Make sure the application returns 404 if it's not a requested action

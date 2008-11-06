@@ -5,7 +5,14 @@ class WildUtilitiesController extends WildflowerAppController {
     
     function beforeFilter() {
         parent::beforeFilter();
+        
+        // This stuff is only avaible in debug modes
+        if (Configure::read('debug') < 1) {
+            return $this->do404();
+        }
+        
         $this->Security->requireAuth('wf_index');
+        $this->pageTitle = 'Developer Utilities';
     }
         
     function wf_index() {
