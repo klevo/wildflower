@@ -6,7 +6,7 @@ class Randomizer {
     private $_parentIds = array(0 => null);
     
     function __construct() {
-        $this->_words = explode(' ', $_lorem);
+        $this->_words = explode(' ', $this->_lorem);
     }
     
     function title() {

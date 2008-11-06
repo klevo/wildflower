@@ -3,7 +3,7 @@ class WildPostsController extends WildflowerAppController {
 	public $helpers = array('Cache', 'Wildflower.List', 'Rss', 'Wildflower.Textile', 'Wildflower.Category', 'Time');
 	/** Pagination options for the wf_index action **/
     public $paginate = array(
-        'limit' => 4,
+        'limit' => 12,
         'order' => array('WildPost.created' => 'desc'),
         'fields' => array('id', 'title', 'slug', 'draft', 'created')
     );
