@@ -12,7 +12,15 @@ $admin = Configure::read('Routing.admin');
 
 // Connect everything expect /admin and Widlfower /prefix to PagesController::view
 
-Router::connect('(?!' . $admin . '|' . $prefix . '|login|contact|)(.*)', array('controller' => 'wild_pages', 'action' => 'view', 'plugin' => 'wildflower'), array('$2'));
+Router::connect(
+    '(?!' . $admin . '|' . $prefix . '|login|contact)(.*)', 
+    array(
+        'controller' => 'wild_pages', 
+        'action' => 'view', 
+        'plugin' => 'wildflower'
+    ), 
+    array('$2')
+);
 
 /**
  * Wildflower admin routes
