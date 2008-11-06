@@ -79,34 +79,22 @@ class NavigationHelper extends WildflowerAppHelper {
                 $url = $this->Html->url($url);
             } else if (is_string($url)) {
                 $url = $this->Html->url($url);
-                if ($this->here == $url) {
-                    $isCurrent = true;
+                if ($this->params['action'] === 'index') {
+                    
                 }
+                $isCurrent = ($this->here === $url);
             } else if (is_array($url)) {
                 $keys = array('controller', 'action');
-                $isCurrent = true;
-                foreach ($url as $key => $value) {
-                    if (!in_array($key, $keys) || !isset($this->params[$key])) {
-                        continue;
-                    }
-                    
-                    $param = $this->params[$key];
-                    
-                    // Remove the admin prefix from action
-                    $adminPrefix = Configure::read('Routing.admin') . '_';
-                    if ($key == 'action') {
-                        if (strpos($param, $adminPrefix) === 0) {
-                            $param = str_replace($adminPrefix, '', $param);
-                        }
-                    }
-                    
-                    if ($param != $value) {
-                        $isCurrent = false;
-                    }
+                if (isset($url['controller']) && (!isset($url['action']) || $url['action'] === 'index')) {
+                    // We can decide by comparing controllers
+                    $isCurrent = ($url['controller'] === $this->params['controller']);
+                } else if (isset($url['controller']) and isset($url['action'])) {
+                    $isCurrent = ($url['controller'] === $this->params['controller']) && ($url['action'] === $this->params['action']);
                 }
                 
-                if (!isset($url['action'])) {
-                    $url['action'] = 'index';
+                // This is basically a hack to get a nice url in form of wf/controller-name/ instead of wf/controller-name/index
+                if (!isset($url['action']) || $url['action'] === 'wf_index') {
+                    $url = '/' . Configure::read('Wildflower.prefix') . '/' . str_replace('wild_', '', $url['controller']);
                 }
                 
                 $url = $this->Html->url($url);
