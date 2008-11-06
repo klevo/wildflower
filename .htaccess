@@ -1,0 +1,12 @@
+# PHP version - on _some_ web hosts you enable PHP5 like this:
+# AddType x-mapp-php5 .php
+
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+
+   # Maitenance mode: (uncoment following line)
+   # RewriteRule    ^(.*)$ app/webroot/offline.html    [L]
+
+   RewriteRule    ^$ app/webroot/    [L]
+   RewriteRule    (.*) app/webroot/$1 [L]
+</IfModule>

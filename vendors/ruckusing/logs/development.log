@@ -1,0 +1,17 @@
+Aug 21 17:02:26  [info] RENAME TABLE contacts TO messages
+Aug 21 17:02:26  [info] ALTER TABLE contacts ADD `subject` varchar(255)
+Aug 21 17:03:28  [info] RENAME TABLE contacts TO messages
+Aug 21 17:03:28  [info] ALTER TABLE messages ADD `subject` varchar(255)
+Aug 21 17:03:28  [info] SHOW COLUMNS FROM `messages` LIKE 'message'
+Aug 21 17:03:28  [info] ALTER TABLE `messages` CHANGE `message` `content` text
+Aug 21 17:03:28  [info] UPDATE schema_info SET version = 9
+Aug 21 17:03:33  [info] RENAME TABLE messages TO contacts
+Aug 21 17:03:33  [info] ALTER TABLE `contacts` DROP COLUMN `subject`
+Aug 21 17:03:33  [info] SHOW COLUMNS FROM `contacts` LIKE 'content'
+Aug 21 17:03:33  [info] ALTER TABLE `contacts` CHANGE `content` `message` text
+Aug 21 17:03:33  [info] UPDATE schema_info SET version = 8
+Aug 21 17:03:35  [info] RENAME TABLE contacts TO messages
+Aug 21 17:03:35  [info] ALTER TABLE messages ADD `subject` varchar(255)
+Aug 21 17:03:35  [info] SHOW COLUMNS FROM `messages` LIKE 'message'
+Aug 21 17:03:35  [info] ALTER TABLE `messages` CHANGE `message` `content` text
+Aug 21 17:03:35  [info] UPDATE schema_info SET version = 9

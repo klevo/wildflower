@@ -1,0 +1,19 @@
+Wildflower - A CakePHP CMS
+**************************
+
+Requirements
+============
+
+    * Apache web server with mod_rewrite
+    * PHP 5.2+
+    * MySQL 4.1+
+
+Installation
+============
+
+   1. Extract the archive. Place the wildflower directory inside your apache document root.
+   2. Create a new MySQL database (preferably use utf8_unicode_ci collation) and into this new database import the SQL file app/config/sql/wildflower.sql.
+   3. Edit the app/config/database.php file with your database connection details.
+   4. You've got a working copy of this site. You can start working on your project by modifying the application inside the app directory. When a new release of Wildflower comes, you simply update the cake, vendors and wildflower directories.
+   5. Default login/password combination for /admin area is admin/admin321 --Don`t forget to change this when in production.
+

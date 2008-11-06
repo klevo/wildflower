@@ -1,0 +1,178 @@
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL auto_increment,
+  `parent_id` int(11) default NULL,
+  `lft` int(11) default NULL,
+  `rght` int(11) default NULL,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `parent_id` (`parent_id`),
+  KEY `tree_left` (`lft`),
+  KEY `tree_right` (`rght`)
+);
+
+CREATE TABLE `categories_posts` (
+  `category_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  KEY `category_id` (`category_id`,`post_id`)
+);
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL auto_increment,
+  `post_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` char(80) NOT NULL,
+  `url` char(80) default NULL,
+  `content` text NOT NULL,
+  `spam` tinyint(1) NOT NULL default '0',
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `post_id` (`post_id`),
+  KEY `spam` (`spam`)
+);
+
+CREATE TABLE `contacts` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) COMMENT='Stores all contact form communication';
+
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL auto_increment,
+  `parent_id` int(11) default NULL,
+  `lft` int(11) default NULL,
+  `rght` int(11) default NULL,
+  `level` int(3) NOT NULL default '0' COMMENT 'Page level in the tree hierarchy',
+  `slug` varchar(255) NOT NULL COMMENT 'URL friendly page name',
+  `url` varchar(255) NOT NULL COMMENT 'Full URL relative to root of the application',
+  `title` varchar(255) NOT NULL,
+  `content` text collate utf8_unicode_ci,
+  `description_meta_tag` text,
+  `keywords_meta_tag` text,
+  `draft` tinyint(1) NOT NULL default '0',
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `parent_id` (`parent_id`),
+  KEY `lft` (`lft`),
+  KEY `rght` (`rght`),
+  KEY `draft` (`draft`),
+  FULLTEXT KEY `content` (`content`)
+);
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL auto_increment,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text,
+  `user_id` int(11) NOT NULL COMMENT 'ID of the author of the post.',
+  `description_meta_tag` text,
+  `keywords_meta_tag` text,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  FULLTEXT KEY `content` (`content`)
+);
+
+CREATE TABLE `revisions` (
+  `id` int(11) NOT NULL auto_increment,
+  `type` enum('page','post') NOT NULL,
+  `node_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `revision_number` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `type` (`type`,`node_id`)
+);
+
+CREATE TABLE `schema_info` (
+  `version` int(11) unsigned NOT NULL default '0'
+);
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `description` varchar(255) default NULL,
+  `type` enum('general','theme') NOT NULL,
+  PRIMARY KEY  (`id`)
+);
+
+CREATE TABLE `sitemaps` (
+  `id` int(11) NOT NULL auto_increment,
+  `lft` int(11) NOT NULL,
+  `rght` int(11) NOT NULL,
+  `parent_id` int(11) default NULL,
+  `loc` varchar(255) NOT NULL,
+  `lastmod` datetime default NULL,
+  `changefreq` enum('always','hourly','daily','weekly','monthly','yearly','never') default NULL,
+  `priority` float default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `lft` (`lft`,`rght`,`parent_id`)
+) COMMENT='Google Sitemap protocol compatible sitemap';
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`)
+);
+
+CREATE TABLE `tags_uploads` (
+  `upload_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  KEY `tag_id` (`tag_id`),
+  KEY `upload_id` (`upload_id`)
+);
+
+CREATE TABLE `uploads` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `mime` varchar(20) NOT NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `mime` (`mime`)
+);
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL auto_increment,
+  `login` varchar(255) NOT NULL,
+  `password` char(40) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) default NULL,
+  `cookie` varchar(255) default NULL,
+  `created` datetime NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `cookie` (`cookie`)
+);
+
+
+INSERT INTO `schema_info` (`version`) VALUES (0);
+
+INSERT INTO `settings` VALUES 
+    (1,'site_name','Wildflower','','general'),
+    (2,'description','A CakePHP CMS','','general'),
+    (3,'home_page_id','1','','general'),
+    (4,'contact_form_email_to ','','','general'),
+    (5,'google_analytics_code','','','general'),
+    (6,'wordpress_api_key','','','general'),
+    (7,'smtp_server','','','general'),
+    (8,'smtp_username','','','general'),
+    (9,'smtp_password','','','general');
+    
+INSERT INTO `users` VALUES 
+    (1,'admin','24c05ce1409afb5dad4c5bddeb924a4bc3ea00f5','admin@localhost','Default Wildflower user','',NOW(),NOW());

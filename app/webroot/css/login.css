@@ -1,0 +1,189 @@
+html, body {
+    margin: 0; padding: 0;
+	/* Footer stick */
+    height: 100%;
+    overflow-x: hidden;
+}
+
+html {
+    background: #eee;
+    font: 13px/18px "Lucida Grande", Verdana, Geneva, Arial, Helvetica, sans-serif;
+    color: #000;
+}
+
+a {
+    color: #02396d;
+    text-decoration: underline;
+}
+
+input,
+select, 
+textarea {
+    font: 13px/16px "Lucida Grande", Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+
+/* Header */
+
+#header,
+#footer {
+    background-color: #4b4b4b;
+    height: 26px;
+    font-size: 12px;
+    color: #fff;
+    overflow: hidden;
+}
+
+    #header a,
+    #footer a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    #header a:hover,
+    #footer a:hover {
+        color: #fff400;
+    }
+
+#site-title {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: normal;
+    float: left;
+}
+
+    #site-title a {
+        display: block;
+        padding: 3px 12px;
+        height: 20px;
+        font-weight: normal;
+    }
+    
+#login-info {
+    float: right;
+    padding: 3px 12px;
+    height: 20px;
+}
+
+#login-info-user {
+    margin-right: 20px;
+}
+
+
+/* Login box */
+
+#login {
+    background: #e9f3f6;
+    width: 20em;
+    padding: 1.5em;
+    margin: 100px auto 0;
+	border: 5px solid #a7c4da;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+	#login a {
+	}
+	
+	#login p:first-child {
+		margin-top: 0;
+	}
+	
+#gohome {
+	margin-bottom: 0;
+}
+
+.input {
+    margin: 0 0 14px 0;
+}
+
+    .input label {
+	    color: #3c3c3c;
+	    font-size: 12px;
+	    text-transform: uppercase;
+    }
+    
+    .submit input {
+        font-size: large;
+    }
+    
+    .input input {
+        padding: 2px;
+        font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+        font-size: 100%;
+    }
+    
+    #remember label {
+        font-weight: normal;
+        display: inline;
+		text-transform: none;
+    }
+    
+#UserLogin, #UserPassword {
+    width: 80%;
+}
+
+
+/* Footer */
+
+#wrap {
+    /* Footer stick */
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 0 -30px;
+}
+
+
+#footer {
+    clear: both;
+    text-align: center;
+    font-size: 10px;
+    padding: 6px 0 0 0;
+    height: 24px;
+    margin: 0;
+}
+
+    #footer a {
+        color: #e5e5e5;
+        font-weight: normal;
+    }
+
+#push {
+    height: 30px;
+}
+
+
+/* Buttons */
+
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+    button .bl1 {
+        background: #000 url(wfadmin/img/button-sprite.png) 100% 0 no-repeat;
+        display: block;
+        height: 30px;
+        width: auto;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        line-height: 30px;
+        font-weight: bold;
+        padding: 0;
+    }
+
+    button .bl2 {
+        background: #000 url(wfadmin/img/button-sprite.png) 0 0 no-repeat;
+        margin-right: 12px;
+        padding: 0 14px 0 26px;
+        height: 30px;
+        width: auto;
+        display: block;
+        white-space: nowrap;
+    }
