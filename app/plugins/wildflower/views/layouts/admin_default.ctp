@@ -23,10 +23,16 @@
         ));
     ?>
     
-    <!--[if lte IE 7]>
+    <!--[if lte IE 6]>
         <?php
-            // CSS file for Microsoft Internet Explorer 7 and lower
-            echo $html->css('wfadmin/ie67');
+            // CSS file for Microsoft Internet Explorer 6 and lower
+            echo $html->css('/wildflower/css/wf.ie6');
+        ?>
+    <![endif]-->    
+    <!--[if IE 7]>
+        <?php
+            // CSS file for Microsoft Internet Explorer 7
+            echo $html->css('/wildflower/css/wf.ie7');
         ?>
     <![endif]-->
     
