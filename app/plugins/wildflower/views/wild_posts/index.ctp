@@ -13,7 +13,7 @@
 
     <?php foreach ($posts as $post) { ?>
     <div class="<?php echo join(' ', $cssClasses) ?>" id="post-<?php echo $post['WildPost']['id'] ?>">
-        <h2><?php echo $html->link($post['WildPost']['title'], "/blog/{$post['WildPost']['slug']}") ?></h2>
+        <h2><?php echo $html->link($post['WildPost']['title'], WildPost::getUrl($post['WildPost']['uuid'])) ?></h2>
         <small class="post-date">Posted <?php echo $time->nice($post['WildPost']['created']) ?></small>
         
         <div class="entry">
