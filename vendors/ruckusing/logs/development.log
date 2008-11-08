@@ -1,17 +1,127 @@
-Aug 21 17:02:26  [info] RENAME TABLE contacts TO messages
-Aug 21 17:02:26  [info] ALTER TABLE contacts ADD `subject` varchar(255)
-Aug 21 17:03:28  [info] RENAME TABLE contacts TO messages
-Aug 21 17:03:28  [info] ALTER TABLE messages ADD `subject` varchar(255)
-Aug 21 17:03:28  [info] SHOW COLUMNS FROM `messages` LIKE 'message'
-Aug 21 17:03:28  [info] ALTER TABLE `messages` CHANGE `message` `content` text
-Aug 21 17:03:28  [info] UPDATE schema_info SET version = 9
-Aug 21 17:03:33  [info] RENAME TABLE messages TO contacts
-Aug 21 17:03:33  [info] ALTER TABLE `contacts` DROP COLUMN `subject`
-Aug 21 17:03:33  [info] SHOW COLUMNS FROM `contacts` LIKE 'content'
-Aug 21 17:03:33  [info] ALTER TABLE `contacts` CHANGE `content` `message` text
-Aug 21 17:03:33  [info] UPDATE schema_info SET version = 8
-Aug 21 17:03:35  [info] RENAME TABLE contacts TO messages
-Aug 21 17:03:35  [info] ALTER TABLE messages ADD `subject` varchar(255)
-Aug 21 17:03:35  [info] SHOW COLUMNS FROM `messages` LIKE 'message'
-Aug 21 17:03:35  [info] ALTER TABLE `messages` CHANGE `message` `content` text
-Aug 21 17:03:35  [info] UPDATE schema_info SET version = 9
+Oct 31 16:38:18 [info] SELECT version FROM schema_info
+Oct 31 16:38:18 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:38:18 [info] UPDATE schema_info SET version = 1
+Oct 31 16:38:18 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:38:18 [info] UPDATE schema_info SET version = 2
+Oct 31 16:39:59 [info] SELECT version FROM schema_info
+Oct 31 16:44:25 [info] SELECT version FROM schema_info
+Oct 31 16:44:25 [info] DROP INDEX `idx_users_age` ON `users`
+Oct 31 16:44:25 [info] UPDATE schema_info SET version = 2
+Oct 31 16:44:25 [info] DROP TABLE `users`
+Oct 31 16:44:25 [info] UPDATE schema_info SET version = 0
+Oct 31 16:44:39 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:45:29 [info] SELECT version FROM schema_info
+Oct 31 16:45:29 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:45:29 [info] UPDATE schema_info SET version = 1
+Oct 31 16:45:29 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:45:29 [info] UPDATE schema_info SET version = 2
+Oct 31 16:45:48 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:45:48 [info] INSERT INTO schema_info (version) VALUES (0)
+Oct 31 16:50:41 [info] SELECT version FROM schema_info
+Oct 31 16:50:41 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:50:41 [info] UPDATE schema_info SET version = 1
+Oct 31 16:50:41 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:50:41 [info] UPDATE schema_info SET version = 2
+Oct 31 16:50:55 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:50:55 [info] INSERT INTO schema_info (version) VALUES (0)
+Oct 31 16:50:55 [info] SELECT version FROM schema_info
+Oct 31 16:50:55 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:50:55 [info] UPDATE schema_info SET version = 1
+Oct 31 16:50:55 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:50:55 [info] UPDATE schema_info SET version = 2
+Oct 31 16:51:16 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:51:16 [info] INSERT INTO schema_info (version) VALUES (0)
+Oct 31 16:51:16 [info] SELECT version FROM schema_info
+Oct 31 16:51:16 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:51:16 [info] UPDATE schema_info SET version = 1
+Oct 31 16:51:16 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:51:16 [info] UPDATE schema_info SET version = 2
+Oct 31 16:51:33 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:51:33 [info] INSERT INTO schema_info (version) VALUES (0)
+Oct 31 16:51:33 [info] SELECT version FROM schema_info
+Oct 31 16:51:33 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:51:33 [info] UPDATE schema_info SET version = 1
+Oct 31 16:51:33 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:51:33 [info] UPDATE schema_info SET version = 2
+Oct 31 16:51:44 [info] CREATE TABLE schema_info (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 31 16:51:44 [info] INSERT INTO schema_info (version) VALUES (0)
+Oct 31 16:51:44 [info] SELECT version FROM schema_info
+Oct 31 16:51:44 [info] CREATE TABLE users (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`age` int(11),
+`name` varchar(255)
+) ;
+Oct 31 16:51:44 [info] UPDATE schema_info SET version = 1
+Oct 31 16:51:44 [info] CREATE INDEX idx_users_age ON users(age)
+Oct 31 16:51:44 [info] UPDATE schema_info SET version = 2
+Oct 31 16:59:09 [info] SELECT version FROM schema_info
+Oct 31 16:59:27 [info] SELECT version FROM schema_info
+Oct 31 17:02:10 [info] SELECT version FROM schema_info
+Oct 31 17:02:48 [info] SELECT version FROM schema_info
+Oct 31 17:03:35 [info] SELECT version FROM schema_info
+Oct 31 17:04:35 [info] SELECT version FROM schema_info
+Oct 31 17:05:01 [info] SELECT version FROM schema_info
+Oct 31 17:05:08 [info] SELECT version FROM schema_info
+Oct 31 17:05:25 [info] SELECT version FROM schema_info
+Oct 31 17:06:06 [info] SELECT version FROM schema_info
+Oct 31 17:06:51 [info] SELECT version FROM schema_info
+Oct 31 17:07:08 [info] SELECT version FROM schema_info
+Oct 31 17:07:14 [info] SELECT version FROM schema_info
+Oct 31 17:07:36 [info] SELECT version FROM schema_info
+Oct 31 17:07:48 [info] SELECT version FROM schema_info
+Oct 31 17:07:57 [info] SELECT version FROM schema_info
+Oct 31 17:07:57 [info] CREATE TABLE foobar (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255)
+) ;
+Oct 31 17:07:57 [info] UPDATE schema_info SET version = 3
+Nov 08 21:50:05 [info] SELECT version FROM schema_info
+Nov 08 21:50:05 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
+Nov 08 21:50:11 [info] UPDATE schema_info SET version = 10
+Nov 08 21:51:49 [info] SELECT version FROM schema_info
+Nov 08 21:51:55 [info] SELECT version FROM schema_info
+Nov 08 21:51:59 [info] SELECT version FROM schema_info
+Nov 08 21:52:14 [info] SELECT version FROM schema_info
+Nov 08 21:52:14 [info] ALTER TABLE `public` DROP COLUMN `uuid`
+Nov 08 21:52:24 [info] SELECT version FROM schema_info
+Nov 08 21:52:24 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
+Nov 08 21:52:30 [info] UPDATE schema_info SET version = 9
+Nov 08 21:52:35 [info] SELECT version FROM schema_info
+Nov 08 21:52:35 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
+Nov 08 21:52:41 [info] UPDATE schema_info SET version = 10

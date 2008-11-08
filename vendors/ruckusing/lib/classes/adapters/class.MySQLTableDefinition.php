@@ -105,7 +105,7 @@ class MySQLTableDefinition {
 			$temp = " TEMPORARY";
 		}
 		$create_sql = sprintf("CREATE%s TABLE ", $temp);
-    $create_sql .= sprintf("%s (\n", $name);
+    $create_sql .= sprintf("`%s` (\n", $name);
 		$this->sql .= $create_sql;
 		$this->initialized = true;
 	}//init_sql	
@@ -227,11 +227,8 @@ class ColumnDefinition {
 	}//to_sql
 
 	public function __toString() {
-		try {
-			return $this->to_sql();
-		}catch(Exception $e) {
-			die($e->getMessage());
-		}
+	  //Dont catch any exceptions here, let them bubble up
+	  return $this->to_sql();
 	}
 
 	// ----------------------------

@@ -29,12 +29,21 @@ class MySQLTableDefinitionTest extends PHPUnit_Framework_TestCase {
 		);
 
 		//setup our log
-		$logger = &Log::factory('file', BASE . '/tests/logs/test.log');
+    $logger = &Logger::instance(BASE . '/tests/logs/test.log');
 
 		$this->adapter = new MySQLAdapter($dsn, $logger);
 		$this->adapter->logger->log("Test run started: " . date('Y-m-d g:ia T') );
 		
 	}//setUp()
+	
+	protected function tearDown() {			
+
+		//delete any tables we created
+		if($this->adapter->has_table('users',true)) {
+			$this->adapter->drop_table('users');
+		}
+
+	}
 
 	/*
 		This is a difficult test because I seem to be having problems

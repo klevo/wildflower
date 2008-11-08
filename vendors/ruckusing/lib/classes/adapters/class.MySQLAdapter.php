@@ -12,7 +12,8 @@ define('DELETE', 16);
 define('ALTER', 32);
 define('DROP', 64);
 define('CREATE', 128);
-
+define('SHOW', 256);
+define('RENAME', 512);
 
 
 class MySQLAdapter extends BaseAdapter implements iAdapter {
@@ -27,9 +28,6 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		parent::__construct($dsn);
 		$this->connect($dsn);
 		$this->set_logger($logger);
-
-		//Native MDB2 functionality. Needed for listTables() functionality		
-		$this->get_db()->loadModule('Manager');				
 	}
 	
 	public function supports_migrations() {
@@ -39,17 +37,17 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	public function native_database_types() {
 		$types = array(
       'primary_key' => "int(11) UNSIGNED auto_increment PRIMARY KEY",
-      'string'      => array('name' => "varchar", 	'limit' 		=> 255, 'mdb_type' 	=> 'text'),
-      'text'        => array('name' => "text", 													'mdb_type' 	=> 'text'),
-      'integer'     => array('name' => "int", 			'limit' 		=> 11, 	'mdb_type' 	=> 'integer'),
-      'float'       => array('name' => "float", 												'mdb_type' 	=> 'float'),
-      'decimal'     => array('name' => "decimal", 											'mdb_type' 	=> 'decimal'),
-      'datetime'    => array('name' => "datetime", 											'mdb_type' 	=> 'timestamp'),
-      'timestamp'   => array('name' => "datetime", 											'mdb_type' 	=> 'timestamp'),
-      'time'        => array('name' => "time", 													'mdb_type' 	=> 'timestamp'),
-      'date'        => array('name' => "date", 													'mdb_type' 	=> 'date'),
-      'binary'      => array('name' => "blob", 													'mdb_type' 	=> 'blob'),
-      'boolean'     => array('name' => "tinyint", 	'limit' 		=> 1, 	'mdb_type' 	=> 'integer')
+      'string'      => array('name' => "varchar", 	'limit' 		=> 255),
+      'text'        => array('name' => "text", 												),
+      'integer'     => array('name' => "int", 			'limit' 		=> 11 ),
+      'float'       => array('name' => "float", 											),
+      'decimal'     => array('name' => "decimal", 										),
+      'datetime'    => array('name' => "datetime", 										),
+      'timestamp'   => array('name' => "datetime", 										),
+      'time'        => array('name' => "time", 												),
+      'date'        => array('name' => "date", 												),
+      'binary'      => array('name' => "blob", 												),
+      'boolean'     => array('name' => "tinyint", 	'limit' 		=> 1  )
 			);
 		return $types;
 	}
@@ -61,8 +59,8 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	//transaction methods
 	public function start_transaction() {
 		try {
-			if($this->get_db()->inTransaction() == false) {
-				$this->get_db()->beginTransaction();
+			if($this->inTransaction() === false) {
+				$this->beginTransaction();
 			}
 		}catch(Exception $e) {
 			trigger_error($e->getMessage());
@@ -70,8 +68,8 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	}
 	public function commit_transaction() {
 		try {
-			if($this->get_db()->inTransaction()) {
-				$this->get_db()->commit();
+			if($this->inTransaction()) {
+				$this->commit();
 			}
 		}catch(Exception $e) {
 			trigger_error($e->getMessage());
@@ -79,8 +77,8 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	}
 	public function rollback_transaction() {
 		try {
-			if($this->get_db()->inTransaction()) {
-				$this->get_db()->rollback();
+			if($this->inTransaction()) {
+				$this->rollback();
 			}
 		}catch(Exception $e) {
 			trigger_error($e->getMessage());
@@ -96,32 +94,25 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 
 	//-------- DATABASE LEVEL OPERATIONS
 	public function database_exists($db) {
-		$ddl = sprintf("SHOW CREATE DATABASE `%s`", $db);
-		$this->logger->log($ddl);
-		$result = $this->get_db()->exec($ddl);
-		if($this->isError($result)) {
-			//trigger_error($result->getMessage());
-			return false;
-		}
-		if( (int)$result == 1) {
-			return true;
-		} else {
-			return false;
-		}		
+		$ddl = "SHOW DATABASES";
+		$result = $this->select_all($ddl);
+		if(count($result) == 0) {
+		  return false;
+	  }
+	  foreach($result as $dbrow) {
+	    if($dbrow['Database'] == $db) {
+	      return true;
+      }
+    }
+    return false;
 	}
 	public function create_database($db) {
 		if($this->database_exists($db)) {
-			//trigger_error("ERROR: the database '{$db}' already exists. Cannot create a new one.");			
 			return false;
 		}
 		$ddl = sprintf("CREATE DATABASE `%s`", $db);
-		$this->logger->log($ddl);
-		$result = $this->get_db()->exec($ddl);
-		if($this->isError($result)) {
-			//trigger_error($result->getMessage());
-			return false;
-		}
-		if( (int)$result == 1) {
+		$result = $this->query($ddl);
+		if($result === true) {
 			return true;
 		} else {
 			return false;
@@ -130,17 +121,11 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function drop_database($db) {
 		if(!$this->database_exists($db)) {
-			//trigger_error("ERROR: the database '{$db}' does not exist. Cannot drop an non-existent DB!");
 			return false;
 		}
 		$ddl = sprintf("DROP DATABASE IF EXISTS `%s`", $db);
-		$this->logger->log($ddl);
-		$result = $this->get_db()->exec($ddl);
-		if($this->isError($result)) {
-			//trigger_error($result->getMessage());
-			return false;
-		}
-		if( (int)$result == 0) {
+		$result = $this->query($ddl);
+		if( $result === true) {
 			return true;
 		} else {
 			return false;
@@ -162,15 +147,10 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 			if($tbl == 'schema_info') { continue; }
 
 			$stmt = "SHOW CREATE TABLE `$tbl`";
-			//echo $stmt;
-			$result = $this->get_db()->queryRow($stmt);
+			$result = $this->query($stmt);
 
-			if($this->isError($result)) {
-				trigger_error($result->getMessage());
-			}
-			
 			if(is_array($result) && count($result) == 2) {
-				$final .= $result[1] . ";\n\n";
+				$final .= $result['Create Table'] . ";\n\n";
 			}
 		}
 		return $final;
@@ -192,39 +172,45 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	public function query($query) {
 		$this->logger->log($query);
 		$query_type = $this->determine_query_type($query);
-		if($query_type == SELECT) {
-			$result = $this->get_db()->queryAll($query,null, MDB2_FETCHMODE_ASSOC);
+		$data = array();
+		if($query_type == SELECT || $query_type == SHOW) {		  
+			$res = mysql_query($query, $this->conn);
+			if($this->isError($res)) { 
+  			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
+		  }
+		  while($row = mysql_fetch_assoc($res)) {
+		    $data[] = $row; 
+	    }
+			return $data;
+			
 		} else {
-			$result = $this->get_db()->exec($query);
+		  // INSERT, DELETE, etc...
+			$res = mysql_query($query, $this->conn);
+			if($this->isError($res)) { 
+  			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
+		  }
+		  return true;
 		}
-		if($this->isError($result)) {
-			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s", $query, $result->getMessage()));
-		}
-		return $result;
 	}
 	
 	public function select_one($query) {
 		$this->logger->log($query);
 		$query_type = $this->determine_query_type($query);
-		if($query_type == SELECT) {
-			$result = $this->get_db()->queryRow($query,null, MDB2_FETCHMODE_ASSOC);
+		if($query_type == SELECT || $query_type == SHOW) {
+		  $res = mysql_query($query, $this->conn);
+			if($this->isError($res)) { 
+  			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
+		  }
+		  return mysql_fetch_assoc($res);			
 		}
 		if($this->isError($result)) {
-			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s", $query, $result->getMessage()));
+			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
 		}
 		return $result;		
 	}
 
 	public function select_all($query) {
-		$this->logger->log($query);
-		$query_type = $this->determine_query_type($query);
-		if($query_type == SELECT) {
-			$result = $this->get_db()->queryAll($query,null, MDB2_FETCHMODE_ASSOC);
-		}
-		if($this->isError($result)) {
-			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s", $query, $result->getMessage()));
-		}
-		return $result;		
+	  return $this->query($query);
 	}
 	
 
@@ -233,20 +219,15 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		Or anything where you dont necessarily expect a result string, e.g. DROPs, CREATEs, etc.
 	*/
 	public function execute_ddl($ddl) {
-		$this->logger->log($ddl);
-		$result = $this->get_db()->exec($ddl);
-		if($this->isError($result)) {
-			throw new Exception($result->getMessage() . " - " . $result->getUserInfo());
-		}
-		return $result;
+		$result = $this->query($ddl);
+		return true;
+
 	}
 	
 	public function drop_table($tbl) {
 		$ddl = "DROP TABLE `$tbl`";
-		$result = $this->execute_ddl($ddl);
-		if($this->isError($result)) {
-			trigger_error($result->getMessage() . " - " . $result->getUserInfo());
-		}	
+		$result = $this->query($ddl);
+		return true;
 	}
 	
 	public function create_table($table_name, $options = array()) {
@@ -258,15 +239,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
   }
 	
 	public function quote($value, $column) {
-		$native = $this->native_datatype_types();
-		if(array_key_exists($type, $native_types)) {
-			$type_array = $native_types[$type];
-			if(array_key_exists('mdb_type', $type_array)) {
-				return $this->adapter->quote($value, $type_array['mdb_type']);				
-			}
-		}
-		//fail-safe let the driver determine whether quoting is needed
-		return $this->adapter->quote($value);
+	  return $this->quote_string($value);
 	}
 	
 	public function rename_table($name, $new_name) {
@@ -362,11 +335,11 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		}
 		try {
 			$sql = sprintf("SHOW COLUMNS FROM `%s` LIKE '%s'", $table, $column);
-			$this->logger->log($sql);
-			$result = $this->get_db()->queryRow($sql, null, MDB2_FETCHMODE_ASSOC);
-			//if($this->isError($result)) {
-			//	throw new Exception($result->getMessage() . " - " . $result->getUserInfo());
-			//}
+			$result = $this->select_one($sql);
+			if(is_array($result)) {
+			  //lowercase key names
+			  $result = array_change_key_case($result, CASE_LOWER);			
+		  }
 			return $result;
 		}catch(Exception $e) {
 			return null;
@@ -395,7 +368,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		if(!is_array($column_name)) {
 			$column_name = array($column_name);
 		}
-		$sql = sprintf("CREATE %sINDEX %s ON %s(%s)",
+		$sql = sprintf("CREATE %sINDEX %s ON `%s`(%s)",
 											$unique ? "UNIQUE " : "",
 											$index_name, 
 											$table_name,
@@ -444,27 +417,33 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function indexes($table_name) {
 		$sql = sprintf("SHOW KEYS FROM `%s`", $table_name);
-		$this->logger->log($sql);
-		$result = $this->get_db()->query($sql);
-		if($this->isError($result)) {
-			throw new Exception($result->getMessage() . " - " . $result->getUserInfo());
-		}
+		$result = $this->select_all($sql);
 		$indexes = array();
 		$cur_idx = null;
-		while($row = $result->fetchRow()) {
-			if($cur_idx != $row[1]) {
-				if($row[2] == "PRIMARY") {
-					continue; //skip primary key
-				}
-				$cur_idx = $row[2];
-				$indexes[] = array('name' => $row[2], 'unique' => (int)$row[1] == 1 ? false : true);
-			}
+		foreach($result as $row) {
+		  //skip primary
+		  if($row['Key_name'] == 'PRIMARY') { continue; }
+			$cur_idx = $row['Key_name'];
+			$indexes[] = array('name' => $row['Key_name'], 'unique' => (int)$row['Non_unique'] == 0 ? true : false);
 		}
 		return $indexes;
 	}//has_index
 
 	public function type_to_sql($type, $limit = null, $precision = null, $scale = null) {		
 		$natives = $this->native_database_types();
+		
+		if(!array_key_exists($type, $natives)) {
+		  $error = sprintf("Error:I dont know what column type of '%s' maps to for MySQL.", $type);
+		  $error .= "\nYou provided: {$type}\n";
+		  $error .= "Valid types are: \n";
+		  $types = array_keys($natives);
+		  foreach($types as $t) {
+		    if($t == 'primary_key') { continue; }
+		    $error .= "\t{$t}\n";
+	    }
+			throw new ArgumentException($error);
+	  }
+		
 		$native_type = $natives[$type];
 		if( is_array($native_type) && array_key_exists('name', $native_type)) {
 			$column_type_sql = $native_type['name'];
@@ -509,8 +488,9 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 				//$default_value = $options['default'];
 				throw new Exception("MySQL does not support function calls as default values, constants only.");
 			} else {
-				$default_value = sprintf("'%s'", $options['default']);
-			}
+        $default_format = is_bool($options['default']) ? "'%d'" : "'%s'";
+        $default_value = sprintf($default_format, $options['default']);			
+      }
 			$sql .= sprintf(" DEFAULT %s", $default_value);
 		}
 		if(is_array($options) && array_key_exists('unsigned', $options) && $options['unsigned'] === true) {
@@ -537,33 +517,52 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	// PRIVATE METHODS
 	//-----------------------------------	
 	private function connect($dsn) {
-		$ref = &MDB2::connect($dsn);
-		$this->set_db($ref);
-		if($this->isError($this->get_db())) {
-		    trigger_error($this->get_db()->getMessage());
-		}
+		$this->db_connect($dsn);
 	}
+	
+  private function db_connect($dsn) {
+    $db_info = $this->dsn_to_array($dsn);
+    if($db_info) {
+      $this->db_info = $db_info;
+      //we might have a port
+      if(!empty($db_info['port'])) {
+        $host = $db_info['host'] . ':' . $db_info['port'];
+      } else {
+        $host = $db_info['host'];
+      }
+      $this->conn = mysql_connect($host, $db_info['user'], $db_info['password']);
+      if(!$this->conn) {
+        die("\n\nCould not connect to the DB, check host / user / password\n\n");
+      }
+      if(!mysql_select_db($db_info['database'], $this->conn)) {
+        die("\n\nCould not select the DB, check permissions on host\n\n");
+      }
+      return true;
+    } else {
+      die("\n\nCould not extract DB connection information from: {$dsn}\n\n");
+    }
+  }
 	
 
 	
 	//Delegate to PEAR
 	private function isError($o) {
-		return PEAR::isError($o);
+		return $o === FALSE;
 	}
 	
+	// Initialize an array of table names
 	private function load_tables($reload = true) {
 		if($this->tables_loaded == false || $reload) {
 			$this->tables = array(); //clear existing structure			
-			$result = $this->get_db()->listTables();
-			if($this->isError($result)) {
-				trigger_error($result->getMessage());
-			}
-			foreach($result as $t) {
-				$this->tables[$t] = true;
-			}
-		}
-	}
-	
+			$qry = "SHOW TABLES";
+			$res = mysql_query($qry, $this->conn);
+			while($row = mysql_fetch_row($res)) {
+			  $table = $row[0];
+			  $this->tables[$table] = true;
+		  }
+		}	  
+  }
+
 	private function determine_query_type($query) {
 		$query = strtolower(trim($query));
 		
@@ -588,6 +587,13 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		if(preg_match('/^create/', $query)) {
 			return CREATE;
 		}
+		if(preg_match('/^show/', $query)) {
+			return SHOW;
+		}
+		if(preg_match('/^rename/', $query)) {
+			return RENAME;
+		}
+
 		//else ...
 		throw new Exception("could not determine query type for: $query");
 	}
@@ -611,6 +617,29 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 			return false;
 		}
 	}
+	
+	private function inTransaction() {
+	  return $this->in_trx;
+  }
+  
+  private function beginTransaction() {
+    mysql_query("BEGIN", $this->conn);
+    $this->in_trx = true;
+  }
+  
+  private function commit() {
+    if($this->in_trx === true) {
+     mysql_query("COMMIT", $this->conn);
+     $this->in_trx = false; 
+    }
+  }
+  
+  private function rollback() {
+    if($this->in_trx === true) {
+     mysql_query("ROLLBACK", $this->conn);
+     $this->in_trx = false; 
+    }    
+  }
 	
 	
 }//class

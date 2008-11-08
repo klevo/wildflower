@@ -40,7 +40,7 @@ class FrameworkRunner {
 				mkdir($log_dir);
 			}
 			$log_name = sprintf("%s.log", $this->ENV);
-			$this->logger = &Log::factory('file', $log_dir . "/" . $log_name);
+			$this->logger = &Logger::instance($log_dir . "/" . $log_name);
 			
 			//include all adapters
 			$this->load_all_adapters(BASE . '/lib/classes/adapters');
@@ -64,6 +64,9 @@ class FrameworkRunner {
 		} else {
 			trigger_error(sprintf("Task not found: %s", $this->cur_task_name));
 		}
+		if($this->logger) {
+		  $this->logger->close();
+	  }
 	}
 	
 	public function init_tasks() {

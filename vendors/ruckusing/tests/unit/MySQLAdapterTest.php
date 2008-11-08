@@ -31,7 +31,8 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			);
 
 			//setup our log
-			$logger = &Log::factory('file', BASE . '/tests/logs/test.log');
+			#$logger = &Log::factory('file', BASE . '/tests/logs/test.log');
+			$logger = &Logger::instance(BASE . '/tests/logs/test.log');
 
 			$this->adapter = new MySQLAdapter($dsn, $logger);
 			$this->adapter->logger->log("Test run started: " . date('Y-m-d g:ia T') );
@@ -51,6 +52,42 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 				$this->adapter->drop_database($db);				
 			}			
 		}
+		
+		public function test_dsn_to_array_with_no_port() {
+		  $dsn = sprintf("%s://%s:%s@%s/%s",
+				'mysql',
+				'some_user',
+				'mypassword',
+				'the_host',
+				'the_database'
+			);
+			$dsn_parts = $this->adapter->dsn_to_array($dsn);
+			$this->assertNotNull($dsn_parts);
+			$this->assertEquals('mysql', $dsn_parts['type']);
+			$this->assertEquals('some_user', $dsn_parts['user']);
+			$this->assertEquals('mypassword', $dsn_parts['password']);
+			$this->assertEquals('the_host', $dsn_parts['host']);
+			$this->assertEquals('the_database', $dsn_parts['database']);
+	  }
+
+		public function test_dsn_to_array_with_port() {
+		  $dsn = sprintf("%s://%s:%s@%s:3306/%s",
+				'mysql',
+				'some_user',
+				'mypassword',
+				'the_host',
+				'the_database'
+			);
+			$dsn_parts = $this->adapter->dsn_to_array($dsn);
+			$this->assertNotNull($dsn_parts);
+			$this->assertEquals('mysql', $dsn_parts['type']);
+			$this->assertEquals('some_user', $dsn_parts['user']);
+			$this->assertEquals('mypassword', $dsn_parts['password']);
+			$this->assertEquals('the_host', $dsn_parts['host']);
+			$this->assertEquals(3306, (int)$dsn_parts['port']);
+			$this->assertEquals('the_database', $dsn_parts['database']);
+	  }
+
 		
 		public function test_ensure_table_does_not_exist() {
 			$this->assertEquals(false, $this->adapter->has_table('unknown_table') );
@@ -131,6 +168,19 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			$this->assertEquals('varchar(20)', $actual['type'] );			
 			$this->assertEquals('name', $actual['field'] );			
 		}
+		
+		public function test_rename_table() {
+			//create it
+			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");	
+		  $this->assertEquals(true, $this->adapter->has_table('users') );
+		  $this->assertEquals(false, $this->adapter->has_table('users_new') );
+		  //rename it
+		  $this->adapter->rename_table('users', 'users_new');
+		  $this->assertEquals(false, $this->adapter->has_table('users') );
+		  $this->assertEquals(true, $this->adapter->has_table('users_new') );
+		  //clean up
+		  $this->adapter->drop_table('users_new');
+	  }
 
 		public function test_rename_column() {			
 			//create it

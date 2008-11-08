@@ -3,7 +3,7 @@
 define('BASE', dirname(__FILE__) );
 
 //requirements
-require_once 'Log.php'; //PEAR Log
+require BASE . '/lib/classes/util/class.Logger.php';
 require BASE . '/config/database.inc.php';
 require BASE . '/lib/classes/class.FrameworkRunner.php';
 

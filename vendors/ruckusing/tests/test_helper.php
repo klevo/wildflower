@@ -16,7 +16,7 @@ if(!defined('MIGRATION_DIR')) {
 	define('MIGRATION_DIR', DB_DIR . '/migrate');
 }
 
-require_once 'Log.php'; //PEAR Log
+require BASE . '/lib/classes/util/class.Logger.php';
 
 
 ?>

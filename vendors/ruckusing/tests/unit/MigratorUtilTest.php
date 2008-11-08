@@ -101,7 +101,7 @@ class MigratorUtilTest extends PHPUnit_Framework_TestCase {
 													);
 			$this->assertEquals($expect_down_files, $actual_down_files);
 
-			$actual_down_files = MigratorUtil::get_relevant_files('down', $down_files, 2, 1);
+			$actual_down_files = MigratorUtil::get_relevant_files('down', $down_files, 2, 0);
 		  $expect_down_files = array(
 														array(
 															'version' => 1,

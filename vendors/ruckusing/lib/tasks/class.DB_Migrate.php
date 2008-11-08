@@ -30,11 +30,13 @@ class DB_Migrate implements iTask {
 	  if(!$this->adapter->supports_migrations()) {
 	   die("This database does not support migrations.");
     }
-	  
 		$this->task_args = $args;
 		echo "Started: " . date('Y-m-d g:ia T') . "\n\n";		
 		echo "[db:migrate]: \n";
 		try {
+  	  // Check that the schema_info table exists, and if not, automatically create it
+  	  $this->verify_environment();
+
 			$goto_version = 1;
 			//$this->extract_args($args);
 			$db_version = $this->get_db_version();
@@ -55,12 +57,11 @@ class DB_Migrate implements iTask {
 				//GOING UP
 				$output = $this->migrate_up($db_version, $goto_version);
 			}
-			
 			if(!empty($output)) {
-				echo $output . "\n\n";			
-			}
+			  echo $output . "\n\n";
+		  }
 		}catch(MissingSchemaInfoTableException $ex) {
-			echo "\tSchema info table does not exist. Do you need to run 'db:setup'?";
+			echo "\tSchema info table does not exist. I tried creating it but failed. Check permissions.";
 		}catch(MissingMigrationDirException $ex) {
 			echo "\tMigration directory does not exist: " . MIGRATION_DIR;
 		}catch(Exception $ex) {
@@ -72,7 +73,8 @@ class DB_Migrate implements iTask {
 	private function get_db_version() {
 		if($this->adapter->table_exists(SCHEMA_TBL_NAME) ) {
 			//return 
-			return (int)$this->adapter->get_db()->queryOne('SELECT version FROM schema_info');			
+			$version = $this->adapter->select_one('SELECT version FROM schema_info');			
+			return (int)$version['version'];
 		} else {
 			throw new MissingSchemaInfoTableException();
 		}
@@ -86,7 +88,6 @@ class DB_Migrate implements iTask {
 				return "\nNo relevant migrations to run. Exiting...\n";
 			}
 			$result = $this->run_migrations($migrations, 'up', $destination);
-			return $result['output'];
 		}catch(Exception $ex) {
 			throw $ex;
 		}		
@@ -100,14 +101,12 @@ class DB_Migrate implements iTask {
 			if(count($migrations) == 0) {
 				return "\nNo relevant migrations to run. Exiting...\n";
 			}
-			return $result['output'];
 		}catch(Exception $ex) {
 			throw $ex;
 		}		
 	}//migrate_down
 	
 	private function run_migrations($migrations, $target_method, $destination) {
-		$output = "";
 		$last_version = -1;
 		foreach($migrations as $file) {
 			$full_path = MIGRATION_DIR . '/' . $file['file'];
@@ -135,7 +134,7 @@ class DB_Migrate implements iTask {
 					}
 					$end = $this->end_timer();
 					$diff = $this->diff_timer($start, $end);
-					$output .= sprintf("========= %s ======== (%.2f)\n", $file['class'], $diff);
+					printf("========= %s ======== (%.2f)\n", $file['class'], $diff);
 					$last_version = $file['version'];
 					$exec = true;
 				} else {
@@ -144,7 +143,7 @@ class DB_Migrate implements iTask {
 			}//is_file			
 		}//foreach
 		//update the schema info
-		$result = array('last_version' => $last_version, 'output' => $output);
+		$result = array('last_version' => $last_version);
 		return $result;
 	}//run_migrations
 	
@@ -175,6 +174,27 @@ class DB_Migrate implements iTask {
 			return $last_exec_version;
 		}
 	}//resolve_version
+	
+	private function verify_environment() {
+	  if(!$this->adapter->table_exists(SCHEMA_TBL_NAME) ) {
+			echo "\n\tSchema info table does not exist. Auto-creating.";
+	    $this->auto_create_schema_info_table();
+    }	 
+  }
+	
+	private function auto_create_schema_info_table() {
+	  try {
+  		echo sprintf("\n\tCreating table: %s", SCHEMA_TBL_NAME . "\n\n");
+  		$table=$this->adapter->create_table('schema_info', array('id' => false));
+  		$table->column('version', 'integer', array('default' => 0, 'null' => false));
+  		$table->finish();
+  		$this->adapter->execute_ddl('INSERT INTO schema_info (version) VALUES (0)');
+  		return true;
+		}catch(Exception $e) {
+		  die("\nError auto-creating 'schema_info' table: " . $e->getMessage() . "\n\n");
+	  }
+	}
+	
 	
 }//class
 
