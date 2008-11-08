@@ -12,7 +12,10 @@ class AppError extends ErrorHandler {
     }
     
     function xss() {
-        $this->controller->set(array('referer' => $this->controller->referer()));
+        $this->controller->set(array(
+            'referer' => $this->controller->referer(),
+            'data' => $this->controller->data,
+        ));
         $this->__outputMessage('cross-site-scripting');
     }
     
