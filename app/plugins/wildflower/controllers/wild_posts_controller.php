@@ -326,7 +326,7 @@ class WildPostsController extends WildflowerAppController {
             $cacheName = str_replace('-', '_', $postSlug);
             clearCache($cacheName, 'views', '.php');
 
-            $this->redirect($postLink);
+            $this->redirect($this->data['WildPost']['permalink'] . '#comment-' . $this->WildPost->WildComment->id);
         } else {
             $post = $this->WildPost->findById(intval($this->data['WildComment']['post_id']));
             $this->set('post', $post);

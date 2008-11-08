@@ -34,7 +34,7 @@
     }
     
     $postUrl = WildPost::getUrl($post['WildPost']['uuid']);
-    echo $form->create('WildComment', array('class' => 'comment-form', 'url' => $html->url($postUrl, true))),
+    echo $form->create('WildComment', array('class' => 'comment-form', 'url' => $here, 'id' => 'PostAComment')),
         $form->input('name'),
         $form->input('email'),
         $form->input('url', array('label' => 'Website URL (optional)')),
