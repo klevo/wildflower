@@ -25,6 +25,7 @@ class WildUtilitiesController extends WildflowerAppController {
     }
     
     function _massAddPosts($howMany = 10) {
+        @set_time_limit(60 * 60);
         App::import('Vendor', 'Randomizer', array('file' => 'randomizer.php'));
         $randomizer = new Randomizer;
         for ($i = 0; $i < $howMany; $i++) {

@@ -62,7 +62,7 @@
     <li>
         <?php
             echo
-            $form->create('WildPost'),
+            $form->create('WildPost', array('action' => 'search', 'class' => 'search')),
             $form->input('query', array('label' => __('Find a post by typing', true))),
             $form->end();
         ?>

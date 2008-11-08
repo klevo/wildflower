@@ -13,6 +13,8 @@ class WildflowerAppController extends AppController {
 	private $_isDatabaseConnected = true;
 
     /**
+     * @TODO legacy code, refacor
+     *
      * Delete an item
      *
      * @param int $id
@@ -76,7 +78,7 @@ class WildflowerAppController extends AppController {
      *
      */
     function wf_search() {
-    	$query = $this->data['Query'];
+    	$query = trim($this->data['Query']);
         $results = $this->{$this->modelClass}->search($query, array('title', 'content'));
         $this->set(compact('query', 'results'));
     }
@@ -92,21 +94,21 @@ class WildflowerAppController extends AppController {
 	        return true;
 	    }
 	    
-	    $this->cakeError('error404');
+	    $this->do404();
 	    return false;
 	}
 	
 	/**
-	 * If admin is not logged in redirect to login screen and exit
-	 *
+	 * Coninue only if an admin is logged in
+	 * 
+	 * If admin is not logged in redirect to login screen and exit.
+	 * Remember the URL user wanted to access in the session.
 	 */
 	function assertAdminLoggedIn() {
-	    if ($this->isAuthorized) {
-	        return;
-	    }
+	    if ($this->isAuthorized) return;
 	    
-	    $currentUrl = 'http://' . getenv('SERVER_NAME') . $this->here;
-        $this->Session->write('afterLoginRedirectTo', $currentUrl);
+        $this->Session->write('afterLoginRedirectTo', FULL_BASE_URL . $this->here);
+        
         $this->redirect('/login', null, true);
 	}
 	
@@ -119,6 +121,8 @@ class WildflowerAppController extends AppController {
      * 3.   set site parameters
      */
     function beforeFilter() {
+        parent::beforeFilter();
+        
         // Wilflower callbacks from app/controllers/wildflower_callbacks
         $this->wildflowerCallback('before');
         
@@ -156,6 +160,7 @@ class WildflowerAppController extends AppController {
     }
     
     function afterFilter() {
+        parent::afterFilter();
         $this->wildflowerCallback();
     }
     
@@ -248,6 +253,7 @@ class WildflowerAppController extends AppController {
      * @return bool
      */
     function isAdminAction() {
+        if (isset($this->params['admin']) && $this->params['admin'] === Configure::read('Wildflower.prefix')) return true;
         return (isset($this->params['prefix']) && $this->params['prefix'] == Configure::read('Wildflower.prefix'));
     }
     

@@ -11,12 +11,12 @@ $.jlm.addComponent('typeSearch', {
             return false;
         });
 
-        var queryInputEl = $('.search-query', searchFormEl);
+        var queryInputEl = $('input:first', searchFormEl);
         queryInputEl.val('');
         var timedAction = null;
         var searchRequest = null;
         var prevQuery = '';
-        var originalContent = $('#content .list, #content .table');
+        var originalContent = $('.list-of-posts');
         var cancelButtonPresent = false;
         var t = this;
 
@@ -75,9 +75,6 @@ $.jlm.addComponent('typeSearch', {
                 }
                 $('.search-loader').remove();
                 originalContent.before(responce);
-                // Don't forget to rebind the newly created list to action toolbar
-                debug(t);
-                t.controller.ListComponent.rebind();
             });
             }, 1000);
         });
