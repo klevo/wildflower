@@ -1,0 +1,3 @@
+app/tmp/cache/models/cake_*
+app/tmp/cache/persistent/cake_*
+app/tmp/cache/cake_*
