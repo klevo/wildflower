@@ -1,4 +1,4 @@
-// Scripts executed globaly or with more controller
+// Scripts executed globaly or with more controllers
 
 $.jlm.bind('app_controller.beforeFilter', function () {
     
@@ -8,7 +8,7 @@ $.jlm.bind('app_controller.beforeFilter', function () {
     $.jlm.components.typeSearch.startup();
     
     // Pop-ups
-    $('a[@rel=external]').attr('target', '_blank');
+    //$('a.permalink').attr('target', '_blank');
 
 });
 

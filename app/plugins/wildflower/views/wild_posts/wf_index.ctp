@@ -21,7 +21,7 @@
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
             <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
             <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => 'Edit this post.')) ?></span>
-            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink external', 'title' => 'View this post in a new browser tab.')) ?></span>
+            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this post.')) ?></span>
             <?php
                 $categories = Set::extract($post['WildCategory'], '{n}.title');
                 foreach ($categories as &$category) {
