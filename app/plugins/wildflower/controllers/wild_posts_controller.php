@@ -24,6 +24,10 @@ class WildPostsController extends WildflowerAppController {
      * 
      */
     function wf_index() {
+        if (!empty($this->data)) {
+            var_dump($this->data);
+        }
+        
     	$posts = $this->paginate($this->modelClass);
         $this->set('posts', $posts);
     }

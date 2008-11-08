@@ -1,7 +1,7 @@
 <div id="content">
 <?php
 	echo 
-	$form->create('Post'),
+	$form->create('Post', array('url' => $here)),
 	$form->input('show', array(
 	    'type' => 'select',
 	    'options' => array(
