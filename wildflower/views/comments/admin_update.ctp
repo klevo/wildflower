@@ -1,0 +1,1 @@
+<?php echo $textile->format($comment['Comment']['content']) ?>

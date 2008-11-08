@@ -1,0 +1,33 @@
+<div id="dialog">
+	<h3>Insert image</h3>
+	<a id="close-dialog" href="#Close"><span>Close</span></a>
+	
+	<div id="dialog-content">
+		<span class="loader"></span>
+		
+		<span class="cleaner"></span>
+		
+		<div id="image-settings">
+			
+			<div class="select">
+				<label for="ImageSize">Size</label>
+				<br />
+				<select id="ImageSize">
+					<option value="original">Original</option>
+					<option value="thumbnail">Thumbnail</option>
+				</select>
+			</div>
+			
+			<div class="input">
+				<label for="ImageResizeX">Resize</label>
+                <br />
+                <input id="ImageResizeX" type="text" size="4" /> x <input id="ImageResizeY" type="text" size="4" />
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="submit">
+        <input type="submit" value="Insert into editor" />
+    </div>
+</div>
