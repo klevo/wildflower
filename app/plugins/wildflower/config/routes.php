@@ -55,10 +55,17 @@ class WildflowerRootPagesCache {
     
     static function connectRootPages() {
         $file = Configure::read('Wildflower.rootPageCache');
-        if (!file_exists($file)) return;
-
-        $content = file_get_contents($file);
-        $rootPages = json_decode($content, true);
+        $rootPages = array();
+        
+        if (file_exists($file)) {
+            $content = file_get_contents($file);
+            $rootPages = json_decode($content, true);
+        } else {
+            // Create the file if it does not exist
+            return fopen($file, 'w');
+        };
+        
+        if (empty($rootPages)) return;
 
         foreach ($rootPages as $page) {
             // Root page

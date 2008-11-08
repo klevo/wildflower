@@ -33,13 +33,15 @@
         $session->flash();
     }
     
-    $postUrl = '/' . WILDFLOWER_POSTS_INDEX . '/' . $post['WildPost']['slug'];
+    $postUrl = WildPost::getUrl($post['WildPost']['uuid']);
     echo $form->create('WildComment', array('class' => 'comment-form', 'url' => $html->url($postUrl, true))),
         $form->input('name'),
         $form->input('email'),
         $form->input('url', array('label' => 'Website URL (optional)')),
         $form->input('content', array('label' => 'Message', 'type' => 'textbox')),
+        '<div>',
         $form->hidden('post_id', array('value' => $post['WildPost']['id'])),
+        '</div>',
         $form->hidden('WildPost.permalink', array('value' => $html->url($postUrl, true))),
         $form->submit('Post comment'),
         $form->end();
