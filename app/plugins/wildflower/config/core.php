@@ -1,31 +1,24 @@
 <?php
 /**
- * Wildflower CMS core configuration
+ * Wildflower plugin core configuration
+ *
+ * This file is automatically loaded by WF's bootstrap.
  * 
+ * @package wildflower
  */
-
-// Maximum lenght of the content snippet in an admin table cell
-Configure::write('Wildflower.table.maxlength', 20);
-
-// Maximum lenght of the parent page select box item
-Configure::write('Wildflower.pages.maxparents', 100);
-
-// Login cookie
-Configure::write('Wildflower.cookie.name', 'WildflowerUser');
-Configure::write('Wildflower.cookie.expire', 2592000); // 30 days
-
-// Turn Gzip compression on/off
-Configure::write('Wildflower.useGzip', false);
-
-// Uploads directory
-Configure::write('Wildflower.uploadDirectory', APP . WEBROOT_DIR .  DS . 'uploads');
-
-// Admin prefix
-Configure::write('Wildflower.prefix', 'wf');
-
-Configure::write('Wildflower.rootPageCache', CACHE . 'wf-root-pages');
 
 /** Name of the posts index page in the URL */
 define('WILDFLOWER_POSTS_INDEX', 'blog');
 /** Contastant used in CmsHelper */
 define('CHILD_PAGES_PLEASE', 'CHILD_PAGES_PLEASE');
+
+Configure::write(array('Wildflower' => array(
+    'cookie' => array(
+        'name' => 'WildflowerUser',
+        'expire' => 2592000,
+    ),
+    'useGzip' => false,
+    'uploadDirectory' => APP . WEBROOT_DIR .  DS . 'uploads',
+    'prefix' => 'wf',
+    'rootPageCache' => CACHE . 'wf-root-pages',
+)));
