@@ -1,5 +1,6 @@
 <?php
 uses('Sanitize');
+App::import('Core', 'l10n');
 
 class WildflowerAppController extends AppController {
 
@@ -144,6 +145,11 @@ class WildflowerAppController extends AppController {
 			$this->layout = 'default';
 			$this->params['breadcrumb'][] = array('title' => 'Home', 'url' => '/');
 		}
+		
+		// l18n
+		$this->L10n = new L10n();
+        $this->L10n->get("eng");
+        Configure::write('Config.language', "en");
 
 		// Site settings
 		$this->_siteSettings = Configure::read('AppSettings');
