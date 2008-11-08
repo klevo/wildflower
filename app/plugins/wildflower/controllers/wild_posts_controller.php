@@ -39,9 +39,11 @@ class WildPostsController extends WildflowerAppController {
                             $this->{$this->modelClass}->draft($id);
                             break;
                     }
-                    return $this->redirect($this->referer());
                 }
             }
+            
+            $link = am($this->params['named'], array('action' => 'wf_index'));
+            return $this->redirect($link);
         }
         
     	$posts = $this->paginate($this->modelClass);

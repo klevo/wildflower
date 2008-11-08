@@ -113,6 +113,10 @@ class WildflowerAppController extends AppController {
         $this->redirect('/login', null, true);
 	}
 	
+	function xssBlackHole() {
+	    $this->cakeError('xss');
+	}
+	
     /**
      * Callback before any controller action
      * 
@@ -123,6 +127,8 @@ class WildflowerAppController extends AppController {
      */
     function beforeFilter() {
         parent::beforeFilter();
+        
+        $this->Security->blackHoleCallback = 'xssBlackHole';
         
         // Wilflower callbacks from app/controllers/wildflower_callbacks
         $this->wildflowerCallback('before');

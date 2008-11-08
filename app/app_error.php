@@ -11,4 +11,9 @@ class AppError extends ErrorHandler {
         $this->__outputMessage('save_error');
     }
     
+    function xss() {
+        $this->controller->set(array('referer' => $this->controller->referer()));
+        $this->__outputMessage('cross-site-scripting');
+    }
+    
 }

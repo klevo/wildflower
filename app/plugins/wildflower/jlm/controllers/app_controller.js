@@ -6,6 +6,9 @@ $.jlm.bind('app_controller.beforeFilter', function () {
     $.jlm.components.nameNew.startup();
     $.jlm.components.switcher.startup();
     $.jlm.components.typeSearch.startup();
+    
+    // Pop-ups
+    $('a[@rel=external]').attr('target', '_blank');
 
 });
 
