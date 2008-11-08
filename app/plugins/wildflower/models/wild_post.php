@@ -50,11 +50,11 @@ class WildPost extends WildflowerAppModel {
     /**
      * Get URL to a post, suitable for $html->url() and likes
      *
-     * @param string $slug
+     * @param string $uuid
      * @return string
      */
-    static function getUrl($slug) {
-        $url = '/' . WILDFLOWER_POSTS_INDEX . '/' . $slug;
+    static function getUrl($uuid) {
+        $url = '/' . Configure::read('Wildflower.postsParent') . '/' . $uuid;
         return $url;
     }
 
@@ -126,6 +126,19 @@ class WildPost extends WildflowerAppModel {
     function publish($id) {
         $id = intval($id);
         return $this->query("UPDATE {$this->useTable} SET draft = 0 WHERE id = $id");
+    }
+    
+    function regenerateUuids() {
+        $posts = $this->find('all', array(
+            'conditions' => "uuid IS NULL OR uuid = ''",
+            'fields' => array('id'),
+            'recursive' => -1,
+        ));
+        
+        foreach ($posts as $post) {
+            $this->create($post);
+            $this->saveField('uuid', sha1(String::uuid()));
+        }
     }
     
 	/**

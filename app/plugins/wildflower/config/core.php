@@ -7,8 +7,6 @@
  * @package wildflower
  */
 
-/** Name of the posts index page in the URL */
-define('WILDFLOWER_POSTS_INDEX', 'blog');
 /** Contastant used in CmsHelper */
 define('CHILD_PAGES_PLEASE', 'CHILD_PAGES_PLEASE');
 
@@ -21,4 +19,6 @@ Configure::write(array('Wildflower' => array(
     'uploadDirectory' => APP . WEBROOT_DIR .  DS . 'uploads',
     'prefix' => 'wf',
     'rootPageCache' => CACHE . 'wf-root-pages',
+    'postsParent' => 'p',
+    'blogIndex' => 'blog',
 )));

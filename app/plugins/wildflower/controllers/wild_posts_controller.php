@@ -5,7 +5,6 @@ class WildPostsController extends WildflowerAppController {
     public $paginate = array(
         'limit' => 12,
         'order' => array('WildPost.created' => 'desc'),
-        'fields' => array('id', 'title', 'slug', 'draft', 'created')
     );
 
     /**
@@ -14,6 +13,7 @@ class WildPostsController extends WildflowerAppController {
      */
     function wf_create() {
         $this->data[$this->modelClass]['draft'] = 1;
+        $this->data[$this->modelClass]['uuid'] = sha1(String::uuid());
         $this->WildPost->save($this->data);
         $this->set('data', array('id' => $this->WildPost->id));
         $this->render('/elements/json');
@@ -145,7 +145,6 @@ class WildPostsController extends WildflowerAppController {
     }
     
     function wf_update() {
-        fb($this->data);
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
         
         $this->WildPost->create($this->data);
@@ -180,7 +179,7 @@ class WildPostsController extends WildflowerAppController {
     	$this->pageTitle = 'Blog';
     	
     	$this->params['current']['type'] = 'post';
-    	$this->params['current']['slug'] = WILDFLOWER_POSTS_INDEX;
+    	$this->params['current']['slug'] = Configure::read('Wildflower.blogIndex');
     }
     
     function beforeRender() {
@@ -288,8 +287,8 @@ class WildPostsController extends WildflowerAppController {
             $this->cacheAction = 60 * 60 * 24 * 3; // Cache for 3 days
         }
 
-        $slug = Sanitize::paranoid($this->params['slug'], array('-', '_'));
-        $post = $this->WildPost->findBySlugAndDraft($slug, 0);
+        $uuid = Sanitize::paranoid($this->params['uuid']);
+        $post = $this->WildPost->findByUuidAndDraft($uuid, 0);
 
 		if (empty($post)) {
 			return $this->do404();
@@ -321,7 +320,7 @@ class WildPostsController extends WildflowerAppController {
             $this->Session->setFlash('Comment succesfuly added.');
             $postId = intval($this->data['WildComment']['post_id']);
             $postSlug = $this->WildPost->field('slug', "id = $postId");
-            $postLink = '/' . WILDFLOWER_POSTS_INDEX . "/$postSlug";
+            $postLink = '/' . Configure::read('Wildflower.blogIndex') . "/$postSlug";
 
             // Clear post cache
             $cacheName = str_replace('-', '_', $postSlug);

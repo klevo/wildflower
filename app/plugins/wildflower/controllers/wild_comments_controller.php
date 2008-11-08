@@ -115,7 +115,7 @@ class WildCommentsController extends WildflowerAppController {
             $this->Session->setFlash('Comment succesfuly added.');
             $postId = intval($this->data['WildComment']['post_id']);
             $postSlug = $this->WildComment->Post->field('slug', "WildPost.id = $postId");
-            $postLink = '/' . WILDFLOWER_POSTS_INDEX . "/$postSlug";
+            $postLink = '/' . Configure::read('Wildflower.blogIndex') . "/$postSlug";
 			
 			// Clear post cache
 			$cacheName = str_replace('-', '_', $postSlug);

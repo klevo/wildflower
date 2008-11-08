@@ -1,7 +1,5 @@
 <?php
 Router::connect('/', array('controller' => 'wild_pages', 'action' => 'view', 'plugin' => 'wildflower'));
-Router::connect('/' . WILDFLOWER_POSTS_INDEX, array('controller' => 'wild_posts', 'plugin' => 'wildflower'));
-Router::connect('/' . WILDFLOWER_POSTS_INDEX . '/:slug', array('controller' => 'wild_posts', 'action' => 'view', 'plugin' => 'wildflower'));
 
 Router::connect('/comments/create', array('controller' => 'wild_comments', 'action' => 'create', 'plugin' => 'wildflower'));
 
@@ -35,10 +33,16 @@ Router::connect("/$prefix", array('plugin' => 'wildflower', 'controller' => "wil
 // Login screen
 Router::connect('/login', array('controller' => 'wild_users', 'action' => 'login', 'plugin' => 'wildflower'));
 
+// Contact form
 Router::connect('/contact', array('controller' => 'wild_messages', 'action' => 'index', 'plugin' => 'wildflower'));
 Router::connect('/contact/create', array('controller' => 'wild_messages', 'action' => 'create', 'plugin' => 'wildflower'));
 
-Router::connect('/' . WILDFLOWER_POSTS_INDEX . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
+// RSS
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
+
+// Ultra sexy short SEO friendly post URLs in form of http://my-domain/p/40-char-uuid
+Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', array('controller' => 'wild_posts', 'action' => 'view', 'plugin' => 'wildflower'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index', 'plugin' => 'wildflower'));
 
 WildflowerRootPagesCache::connectRootPages();
 

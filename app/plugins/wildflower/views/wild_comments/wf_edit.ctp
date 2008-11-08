@@ -1,5 +1,5 @@
 <?php
-    $postUrl = '/' . WILDFLOWER_POSTS_INDEX . '/' . $this->data['WildPost']['slug'];
+    $postUrl = WildPost::getUrl($this->data['WildPost']['uuid']);
     
     echo 
     $navigation->create(array(

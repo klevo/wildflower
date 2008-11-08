@@ -125,3 +125,17 @@ Nov 08 21:52:30 [info] UPDATE schema_info SET version = 9
 Nov 08 21:52:35 [info] SELECT version FROM schema_info
 Nov 08 21:52:35 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
 Nov 08 21:52:41 [info] UPDATE schema_info SET version = 10
+Nov 08 21:56:46 [info] SELECT version FROM schema_info
+Nov 08 21:56:46 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
+Nov 08 21:56:52 [info] UPDATE schema_info SET version = 9
+Nov 08 22:11:41 [info] SELECT version FROM schema_info
+Nov 08 22:11:51 [info] SELECT version FROM schema_info
+Nov 08 22:11:51 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
+Nov 08 22:11:58 [info] UPDATE schema_info SET version = 10
+Nov 08 22:12:17 [info] SELECT version FROM schema_info
+Nov 08 22:12:17 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
+Nov 08 22:12:23 [info] UPDATE schema_info SET version = 9
+Nov 08 22:12:32 [info] SELECT version FROM schema_info
+Nov 08 22:12:32 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
+Nov 08 22:12:38 [info] UPDATE schema_info SET version = 10
+Nov 08 22:27:28 [info] SELECT version FROM schema_info

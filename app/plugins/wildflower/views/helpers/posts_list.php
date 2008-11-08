@@ -65,7 +65,7 @@ class PostsListHelper extends AppHelper {
 	        // @TODO categories
 	        
 	        // Actions
-	        $index = WILDFLOWER_POSTS_INDEX;
+	        $index = Configure::read('Wildflower.blogIndex');
 	        $listHtml .= '<small class="actions">'
 	        	. $this->Html->link($this->Html->image('cross.gif'), 
                         array('controller' => 'posts', 'action' => 'delete', $post['Post']['id']), 
