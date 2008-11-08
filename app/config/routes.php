@@ -10,18 +10,6 @@ Router::connect('/search', array('controller' => 'wild_dashboards', 'action' => 
 $prefix = Configure::read('Wildflower.prefix');
 $admin = Configure::read('Routing.admin');
 
-// Connect everything expect /admin and Widlfower /prefix to PagesController::view
-// 
-// Router::connect(
-//     '(?!' . $admin . '|' . $prefix . '|login|contact)(.*)', 
-//     array(
-//         'controller' => 'wild_pages', 
-//         'action' => 'view', 
-//         'plugin' => 'wildflower'
-//     ), 
-//     array('$2')
-// );
-
 class WildflowerRootPagesCache {
     
     static function connectRootPages() {
@@ -32,10 +20,18 @@ class WildflowerRootPagesCache {
         $rootPages = json_decode($content, true);
 
         foreach ($rootPages as $page) {
+            // Root page
             Router::connect(
         		(string)$page['WildPage']['url'], 
         		array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view', 'id' => $page['WildPage']['id'])
         	);
+        	// It's children
+        	$children = $page['WildPage']['url'] . '/(.*)';
+            Router::connect(
+                $children, 
+                array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view'),
+                array('$1')
+            );
         }
     }
     
@@ -47,7 +43,7 @@ class WildflowerRootPagesCache {
     
 }
 
-WildflowerRootPagesCache::connectRootPages();
+
 
 /**
  * Wildflower admin routes
@@ -78,3 +74,5 @@ Router::connect('/contact', array('controller' => 'wild_messages', 'action' => '
 Router::connect('/contact/create', array('controller' => 'wild_messages', 'action' => 'create', 'plugin' => 'wildflower'));
 
 Router::connect('/' . WILDFLOWER_POSTS_INDEX . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
+
+WildflowerRootPagesCache::connectRootPages();
