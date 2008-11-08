@@ -353,8 +353,11 @@ class WildPagesController extends WildflowerAppController {
         
         // Find the requested page
 		$this->WildPage->recursive = -1;
-        $page = array();        
-        if ($this->isHome) {
+        $page = array();
+        
+        if (isset($this->params['id'])) {
+            $page = $this->WildPage->findById($this->params['id']);
+        } else if ($this->isHome) {
             $page = $this->WildPage->findByIdAndDraft($this->homePageId, 0);
         } else {
             $slug = end(explode('/', $url));

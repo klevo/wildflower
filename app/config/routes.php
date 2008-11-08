@@ -42,8 +42,7 @@ class WildflowerRootPagesCache {
     static function update($rootPages) {
         $file = Configure::read('Wildflower.rootPageCache');
         $content = json_encode($rootPages);
-        echo "Writing cache";
-        return file_put_contents($content, $file);
+        return file_put_contents($file, $content);
     }
     
 }

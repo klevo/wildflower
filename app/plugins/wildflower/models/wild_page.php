@@ -22,8 +22,8 @@ class WildPage extends WildflowerAppModel {
 	);
 	public $useTable = 'pages';
 	
-	function afterSave() {
-	    parent::afterSave();
+	function afterSave($arg) {
+	    parent::afterSave($arg);
 	    
 	    // Update root pages cache
         WildflowerRootPagesCache::update($this->findAllRoot());
