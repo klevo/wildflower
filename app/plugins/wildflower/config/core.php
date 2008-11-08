@@ -23,6 +23,8 @@ Configure::write('Wildflower.uploadDirectory', APP . WEBROOT_DIR .  DS . 'upload
 // Admin prefix
 Configure::write('Wildflower.prefix', 'wf');
 
+Configure::write('Wildflower.rootPageCache', CACHE . 'wf-root-pages');
+
 /** Name of the posts index page in the URL */
 define('WILDFLOWER_POSTS_INDEX', 'blog');
 /** Contastant used in CmsHelper */

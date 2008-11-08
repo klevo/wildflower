@@ -22,12 +22,21 @@ class WildPage extends WildflowerAppModel {
 	);
 	public $useTable = 'pages';
 	
+	function afterSave() {
+	    parent::afterSave();
+	    
+	    // Update root pages cache
+        WildflowerRootPagesCache::update($this->findAllRoot());
+	}
+	
     /**
      * Before save callback
      *
      * @return bool Success
      */
     function beforeSave() {
+        parent::beforeSave();
+        
     	// Construct the absolute page URL
     	if (isset($this->data[$this->name]['slug'])) {
 	    	$level = 0;
@@ -70,6 +79,15 @@ class WildPage extends WildflowerAppModel {
         }
     	
     	return true;
+    }
+    
+    function findAllRoot() {
+        return $this->find('all', array(
+            'conditions' => 'parent_id IS NULL',
+            'recursive' => -1,
+            'fields' => array('id', 'slug', 'url'),
+            'order' => 'lft ASC',
+        ));
     }
 
     function beforeValidate() {
@@ -219,5 +237,5 @@ class WildPage extends WildflowerAppModel {
     	$results = array_merge($titleResults, $contentResults);
     	return $results;
     }
-	
+    
 }

@@ -154,7 +154,7 @@ class WildPagesController extends WildflowerAppController {
             return $this->render('wf_update');
         }
         
-        $this->redirect(array('action' => 'wf_edit', $page[$this->modelClass]['id']));
+        $this->redirect(array('action' => 'wf_edit', $this->data[$this->modelClass]['id']));
     }
     
     /**

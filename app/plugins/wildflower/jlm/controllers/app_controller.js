@@ -13,6 +13,7 @@ $.jlm.bind('wild_pages.wf_edit, wild_posts.wf_edit', function() {
     
     $.jlm.components.tinyMce.startup();
 
+/* @dev
     // Save button
     $('#save').click(function() {
         // Disable button
@@ -66,99 +67,6 @@ $.jlm.bind('wild_pages.wf_edit, wild_posts.wf_edit', function() {
         return false;
     });
     
-    // Sub navigation
-    $('.sub-nav-options a').click(function() {
-		// Hide editor
-		$('.title-input, .editor, #revisions, #sidebar-editor, #post-categories').hide();
-		$('#preview').remove();
-		$('#advanced-options, .big-submit').show();
-		
-		$('#sub-nav .current').removeClass('current');
-		$(this).parent().addClass('current');
-		
-		return false;
-	});
-	
-	$('.sub-nav-revisions a').click(function() {
-        // Hide editor
-        $('.title-input, .editor, #advanced-options, .big-submit, #sidebar-editor, #post-categories').hide();
-		$('#preview').remove();
-        $('#revisions').show();
-		
-        $('#sub-nav .current').removeClass('current');
-        $(this).parent().addClass('current');
-		
-        return false;
-    });
-	
-	$('.sub-nav-title-and-content a, .sub-nav-post-edit a').click(function() {
-        // Hide editor
-        $('#revisions, #advanced-options, #sidebar-editor, #post-categories').hide();
-		$('#preview').remove();
-        $('.title-input, .editor, .big-submit').show();
-		
-        $('#sub-nav .current').removeClass('current');
-        $(this).parent().addClass('current');
-		
-        return false;
-    });
-    
-	$('.sub-nav-sidebar a').click(function() {
-        // Hide editor
-        $('.title-input, .editor, #revisions, #advanced-options, #post-categories').hide();
-		$('#preview').remove();
-        $('#sidebar-editor, #sidebar-editor .editor, .big-submit').show();
-		
-        $('#sub-nav .current').removeClass('current');
-        $(this).parent().addClass('current');
-		
-        return false;
-    });
-    
-	$('.sub-nav-categories a').click(function() {
-        $('.title-input, .editor, #revisions, #advanced-options').hide();
-		$('#preview').remove();
-        $('#post-categories, .big-submit').show();
-		
-        $('#sub-nav .current').removeClass('current');
-        $(this).parent().addClass('current');
-		
-        return false;
-    });
-	
-    $('.sub-nav-preview a').click(function() {
-		$('#sub-nav .current').removeClass('current');
-        $(this).parent().addClass('current');
-		
-		$('#preview').remove();
-		
-        // Save content back to textareas
-        tinyMCE.triggerSave();
-        
-        // Post data to admin_create_preview
-        var controller = $.jlm.params.controller.replace('wild_', '');
-        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/' + controller + '/create_preview';
-        var callback = function(json) {
-			var contentHeight = $('.editor').height();
-			
-            var previewFileName = json.previewFileName;
-            var iframeSrc = $.jlm.base + '/' + $.jlm.params.prefix + '/' + controller + '/preview/' + previewFileName;
-            var dialog = $($.jlm.template('elements/preview', { iframeSrc: iframeSrc }));
-            $('.title-input, .editor, #advanced-options, #revisions, #sidebar-editor, #post-categories').hide();
-			$('.big-submit').show();				
-            $('#sub-nav').after(dialog);
-			
-			// Height
-			dialog.height(contentHeight + 120);
-        };
-        
-        $('form').ajaxSubmit({
-            url: url,
-            success: callback,
-            dataType: 'json'
-        });
-        
-        return false;
-    });
+*/
 
 });

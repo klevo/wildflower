@@ -22,6 +22,34 @@ $admin = Configure::read('Routing.admin');
 //     array('$2')
 // );
 
+class WildflowerRootPagesCache {
+    
+    static function connectRootPages() {
+        $file = Configure::read('Wildflower.rootPageCache');
+        if (!file_exists($file)) return;
+
+        $content = file_get_contents($file);
+        $rootPages = json_decode($content, true);
+
+        foreach ($rootPages as $page) {
+            Router::connect(
+        		(string)$page['WildPage']['url'], 
+        		array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view', 'id' => $page['WildPage']['id'])
+        	);
+        }
+    }
+    
+    static function update($rootPages) {
+        $file = Configure::read('Wildflower.rootPageCache');
+        $content = json_encode($rootPages);
+        echo "Writing cache";
+        return file_put_contents($content, $file);
+    }
+    
+}
+
+WildflowerRootPagesCache::connectRootPages();
+
 /**
  * Wildflower admin routes
  *
