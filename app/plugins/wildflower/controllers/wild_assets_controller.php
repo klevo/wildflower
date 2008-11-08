@@ -39,10 +39,10 @@ class WildAssetsController extends WildflowerAppController {
         }
    
         // Upload file
-        $isUploaded = move_uploaded_file($this->data[$this->modelClass]['file']['tmp_name'], $uploadPath);
+        $isUploaded = @move_uploaded_file($this->data[$this->modelClass]['file']['tmp_name'], $uploadPath);
         
         if (!$isUploaded) {
-            $this->WildAsset->ivalidate('file', 'File can`t be moved to the uploads directory. Check permissions.');
+            $this->WildAsset->invalidate('file', 'File can`t be moved to the uploads directory. Check permissions.');
             $this->feedFileManager();
             return $this->render('wf_index');
         }
