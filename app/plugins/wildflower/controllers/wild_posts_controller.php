@@ -24,8 +24,24 @@ class WildPostsController extends WildflowerAppController {
      * 
      */
     function wf_index() {
-        if (!empty($this->data)) {
-            var_dump($this->data);
+        if (isset($this->data['__action'])) {
+            foreach ($this->data['id'] as $id => $checked) {
+                if (intval($checked) === 1) {
+                    switch ($this->data['__action']) {
+                        case 'delete':
+                            // Delete with comments
+                            $this->{$this->modelClass}->delete($id);
+                            break;
+                        case 'publish':
+                            $this->{$this->modelClass}->publish($id);
+                            break;
+                        case 'draft':
+                            $this->{$this->modelClass}->draft($id);
+                            break;
+                    }
+                    return $this->redirect($this->referer());
+                }
+            }
         }
         
     	$posts = $this->paginate($this->modelClass);
