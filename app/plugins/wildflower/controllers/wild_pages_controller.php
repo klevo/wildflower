@@ -420,19 +420,19 @@ class WildPagesController extends WildflowerAppController {
      */
     private function _chooseTemplate($slug) {
         // If there is a specific template for this page render it
-        $pageTemplatesDir = APP . 'views' . DS . 'pages' . DS;
+        $appWfPages = APP . 'views' . DS . 'wild_pages' . DS;
         
-        $templateFile = $pageTemplatesDir . $slug . '.ctp';
+        $templateFile = $appWfPages . $slug . '.ctp';
         $template = $slug;
         
         // For home page home.ctp is the default
         if ($this->isHome) {
             $template = 'home';
-            $templateFile = $pageTemplatesDir . $template . '.ctp';
+            $templateFile = $appWfPages . $template . '.ctp';
         }
         
         if (file_exists($templateFile)) {
-            $this->render($template);
+            $this->render($template, $this->layout, $templateFile);
         } else {
         	$this->render('view');
         }
