@@ -49,6 +49,8 @@ WildflowerRootPagesCache::connectRootPages();
 
 /**
  * Wildflower routes cache API
+ * 
+ * Pages without parent are each passed to Route::connect().
  *
  * @package wildflower
  */
