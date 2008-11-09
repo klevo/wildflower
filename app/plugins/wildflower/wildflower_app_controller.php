@@ -4,12 +4,16 @@ App::import('Core', 'l10n');
 
 class WildflowerAppController extends AppController {
 
-	public $components = array('Cookie', 'RequestHandler', 'Security', 'Wildflower.Seo');
+	public $components = array('Cookie', 'RequestHandler'/* , 'Security'*/, 'Wildflower.Seo');
 	public $currentUserId;
 	public $helpers = array('Html', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation');
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
+    // /** Actions that should not be tokenized. */
+    // public $xssSafe = array(
+    //     'wild_posts.wf_index',
+    // );
 	
 	private $_isDatabaseConnected = true;
 
@@ -128,7 +132,7 @@ class WildflowerAppController extends AppController {
     function beforeFilter() {
         parent::beforeFilter();
         
-        $this->Security->blackHoleCallback = 'xssBlackHole';
+        //$this->Security->blackHoleCallback = 'xssBlackHole';
         
         // Wilflower callbacks from app/controllers/wildflower_callbacks
         $this->wildflowerCallback('before');
