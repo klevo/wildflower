@@ -6,6 +6,17 @@ class WildPostsController extends WildflowerAppController {
         'limit' => 12,
         'order' => array('WildPost.created' => 'desc'),
     );
+    
+    function wf_add() {
+        if (!empty($this->data)) {
+            $this->data[$this->modelClass]['draft'] = 1;
+            $this->data[$this->modelClass]['uuid'] = sha1(String::uuid());
+            if ($this->WildPost->save($this->data)) {
+                $this->Session->setFlash('You\'ve written a new post.');
+                $this->redirect(array('action' => 'wf_edit', $this->WildPost->id));
+            }
+        }
+    }
 
     /**
      * Create a new post, with title set, as a draft.

@@ -272,3 +272,8 @@ body {
         background-color: transparent;
         text-decoration: underline;
     }
+    
+#WildPostTitle {
+    font-size: 20px;
+    width: 100%;
+}
