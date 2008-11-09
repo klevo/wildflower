@@ -139,7 +139,7 @@ body {
 
 #sidebar {
     margin: 10px 0;
-    padding: 0;
+    padding: 6px 0 0;
     list-style: none;
     background: url(img/sidebar.gif) 0 0 no-repeat;
     width: 267px;
@@ -263,6 +263,7 @@ body {
 #posts-feed {
     background: url(img/rss-coffee.png) left 5px no-repeat;
     padding: 5px 0 5px 22px;
+    margin-top: -10px;
     display: block;
 }
 
