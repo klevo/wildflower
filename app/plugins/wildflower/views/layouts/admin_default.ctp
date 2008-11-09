@@ -73,7 +73,6 @@
             'Dashboard' => '/' . Configure::read('Wildflower.prefix'),
             'Blog' => array('controller' => 'wild_posts'),
             'Pages' => array('controller' => 'wild_pages'),
-            'Inbox' => array('controller' => 'wild_inboxes'),
             'Files' => array('controller' => 'wild_assets'),
             'Accounts' => array('controller' => 'wild_users'),
             'Settings' => array('controller' => 'wild_settings')
