@@ -1,5 +1,4 @@
 app/tmp/cache/models/cake_*
 app/tmp/cache/persistent/cake_*
 app/tmp/cache/cake_*
-app/tmp/cache/wf-root-pages
 app/tmp/thumbnails/*

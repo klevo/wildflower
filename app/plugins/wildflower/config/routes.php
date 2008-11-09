@@ -62,7 +62,6 @@ class WildflowerRootPagesCache {
             $content = file_get_contents($file);
             $rootPages = json_decode($content, true);
         } else {
-            // Create the file if it does not exist
             return fopen($file, 'w');
         };
         
