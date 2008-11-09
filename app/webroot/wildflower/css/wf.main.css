@@ -21,6 +21,10 @@ a {
     color: #e0e0e0;
 }
 
+a:focus {
+    outline: none;
+}
+
 #wrap a:hover {
     color: #fff;
     text-decoration: none;
@@ -255,3 +259,15 @@ body {
 .disabled {
     color: #606060;
 }
+
+#posts-feed {
+    background: url(img/rss-coffee.png) left 5px no-repeat;
+    padding: 5px 0 5px 22px;
+    display: block;
+}
+
+    #wrap #posts-feed:hover {
+        color: #c34507;
+        background-color: transparent;
+        text-decoration: underline;
+    }

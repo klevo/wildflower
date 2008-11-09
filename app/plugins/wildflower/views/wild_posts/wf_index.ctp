@@ -68,7 +68,7 @@
         ?>
     </li>
     <li>
-        <p><?php echo $html->link('Blog RSS Feed', '/' . Configure::read('Wildflower.blogIndex') . '/feed') ?></p>
+        <p><?php echo $html->link('Blog RSS Feed', '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')) ?></p>
     </li>
 </ul>
 

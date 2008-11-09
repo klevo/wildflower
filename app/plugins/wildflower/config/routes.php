@@ -43,6 +43,7 @@ Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('
 // Ultra sexy short SEO friendly post URLs in form of http://my-domain/p/40-char-uuid
 Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', array('controller' => 'wild_posts', 'action' => 'view', 'plugin' => 'wildflower'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index', 'plugin' => 'wildflower'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
 
 WildflowerRootPagesCache::connectRootPages();
 
