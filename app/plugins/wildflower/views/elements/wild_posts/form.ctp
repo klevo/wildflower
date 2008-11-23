@@ -8,7 +8,7 @@
     $form->input('content', array(
         'type' => 'textarea',
         'tabindex' => '2',
-        'class' => 'fck',
+        'class' => 'tinymce',
         'rows' => '25',
         'label' => 'Content',
         'between' => '<br />',

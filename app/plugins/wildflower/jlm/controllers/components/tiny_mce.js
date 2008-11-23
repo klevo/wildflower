@@ -3,7 +3,7 @@ $.jlm.addComponent('tinyMce', {
     startup: function() {
 		// Initialize editor
 		var ids = [];
-        $('.editor textarea').each(function() {
+        $('textarea.tinymce').each(function() {
             var id = $(this).attr('id');
 			tinyMCE.execCommand("mceAddControl", true, id);
         });
