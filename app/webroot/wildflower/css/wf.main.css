@@ -230,7 +230,7 @@ body {
     display: none;
 }
 
-    .list-of-posts li:hover .row-actions {
+    .list li:hover > .row-actions {
         display: block;
     }
 
@@ -291,4 +291,8 @@ body {
 
     .pages-list ul {
         list-style: disc;
+    }
+    
+    .pages-list li {
+        position: relative;
     }

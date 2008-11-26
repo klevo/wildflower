@@ -1,4 +1,3 @@
-<div class="list-item">
 <?php
     $tree->addItemAttribute('id', 'page-' . $data['WildPage']['id']);
     $tree->addItemAttribute('class', 'level-' . $depth);
@@ -6,11 +5,11 @@
         $tree->addItemAttribute('class', 'odd');
     }
     
-    echo $html->link($data['WildPage']['title'], array('action' => 'edit', $data['WildPage']['id']), array('title' => 'Edit this page')); 
+    echo $html->link($data['WildPage']['title'], array('action' => 'edit', $data['WildPage']['id']), array('title' => 'Edit this page.')); 
             
     // Draft status        
     if ($data['WildPage']['draft']) {
         echo ' <small class="draft-status">Draft</small>';
     }            
 ?>
-</div>
+    <span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
