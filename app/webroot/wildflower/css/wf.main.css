@@ -290,7 +290,9 @@ body {
 }
 
     .pages-list ul {
-        list-style: disc;
+        list-style: none;
+        margin: 0;
+        padding-left: 18px;
     }
     
     .pages-list li {

@@ -1,3 +1,4 @@
+<span class="row-check"><?php echo $form->checkbox('id.' . $data['WildPage']['id']) ?></span>
 <?php
     $tree->addItemAttribute('id', 'page-' . $data['WildPage']['id']);
     $tree->addItemAttribute('class', 'level-' . $depth);
@@ -12,4 +13,5 @@
         echo ' <small class="draft-status">Draft</small>';
     }            
 ?>
-    <span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
+<span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
+<span class="cleaner"></span>
