@@ -7,7 +7,7 @@
 <h2>Site Pages</h2>
 
 <?php
-    echo $tree->generate($pages, array('model' => 'WildPage', 'class' => 'list selectable-list pages-list', 'element' => 'admin_page_list_item'));
+    echo $tree->generate($pages, array('model' => 'WildPage', 'class' => 'list selectable-list pages-list', 'element' => 'wf_page_list_item'));
 ?>
 
 <?php
