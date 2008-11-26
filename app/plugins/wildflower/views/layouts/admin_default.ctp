@@ -46,6 +46,8 @@
             action: '<?php echo $this->params['action'] ?>', 
             prefix: '<?php echo Configure::read('Wildflower.prefix') ?>' 
         });
+        
+        tinyMCE.init($.jlm.components.tinyMce.getConfig());
 
         $(function() {
            $.jlm.dispatch(); 
