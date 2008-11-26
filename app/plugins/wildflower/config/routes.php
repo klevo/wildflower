@@ -45,18 +45,18 @@ Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', arra
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index', 'plugin' => 'wildflower'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
 
-WildflowerRootPagesCache::connectRootPages();
+WildflowerRootPagesCache::connect();
 
 /**
- * Wildflower routes cache API
+ * Wildflower root pages routes cache API
  * 
- * Pages without parent are each passed to Route::connect().
+ * Pages without a parent are each passed to Route::connect().
  *
  * @package wildflower
  */
 class WildflowerRootPagesCache {
     
-    static function connectRootPages() {
+    static function connect() {
         $file = Configure::read('Wildflower.rootPageCache');
         $rootPages = array();
         
@@ -70,15 +70,14 @@ class WildflowerRootPagesCache {
         foreach ($rootPages as $page) {
             // Root page
             Router::connect(
-        		(string)$page['WildPage']['url'], 
+        		$page['WildPage']['url'], 
         		array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view', 'id' => $page['WildPage']['id'])
         	);
         	// It's children
-        	$children = $page['WildPage']['url'] . '/(.*)';
+        	$children = $page['WildPage']['url'] . '/*';
             Router::connect(
                 $children, 
-                array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'view'),
-                array('$1')
+                array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'view')
             );
         }
     }

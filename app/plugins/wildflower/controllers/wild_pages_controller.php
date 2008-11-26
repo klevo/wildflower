@@ -336,7 +336,7 @@ class WildPagesController extends WildflowerAppController {
         $corrected = false;
         $argsCountBeforeFilter = count($args);
         $args = array_filter($args);
-        $url = '/' . join('/', $args);
+        $url = '/' . $this->params['url']['url'];
         
         // Redirect if the entered URL is not correct
         if (count($args) !== $argsCountBeforeFilter) {
@@ -356,7 +356,7 @@ class WildPagesController extends WildflowerAppController {
         $page = array();
         
         if (isset($this->params['id'])) {
-            $page = $this->WildPage->findById($this->params['id']);
+            $page = $this->WildPage->findByIdAndDraft($this->params['id'], 0);
         } else if ($this->isHome) {
             $page = $this->WildPage->findByIdAndDraft($this->homePageId, 0);
         } else {
