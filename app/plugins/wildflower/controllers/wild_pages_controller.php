@@ -395,6 +395,20 @@ class WildPagesController extends WildflowerAppController {
         $this->_chooseTemplate($page[$this->modelClass]['slug']);
     }
     
+    function update_root_cache() {
+        if (!isset($this->params['requested'])) {
+            return $this->do404();
+        }
+        
+        $rootPages = $this->{$this->modelClass}->find('all', array(
+            'conditions' => 'parent_id IS NULL AND url <> \'/\'',
+            'recursive' => -1,
+            'fields' => array('id', 'url', 'slug'),
+        ));
+        WildflowerRootPagesCache::write($rootPages);
+        return $rootPages;
+    }
+    
     /**
      * Read page data from preview cache
      * 

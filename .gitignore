@@ -2,3 +2,4 @@ app/tmp/cache/models/cake_*
 app/tmp/cache/persistent/cake_*
 app/tmp/cache/cake_*
 app/tmp/thumbnails/*
+app/tmp/cache/wf_root_pages

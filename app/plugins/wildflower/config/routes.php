@@ -64,10 +64,8 @@ class WildflowerRootPagesCache {
             $content = file_get_contents($file);
             $rootPages = json_decode($content, true);
         } else {
-            return fopen($file, 'w');
+            $rootPages = self::update();
         };
-        
-        if (empty($rootPages)) return;
 
         foreach ($rootPages as $page) {
             // Root page
@@ -79,15 +77,19 @@ class WildflowerRootPagesCache {
         	$children = $page['WildPage']['url'] . '/(.*)';
             Router::connect(
                 $children, 
-                array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view'),
+                array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'view'),
                 array('$1')
             );
         }
     }
     
-    static function update($rootPages) {
-        $file = Configure::read('Wildflower.rootPageCache');
+    static function update() {
+        return Router::requestAction('/wildflower/wild_pages/update_root_cache', array('return' => 1));
+    }
+    
+    static function write($rootPages = array()) {
         $content = json_encode($rootPages);
+        $file = Configure::read('Wildflower.rootPageCache');
         return file_put_contents($file, $content);
     }
     

@@ -16,5 +16,7 @@
     '<div>',
     $form->hidden('id'),
     '</div>',
+    $form->submit('Save as Draft'),
+    $form->submit('Publish'),
     $form->end();
 ?>
