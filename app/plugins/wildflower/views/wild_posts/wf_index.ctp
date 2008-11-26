@@ -56,7 +56,7 @@
 
 <ul id="sidebar">
     <li><?php echo $html->link(
-        '<span>Write a new post</span>', 
+        '<span>' . __('Write a new post', true) . '</span>',
         array('action' => 'add'),
         array('class' => 'add', 'escape' => false)) ?></li>
     <li>
