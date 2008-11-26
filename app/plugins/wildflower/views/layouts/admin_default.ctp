@@ -36,8 +36,6 @@
         ?>
     <![endif]-->
     
-    <?php echo $this->element('tiny_mce') ?>
-    
     <!-- JQuery Light MVC -->
     <script type="text/javascript" src="<?php echo $html->url(array('controller' => 'wild_assets', 'action' => 'jlm', 'plugin' => 'wildflower')); ?>"></script>
     <script type="text/javascript">

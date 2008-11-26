@@ -1,14 +1,14 @@
 $.jlm.addComponent('tinyMce', {
 
     startup: function() {
-        this.configure();
+        // this.configure();
         
 		// Initialize editor
-		var ids = [];
-        $('textarea.tinymce').each(function() {
-            var id = $(this).attr('id');
-			tinyMCE.execCommand("mceAddControl", true, id);
-        });
+        // var ids = [];
+        //         $('textarea.tinymce').each(function() {
+        //             var id = $(this).attr('id');
+        //  tinyMCE.execCommand("mceAddControl", true, id);
+        //         });
 	},
 	
 	configure: function() {
