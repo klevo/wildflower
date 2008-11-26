@@ -26,7 +26,7 @@ echo $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_u
 		'between' => '<br />',
     	'type' => 'textarea',
     	'tabindex' => '2',
-    	'class' => 'fck',
+    	'class' => 'tinymce',
     	'rows' => '25',
         'label' => 'Page content',
     	'div' => array('class' => 'input editor')));
