@@ -179,6 +179,9 @@ class WildPostsController extends WildflowerAppController {
             
             $this->set(compact('revisions', 'post'));
             return $this->render('wf_update');
+        } else {
+            $time = date('h:i A');
+            $this->Session->setFlash("$time: Post saved.");
         }
 
         $this->redirect(array('action' => 'edit', $this->WildPost->id));
