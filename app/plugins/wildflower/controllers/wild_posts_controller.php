@@ -19,15 +19,13 @@ class WildPostsController extends WildflowerAppController {
     }
 
     /**
-     * Create a new post, with title set, as a draft.
-     *
+     * Create an empty post and redirect to it's edit screen
      */
     function wf_create() {
         $this->data[$this->modelClass]['draft'] = 1;
         $this->data[$this->modelClass]['uuid'] = sha1(String::uuid());
-        $this->WildPost->save($this->data);
-        $this->set('data', array('id' => $this->WildPost->id));
-        $this->render('/elements/json');
+        $this->WildPost->save($this->data, false);
+        $this->redirect(array('action' => 'wf_edit', $this->{$this->modelClass}->id));
     }
     
     /**
