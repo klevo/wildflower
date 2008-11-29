@@ -15,7 +15,7 @@
 
 <h2>Published Posts</h2>
 
-<ul class="list-of-posts">
+<ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>
         <li class="post-row">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
