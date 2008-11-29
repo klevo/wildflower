@@ -9,11 +9,12 @@
 	        'draft' => 'Not published (drafts)',
 	        'category' => 'From Category',
 	    ),
-	    'label' => 'Show '
+	    'label' => 'Show ',
+	    'div' => array('id' => 'show-posts'),
 	));
 ?>
 
-<h2>Published Posts</h2>
+<h2 class="section">Published Posts</h2>
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>

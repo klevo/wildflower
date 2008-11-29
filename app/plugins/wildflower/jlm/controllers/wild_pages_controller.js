@@ -8,3 +8,9 @@ $.jlm.bind('wild_posts.wf_index', function() {
    });
     
 });
+
+$.jlm.bind('wild_posts.wf_add', function() {
+    
+    $('#WildPostTitle').focus();
+    
+});

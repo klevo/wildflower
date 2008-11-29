@@ -128,6 +128,7 @@ body {
     padding: 20px 10px;
     float: left;
     width: 60%;
+    position: relative;
 }
 
 .cleaner {
@@ -136,26 +137,6 @@ body {
     margin-top: -1px;
     display: block;
 }
-
-#sidebar {
-    margin: 10px 0;
-    padding: 6px 0 0;
-    list-style: none;
-    background: url(img/sidebar.gif) 0 0 no-repeat;
-    width: 267px;
-    float: right;
-}
-
-    #sidebar li {
-        margin: 0;
-        padding: 7px 14px;
-    }
-    
-    #sidebar > li:last-child {
-        min-height: 5px;
-        background: url(img/sidebar.gif) left bottom no-repeat;
-        padding-bottom: 14px;
-    }
     
     #wrap a.add {
         background: url(img/sidebar-button.png) 0 0 no-repeat;
@@ -173,18 +154,81 @@ body {
             display: block;
             background: url(img/sidebar-button.png) top right no-repeat;
         }
-        
+    
         
 /* Headings */
 
-#wrap h2 {
+h2 {
     font-weight: normal;
     font-size: 17px;
     margin: 18px 0 12px 0;
 }
+
+.section {
+    margin-top: 0;
+}
+
+
+/* Form elements */
+
+.input {
+    margin-bottom: 14px;
+}
         
+
+/* Sidebar */
+
+#sidebar {
+    margin: 10px 0;
+    padding: 6px 0 0;
+    list-style: none;
+    background: url(img/sidebar.gif) 0 0 no-repeat;
+    width: 253px;
+    float: right;
+}
+
+    #sidebar li {
+        margin: 0;
+        padding: 7px 14px;
+    }
+    
+    #sidebar > li:last-child {
+        min-height: 5px;
+        background: url(img/sidebar.gif) left bottom no-repeat;
+        padding-bottom: 14px;
+    }
+
+.sidebar-menu {
+    margin: 0 0 0 -13px;
+    padding: 0;
+    list-style: none;
+}        
+
+    #sidebar .sidebar-menu li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .sidebar-menu a {
+        display: block;
+        padding: 4px 4px 4px 14px;
+    }
+    
+    #sidebar .sidebar-menu a.current {
+        color: #fff;
+        text-decoration: none;
+        background-color: #0000ff;
+    }
+    
         
 /* List of posts */
+
+#show-posts {
+    display: none; /* hide for now */
+    position: absolute;
+    top: 18px;
+    right: 10px;
+}
 
 .list-of-posts {
     margin: -6px 0 1em 0;

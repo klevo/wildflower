@@ -4,7 +4,7 @@
 	$form->create('Page', array('url' => $here));
 ?>
 
-<h2>Site Pages</h2>
+<h2 class="section">Site Pages</h2>
 
 <?php
     echo $tree->generate($pages, array('model' => 'WildPage', 'class' => 'list pages-list', 'element' => 'wf_page_list_item'));
@@ -27,10 +27,12 @@
 </div>
 
 <ul id="sidebar">
-    <li><?php echo $html->link(
-        '<span>' . __('Write a new page', true) . '</span>', 
-        array('action' => 'add'),
-        array('class' => 'add', 'escape' => false)) ?></li>
+    <li>
+        <?php echo $html->link(
+            '<span>' . __('Write a new page', true) . '</span>', 
+            array('action' => 'add'),
+            array('class' => 'add', 'escape' => false)) ?>
+    </li>
     <li>
         <?php
             echo
