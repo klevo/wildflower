@@ -16,6 +16,8 @@
 
 <h2 class="section"><?php __('Published Posts'); ?></h2>
 
+<div class="select-actions">Selection: <a href="#Delete">Delete</a>, <a href="#Publish">Publish</a>, <a href="#Unpublish">Unpublish</a></div>
+
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>
         <li class="post-row">
@@ -40,16 +42,6 @@
 
 <?php
     echo 
-    $form->input('action', array(
-	    'type' => 'select',
-	    'options' => array(
-	        'choose' => __('(choose an action)', true),
-	        'publish' => __('Publish', true),
-	        'draft' => __('Unpublish', true),
-	        'delete' => __('Delete', true),
-	    ),
-	    'label' => __('With selected ', true),
-	)),
 	$this->element('wf_pagination'),
     $form->end();
 ?>
