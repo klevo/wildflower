@@ -1,52 +1,51 @@
 <div id="content">
-<?php
-	echo 
-	$form->create('Post', array('url' => $here)),
-	$form->input('show', array(
-	    'type' => 'select',
-	    'options' => array(
-	        'published' => 'Published',
-	        'draft' => 'Not published (drafts)',
-	        'category' => 'From Category',
-	    ),
-	    'label' => 'Show ',
-	    'div' => array('id' => 'show-posts'),
-	));
-?>
+    <?php
+    	echo 
+    	$form->create('Post', array('url' => $here)),
+    	$form->input('show', array(
+    	    'type' => 'select',
+    	    'options' => array(
+    	        'published' => 'Published',
+    	        'draft' => 'Not published (drafts)',
+    	        'category' => 'From Category',
+    	    ),
+    	    'label' => 'Show ',
+    	    'div' => array('id' => 'show-posts'),
+    	));
+    ?>
 
-<h2 class="section"><?php __('Blog Posts'); ?></h2>
+    <h2 class="section"><?php __('Blog Posts'); ?></h2>
 
-<div class="select-actions">Selection: <a href="#Delete" rel="delete">Delete</a>, <a href="#Publish" rel="publish">Publish</a>, <a href="#Unpublish" rel="draft">Unpublish</a></div>
+    <?php echo $this->element('wf_select_actions'); ?>
 
-<ul class="list-of-posts list">
-    <?php foreach ($posts as $post) { ?>
-        <li class="post-row">
-            <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
-            <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
-            <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
-            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
-            <?php
-                $categories = Set::extract($post['WildCategory'], '{n}.title');
-                foreach ($categories as &$category) {
-                    //$category = $html->link($category['name'], array(''))
-                }
-                if (!empty($categories)) {
-                    $categories = join(', ', $categories);
+    <ul class="list-of-posts list">
+        <?php foreach ($posts as $post) { ?>
+            <li class="post-row">
+                <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
+                <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
+                <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
+                <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
+                <?php
+                    $categories = Set::extract($post['WildCategory'], '{n}.title');
+                    foreach ($categories as &$category) {
+                        //$category = $html->link($category['name'], array(''))
+                    }
+                    if (!empty($categories)) {
+                        $categories = join(', ', $categories);
 
-                    echo '<div class="post-categories">' . $categories . '</div>';
-                }
-            ?>
-        </li>
-    <?php } ?>
-</ul>
+                        echo '<div class="post-categories">' . $categories . '</div>';
+                    }
+                ?>
+            </li>
+        <?php } ?>
+    </ul>
 
-<div class="select-actions">Selection: <a href="#Delete" rel="delete">Delete</a>, <a href="#Publish" rel="publish">Publish</a>, <a href="#Unpublish" rel="draft">Unpublish</a></div>
-
-<?php
-    echo 
-	$this->element('wf_pagination'),
-    $form->end();
-?>
+    <?php
+        echo
+        $this->element('wf_select_actions'), 
+    	$this->element('wf_pagination'),
+        $form->end();
+    ?>
 </div>
 
 <ul id="sidebar">

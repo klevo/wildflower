@@ -1,0 +1,1 @@
+<div class="select-actions"><?php __('Selection'); ?>: <a href="#Delete" rel="delete"><?php __('Delete'); ?></a>, <a href="#Publish" rel="publish"><?php __('Publish'); ?></a>, <a href="#Unpublish" rel="draft"><?php __('Unpublish'); ?></a> <span><a href="#SelectAll"><?php __('Select All'); ?></a> | <a href="#SelectNone"><?php __('None'); ?></a></span></div>

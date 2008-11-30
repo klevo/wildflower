@@ -251,6 +251,17 @@ h2 {
         background-color: transparent;
     }
     
+    .select-actions span {
+        text-align: right;
+        float: right;
+        position: relative;
+        top: -16px;
+    }
+    
+        .select-actions span a {
+            color: #606060;
+        }
+    
 .selected {
     background-color: #fffde0;
 }    
