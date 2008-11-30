@@ -14,7 +14,9 @@ $.jlm.bind('wild_posts.wf_edit', function() {
         activeSectionEl.slideUp(300, function() {
             var switchToSectionId = '#' + linkEl.attr('rel');
             var switchToSectionEl = $(switchToSectionId);
-            switchToSectionEl.slideDown(300);
+            switchToSectionEl.slideDown(300, function() {
+                $('input[@type=text]:first:visible').focus();
+            });
 
             activeSectionEl = switchToSectionEl;
         });

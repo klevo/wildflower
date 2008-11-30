@@ -2,9 +2,6 @@
     <?php 
         $session->flash();
         
-        $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
-        $cancelLink = "<div class=\"cancel-edit\"> or $cancelLink</div>";
-        
         echo 
         $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
     ?>
@@ -27,15 +24,12 @@
             'div' => array('class' => 'input editor'))),
         '<div>',
         $form->hidden('id'),
-        '</div>',
-        $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
-        $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
-        $cancelLink;
+        '</div>';
     ?>
     </div>
     
     <div id="post-categories">
-        <h2>Post under following categories</h2>
+        <h2 class="section">Post under following categories</h2>
         <ul>
         <?php foreach ($categories as $id => $label): ?>
             <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
@@ -47,7 +41,16 @@
         </ul>
     </div>    
         
-    <?php echo $form->end(); ?>
+    <?php
+        $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
+        $cancelLink = "<div class=\"cancel-edit\"> or $cancelLink</div>";
+
+        echo
+        $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
+        $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
+        $cancelLink,
+        $form->end();
+    ?>
 </div>
 
 <ul id="sidebar">
