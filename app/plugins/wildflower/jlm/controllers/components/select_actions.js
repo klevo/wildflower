@@ -11,7 +11,7 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
      // Mark all selectedEls items
      var selectedEls = $('input:checked', handledFormEl);
      if (selectedEls.size() > 0) {
-         selectedEls.parents('li').addClass('selected');
+         selectedEls.parent().parent('li').addClass('selected');
          selectActionsEl.show();
      }
 
@@ -25,7 +25,7 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
          }
          
          // Add selectedEls class
-         $(this).parents('li').toggleClass('selected');
+         $(this).parent().parent('li').toggleClass('selected');
          
          return true;
      }
@@ -43,13 +43,13 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
      
      // Bind select All/None
      $('a[@href=#SelectAll]', handledFormEl).click(function() {
-         $('input:checkbox', handledFormEl).attr('checked', 'true').parents('li').addClass('selected');
+         $('input:checkbox', handledFormEl).attr('checked', 'true').parent().parent('li').addClass('selected');
          return false;
      });
      
      $('a[@href=#SelectNone]', handledFormEl).click(function() {
          selectActionsEl.slideUp(100);
-         $('input:checkbox', handledFormEl).removeAttr('checked').parents('li').removeClass('selected');
+         $('input:checkbox', handledFormEl).removeAttr('checked').parent().parent('li').removeClass('selected');
          return false;
      });
      
