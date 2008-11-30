@@ -14,15 +14,15 @@
 	));
 ?>
 
-<h2 class="section">Published Posts</h2>
+<h2 class="section"><?php __('Published Posts'); ?></h2>
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>
         <li class="post-row">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
             <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
-            <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => 'Edit this post.')) ?></span>
-            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this post.')) ?></span>
+            <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
+            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <?php
                 $categories = Set::extract($post['WildCategory'], '{n}.title');
                 foreach ($categories as &$category) {
@@ -43,12 +43,12 @@
     $form->input('action', array(
 	    'type' => 'select',
 	    'options' => array(
-	        'choose' => '(choose an action)',
-	        'publish' => 'Publish',
-	        'draft' => 'Unpublish',
-	        'delete' => 'Delete',
+	        'choose' => __('(choose an action)', true),
+	        'publish' => __('Publish', true),
+	        'draft' => __('Unpublish', true),
+	        'delete' => __('Delete', true),
 	    ),
-	    'label' => 'With selected '
+	    'label' => __('With selected ', true),
 	)),
 	$this->element('wf_pagination'),
     $form->end();
@@ -69,7 +69,7 @@
         ?>
     </li>
     <li>
-        <p><?php echo $html->link('Blog RSS Feed', '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')) ?></p>
+        <p><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')); ?></p>
     </li>
 </ul>
 
