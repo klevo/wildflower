@@ -364,6 +364,9 @@ h2 {
         text-decoration: underline;
     }
     
+    
+/* Post edit */
+    
 #WildPostTitle {
     font-size: 18px;
     width: 100%;
@@ -389,6 +392,10 @@ h2 {
         color: #d80019;
         background-color: transparent;
     }
+    
+#post-categories {
+    display: none;
+}
 
 
 /* Pages */
