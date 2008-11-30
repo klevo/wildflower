@@ -122,7 +122,35 @@ jQuery.jlm = {
         // Execute components that have initOn defined
         jQuery.each(jQuery.jlm.components, function() {
             if (typeof(this.initOn) === 'string') {
-                alert(this.initOn);
+                // Parse initOn
+                var routesArr = this.initOn.split(',');
+                var execute = false;
+
+                jQuery.each(routesArr, function() {
+                    var route = jQuery.jlm.trim(this);
+                    var parts = route.split('.');
+                    var controller = '';
+                    var action = '';
+
+                    if (parts.length == 2) {
+                        // Controller & action is defined
+                        controller = parts[0];
+                        action = parts[1]; 
+                        if (jQuery.jlm.params.controller == controller && jQuery.jlm.params.action == action) {
+                            execute = true;
+                        }
+                    } else if (parts.length == 1) {
+                        // Only controller defined
+                        controller = parts[0];
+                        if (jQuery.jlm.params.controller == controller) {
+                            execute = true;
+                        }
+                    }
+                });
+                
+                if (execute) {
+                    this.startup();
+                }
             }
         });
     },
