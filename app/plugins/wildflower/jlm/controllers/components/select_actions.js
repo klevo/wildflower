@@ -48,8 +48,9 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
      });
      
      $('a[@href=#SelectNone]', handledFormEl).click(function() {
-          $('input:checkbox', handledFormEl).removeAttr('checked').parents('li').removeClass('selected');
-          return false;
-      });
+         selectActionsEl.slideUp(100);
+         $('input:checkbox', handledFormEl).removeAttr('checked').parents('li').removeClass('selected');
+         return false;
+     });
      
 });
