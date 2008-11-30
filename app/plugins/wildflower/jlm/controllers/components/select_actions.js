@@ -6,6 +6,7 @@
 $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', function() {
     
      var selectActionsEl = $('.select-actions');
+     var handledFormEl = $('form:first');
 
      function selectionChanged() {
          var selected = $('input:checked');
@@ -20,5 +21,14 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
      }
 
      $('input[@type=checkbox]').click(selectionChanged);
+     
+     // Bind actions
+     $('a', selectActionsEl).click(function() {
+         // @TODO add AJAX submit
+         handledFormEl.
+            append('<input type="hidden" name="data[__action]" value="' + $(this).attr('rel') + '" />').
+            submit();
+         return false;
+     });
      
 });

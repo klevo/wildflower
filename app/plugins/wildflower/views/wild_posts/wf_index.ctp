@@ -16,7 +16,7 @@
 
 <h2 class="section"><?php __('Published Posts'); ?></h2>
 
-<div class="select-actions">Selection: <a href="#Delete">Delete</a>, <a href="#Publish">Publish</a>, <a href="#Unpublish">Unpublish</a></div>
+<div class="select-actions">Selection: <a href="#Delete" rel="delete">Delete</a>, <a href="#Publish" rel="publish">Publish</a>, <a href="#Unpublish" rel="draft">Unpublish</a></div>
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>
@@ -40,7 +40,7 @@
     <?php } ?>
 </ul>
 
-<div class="select-actions">Selection: <a href="#Delete">Delete</a>, <a href="#Publish">Publish</a>, <a href="#Unpublish">Unpublish</a></div>
+<div class="select-actions">Selection: <a href="#Delete" rel="delete">Delete</a>, <a href="#Publish" rel="publish">Publish</a>, <a href="#Unpublish" rel="draft">Unpublish</a></div>
 
 <?php
     echo 
