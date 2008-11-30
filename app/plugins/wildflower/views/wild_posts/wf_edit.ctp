@@ -2,6 +2,9 @@
     <?php 
         $session->flash();
         
+        $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
+        $cancelLink = "<span class=\"cancel-edit\"> or $cancelLink</span>";
+        
         echo 
         $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
         $form->input('title', array(
@@ -22,6 +25,7 @@
         '</div>',
         $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
         $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
+        $cancelLink,
         $form->end();
     ?>
 </div>
@@ -33,10 +37,12 @@
             <li><?php echo $html->link('Categories', array('action' => 'wf_edit_categories')); ?></li>
         </ul>
     </li>
-    <li><?php echo $html->link(
-        '<span>Write a new post</span>', 
-        array('action' => 'add'),
-        array('class' => 'add', 'escape' => false)) ?></li>
+    <li>
+        <?php echo $html->link(
+            '<span>Write a new post</span>', 
+            array('action' => 'wf_create'),
+            array('class' => 'add', 'escape' => false)); ?>
+    </li>
     <li>
         <?php
             echo

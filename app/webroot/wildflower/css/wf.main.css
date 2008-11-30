@@ -369,7 +369,8 @@ h2 {
     width: 100%;
 }
 
-#save-draft {
+#save-draft,
+#save-publish {
     float: left;
     margin-right: 10px;
 }
@@ -377,6 +378,16 @@ h2 {
     #save-draft input,
     #save-publish input {
         font-size: 13px;
+    }
+    
+.cancel-edit {
+    display: block;
+}
+    
+    .cancel-edit a,
+    .cancel-edit a:hover {
+        color: #d80019;
+        background-color: transparent;
     }
 
 
