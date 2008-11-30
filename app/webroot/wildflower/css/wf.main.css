@@ -398,7 +398,7 @@ h2 {
 }
 
     #post-categories ul {
-        margin: 0;
+        margin: 0 0 14px 0;
         padding: 0;
         list-style: none;
     }
