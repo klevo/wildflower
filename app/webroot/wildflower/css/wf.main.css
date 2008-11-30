@@ -242,6 +242,7 @@ h2 {
     padding: 4px 6px;
     background-color: #fffde0;
     border: 1px solid #fffcbd;
+    display: none; /* JS shows/hide this */
 }
 
     .select-actions a,
