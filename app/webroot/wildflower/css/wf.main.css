@@ -18,7 +18,7 @@ html {
 }
 
 a {
-    color: #0000ff;
+    color: #0033CC;
     text-decoration: underline;
 }
 
@@ -29,7 +29,7 @@ a:focus {
 a:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #0000ff;
+    background-color: #0033CC;
 }
 
 img {
@@ -272,8 +272,8 @@ h2 {
 }
 
     .list-of-posts li {
-        border-bottom: 1px solid #eee;
-        padding: 3px 0;
+        border-bottom: 1px solid #c2c2c2;
+        padding: 3px 0 5px;
         margin: 0;
         position: relative;
     }
@@ -320,7 +320,7 @@ h2 {
 }
    
 .permalink {
-    background: #fff url(img/link.png) 0 0 no-repeat;
+    background: transparent url(img/link.png) 0 0 no-repeat;
     padding-left: 18px;
 } 
 

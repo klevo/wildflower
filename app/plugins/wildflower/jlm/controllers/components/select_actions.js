@@ -7,17 +7,24 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
     
      var selectActionsEl = $('.select-actions');
      var handledFormEl = $('form:first');
+     
+     // Mark all selectedEls items
+     var selectedEls = $('input:checked');
+     if (selectedEls.size() > 0) {
+         selectedEls.parents('li').addClass('selected');
+         selectActionsEl.show();
+     }
 
      function selectionChanged() {
-         var selected = $('input:checked');
+         selectedEls = $('input:checked');
          
-         if (selected.size() > 0) {
+         if (selectedEls.size() > 0) {
              selectActionsEl.slideDown(100);
          } else {
              selectActionsEl.slideUp(100);
          }
          
-         // Add selected class
+         // Add selectedEls class
          $(this).parents('li').toggleClass('selected');
          
          return true;

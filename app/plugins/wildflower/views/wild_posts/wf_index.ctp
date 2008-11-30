@@ -14,7 +14,7 @@
 	));
 ?>
 
-<h2 class="section"><?php __('Published Posts'); ?></h2>
+<h2 class="section"><?php __('Blog Posts'); ?></h2>
 
 <div class="select-actions">Selection: <a href="#Delete" rel="delete">Delete</a>, <a href="#Publish" rel="publish">Publish</a>, <a href="#Unpublish" rel="draft">Unpublish</a></div>
 
