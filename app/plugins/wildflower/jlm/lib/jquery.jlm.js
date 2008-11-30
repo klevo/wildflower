@@ -153,6 +153,17 @@ jQuery.jlm = {
     },
     
     /**
+     * Shortcut for returning a views/elements/...
+     * 
+     * @param string templatePath
+     * @param hash viewVars
+     * @return string Template content
+     */
+    element: function(elementName, viewVars) {
+        return $.jlm.template('elements/' + elementName, viewVars);
+    },
+    
+    /**
      * Trim a string
      *
      * @link http://www.webtoolkit.info/javascript-trim.html
