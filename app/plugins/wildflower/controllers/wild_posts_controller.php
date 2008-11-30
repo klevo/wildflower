@@ -92,10 +92,15 @@ class WildPostsController extends WildflowerAppController {
      * @param int $id post ID
      */
     function wf_edit($id = null, $revisionNumber = null) {
-        $this->WildPost->contain(array('WildUser', 'WildCategory'));
-        $this->data = $this->WildPost->findById($id);
-        
-        if (empty($this->data)) return $this->cakeError('object_not_found');
+        if (empty($this->data)) {
+            $this->WildPost->contain(array('WildUser', 'WildCategory'));
+            $this->data = $this->WildPost->findById($id);
+            if (empty($this->data)) return $this->cakeError('object_not_found');
+        } else {
+            if ($this->WildPost->save($this->data)) {
+                return $this->redirect(array('action' => 'wf_edit', $this->WildPost->id));
+            }
+        }
         
         // Fill revisions browser
         $revisions = $this->WildPost->getRevisions($id);
@@ -133,27 +138,9 @@ class WildPostsController extends WildflowerAppController {
         
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
-
-    /**
-     * @deprecated 
-     *
-     * @return unknown
-     */
-    function wf_findAll() {
-        return $this->WildPost->findAll(null, array('id', 'slug', 'title'), 'Post.created DESC', null, 1, 0);
-    }
-    
-    /**
-     * @deprecated 
-     *
-     * @return unknown
-     */
-    function wf_list() {
-    	$posts = $this->WildPost->generateList();
-    	return $posts;
-    }
     
     function wf_update() {
+        var_dump($this->data);
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
         
         $this->WildPost->create($this->data);
