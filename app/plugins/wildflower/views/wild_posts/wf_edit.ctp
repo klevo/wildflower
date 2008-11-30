@@ -70,6 +70,11 @@
             }
         ?>        
     </div>
+    
+    <div id="post-preview">
+        <h2 class="section">Post Preview</h2>
+        <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
+    </div>
         
     <?php
         $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
@@ -89,6 +94,7 @@
             <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
             <li><?php echo $html->link('Categories', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
+            <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
         </ul>
     </li>
     <li>

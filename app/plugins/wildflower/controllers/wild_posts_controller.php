@@ -249,7 +249,9 @@ class WildPostsController extends WildflowerAppController {
      *
      * @param int $id
      */
-    function wf_preview($fileName) {
+    function wf_preview($fileName = null) {
+        if (is_null($fileName)) return;
+        
     	$this->layout = 'default';
     	
         $previewPostData = $this->readPreviewCache($fileName);

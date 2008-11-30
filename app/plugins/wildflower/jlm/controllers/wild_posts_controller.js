@@ -9,10 +9,15 @@ $.jlm.bind('wild_posts.wf_edit', function() {
         $('.sidebar-menu .current').removeClass('current');
         
         var linkEl = $(this);
+        var linkElRel = linkEl.attr('rel')
         linkEl.addClass('current');
         
+        if (linkElRel == 'post-preview') {
+            loadPreview();
+        }
+        
         activeSectionEl.slideUp(300, function() {
-            var switchToSectionId = '#' + linkEl.attr('rel');
+            var switchToSectionId = '#' + linkElRel;
             var switchToSectionEl = $(switchToSectionId);
             switchToSectionEl.slideDown(300, function() {
                 $('input[@type=text]:first:visible').focus();
@@ -23,5 +28,29 @@ $.jlm.bind('wild_posts.wf_edit', function() {
         
         return false;
     });
+    
+    function loadPreview() {
+        console.log('zzz');
+        // Save content back to textareas
+        tinyMCE.triggerSave();
+
+        // Post data to admin_create_preview
+        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/' + $.jlm.params.controller.replace('wild_', '') + '/create_preview';
+        
+        var callback = function(json) {
+            var contentHeight = 500; //$('.editor').height();
+
+            var previewFileName = json.previewFileName;
+            var iframeSrc = $.jlm.base + '/' + $.jlm.params.prefix + '/' + $.jlm.params.controller.replace('wild_', '') + '/preview/' + previewFileName;
+        
+            $('#post-preview object').attr('data', iframeSrc);
+        };
+
+        $('form:first').ajaxSubmit({
+            url: url,
+            success: callback,
+            dataType: 'json'
+        });
+    }
     
 });
