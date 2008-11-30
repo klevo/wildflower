@@ -56,6 +56,13 @@ jQuery.jlm = {
         this.components[name] = object;
     },
     
+    component: function(name, initOn, componentFunction) {
+        jQuery.jlm.components[name] = {
+            startup: componentFunction,
+            initOn: initOn
+        };
+    },
+    
     config: function(params) {
         this.base = params.base;
         this.params.controller = params.controller;
@@ -111,6 +118,13 @@ jQuery.jlm = {
             && typeof(jQuery.jlm.controllers[jQuery.jlm.params.controller][jQuery.jlm.params.action]) == 'object') {
             jQuery.jlm.execute(jQuery.jlm.params.controller, jQuery.jlm.params.action);
         }
+        
+        // Execute components that have initOn defined
+        jQuery.each(jQuery.jlm.components, function() {
+            if (typeof(this.initOn) === 'string') {
+                alert(this.initOn);
+            }
+        });
     },
     
     execute: function(controller, action) {
