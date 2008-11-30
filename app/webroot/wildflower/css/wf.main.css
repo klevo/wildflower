@@ -127,7 +127,7 @@ body {
 #content {
     padding: 20px 10px;
     float: left;
-    width: 60%;
+    width: 65%;
     position: relative;
 }
 
@@ -333,9 +333,19 @@ h2 {
     }
     
 #WildPostTitle {
-    font-size: 20px;
+    font-size: 18px;
     width: 100%;
 }
+
+#save-draft {
+    float: left;
+    margin-right: 10px;
+}
+
+    #save-draft input,
+    #save-publish input {
+        font-size: 13px;
+    }
 
 
 /* Pages */

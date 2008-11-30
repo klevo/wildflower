@@ -7,50 +7,24 @@
         $form->input('title', array(
             'between' => '<br />',
             'tabindex' => '1',
+            'label' => __('Post Title', true),
             'div' => array('class' => 'input title-input'))),
         $form->input('content', array(
             'type' => 'textarea',
             'tabindex' => '2',
             'class' => 'tinymce',
             'rows' => '25',
-            'label' => 'Content',
+            'label' => __('Content', true),
             'between' => '<br />',
             'div' => array('class' => 'input editor'))),
         '<div>',
         $form->hidden('id'),
         '</div>',
-        $form->submit('Save as Draft'),
-        $form->submit('Publish'),
+        $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
+        $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
         $form->end();
     ?>
-
-    <div id="advanced-options">
-    <?php
-        echo 
-        $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPost::getStatusOptions())),
-        $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
-        $form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
-        $form->input('created', array('between' => '<br />'));
-    ?>
-
-        <!-- <p><?php echo $html->link('Delete this post', 
-                    array('action' => 'delete', $this->data['WildPost']['id']), 
-                    array('tabindex' => '7', 'class' => 'delete-one', 'rel' => 'post')); ?></p>  -->
-    </div>
-
-    <div id="sidebar-editor">
-        <?php
-            echo $form->input('sidebar_content', array(
-                'type' => 'textarea',
-                'class' => 'fck',
-                'div' => array('class' => 'input editor')));
-        ?>
-    </div>
-
-    <?php echo $this->element('admin_revision_list') ?>
-    
 </div>
-
 
 <ul id="sidebar">
     <li>
