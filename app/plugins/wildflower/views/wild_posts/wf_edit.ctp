@@ -6,7 +6,12 @@
         $cancelLink = "<div class=\"cancel-edit\"> or $cancelLink</div>";
         
         echo 
-        $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
+        $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
+    ?>
+    
+    <div id="title-content">
+    <?php
+        echo
         $form->input('title', array(
             'between' => '<br />',
             'tabindex' => '1',
@@ -27,8 +32,10 @@
         $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
         $cancelLink;
     ?>
+    </div>
     
     <div id="post-categories">
+        <h2>Post under following categories</h2>
         <ul>
         <?php foreach ($categories as $id => $label): ?>
             <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
@@ -46,8 +53,8 @@
 <ul id="sidebar">
     <li>
         <ul class="sidebar-menu">
-            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current')); ?></li>
-            <li><?php echo $html->link('Categories', '#Categories'); ?></li>
+            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
+            <li><?php echo $html->link('Categories', '#Categories', array('rel' => 'post-categories')); ?></li>
         </ul>
     </li>
     <li>
