@@ -22,7 +22,7 @@ class WildPostsController extends WildflowerAppController {
      * Create an empty post and redirect to it's edit screen
      */
     function wf_create() {
-        $uuid = sha1(String::uuid());
+        $uuid = sha1(String::uuid()); // @TODO check if unique
         $this->data = array($this->modelClass => array(
             'draft' => 1,
             'uuid' => $uuid,
