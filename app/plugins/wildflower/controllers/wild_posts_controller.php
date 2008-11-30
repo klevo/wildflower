@@ -102,10 +102,6 @@ class WildPostsController extends WildflowerAppController {
             }
         }
         
-        // Fill revisions browser
-        $revisions = $this->WildPost->getRevisions($id);
-        $this->set(compact('revisions'));
-        
         // If viewing a revision, merge with revision content
         if ($revisionNumber) {
             $this->data = $this->WildPost->getRevision($id, $revisionNumber);
@@ -122,7 +118,10 @@ class WildPostsController extends WildflowerAppController {
         $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
         $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
         
-        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories'));
+        // Revisions
+        $revisions = $this->WildPost->getRevisions($id);
+        
+        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories', 'revisions'));
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     

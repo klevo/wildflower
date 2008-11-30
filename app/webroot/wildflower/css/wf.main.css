@@ -393,7 +393,8 @@ h2 {
         background-color: transparent;
     }
     
-#post-categories {
+#post-categories,
+#post-revisions {
     display: none;
 }
 

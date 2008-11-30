@@ -40,6 +40,36 @@
         <?php endforeach; ?>
         </ul>
     </div>    
+    
+    <div id="post-revisions">
+        <h2 class="section">Older versions of this post</h2>
+        <?php 
+            if (!empty($revisions)) {
+                echo 
+                '<ul id="revisions" class="list revision-list">';
+
+                $first = '<span class="current-revision">&mdash;current version</span>';
+                foreach ($revisions as $version) {
+                    $attr = '';
+                    if (ListHelper::isOdd()) {
+                        $attr = ' class="odd"';
+                    }
+                    echo 
+                    "<li$attr>",
+                    '<div class="list-item">',
+                    $html->link("Revision {$version['WildRevision']['revision_number']}",
+                        array('action' => 'wf_edit', $version['WildRevision']['node_id'], $first ? null : $version['WildRevision']['revision_number']), null, null, false),
+                    "<small>$first, saved {$time->niceShort($version['WildRevision']['created'])} by {$version['WildUser']['name']}</small>",
+                    '</div>',
+                    '</li>';
+                    $first = '';
+                }
+                echo '</ul>';
+            } else {
+                echo "<p id=\"revisions\">No revisions yet.</p>";
+            }
+        ?>        
+    </div>
         
     <?php
         $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
@@ -58,6 +88,7 @@
         <ul class="sidebar-menu">
             <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
             <li><?php echo $html->link('Categories', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>
     <li>
