@@ -3,7 +3,7 @@
         $session->flash();
         
         $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
-        $cancelLink = "<span class=\"cancel-edit\"> or $cancelLink</span>";
+        $cancelLink = "<div class=\"cancel-edit\"> or $cancelLink</div>";
         
         echo 
         $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
@@ -25,9 +25,22 @@
         '</div>',
         $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
         $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
-        $cancelLink,
-        $form->end();
+        $cancelLink;
     ?>
+    
+    <div id="post-categories">
+        <ul>
+        <?php foreach ($categories as $id => $label): ?>
+            <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
+            <li>
+                <input id="WildCategoryWildCategory<?php echo $id ?>" type="checkbox" value="<?php echo $id ?>" name="data[WildCategory][WildCategory][]"<?php echo $checked ?> />
+                <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?></label>
+            </li>
+        <?php endforeach; ?>
+        <ul>
+    </div>    
+        
+    <?php $form->end(); ?>
 </div>
 
 <ul id="sidebar">

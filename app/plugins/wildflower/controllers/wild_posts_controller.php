@@ -113,17 +113,11 @@ class WildPostsController extends WildflowerAppController {
         $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
         $isRevision = !is_null($revisionNumber);
         
-        // Checkboxes for categories 
-        // @TODO data logic to model
-        // $selectedCategories = $this->data['WildCategory'];
-        // if (!empty($selectedCategories)) {
-        //     $selectedCategories = array_combine(
-        //         Set::extract($selectedCategories, '{n}.id'),
-        //         Set::extract($selectedCategories, '{n}.title'));
-        // }
+        // Categories
         $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
+        $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
         
-        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories'));
+        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories'));
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
