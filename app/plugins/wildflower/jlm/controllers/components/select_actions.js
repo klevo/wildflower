@@ -17,6 +17,9 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index', fun
              selectActionsEl.slideUp(100);
          }
          
+         // Add selected class
+         $(this).parents('li').toggleClass('selected');
+         
          return true;
      }
 

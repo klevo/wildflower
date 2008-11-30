@@ -251,6 +251,10 @@ h2 {
         background-color: transparent;
     }
     
+.selected {
+    background-color: #fffde0;
+}    
+    
         
 /* List of posts */
 
