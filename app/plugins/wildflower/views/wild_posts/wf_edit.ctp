@@ -37,10 +37,10 @@
                 <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?></label>
             </li>
         <?php endforeach; ?>
-        <ul>
+        </ul>
     </div>    
         
-    <?php $form->end(); ?>
+    <?php echo $form->end(); ?>
 </div>
 
 <ul id="sidebar">
