@@ -42,6 +42,55 @@ $.jlm.addComponent('tinyMce', {
 	
 	insertImage: function(editor) {
 	    // Append img browser
+	    var browserEl = $($.jlm.element('image_browser'));
+	    $('.title-input:first').after(browserEl);
+	    
+	    // Load images
+	    
+	    // @TODO: I want to do something like this:
+	    // $.jlm.url({ plugin: 'wildflower', controller: 'wild_assets', action: 'wf_insert_image' });
+	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_image';
+	    
+	    $.get(url, function(imagesHtml) {
+            browserEl.prepend(imagesHtml);
+		});
+	    
+	    // Bind insert button
+		$('button', browserEl).click(function() {
+			var imgName = $('.selected', browserEl).attr('alt');
+			
+			if (typeof(imgName) == 'undefined') {
+			    return false;
+			}
+			
+            // Original size (scaled)
+            var width, height;
+            if (isNaN(width = $('#ImageResizeX', t.dialogEl).val())) {
+                width = 0;
+            }
+            if (isNaN(height = $('#ImageResizeY', t.dialogEl).val())) {
+                height = 0;
+            }
+            var imgUrl = 'img/thumb/' + imgName + '/' + width + '/' + height;
+			
+			// Thumbnail
+            if ($('#ImageSize', t.dialogEl).val() == 'thumbnail') {
+             imgUrl = 'img/thumb/' + imgName + '/120/120/1';
+            }
+			
+			// Image HTML
+			var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
+			
+			editor.execCommand('mceInsertContent', 0, imgHtml);
+			
+			return false;
+		});
+		
+		// Bind close
+        // $('#close-dialog', t.dialogEl).click(function() {
+        //  t.dialogEl.remove();
+        //  return false;
+        // });
 	    
 	    return false;
 	    

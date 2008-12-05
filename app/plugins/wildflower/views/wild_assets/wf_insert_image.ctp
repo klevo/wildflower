@@ -8,6 +8,6 @@
                 title="Click to select this image" 
                 src="<?php echo $html->url(WildAsset::getThumbUrl($image['WildAsset']['name'])); ?>">
         </li>
-    <?php endfor; ?>
+    <?php endforeach; ?>
     </ul>
 <?php endif; ?>
