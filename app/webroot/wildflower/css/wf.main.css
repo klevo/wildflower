@@ -472,3 +472,7 @@ h2 {
     #image-browser button {
         margin-top: 10px;
     }
+    
+    #image-browser .selected {
+        outline: 4px solid red;
+    }

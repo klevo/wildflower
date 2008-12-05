@@ -72,6 +72,12 @@ $.jlm.addComponent('tinyMce', {
 	        var imagesHtmlEl = $(imagesHtml).hide();
             browserEl.prepend(imagesHtml);
             imagesHtmlEl.fadeIn('normal');
+            
+            // Bind selecting
+            $('#image-browser ul img').click(function() {
+                $(this).toggleClass('selected');
+                $('#image-browser .selected').not(this).removeClass('selected');
+            });
 		});
 	    
 	    // Bind insert button
@@ -110,18 +116,8 @@ $.jlm.addComponent('tinyMce', {
             browserEl.slideUp(200);
             return false;
         });
-        
-        $.jlm.components.tinyMce.bindImageSelecting();
 	    
 	    return false;
-	},
-	
-	bindImageSelecting: function() {
-		// Bind selecting
-        $('#image-browser ul img').click(function() {
-            $(this).toggleClass('selected');
-            $('#image-browser .selected').not(this).removeClass('selected');
-        });
 	},
 	
 	bindPaginator: function() {
