@@ -110,20 +110,18 @@ $.jlm.addComponent('tinyMce', {
             browserEl.slideUp(200);
             return false;
         });
+        
+        $.jlm.components.tinyMce.bindImageSelecting();
 	    
 	    return false;
 	},
 	
 	bindImageSelecting: function() {
-		var t = this;
 		// Bind selecting
-        $('#image-browser img').click(function() {
+        $('#image-browser ul img').click(function() {
             $(this).toggleClass('selected');
-            $('.selected', t.dialogEl).not(this).removeClass('selected');
+            $('#image-browser .selected').not(this).removeClass('selected');
         });
-		
-		// Image browser size
-		$('#image-browser').width((t.limit / 2) * 128);
 	},
 	
 	bindPaginator: function() {
