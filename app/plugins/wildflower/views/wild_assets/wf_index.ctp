@@ -25,7 +25,7 @@
         <li id="file-<?php echo $file['WildAsset']['id']; ?>">
             <h3><?php echo !empty($file['WildAsset']['title']) ? hsc($file['WildAsset']['title']) : hsc($file['WildAsset']['name']); ?></h3>
             <a href="<?php echo $html->url(array('action' => 'wf_edit', $file['WildAsset']['id'])); ?>">
-    	        <img src="<?php echo "{$this->base}/img/thumb/{$file['WildAsset']['name']}/120/120/1"; ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" /></a>
+    	        <img src="<?php echo $html->url(WildAsset::getThumbUrl($file['WildAsset']['name'])); ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" /></a>
         </li>
              
     <?php } ?>

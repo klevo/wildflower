@@ -1,14 +1,13 @@
-<div id="image-browser">
-<?php foreach ($images as $image) { ?>
-    <div class="browser-image">
-        <img alt="<?php echo $image['WildAsset']['name'] ?>" 
-            title="Select this image" 
-            src="<?php echo $html->url('/img/thumb/' . $image['WildAsset']['name'] . '/120/120/1') ?>">
-    </div>
-<?php } ?>
-    <span class="cleaner"></span>
-    
-    <?php $this->element('wf_pagination') ?>
-    
-</div>
-
+<?php if (empty($images)): ?>
+    <p>No files uploaded yet.</p>
+<?php else: ?>
+    <ul>
+    <?php foreach ($images as $image): ?>
+        <li>
+            <img alt="<?php echo !empty($image['WildAsset']['title']) ? hsc($image['WildAsset']['title']) : hsc($image['WildAsset']['name']); ?>" 
+                title="Click to select this image" 
+                src="<?php echo $html->url(WildAsset::getThumbUrl($image['WildAsset']['name'])); ?>">
+        </li>
+    <?php endfor; ?>
+    </ul>
+<?php endif; ?>

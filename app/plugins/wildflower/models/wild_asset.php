@@ -51,6 +51,10 @@ class WildAsset extends WildflowerAppModel {
         return true;
 	}
 	
+	static function getThumbUrl($name, $size = 120) {
+	    return "/img/thumb/$name/$size/$size/1";
+	}
+	
     /**
      * Delete one or more files
      *

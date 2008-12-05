@@ -41,6 +41,13 @@ $.jlm.addComponent('tinyMce', {
 	},
 	
 	insertImage: function(editor) {
+	    // Append img browser
+	    
+	    return false;
+	    
+	    
+	    // Old stuff
+	    
 		var t = this;
 		
 		// Append dialog
