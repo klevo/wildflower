@@ -388,7 +388,9 @@ h2 {
 }
     
     .cancel-edit a,
-    .cancel-edit a:hover {
+    .cancel-edit a:hover,
+    a.cancel,
+    a.cancel:hover {
         color: #d80019;
         background-color: transparent;
     }
@@ -448,3 +450,25 @@ h2 {
             margin: 16px 0 0 10px;
             font-size: 13px;
         }
+        
+        
+/* Image browser (image insert) */
+
+#image-browser {
+    height: 300px;
+}
+
+    #image-browser ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    #image-browser li {
+        float: left;
+        margin: 0 10px 10px 0;
+    }
+    
+    #image-browser button {
+        margin-top: 10px;
+    }
