@@ -155,9 +155,9 @@ jQuery.jlm = {
         });
     },
     
-    execute: function(controller, action) {
+    execute: function(controller, action, args) {
         jQuery.each(this.controllers[controller][action], function() {
-            this();
+            this.apply(this, [args]);
         });
     },
     
