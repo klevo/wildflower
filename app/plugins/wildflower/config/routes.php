@@ -83,7 +83,7 @@ class WildflowerRootPagesCache {
     }
     
     static function update() {
-        return Router::requestAction('/wildflower/wild_pages/update_root_cache', array('return' => 1));
+        return Router::requestAction(array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'update_root_cache'), array('return' => 1));
     }
     
     static function write($rootPages = array()) {
