@@ -432,3 +432,19 @@ h2 {
     .pages-list li {
         position: relative;
     }
+    
+
+/* Assets */
+
+    #file-upload .file {
+        float: left;
+    }
+    
+    #file-upload p {
+        clear: both;
+    }
+    
+        #file-upload .submit input {
+            margin: 16px 0 0 10px;
+            font-size: 13px;
+        }
