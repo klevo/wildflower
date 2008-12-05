@@ -68,6 +68,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `categories_posts` WRITE;
 /*!40000 ALTER TABLE `categories_posts` DISABLE KEYS */;
+INSERT INTO `categories_posts` VALUES (2,1),(4,1);
 /*!40000 ALTER TABLE `categories_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +201,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `slug` (`slug`),
   FULLTEXT KEY `content` (`content`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -209,6 +210,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (1,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8','The first post','<p>Ola ola.</p>',1,NULL,NULL,'2008-12-05 18:48:15','2008-12-05 18:48:38',0,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8'),(2,'58a268f56e1206c7ac7841958aab194d9a65230d','Git is COOL','<p>wildflower.categories: OK<br />wildflower.categories_posts: Table is already up to date<br />wildflower.comments: OK<br />wildflower.messages: Table is already up to date<br />wildflower.pages: OK<br />wildflower.posts: Table is already up to date<br />wildflower.revisions: Table is already up to date<br />wildflower.schema_info: OK<br />wildflower.settings: OK<br />wildflower.sitemaps: Table is already up to date<br />wildflower.tags: Table is already up to date<br />wildflower.tags_uploads: Table is already up to date<br />wildflower.uploads: OK<br />wildflower.users: OK</p>\r\n<p><img src=\"/wildflower/img/thumb/company-image.jpg/0/0\" alt=\"company-image.jpg\" /></p>',1,NULL,NULL,'2008-12-05 18:49:10','2008-12-05 19:55:31',0,'58a268f56e1206c7ac7841958aab194d9a65230d');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +231,7 @@ CREATE TABLE `revisions` (
   `created` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `type` (`type`,`node_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -238,6 +240,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `revisions` WRITE;
 /*!40000 ALTER TABLE `revisions` DISABLE KEYS */;
+INSERT INTO `revisions` VALUES (1,'wildpost',1,'{\"WildPost\":[]}',1,1,'2008-12-05 18:48:16'),(2,'wildpost',1,'{\"WildPost\":{\"title\":\"The first post\",\"content\":\"<p>Ola ola.<\\/p>\"}}',2,1,'2008-12-05 18:48:38'),(3,'wildpost',2,'{\"WildPost\":[]}',1,1,'2008-12-05 18:49:10'),(4,'wildpost',2,'{\"WildPost\":{\"title\":\"Git is COOL\",\"content\":\"<p>wildflower.categories: OK<br \\/>wildflower.categories_posts: Table is already up to date<br \\/>wildflower.comments: OK<br \\/>wildflower.messages: Table is already up to date<br \\/>wildflower.pages: OK<br \\/>wildflower.posts: Table is already up to date<br \\/>wildflower.revisions: Table is already up to date<br \\/>wildflower.schema_info: OK<br \\/>wildflower.settings: OK<br \\/>wildflower.sitemaps: Table is already up to date<br \\/>wildflower.tags: Table is already up to date<br \\/>wildflower.tags_uploads: Table is already up to date<br \\/>wildflower.uploads: OK<br \\/>wildflower.users: OK<\\/p>\"}}',2,1,'2008-12-05 18:49:23'),(5,'wildpost',2,'{\"WildPost\":{\"title\":\"Git is COOL\",\"content\":\"<p>wildflower.categories: OK<br \\/>wildflower.categories_posts: Table is already up to date<br \\/>wildflower.comments: OK<br \\/>wildflower.messages: Table is already up to date<br \\/>wildflower.pages: OK<br \\/>wildflower.posts: Table is already up to date<br \\/>wildflower.revisions: Table is already up to date<br \\/>wildflower.schema_info: OK<br \\/>wildflower.settings: OK<br \\/>wildflower.sitemaps: Table is already up to date<br \\/>wildflower.tags: Table is already up to date<br \\/>wildflower.tags_uploads: Table is already up to date<br \\/>wildflower.uploads: OK<br \\/>wildflower.users: OK<\\/p>\\r\\n<p>&nbsp;<\\/p>\"}}',3,1,'2008-12-05 19:53:26'),(6,'wildpost',2,'{\"WildPost\":{\"title\":\"Git is COOL\",\"content\":\"<p>wildflower.categories: OK<br \\/>wildflower.categories_posts: Table is already up to date<br \\/>wildflower.comments: OK<br \\/>wildflower.messages: Table is already up to date<br \\/>wildflower.pages: OK<br \\/>wildflower.posts: Table is already up to date<br \\/>wildflower.revisions: Table is already up to date<br \\/>wildflower.schema_info: OK<br \\/>wildflower.settings: OK<br \\/>wildflower.sitemaps: Table is already up to date<br \\/>wildflower.tags: Table is already up to date<br \\/>wildflower.tags_uploads: Table is already up to date<br \\/>wildflower.uploads: OK<br \\/>wildflower.users: OK<\\/p>\\r\\n<p><img src=\\\"\\/wildflower\\/img\\/thumb\\/company-image.jpg\\/0\\/0\\\" alt=\\\"company-image.jpg\\\" \\/><\\/p>\"}}',4,1,'2008-12-05 19:55:31');
 /*!40000 ALTER TABLE `revisions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-12-05 17:27:50
+-- Dump completed on 2008-12-05 18:56:11

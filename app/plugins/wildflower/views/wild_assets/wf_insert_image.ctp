@@ -4,7 +4,7 @@
     <ul>
     <?php foreach ($images as $image): ?>
         <li>
-            <img alt="<?php echo !empty($image['WildAsset']['title']) ? hsc($image['WildAsset']['title']) : hsc($image['WildAsset']['name']); ?>" 
+            <img alt="<?php echo $image['WildAsset']['name']; // ALT attr is used by the image insert ?>" 
                 title="Click to select this image" 
                 src="<?php echo $html->url(WildAsset::getThumbUrl($image['WildAsset']['name'])); ?>">
         </li>

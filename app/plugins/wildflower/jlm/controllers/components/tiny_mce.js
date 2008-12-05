@@ -90,16 +90,16 @@ $.jlm.addComponent('tinyMce', {
 			
             // Original size (scaled)
             var width, height;
-            if (isNaN(width = $('#ImageResizeX', t.dialogEl).val())) {
+            if (isNaN(width = $('#ImageResizeX', browserEl).val())) {
                 width = 0;
             }
-            if (isNaN(height = $('#ImageResizeY', t.dialogEl).val())) {
+            if (isNaN(height = $('#ImageResizeY', browserEl).val())) {
                 height = 0;
             }
             var imgUrl = 'img/thumb/' + imgName + '/' + width + '/' + height;
 			
 			// Thumbnail
-            if ($('#ImageSize', t.dialogEl).val() == 'thumbnail') {
+            if ($('#ImageSize', browserEl).val() == 'thumbnail') {
              imgUrl = 'img/thumb/' + imgName + '/120/120/1';
             }
 			
