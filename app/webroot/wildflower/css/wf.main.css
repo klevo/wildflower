@@ -61,12 +61,14 @@ body {
     margin-top: 10px;
 }
 
+    #header a,
     #footer a {
         color: #ddd;
     }
 
-    #header a {
-        color: #e0e0e0;
+    #header a:hover,
+    #footer a:hover {
+        background-color: #072a30;
     }
     
 #nav {
@@ -103,6 +105,10 @@ body {
             background-color: #fff;
             font-weight: bold;
         }
+        
+    #nav a:hover {
+        background-color: #fff;
+    }
     
 #header {
     position: relative;
