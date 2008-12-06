@@ -12,7 +12,7 @@ body {
 /* Layout */
 
 html {
-	font: 12px/16px "Lucida Grande", Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font: 12px/16px "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif; /* Lucida Grande works best on OS X, Tahoma is very similar and a system font on Windows */
 	background: #003842;
 	color: #fff;
 }
@@ -41,7 +41,6 @@ body {
 
 #whiteness {
     background: #fff;
-    padding: 0 10px;
 }
 
 #wrap,
@@ -55,7 +54,7 @@ body {
 #wrap {
     background: #fff;
     color: #2f2f2f;
-    padding: 1px 0 0 0;
+    padding: 1px 10px 0;
 }
 
 #footer {
@@ -209,7 +208,8 @@ h2 {
     padding: 6px 0 0;
     list-style: none;
     background: #eee;
-    margin-left: 70%;
+    float: right;
+    width: 28%;
     border: 1px solid #dbdfe1;
 }
 
