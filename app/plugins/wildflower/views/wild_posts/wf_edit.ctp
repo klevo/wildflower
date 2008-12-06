@@ -86,16 +86,16 @@
         <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
     </div>
         
-    <?php
-        $cancelLink = $html->link(__('Cancel', true), array('action' => 'wf_index'));
-        $cancelLink = "<div class=\"cancel-edit\"> or $cancelLink</div>";
-
-        echo
-        $form->submit(__('Save, but don\'t publish', true), array('div' => array('id' => 'save-draft'))),
-        $form->submit(__('Publish', true), array('div' => array('id' => 'save-publish'))), 
-        $cancelLink,
-        $form->end();
-    ?>
+    <div class="submit" id="save-draft">
+        <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
+    </div>
+    <div class="submit" id="save-publish">
+        <input type="submit" value="<?php __('Publish'); ?>" name="data[__save][publish]" />
+    </div>
+    <div class="cancel-edit"> or <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
+    
+    <?php echo $form->end(); ?>
+    
 </div>
 
 <ul id="sidebar">
