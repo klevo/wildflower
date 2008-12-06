@@ -6,11 +6,15 @@ $.jlm.bind('wild_posts.wf_edit', function() {
     
     // Section switching
     $('.sidebar-menu a').click(function() {
-        $('.sidebar-menu .current').removeClass('current');
-        
         var linkEl = $(this);
         var linkElRel = linkEl.attr('rel')
         linkEl.addClass('current');
+        
+        if (!linkElRel) {
+            return true;
+        }
+        
+        $('.sidebar-menu .current').not(linkEl).removeClass('current');
         
         if (linkElRel == 'post-preview') {
             loadPreview();
@@ -30,7 +34,6 @@ $.jlm.bind('wild_posts.wf_edit', function() {
     });
     
     function loadPreview() {
-        console.log('zzz');
         // Save content back to textareas
         tinyMCE.triggerSave();
 

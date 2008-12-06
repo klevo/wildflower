@@ -91,10 +91,12 @@
 <ul id="sidebar">
     <li>
         <ul class="sidebar-menu">
+            <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
             <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
             <li><?php echo $html->link('Categories', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
             <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
+            <li><?php echo $html->link('View', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
         </ul>
     </li>
     <li>

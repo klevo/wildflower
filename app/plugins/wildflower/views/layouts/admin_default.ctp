@@ -7,7 +7,6 @@
 	
 	<meta name="description" content="" />
 	
-    <link rel="icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
 	
 	<?php 

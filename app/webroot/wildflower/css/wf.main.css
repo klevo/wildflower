@@ -232,7 +232,7 @@ h2 {
     #sidebar .sidebar-menu a.current {
         color: #fff;
         text-decoration: none;
-        background-color: #0000ff;
+        background-color: #6f6f6f;
     }
     
     
@@ -336,6 +336,11 @@ h2 {
     padding-left: 18px;
 } 
 
+    .sidebar-menu .permalink {
+        padding-left: 31px;
+        background-position: 12px 5px;
+    }
+
 .paginator {
     margin: 2em 0 1em;
 }
@@ -413,6 +418,10 @@ h2 {
         margin: 0 0 14px 0;
         border: 6px solid #fffde0;
     }
+    
+.back-to-all {
+    font-weight: bold;
+}
 
 
 /* Pages */

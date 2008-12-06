@@ -7,9 +7,8 @@
     
     <meta name="description" content="<?php echo isset($descriptionMetaTag) ? $descriptionMetaTag : '' ?>" />
     
-    <link rel="icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> Feed" href="<?php echo $html->url('/posts/feed'); ?>" />
+    <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/posts/feed'); ?>" />
     
     <?php 
 	    echo $html->css(array(
