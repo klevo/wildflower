@@ -52,7 +52,14 @@
     <li><?php echo $html->link(
         '<span>' . __('Write a new post', true) . '</span>',
         array('action' => 'wf_create'),
-        array('class' => 'add', 'escape' => false)) ?></li>
+        array('class' => 'add', 'escape' => false)) ?>
+    </li>
+    <li>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
+            <li><?php echo $html->link('Categories', array('action' => 'wf_categories')); ?></li>
+        </ul>
+    </li>
     <li>
     <?php
         echo

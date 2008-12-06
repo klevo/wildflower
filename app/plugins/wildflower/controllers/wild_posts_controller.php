@@ -139,16 +139,15 @@ class WildPostsController extends WildflowerAppController {
     }
     
     function wf_update() {
-        var_dump($this->data);
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
+        
+        // Publish?
+        if (isset($this->data['__save']['publish'])) {
+            $this->data[$this->modelClass]['draft'] = 0;
+        }
         
         $this->WildPost->create($this->data);
         if (!$this->WildPost->exists()) return $this->cakeError('object_not_found');
-        
-        // Publish?
-        if (isset($this->data[$this->modelClass]['publish'])) {
-            $this->data[$this->modelClass]['draft'] = 0;
-        }
 
         if (!$this->WildPost->save()) return $this->cakeError('save_error');
 

@@ -100,6 +100,12 @@
 
 <ul id="sidebar">
     <li>
+        <?php echo $html->link(
+            '<span>Write a new post</span>', 
+            array('action' => 'wf_create'),
+            array('class' => 'add', 'escape' => false)); ?>
+    </li>
+    <li>
         <ul class="sidebar-menu">
             <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
             <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
@@ -108,12 +114,6 @@
             <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
             <li><?php echo $html->link('View', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
         </ul>
-    </li>
-    <li>
-        <?php echo $html->link(
-            '<span>Write a new post</span>', 
-            array('action' => 'wf_create'),
-            array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li>
         <?php
