@@ -28,7 +28,7 @@ $.jlm.addComponent('tinyMce', {
             theme_advanced_resizing: true,
             theme_advanced_resize_horizontal: false,
     		theme_advanced_path: false,
-            width: '100%',
+            width: '101%',
 
             // URLs
             relative_urls: false,

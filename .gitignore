@@ -4,3 +4,4 @@ app/tmp/cache/cake_*
 app/tmp/thumbnails/*
 app/tmp/cache/wf_previews/*.json
 app/tmp/cache/wf_root_pages
+app/tmp/logs/*.log

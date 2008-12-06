@@ -41,6 +41,7 @@ body {
 
 #whiteness {
     background: #fff;
+    padding: 0 10px;
 }
 
 #wrap,
@@ -131,10 +132,14 @@ body {
 }
 
 #content {
-    padding: 20px 10px;
     float: left;
     width: 65%;
     position: relative;
+    padding: 15px 0;
+}
+
+#content-pad {
+    padding: 20px 10px;
 }
 
 .cleaner {
@@ -203,24 +208,18 @@ h2 {
     margin: 10px 0;
     padding: 6px 0 0;
     list-style: none;
-    background: url(img/sidebar.gif) 0 0 no-repeat;
-    width: 253px;
-    float: right;
+    background: #eee;
+    margin-left: 70%;
+    border: 1px solid #dbdfe1;
 }
 
     #sidebar li {
         margin: 0;
         padding: 7px 14px;
     }
-    
-    #sidebar > li:last-child {
-        min-height: 5px;
-        background: url(img/sidebar.gif) left bottom no-repeat;
-        padding-bottom: 14px;
-    }
 
 .sidebar-menu {
-    margin: 0 0 0 -13px;
+    margin: 0 -14px 0 -14px;
     padding: 0;
     list-style: none;
 }        
