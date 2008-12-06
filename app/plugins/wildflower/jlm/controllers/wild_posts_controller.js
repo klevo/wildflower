@@ -44,6 +44,7 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             var contentHeight = 500; //$('.editor').height();
 
             var previewFileName = json.previewFileName;
+            console.log(json);
             var iframeSrc = $.jlm.base + '/' + $.jlm.params.prefix + '/' + $.jlm.params.controller.replace('wild_', '') + '/preview/' + previewFileName;
         
             $('#post-preview object').attr('data', iframeSrc);

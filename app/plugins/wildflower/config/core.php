@@ -19,6 +19,7 @@ Configure::write(array('Wildflower' => array(
     'uploadDirectory' => APP . WEBROOT_DIR .  DS . 'uploads',
     'prefix' => 'wf',
     'rootPageCache' => CACHE . 'wf_root_pages',
+    'previewCache' => CACHE . 'wf_previews' . DS,
     'postsParent' => 'p',
     'blogIndex' => 'blog',
 )));

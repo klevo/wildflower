@@ -64,7 +64,7 @@ class WildPostsController extends WildflowerAppController {
     }
 
     function wf_create_preview() {
-        $cacheDir = TMP . 'preview' . DS;
+        $cacheDir = Configure::read('Wildflower.previewCache');
         
         // Create a unique file name
         $fileName = time();
@@ -83,6 +83,7 @@ class WildPostsController extends WildflowerAppController {
         
         $responce = array('previewFileName' => $fileName);
         $this->set('data', $responce);
+        //$this->autoLayout = false;
         $this->render('/elements/json');
     }
     
@@ -246,14 +247,14 @@ class WildPostsController extends WildflowerAppController {
     /**
      * Preview a post
      *
-     * @param int $id
+     * @param string $fileName Cached post content file name
      */
     function wf_preview($fileName = null) {
-        if (is_null($fileName)) return;
+        if (is_null($fileName)) return $this->cakeError('object_not_found');
         
     	$this->layout = 'default';
     	
-        $previewPostData = $this->readPreviewCache($fileName);
+        $previewPostData = $this->_readPreviewCache($fileName);
         $id = intval($previewPostData[$this->modelClass]['id']);
         $post = $this->WildPost->findById($id);
         if (empty($post)) $this->cakeError('object_not_found');
@@ -339,8 +340,8 @@ class WildPostsController extends WildflowerAppController {
      * @param string $fileName
      * @return array
      */
-    private function readPreviewCache($fileName) {
-        $previewCachePath = TMP . 'preview' . DS . $fileName . '.json';
+    private function _readPreviewCache($fileName) {
+        $previewCachePath = Configure::read('Wildflower.previewCache') . $fileName . '.json';
         if (!file_exists($previewCachePath)) {
             trigger_error("Cache file $previewCachePath does not exist!");
         }
