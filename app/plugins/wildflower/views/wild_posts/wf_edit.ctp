@@ -39,6 +39,16 @@
             </li>
         <?php endforeach; ?>
         </ul>
+        
+        <h2>Options</h2>
+        <?php
+            echo 
+            $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPost::getStatusOptions())),
+            $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
+            //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
+            $form->input('created', array('between' => '<br />'));
+        ?>
+
     </div>    
     
     <div id="post-revisions">
@@ -93,7 +103,7 @@
         <ul class="sidebar-menu">
             <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
             <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
-            <li><?php echo $html->link('Categories', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Categories & Options', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
             <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
             <li><?php echo $html->link('View', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
