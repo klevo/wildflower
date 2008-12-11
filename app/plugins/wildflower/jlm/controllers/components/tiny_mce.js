@@ -28,14 +28,13 @@ $.jlm.addComponent('tinyMce', {
             theme_advanced_resizing: true,
             theme_advanced_resize_horizontal: false,
     		theme_advanced_path: false,
-            width: '101%',
+            width: '100%',
 
             // URLs
             relative_urls: false,
             remove_script_host: true,
-            document_base_url: $.jlm.base, // @TODO investage if this works as intended
+            document_base_url: $.jlm.base,
             
-            //
             content_css: stylesheetUrl
         };
 	},
