@@ -60,11 +60,11 @@
 
 <div id="header">
     <h1 id="site-title">
-        <?php echo $html->link($siteName, '/', array('title' => 'View site home page')) ?>
+        <?php echo $html->link($siteName, '/', array('title' => __('View site home page', true))) ?>
     </h1>
     
     <div id="login-info">
-        <?php echo $html->link('Log out', array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+        <?php echo $html->link(__('Log out'), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
     </div>
     
     <?php 
@@ -87,8 +87,8 @@
 </div>
 
 <p id="footer">
-    <?php echo $html->link('Powered by Wildflower', array('controller' => 'wild_pages', 'action' => 'wf_about')) ?> &bull; 
-    <?php echo $html->link('Icons by DryIcons', 'http://dryicons.com') ?>
+    <?php echo $html->link(__('Powered by Wildflower', true), array('controller' => 'wild_pages', 'action' => 'wf_about')) ?> &bull; 
+    <?php echo $html->link(__('Icons by DryIcons', true), 'http://dryicons.com') ?>
 </p>
 
 </body>
