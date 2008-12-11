@@ -69,12 +69,12 @@
     
     <?php 
         echo $navigation->create(array(
-            'Dashboard' => '/' . Configure::read('Wildflower.prefix'),
-            'Blog' => array('controller' => 'wild_posts'),
-            'Pages' => array('controller' => 'wild_pages'),
-            'Files' => array('controller' => 'wild_assets'),
-            'Accounts' => array('controller' => 'wild_users'),
-            'Settings' => array('controller' => 'wild_settings')
+            __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
+            __('Blog', true) => array('controller' => 'wild_posts'),
+            __('Pages', true) => array('controller' => 'wild_pages'),
+            __('Files', true) => array('controller' => 'wild_assets'),
+            __('Accounts', true) => array('controller' => 'wild_users'),
+            __('Settings', true) => array('controller' => 'wild_settings')
         ), array('id' => 'nav'));
     ?>
 </div>
