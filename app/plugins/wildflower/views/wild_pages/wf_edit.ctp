@@ -1,83 +1,116 @@
-<?php 
-echo $navigation->create(array(
-        'Title and content' => array('action' => 'wf_edit', $this->data['WildPage']['id']),
-        'Sidebar' => '#Sidebar',
-        'Options' => '#Options',
-        'Preview' => '#Preview',
-        'Revisions' => '#Revisions',
-		'View' => $this->data['WildPage']['url'],
-        'All pages' => array('action' => 'index'),
-    ), array('id' => 'sub-nav')); 
-    
-echo $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))); 
-?>
-
-<?php
-    if ($isRevision) {
-        echo '<h2 class="top revision-h"><span>Revision #', $revisionId, ', saved ', $time->niceShort($revisionCreated), '</span></h2>';
-    }
-    
-    echo 
-    $form->input('title', array(
-        'between' => '<br />',
-        'tabindex' => '1',
-        'div' => array('class' => 'input title-input'))),
-    $form->input('content', array(
-		'between' => '<br />',
-    	'type' => 'textarea',
-    	'tabindex' => '2',
-    	'class' => 'tinymce',
-    	'rows' => '25',
-        'label' => 'Page content',
-    	'div' => array('class' => 'input editor')));
-?>
-
-<div id="advanced-options">
-<?php
-    echo
-    $this->element('parent_pages_select'),
-    $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPage::getStatusOptions())),
-    $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
-    $form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
-    $form->input('created', array('between' => '<br />'));
-?>
-    
-    <!-- <p><?php echo $html->link('Delete this page', 
-                array('action' => 'delete', $this->data['WildPage']['id']), 
-                array('tabindex' => '7', 'class' => 'delete-one', 'rel' => 'page')); ?></p>  -->
-</div>
-
-<div id="sidebar-editor">
-    <?php
-        echo $form->input('sidebar_content', array(
-            'type' => 'textarea',
-            'class' => 'fck',
-            'label' => 'Sidebar content',
-            'div' => array('class' => 'input editor')));
+<div id="content">
+    <?php 
+        $session->flash();
+        
+        echo 
+        $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
     ?>
+    
+    <div id="title-content">
+    <?php
+        echo
+        $form->input('title', array(
+            'between' => '<br />',
+            'tabindex' => '1',
+            'label' => __('Page Title', true),
+            'div' => array('class' => 'input title-input'))),
+        $form->input('content', array(
+            'type' => 'textarea',
+            'tabindex' => '2',
+            'class' => 'tinymce',
+            'rows' => '25',
+            'label' => __('Content', true),
+            'between' => '<br />',
+            'div' => array('class' => 'input editor'))),
+        '<div>',
+        $form->hidden('id'),
+        '</div>';
+    ?>
+    </div>
+    
+    <div id="post-categories">
+        
+        <h2>Options</h2>
+        <?php
+            echo 
+            $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPage::getStatusOptions())),
+            $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
+            //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
+            $form->input('created', array('between' => '<br />'));
+        ?>
+
+    </div>    
+    
+    <div id="post-revisions">
+        <h2 class="section">Older versions of this page</h2>
+        <?php 
+            if (!empty($revisions)) {
+                echo 
+                '<ul id="revisions" class="list revision-list">';
+
+                $first = '<span class="current-revision">&mdash;current version</span>';
+                foreach ($revisions as $version) {
+                    $attr = '';
+                    if (ListHelper::isOdd()) {
+                        $attr = ' class="odd"';
+                    }
+                    echo 
+                    "<li$attr>",
+                    '<div class="list-item">',
+                    $html->link("Revision {$version['WildRevision']['revision_number']}",
+                        array('action' => 'wf_edit', $version['WildRevision']['node_id'], $first ? null : $version['WildRevision']['revision_number']), null, null, false),
+                    "<small>$first, saved {$time->niceShort($version['WildRevision']['created'])} by {$version['WildUser']['name']}</small>",
+                    '</div>',
+                    '</li>';
+                    $first = '';
+                }
+                echo '</ul>';
+            } else {
+                echo "<p id=\"revisions\">No revisions yet.</p>";
+            }
+        ?>        
+    </div>
+    
+    <div id="post-preview">
+        <h2 class="section">Page Preview</h2>
+        <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
+    </div>
+        
+    <div class="submit" id="save-draft">
+        <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
+    </div>
+    <div class="submit" id="save-publish">
+        <input type="submit" value="<?php __('Publish'); ?>" name="data[__save][publish]" />
+    </div>
+    <div class="cancel-edit"> or <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
+    
+    <?php echo $form->end(); ?>
+    
 </div>
 
-<?php echo $this->element('admin_revision_list') ?>
-
-<div class="big-submit">
-    <?php if ($isDraft) { ?>
-	<button id="publish" type="submit" tabindex="3" name="data[WildPage][publish]"><span class="bl1"><span class="bl2">Publish</span></span></button>
-    <?php } ?>
-    <?php if ($isRevision) { ?>
-	<button type="submit" tabindex="3"><span class="bl1"><span class="bl2">Save as current version</span></span></button>
-    <?php } else { ?>
-	<button id="save" type="submit" tabindex="3"><span class="bl1"><span class="bl2">Save</span></span></button>
-    <?php } ?>
-    <p id="save-info">
-        This page was last saved <abbr id="modified-time" title="<?php echo $time->nice($this->data['WildPage']['updated']) ?>"><?php echo $time->niceShort($this->data['WildPage']['updated']), '</abbr>'; if ($hasUser) { ?> 
-        by <?php echo hsc($this->data['WildUser']['name']); } ?>. 
-    </p>
-</div>
-
-<div>
-<?php
-    echo $form->hidden('id');
-    echo $form->hidden('url');
-?>
-</div>
-<?php echo $form->end(); ?>
+<ul id="sidebar">
+    <li>
+        <?php echo $html->link(
+            '<span>Write a new page</span>', 
+            array('action' => 'wf_create'),
+            array('class' => 'add', 'escape' => false)); ?>
+    </li>
+    <li>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link('All Pages', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
+            <li><?php echo $html->link('Options', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
+            <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
+            <li><?php echo $html->link('View', $this->data['WildPage']['url'], array('class' => 'permalink')); ?></li>
+        </ul>
+    </li>
+    <li>
+        <?php
+            echo
+            $form->create('WildPage'),
+            $form->input('query', array('label' => __('Find a post by typing', true))),
+            $form->end();
+        ?>
+    </li>
+</ul>
