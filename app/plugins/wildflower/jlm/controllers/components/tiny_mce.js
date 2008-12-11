@@ -87,20 +87,22 @@ $.jlm.addComponent('tinyMce', {
 			if (typeof(imgName) == 'undefined') {
 			    return false;
 			}
-			
-            // Original size (scaled)
+            
             var width, height;
-            if (isNaN(width = $('#ImageResizeX', browserEl).val())) {
-                width = 0;
-            }
-            if (isNaN(height = $('#ImageResizeY', browserEl).val())) {
-                height = 0;
-            }
-            var imgUrl = 'img/thumb/' + imgName + '/' + width + '/' + height;
+            // if (isNaN(width = $('#ImageResizeX', browserEl).val())) {
+            //     width = 0;
+            // }
+            // if (isNaN(height = $('#ImageResizeY', browserEl).val())) {
+            //     height = 0;
+            // }
+            
+            // Original size
+            imgNameEscaped = escape(imgName);
+            var imgUrl = 'uploads/' + imgNameEscaped; // @TODO get 'uploads' from config
 			
-			// Thumbnail
+            // Thumbnail
             if ($('#ImageSize', browserEl).val() == 'thumbnail') {
-             imgUrl = 'img/thumb/' + imgName + '/120/120/1';
+                imgUrl = 'img/thumb/' + imgNameEscaped + '/120/120/1';
             }
 			
 			// Image HTML

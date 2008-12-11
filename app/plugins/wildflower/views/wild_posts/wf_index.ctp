@@ -57,7 +57,7 @@
     <li>
         <ul class="sidebar-menu">
             <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
-            <li><?php echo $html->link('Categories', array('action' => 'wf_categories')); ?></li>
+            <!-- <li><?php echo $html->link('Categories', array('action' => 'wf_categories')); ?></li> -->
         </ul>
     </li>
     <li>
