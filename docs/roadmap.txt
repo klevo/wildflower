@@ -9,6 +9,8 @@ Wildflower Roadmap
     - User Accounts
     - Site Settings
     
-2. Post/Page saving and staging: Ability to edit and save the post/page without publishing the new changes. The latest published revision is visible to the public.
+2. Hooks all around the system & plugin architecture for extending Wildflower functionality, without hacking the original files.    
+    
+3. Post/Page saving and staging: Ability to edit and save the post/page without publishing the new changes. The latest published revision is visible to the public.
 
-3. Integrate Cake's AuthComponent to manage user auth.
+4. Integrate Cake's AuthComponent to manage user auth.
