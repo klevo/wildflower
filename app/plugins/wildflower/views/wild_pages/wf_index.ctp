@@ -1,7 +1,7 @@
 <div id="content">
     <?php
     	echo 
-    	$form->create('Page', array('url' => $here));
+    	$form->create('Page', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
     ?>
 
     <h2 class="section">Site Pages</h2>

@@ -1,7 +1,7 @@
 <div id="content">
     <?php
     	echo 
-    	$form->create('Post', array('url' => $here)),
+    	$form->create('Post', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false)))),
     	$form->input('show', array(
     	    'type' => 'select',
     	    'options' => array(

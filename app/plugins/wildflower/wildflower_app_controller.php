@@ -52,30 +52,32 @@ class WildflowerAppController extends AppController {
     }
     
     /**
-     * Update more items at once
+     * Update more records at once
      *
-     * @TODO methods like draftAll(ids) should be created and update should be outside the cycle
+     * @TODO Could be much faster using custom UPDATE or DELETE queries
      */
     function wf_mass_update() {
-        $ids = explode(',', $this->data['Items']);
-        $availActions = array('draft', 'delete', 'publish');
-        $action = low(trim($this->data['Action']));
-        if (!in_array($action, $availActions)) return;
-        
-        $result = array();
-        foreach ($ids as $id) {
-            $id = intval($id);
-            $this->{$this->modelClass}->create();
-            $this->{$this->modelClass}->id = $id;
-            $result[] = "working on $id";
-            if (!$this->{$this->modelClass}->exists(true)) { $result[] = "$id does not exists"; continue; };
-            
-            $success = call_user_method($action, $this->{$this->modelClass}, $id);
-            $result[] = array($id => ($success) ? true : false);
+        if (isset($this->data['__action'])) {
+            foreach ($this->data['id'] as $id => $checked) {
+                if (intval($checked) === 1) {
+                    switch ($this->data['__action']) {
+                        case 'delete':
+                            // Delete with comments
+                            $this->{$this->modelClass}->delete($id);
+                            break;
+                        case 'publish':
+                            $this->{$this->modelClass}->publish($id);
+                            break;
+                        case 'draft':
+                            $this->{$this->modelClass}->draft($id);
+                            break;
+                    }
+                }
+            }
         }
         
-        $this->set('data', $result);
-        $this->render('/elements/json');
+    	$link = am($this->params['named'], array('action' => 'wf_index'));
+        return $this->redirect($link);
     }
     
     /**
