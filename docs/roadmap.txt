@@ -1,0 +1,12 @@
+Wildflower Roadmap
+******************
+
+1. Finish all the sections of the admin interface.
+    - Dashboard
+    - Blog (60% done)
+    - Pages (20%)
+    - Comments
+    - User Accounts
+    - Site Settings
+    
+2. Post/Page saving and staging: Ability to edit and save the post/page without publishing the new changes. The latest published revision is visible to the public.
