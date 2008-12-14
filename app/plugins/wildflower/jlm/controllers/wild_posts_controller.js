@@ -13,7 +13,7 @@ $.jlm.bind('wild_posts.wf_edit', function() {
     }
     
     // Section switching
-    $('.sidebar-menu a').click(function() {
+    $('.edit-sections a').click(function() {
         var linkEl = $(this);
         var linkElRel = linkEl.attr('rel')
         linkEl.addClass('current');
@@ -22,7 +22,7 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             return true;
         }
         
-        $('.sidebar-menu .current').not(linkEl).removeClass('current');
+        $('.edit-sections .current').not(linkEl).removeClass('current');
         
         if (linkElRel == 'post-preview') {
             loadPreview();
