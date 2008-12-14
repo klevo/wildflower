@@ -429,6 +429,13 @@ h2 {
     font-weight: bold;
 }
 
+.post-info {
+    margin: 16px 0;
+    padding: 6px;
+    font-size: 11px;
+    background: #f0f0f0;
+}
+
 
 /* Pages */
 

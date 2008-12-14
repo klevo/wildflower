@@ -96,6 +96,10 @@
     
     <?php echo $form->end(); ?>
     
+    <p class="post-info">
+        This post is <?php echo ($this->data['WildPost']['draft']) ? 'not published' : 'published and visible to the public'; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPost']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
+    </p>
+    
 </div>
 
 <ul id="sidebar">
