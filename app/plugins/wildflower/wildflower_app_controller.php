@@ -260,7 +260,7 @@ class WildflowerAppController extends AppController {
 	}
 	
     function getLoggedInUserId() {
-        return intval($this->Session->read('WildUser.WildUser.id')); // @TODO weird, refactor session saving
+        return intval($this->Session->read('WildUser.id'));
     }
 
     /**

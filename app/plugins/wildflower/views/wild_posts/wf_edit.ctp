@@ -95,7 +95,7 @@
     </div>
     <?php else: ?>
     <div class="submit" id="save-draft">
-        <input type="submit" value="<?php __('Save changes'); ?>" name="data[__save][publish]" />
+        <input type="submit" value="<?php __('Save changes'); ?>" />
     </div>
     <?php endif; ?>
     <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
