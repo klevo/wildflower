@@ -85,14 +85,20 @@
         <h2 class="section">Post Preview</h2>
         <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
     </div>
-        
+    
+    <?php if ($isDraft): ?>    
     <div class="submit" id="save-draft">
         <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
     </div>
     <div class="submit" id="save-publish">
         <input type="submit" value="<?php __('Publish'); ?>" name="data[__save][publish]" />
     </div>
-    <div class="cancel-edit"> or <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
+    <?php else: ?>
+    <div class="submit" id="save-draft">
+        <input type="submit" value="<?php __('Save changes'); ?>" name="data[__save][publish]" />
+    </div>
+    <?php endif; ?>
+    <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
     
     <?php echo $form->end(); ?>
     

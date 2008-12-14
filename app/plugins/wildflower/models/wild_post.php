@@ -38,15 +38,6 @@ class WildPost extends WildflowerAppModel {
        '1' => 'Draft'
     );
     
-    function beforeSave() {
-        if (isset($this->data[$this->name]['publish'])) {
-            $this->data[$this->name]['draft'] = 0;
-            unset($this->data[$this->name]['publish']);
-        }
-        
-        return true;
-    }
-    
     /**
      * Get URL to a post, suitable for $html->url() and likes
      *
@@ -66,28 +57,6 @@ class WildPost extends WildflowerAppModel {
     function draft($id) {
         $id = intval($id);
         return $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id = $id");
-    }
-    
-    /**
-     * Find all posts but without some fields not necessary for list view
-     *
-     * @param int $limit
-     * @return array
-     */
-    function findAllForList($limit = null) {
-    	$limitSql = '';
-    	if ($limit) {
-			$limitSql = " LIMIT $limit";
-    	}
-    	
-    	$posts = $this->query("SELECT `Post`.`id`, `Post`.`slug`, `Post`.`title`, `Post`.`user_id`, `Post`.`created`, 
-    						`User`.`id`, `User`.`name` 
-    					FROM `posts` AS `Post` 
-    					LEFT JOIN `users` AS `User` 
-    					ON (`Post`.`user_id` = `User`.`id`) 
-    					ORDER BY `Post`.`created` 
-    					DESC$limitSql");
-    	return $posts;
     }
     
     /**
