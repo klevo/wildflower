@@ -10,3 +10,5 @@ Wildflower Roadmap
     - Site Settings
     
 2. Post/Page saving and staging: Ability to edit and save the post/page without publishing the new changes. The latest published revision is visible to the public.
+
+3. Integrate Cake's AuthComponent to manage user auth.
