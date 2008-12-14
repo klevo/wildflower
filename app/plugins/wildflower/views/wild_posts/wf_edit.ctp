@@ -118,7 +118,7 @@
     <li>
         <ul class="sidebar-menu">
             <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
-            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
+            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit', $this->data['WildPost']['id']), array('class' => 'current', 'rel' => 'title-content')); ?></li>
             <li><?php echo $html->link('Categories & Options', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
             <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>

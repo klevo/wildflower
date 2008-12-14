@@ -4,6 +4,14 @@ $.jlm.bind('wild_posts.wf_edit', function() {
     
     var activeSectionEl = $('#title-content');
     
+    // Analyze the current URL for specific section request
+    var currentUrl = window.location.href;
+    var possibleSection = currentUrl.split('#');
+    var switchToSection = false;
+    if (possibleSection.length == 2) {
+        switchToSection = '#' + possibleSection[1];
+    }
+    
     // Section switching
     $('.sidebar-menu a').click(function() {
         var linkEl = $(this);
@@ -30,7 +38,16 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             activeSectionEl = switchToSectionEl;
         });
         
-        return false;
+        if (linkEl.attr('href').split('#').length == 1) {
+            return false; // We don't want a reload on items without #Section
+        }
+        return true;
+    }).each(function() {
+        var linkEl = $(this);
+        var linkHref = linkEl.attr('href');
+        if (switchToSection == linkHref) {
+            linkEl.trigger('click');
+        }
     });
     
     function loadPreview() {
