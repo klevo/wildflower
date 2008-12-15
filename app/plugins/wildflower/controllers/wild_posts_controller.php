@@ -196,10 +196,15 @@ class WildPostsController extends WildflowerAppController {
      */
     function feed() {
         $this->layout = 'rss/default';
-        $posts = $this->WildPost->findAll(null, null, 'WildPost.created desc');
+        
+        $posts = $this->WildPost->find(
+             'all', 
+             array(
+                  'order' => 'WildPost.created desc'
+             )
+        );
+        
         $this->set('posts', $posts);
-        header('Content-type: text/xml; charset=utf-8');
-        echo '<?xml version="1.0" encoding="UTF-8"?>';
     }
      
     /**

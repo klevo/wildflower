@@ -1,2 +1,17 @@
+<?php
+echo $rss->header();
 
-<?php echo $content_for_layout; ?>
+if (!isset($channel)) {
+	$channel = array();
+}
+if (!isset($channel['title'])) {
+	$channel['title'] = $title_for_layout;
+}
+
+echo $rss->document(
+	$rss->channel(
+		array(), $channel, $content_for_layout
+	)
+);
+
+?>

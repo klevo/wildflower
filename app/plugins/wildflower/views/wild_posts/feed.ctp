@@ -1,14 +1,14 @@
-<rss version="2.0">
-	<?php echo $rss->channel(null, array('title' => $siteName, 'description' => 'TODO')); ?>
-	<?php
-	foreach ($posts as $post) {
-		echo $rss->item(null, array(
-		  'title' => $post['Post']['title'],
-		  'author' => '',
-		  'pubDate' => $post['Post']['created'],
-		  'description' => $post['Post']['content'],
-		  'guid' => '/news/' . $post['Post']['slug']));
+<?php
+	echo $rss->items($posts, 'transformRSS');
+
+	function transformRSS($element) {
+		return array(
+			'guid'  => '/news/' . $element['WildPost']['slug'],
+			'author' => '',
+			'pubDate' => $element['WildPost']['created'],
+			'description' => $element['WildPost']['content'],
+			'title' => $element['WildPost']['title'],
+			'link' => 'http://'.$_SERVER['HTTP_HOST'].'/p/'.$element['WildPost']['uuid'],
+		);
 	}
-	?>
-	</channel>
-</rss>
+?>
