@@ -151,6 +151,8 @@ class WildAssetsController extends WildflowerAppController {
         $cacheSettings = Cache::settings();
         $file = CACHE . $cacheSettings['prefix'] . 'wf_jlm';
         $this->JlmPackager->browserCacheHeaders(filemtime($file));
+        
+        Configure::write('debug', 0);
     }
 	
 	private function feedFileManager() {
