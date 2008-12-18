@@ -405,7 +405,11 @@ class WildPagesController extends WildflowerAppController {
             'recursive' => -1,
             'fields' => array('id', 'url', 'slug'),
         ));
-        WildflowerRootPagesCache::write($rootPages);
+        
+        if (!Configure::read('Wildflower.disableRootPageCache')) {
+            WildflowerRootPagesCache::write($rootPages);
+        }
+        
         return $rootPages;
     }
     
