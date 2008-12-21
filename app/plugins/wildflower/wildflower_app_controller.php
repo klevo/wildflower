@@ -158,23 +158,25 @@ class WildflowerAppController extends AppController {
 			$this->params['breadcrumb'][] = array('title' => 'Home', 'url' => '/');
 		}
 		
-		// l18n
+		// Internationalization
 		$this->L10n = new L10n();
-        $this->L10n->get("eng");
-        Configure::write('Config.language', "en");
+        $this->L10n->get('eng');
+        Configure::write('Config.language', 'en');
 
 		// Site settings
 		$this->_siteSettings = Configure::read('AppSettings');
 		// Home page ID
 		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
 
-		// Set cookie stuff
+		// Set cookie defaults
 		$this->cookieName = Configure::read('Wildflower.cookie.name');
 		$this->cookieTime = Configure::read('Wildflower.cookie.expire');
 		$this->cookieDomain = '.' . getenv('SERVER_NAME');
 
-		// Speed things up
-		$this->gzipOutput();
+		// Compress output to save bandwith / speed site up
+		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
+		    $this->gzipOutput();
+		}
     }
     
     function afterFilter() {
