@@ -154,6 +154,85 @@ class WildAssetsController extends WildflowerAppController {
         
         Configure::write('debug', 0);
     }
+    
+    /**
+     * Create a thumbnail from an image, cache it and output it
+     *
+     * @param $imageName File name from webroot/uploads/
+     */
+    function wf_thumbnail($imageName, $width = 120, $height = 120, $crop = 0) {
+        $this->autoRender = false;
+        
+        $imageName = str_replace('..', '', $imageName); // Don't allow escaping to upper directories
+
+        $width = intval($width);
+        if ($width > 2560) {
+        	$width = 2560;
+        }
+
+        $height = intval($height);
+        if ($height > 1600) {
+        	$height = 1600;
+        }
+
+        $cachedFileName = join('_', array($imageName, $width, $height, $crop)) . '.jpg';
+        $cacheDir = Configure::read('Wildflower.thumbnailsCache');
+        $cachedFilePath = $cacheDir . DS . $cachedFileName;
+
+        $refreshCache = false;
+        $cacheFileExists = file_exists($cachedFilePath);
+        if ($cacheFileExists) {
+        	$cacheTimestamp = filemtime($cachedFilePath);
+        	$cachetime = 60 * 60 * 24 * 14; // 14 days
+        	$border = $cacheTimestamp + $cachetime;
+        	$now = time();
+        	if ($now > $border) {
+        		$refreshCache = true;
+        	}
+        }
+
+        if ($cacheFileExists && !$refreshCache) {
+        	$this->_renderJpeg($cachedFilePath);
+        } else {
+        	// Create cache and render it
+        	$sourceFile = Configure::read('Wildflower.uploadDirectory') . DS . $imageName;
+        	if (!file_exists($sourceFile)) {
+        		return trigger_error("Thumbnail generator: Source file $sourceFile does not exists.");
+        	}
+
+        	App::import('Vendor', 'phpThumb', array('file' => 'phpthumb.class.php'));
+
+        	$phpThumb = new phpThumb();
+
+        	$phpThumb->setSourceFilename($sourceFile);
+
+        	$phpThumb->setParameter('config_output_format', 'jpeg');
+
+        	$phpThumb->setParameter('w', intval($width));
+        	$phpThumb->setParameter('h', intval($height));
+        	$phpThumb->setParameter('zc', intval($crop));
+
+        	if ($phpThumb->GenerateThumbnail()) {
+        		$phpThumb->RenderToFile($cachedFilePath);
+        		return $this->_renderJpeg($cachedFilePath);
+        	} else {
+        		return trigger_error("Thumbnail generator: Can't GenerateThumbnail.");
+        	}
+        }
+    }
+    
+    // @TODO use Cake media view
+    function _renderJpeg($cachedFilePath) {
+        // Render cached image
+        header("Content-Type: image/jpeg");
+
+        $fileSize = filesize($cachedFilePath);
+        header("Content-Length: $fileSize");
+
+        $cache = fopen($cachedFilePath, 'r');
+        fpassthru($cache);
+        fclose($cache);
+    }
 	
 	private function feedFileManager() {
 	    $this->pageTitle = 'Files';
