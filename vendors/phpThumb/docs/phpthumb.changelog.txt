@@ -6,7 +6,7 @@
 § = structure change or important new feature
 * = less important new feature or change
 
-v1.7.9 - December ??, 2007
+v1.7.9 - May ??, 2008
   * "ra" (rotation) now handled by ImageMagick directly.
     Note: If output to transparent-supporting format (PNG,GIF)
     them ImageMagick support only enabled for v6.3.7 and above
@@ -14,12 +14,42 @@ v1.7.9 - December ??, 2007
     Transparent area behind rotate image buggy in v6.2.9 and
     working fine in v6.3.7 (exact version where fixed is
     unknown, reports welcome)
+  * Debug now shows server software version
+  * Debug now checks for GetImageSize() availability
+  * Better error message when neither ImageMagick nor GD are
+    installed on server  (thanks kevinmÿbuenacg*com)
+  * Bugfix: uncaught image-too-large exception when using
+    HTTP source image and ImageMagick is unavailable or fails
+    (thanks jslaggerÿjsamdirect*com)
+  * Bugfix: phpThumb could sometimes die without showing an
+    error message when using an HTTP/data image source that is
+    too large for GD processing with PHP memory limit
+    (thanks jslaggerÿjsamdirect*com)
+  * Bugfix: prevent error images from clobbering debug output
+  * Bugfix: temp file for ImageMagick processing not created
+    correctly when source image is HTTP or from non-file data
+    (thanks jonahÿschwartzdev*com, tsolanÿgmail*com)
+  * Bugfix: Filters are only removed from the processing queue
+    if ImageMagick supports them AND returns successfully
+    (thanks tsolanÿgmail*com)
+  * Bugfix: ImageCreateFromStringReplacement() doesn't need to
+    fail in safe_mode if can still write temp file somewhere
+    (thanks avatar1983ÿgmail*com)
+  * Bugfix: ImageMagickThumbnailToGD() doesn't need to
+    fail in safe_mode if can still write temp file somewhere
+    (thanks avatar1983ÿgmail*com)
+  * Bugfix: better error messages when safe_mode enabled and
+    using MySQL database for image source
+    (thanks avatar1983ÿgmail*com)
   * Bugfix: "wmt" alignment broken for built-in fonts
     (thanks mailÿmmjaeger*com)
   * Bugfix: CleanUpCacheDirectory() has some undefined
     variables that might have been the cause of the images-
     don't-show-on-first-page-load bug
     (thanks hgÿdynweb*net)
+  * Bugfix: phpThumb.php would not correctly skip unneeded
+    processing if source image was smaller than target size
+    (thanks adam*kingÿcarnegiecycling*com*au)
   * Bugfix: phpThumb.demo.check.php incorrectly calculated
     age of ImageMagick version (for versions < 180 days old)
 

@@ -416,7 +416,7 @@ class phpthumb_functions {
 			// limited by height
 			$new_width = $new_height * $old_aspect_ratio;
 		}
-		return array(round($new_width), round($new_height));
+		return array(intval(round($new_width)), intval(round($new_height)));
 	}
 
 

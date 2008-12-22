@@ -51,7 +51,8 @@ Support:
 First, read this file.
 Then read phpthumb.faq.txt
 Then run /demo/phpThumb.demo.check.php
-If you still think it's a bug, email info@silisoftware.com
+If you still think it's a bug, or can't figure it out,
+please go to http://support.silisoftware.com
 
 
 ======

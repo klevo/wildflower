@@ -8,10 +8,9 @@
 //////////////////////////////////////////////////////////////
 
 
-Q: My question isn't answered here and I can't find any
-   forums, how do I get support?
-A: Please email me directly at info@silisoftware.com with
-   any questions, suggestions, donations, etc.
+Q: My question isn't answered here, how do I get support?
+A: Please visit http://support.silisoftware.com for any
+   questions, suggestions, bugs, etc.
 
 
 Q: I think I found a bug, what's the first thing I should do?
@@ -61,6 +60,22 @@ A: Your PHP installation does not have a high enough memory_limit
    thumbnail (Photoshop for example) which phpThumb can use as an
    image source (lower image quality, but perhaps better than
    nothing).
+
+
+Q: Is there are way to determine the new height and width of the
+   generated thumbnail (so I can put it in the <img> width/height)?
+A: The problem is that phpThumb.php returns an image -- there is no
+   way to pass on any additional info such as width/height.
+   However, you can do something like this:
+     require_once('phpthumb.functions.php');
+     $pic = 'picture.jpg';
+     list($source_w, $source_h) = GetImageSize($pic);
+     $max_w = 375;
+     $max_h = 400;
+     list($newW, $newH) = phpthumb_functions::ProportionalResize(
+       $source_w, $source_h, $max_w, $max_h);
+     $url = 'phpThumb.php?src='.$pic.'&w='.$max_w.'&h='.$max_h;
+     echo "<img src=\"$url\" width=\"$newW\" height=\"$newH\">';
 
 
 Q: I'm getting is this error message:
