@@ -163,7 +163,7 @@ class WildAssetsController extends WildflowerAppController {
     function wf_thumbnail($imageName, $width = 120, $height = 120, $crop = 0) {
         $this->autoRender = false;
         
-        $imageName = str_replace('..', '', $imageName); // Don't allow escaping to upper directories
+        $imageName = str_replace(array('..', '/'), '', $imageName); // Don't allow escaping to upper directories
 
         $width = intval($width);
         if ($width > 2560) {
