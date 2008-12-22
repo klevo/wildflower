@@ -10,7 +10,7 @@ echo $navigation->create(array(
     // If file is image display it fitting the wrap
     $isImage = (strpos($this->data['WildAsset']['mime'], 'image') === 0);
     if ($isImage) {
-        echo $html->image('/img/thumb/' . $this->data['WildAsset']['name'] . '/500/1000'),
+        echo $html->image(array('action' => 'wf_thumbnail', $this->data['WildAsset']['name'], 500, 1000)),
             '<p class="image-resized-notice">This image is resized. ',
             $html->link("View the original image.", '/uploads/' . $this->data['WildAsset']['name']),
             '</p>';
