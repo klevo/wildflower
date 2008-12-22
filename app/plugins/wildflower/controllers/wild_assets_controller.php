@@ -192,7 +192,7 @@ class WildAssetsController extends WildflowerAppController {
         }
 
         if ($cacheFileExists && !$refreshCache) {
-        	$this->_renderJpeg($cachedFilePath);
+        	return $this->_renderJpeg($cachedFilePath);
         } else {
         	// Create cache and render it
         	$sourceFile = Configure::read('Wildflower.uploadDirectory') . DS . $imageName;
@@ -222,12 +222,11 @@ class WildAssetsController extends WildflowerAppController {
     }
     
     function _renderJpeg($cachedFilePath) {
-        // Render cached image
-        header("Content-Type: image/jpeg");
-
+        $this->JlmPackager->browserCacheHeaders(filemtime($cachedFilePath), 'image/jpeg');
+        
         $fileSize = filesize($cachedFilePath);
         header("Content-Length: $fileSize");
-
+        
         $cache = fopen($cachedFilePath, 'r');
         fpassthru($cache);
         fclose($cache);
