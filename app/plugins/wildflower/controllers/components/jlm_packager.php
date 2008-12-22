@@ -25,11 +25,9 @@ class JlmPackagerComponent {
 		return preg_replace_callback("#<l18n>(.+?)</l18n>#is", 'translate', $string);
 	}
     
+    // @depracated Output is handled by Cake action
     function output() {
         header('Content-type: application/javascript');
-        
-        // @TODO add caching
-        
     	echo $this->concate();
     }
     

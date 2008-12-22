@@ -6,7 +6,7 @@
         <li>
             <img alt="<?php echo $image['WildAsset']['name']; // ALT attr is used by the image insert ?>" 
                 title="Click to select this image" 
-                src="<?php echo $html->url(WildAsset::getThumbUrl($image['WildAsset']['name'])); ?>">
+                src="<?php echo $html->url(array('action' => 'wf_thumbnail', $image['WildAsset']['name'], 90, 90, 1)); ?>">
         </li>
     <?php endforeach; ?>
     </ul>
