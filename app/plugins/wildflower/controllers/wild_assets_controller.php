@@ -221,7 +221,6 @@ class WildAssetsController extends WildflowerAppController {
         }
     }
     
-    // @TODO use Cake media view
     function _renderJpeg($cachedFilePath) {
         // Render cached image
         header("Content-Type: image/jpeg");
