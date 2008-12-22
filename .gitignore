@@ -1,8 +1,14 @@
-app/tmp/cache/models/cake_*
-app/tmp/cache/persistent/cake_*
+
 app/tmp/cache/cake_*
 app/tmp/cache/wf_previews/*.json
 app/tmp/cache/wf_root_pages
+
+# Cake caches
+app/tmp/cache/views/*.php
+app/tmp/cache/models/cake_*
+app/tmp/cache/persistent/cake_*
+
+# Cake logs
 app/tmp/logs/*.log
 
 # Wildflower caches
