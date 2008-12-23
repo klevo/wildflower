@@ -138,10 +138,10 @@ class WildPagesController extends WildflowerAppController {
         }
         
         if (!$this->WildPage->save()) return $this->cakeError('save_error');
-
-        // Clear page cache
-		$cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cakes cache for proper method
-		clearCache($cacheName, 'views', '.php');
+        // 
+        //         // Clear page cache
+        // $cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cakes cache for proper method
+        // clearCache($cacheName, 'views', '.php');
 
         // JSON response
         if ($this->RequestHandler->isAjax()) {

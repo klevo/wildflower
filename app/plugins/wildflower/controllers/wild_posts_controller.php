@@ -132,8 +132,8 @@ class WildPostsController extends WildflowerAppController {
 
         if (!$this->WildPost->save()) return $this->cakeError('save_error');
 
-		$cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cache for proper naming method
-		clearCache($cacheName, 'views', '.php');
+        // $cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cache for proper naming method
+        // clearCache($cacheName, 'views', '.php');
 		
         if ($this->RequestHandler->isAjax()) {
             $revisions = $this->WildPost->getRevisions($this->WildPost->id, 1);
