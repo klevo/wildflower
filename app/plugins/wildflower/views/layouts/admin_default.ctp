@@ -23,16 +23,16 @@
     ?>
     
     <!--[if lte IE 6]>
-        <?php
-            // CSS file for Microsoft Internet Explorer 6 and lower
-            echo $html->css('/wildflower/css/wf.ie6');
-        ?>
+    <?php
+        // CSS file for Microsoft Internet Explorer 6 and lower
+        echo $html->css('/wildflower/css/wf.ie6');
+    ?>
     <![endif]-->    
     <!--[if IE 7]>
-        <?php
-            // CSS file for Microsoft Internet Explorer 7
-            echo $html->css('/wildflower/css/wf.ie7');
-        ?>
+    <?php
+        // CSS file for Microsoft Internet Explorer 7
+        echo $html->css('/wildflower/css/wf.ie7');
+    ?>
     <![endif]-->
     
     <!-- JQuery Light MVC -->
@@ -81,7 +81,14 @@
 
 <div id="whiteness">
     <div id="wrap">
-        <?php echo $content_for_layout ?>
+        <div id="content">
+            <?php echo $content_for_layout; ?>
+        </div>
+        
+        <ul id="sidebar">
+            <?php echo $sidebar_for_layout; ?>
+        </ul>
+            
         <div class="cleaner"></div>
     </div>
 </div>

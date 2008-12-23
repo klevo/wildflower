@@ -1,4 +1,4 @@
-<div id="content">
+
     <?php
     	echo 
     	$form->create('Post', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false)))),
@@ -46,9 +46,9 @@
     	$this->element('wf_pagination'),
         $form->end();
     ?>
-</div>
 
-<ul id="sidebar">
+
+<?php $partialLayout->blockStart('sidebar'); ?>
     <li><?php echo $html->link(
         '<span>' . __('Write a new post', true) . '</span>',
         array('action' => 'wf_create'),
@@ -72,7 +72,7 @@
     <li>
         <p><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')); ?></p>
     </li>
-</ul>
+<?php $partialLayout->blockEnd(); ?>
 
 
     

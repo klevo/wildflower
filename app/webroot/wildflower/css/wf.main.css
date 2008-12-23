@@ -100,7 +100,8 @@ body {
         border-radius: 3px 3px 0 0;
     }
     
-        #nav .current a {
+        #nav .current a,
+        #nav .current a:hover {
             color: #fff;
             background-color: #424242;
             font-weight: bold;
