@@ -28,13 +28,22 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             loadPreview();
         }
         
-        activeSectionEl.slideUp(300, function() {
-            var switchToSectionId = '#' + linkElRel;
-            var switchToSectionEl = $(switchToSectionId);
-            switchToSectionEl.slideDown(300, function() {
-                $('input[@type=text]:first:visible').focus();
-            });
-
+        var currentFormHeight = activeSectionEl.height();
+        
+        var switchToSectionId = '#' + linkElRel;
+        var switchToSectionEl = $(switchToSectionId);
+        
+        var switchToSelectionHeight = switchToSectionEl.height();
+        switchToSectionEl.css({
+            height: currentFormHeight
+        });
+        
+        activeSectionEl.hide();
+        
+        switchToSectionEl.animate({  
+            height: switchToSelectionHeight
+        }, 600, function() {
+            $('input[@type=text]:first:visible').focus();
             activeSectionEl = switchToSectionEl;
         });
         
