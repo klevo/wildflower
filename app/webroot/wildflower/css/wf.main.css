@@ -229,7 +229,7 @@ h2 {
     }
 
 .sidebar-menu {
-    margin: 0 -14px 0 -24px;
+    margin: 0 0 0 -24px !important;
     padding: 0;
     list-style: none;
 }        
@@ -241,7 +241,7 @@ h2 {
     
     .sidebar-menu a {
         display: block;
-        padding: 4px 4px 4px 14px;
+        padding: 4px 4px 4px 24px;
     }
     
     #sidebar .sidebar-menu a.current {

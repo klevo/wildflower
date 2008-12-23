@@ -89,7 +89,7 @@
         
         <div id="sidebar">
             <ul>
-                <?php echo $sidebar_for_layout; ?>
+                <?php if (isset($sidebar_for_layout)) echo $sidebar_for_layout; ?>
             </ul>
         </div>
             
