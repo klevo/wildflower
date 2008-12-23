@@ -74,7 +74,7 @@
                 __('Blog', true) => array('controller' => 'wild_posts'),
                 __('Pages', true) => array('controller' => 'wild_pages'),
                 __('Files', true) => array('controller' => 'wild_assets'),
-                __('Accounts', true) => array('controller' => 'wild_users'),
+                __('Users', true) => array('controller' => 'wild_users'),
                 __('Settings', true) => array('controller' => 'wild_settings')
             ), array('id' => 'nav'));
         ?>

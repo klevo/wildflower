@@ -76,15 +76,15 @@ body {
     position: relative;
 }
 
-    #header h1 {
-        font-size: 20px;
-        font-weight: normal;
-        margin: 20px 10px;
-    }
+#site-title {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 20px 10px;
+}
 
-        #header h1 a {
-            text-decoration: none;
-        }
+    #site-title a {
+        text-decoration: none;
+    }
     
 #nav {
     list-style: none;
@@ -96,11 +96,6 @@ body {
 
     #nav li {
         float: left;
-    }
-    
-    #nav li.nav-accounts,
-    #nav li.nav-settings {
-        float: right;
     }
     
     #nav a {
