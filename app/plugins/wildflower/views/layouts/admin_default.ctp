@@ -100,8 +100,7 @@
 </div>
 
 <p id="footer">
-    <?php echo $html->link(__('Powered by Wildflower', true), array('controller' => 'wild_pages', 'action' => 'wf_about')) ?> &bull; 
-    <?php echo $html->link(__('Icons by DryIcons', true), 'http://dryicons.com') ?>
+    <?php echo $html->link(__('Powered by Wildflower', true), array('controller' => 'wild_pages', 'action' => 'wf_about')); ?>
 </p>
 
 </body>
