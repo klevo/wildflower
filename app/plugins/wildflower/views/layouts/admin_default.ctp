@@ -82,12 +82,16 @@
 <div id="whiteness">
     <div id="wrap">
         <div id="content">
-            <?php echo $content_for_layout; ?>
+            <div id="content-pad">
+                <?php echo $content_for_layout; ?>
+            </div>
         </div>
         
-        <ul id="sidebar">
-            <?php echo $sidebar_for_layout; ?>
-        </ul>
+        <div id="sidebar">
+            <ul>
+                <?php echo $sidebar_for_layout; ?>
+            </ul>
+        </div>
             
         <div class="cleaner"></div>
     </div>
