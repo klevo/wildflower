@@ -13,8 +13,8 @@ body {
 
 html {
 	font: 12px/16px "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif; /* Lucida Grande works best on OS X, Tahoma is very similar and a system font on Windows */
-	background: #003842;
-	color: #fff;
+	background: #eee;
+	color: #2f2f2f;
 }
 
 a {
@@ -45,7 +45,7 @@ body {
 
 #wrap,
 #footer,
-#header {
+#header-wrap {
     max-width: 1000px;
     min-width: 800px;
     margin: 0 auto;
@@ -53,7 +53,6 @@ body {
 
 #wrap {
     color: #2f2f2f;
-    padding: 1px 10px 0;
 }
 
 #footer {
@@ -112,6 +111,11 @@ body {
     }
     
 #header {
+    background: #222222;
+    overflow: hidden;
+}
+
+#header-wrap {
     position: relative;
 }
 
@@ -206,8 +210,6 @@ h2 {
 /* Sidebar */
 
 #sidebar {
-    margin: 0;
-    background: #eee;
     float: right;
     width: 30%;
 }

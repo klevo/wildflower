@@ -59,24 +59,26 @@
 
 
 <div id="header">
-    <h1 id="site-title">
-        <?php echo $html->link($siteName, '/', array('title' => __('View site home page', true))) ?>
-    </h1>
+    <div id="header-wrap">
+        <h1 id="site-title">
+            <?php echo $html->link($siteName, '/', array('title' => __('View site home page', true))) ?>
+        </h1>
     
-    <div id="login-info">
-        <?php echo $html->link(__('Log out'), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+        <div id="login-info">
+            <?php echo $html->link(__('Log out'), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+        </div>
+    
+        <?php 
+            echo $navigation->create(array(
+                __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
+                __('Blog', true) => array('controller' => 'wild_posts'),
+                __('Pages', true) => array('controller' => 'wild_pages'),
+                __('Files', true) => array('controller' => 'wild_assets'),
+                __('Accounts', true) => array('controller' => 'wild_users'),
+                __('Settings', true) => array('controller' => 'wild_settings')
+            ), array('id' => 'nav'));
+        ?>
     </div>
-    
-    <?php 
-        echo $navigation->create(array(
-            __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
-            __('Blog', true) => array('controller' => 'wild_posts'),
-            __('Pages', true) => array('controller' => 'wild_pages'),
-            __('Files', true) => array('controller' => 'wild_assets'),
-            __('Accounts', true) => array('controller' => 'wild_users'),
-            __('Settings', true) => array('controller' => 'wild_settings')
-        ), array('id' => 'nav'));
-    ?>
 </div>
 
 <div id="whiteness">
