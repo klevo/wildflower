@@ -36,13 +36,6 @@ img {
     border: none;
 }
 
-body {
-}
-
-#whiteness {
-    background: #eee;
-}
-
 #wrap,
 #footer,
 #header-wrap {
@@ -64,7 +57,7 @@ body {
     }
 
 #header {
-    background: #222222;
+    background: #27323a;
     overflow: hidden;
 }
 
@@ -213,20 +206,23 @@ h2 {
         margin: 0;
     }
 
-    #sidebar li {
+    #sidebar > ul > li {
         margin: 0;
         padding: 7px 14px;
         border-bottom: 1px solid #dbdfe1;
     }
     
-    #sidebar li:last-child {
+    #sidebar > ul > li:last-child {
         border-bottom: none;
     }
 
 .sidebar-menu {
-    margin: 0 0 0 -24px !important;
+    margin: 0;
     padding: 0;
     list-style: none;
+    overflow: hidden;
+    position: relative;
+    left: -14px;
 }        
 
     #sidebar .sidebar-menu li {
@@ -244,7 +240,7 @@ h2 {
         text-decoration: none;
         background-color: #6f6f6f;
     }
-    
+
     
 /* Select actions */
 
