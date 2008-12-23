@@ -1,6 +1,6 @@
-$.jlm.bind('wild_posts.wf_edit', function() {
+$.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
     
-    $('#WildPostTitle').focus();
+    $('.title-input input').focus();
     
     var activeSectionEl = $('#title-content');
     

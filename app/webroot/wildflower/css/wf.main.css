@@ -388,9 +388,9 @@ h2 {
     
 /* Post edit */
     
-#WildPostTitle {
+.title-input input {
     font-size: 18px;
-    width: 100%;
+    width: 99%;
 }
 
 #save-draft,
