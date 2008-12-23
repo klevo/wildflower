@@ -89,7 +89,9 @@ $.jlm.bind('wild_posts.wf_index', function() {
     
     // Double click on a post item takes you to the edit screen
     $('.list-of-posts li').dblclick(function() {
-        console.log('k');
+        var editUrl = $(this).find('a:first').attr('href');
+        $.jlm.redirect(editUrl, false);
+        return true;
     });
     
 });
