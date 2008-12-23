@@ -40,7 +40,7 @@ body {
 }
 
 #whiteness {
-    background: #fff;
+    background: #eee;
 }
 
 #wrap,
@@ -52,7 +52,6 @@ body {
 }
 
 #wrap {
-    background: #fff;
     color: #2f2f2f;
     padding: 1px 10px 0;
 }
@@ -102,7 +101,8 @@ body {
     }
     
         #nav .current a {
-            background-color: #fff;
+            color: #fff;
+            background-color: #424242;
             font-weight: bold;
         }
         
@@ -132,9 +132,11 @@ body {
 
 #content {
     float: left;
-    width: 65%;
+    width: 70%;
     position: relative;
     padding: 15px 0;
+    margin: 7px 0 0 0;
+    background: #fff;
 }
 
 #content-pad {
@@ -210,12 +212,16 @@ h2 {
     background: #eee;
     float: right;
     width: 28%;
-    border: 1px solid #dbdfe1;
 }
 
     #sidebar li {
         margin: 0;
         padding: 7px 14px;
+        border-bottom: 1px solid #dbdfe1;
+    }
+    
+    #sidebar li:last-child {
+        border-bottom: none;
     }
 
 .sidebar-menu {
