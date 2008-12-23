@@ -65,7 +65,7 @@
         </h1>
     
         <div id="login-info">
-            <?php echo $html->link(__('Log out'), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+            <?php echo $html->link(__('Log out', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
         </div>
     
         <?php 

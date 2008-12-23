@@ -59,15 +59,32 @@ body {
     margin-top: 10px;
 }
 
-    #header a,
     #footer a {
-        color: #ddd;
+        color: #2f2f2f;
     }
 
-    #header a:hover,
-    #footer a:hover {
-        background-color: #072a30;
+#header {
+    background: #222222;
+    overflow: hidden;
+}
+
+    #header a {
+        color: #eee;
     }
+
+#header-wrap {
+    position: relative;
+}
+
+    #header h1 {
+        font-size: 20px;
+        font-weight: normal;
+        margin: 20px 10px;
+    }
+
+        #header h1 a {
+            text-decoration: none;
+        }
     
 #nav {
     list-style: none;
@@ -109,25 +126,6 @@ body {
     #nav a:hover {
         background-color: #fff;
     }
-    
-#header {
-    background: #222222;
-    overflow: hidden;
-}
-
-#header-wrap {
-    position: relative;
-}
-
-    #header h1 {
-        font-size: 20px;
-        font-weight: normal;
-        margin: 20px 10px;
-    }
-        
-        #header h1 a {
-            text-decoration: none;
-        }
 
 #login-info {
     position: absolute;
