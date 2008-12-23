@@ -101,7 +101,7 @@ $.jlm.addComponent('tinyMce', {
 			
             // Thumbnail
             if ($('#ImageSize', browserEl).val() == 'thumbnail') {
-                imgUrl = 'img/thumb/' + imgNameEscaped + '/120/120/1';
+                imgUrl = $.params.base + '/wildflower/thumbnail/' + imgNameEscaped + '/120/120/1';
             }
 			
 			// Image HTML

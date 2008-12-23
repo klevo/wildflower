@@ -28,16 +28,17 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             loadPreview();
         }
         
-        var currentFormHeight = activeSectionEl.height();
+        var activeSectionHeight = activeSectionEl.height();
         
         var switchToSectionId = '#' + linkElRel;
         var switchToSectionEl = $(switchToSectionId);
         
         var switchToSelectionHeight = switchToSectionEl.height();
         switchToSectionEl.css({
-            height: currentFormHeight
+            height: activeSectionHeight
         });
         
+        switchToSectionEl.show();
         activeSectionEl.hide();
         
         switchToSectionEl.animate({  
@@ -81,5 +82,14 @@ $.jlm.bind('wild_posts.wf_edit', function() {
             dataType: 'json'
         });
     }
+    
+});
+
+$.jlm.bind('wild_posts.wf_index', function() {
+    
+    // Double click on a post item takes you to the edit screen
+    $('.list-of-posts li').dblclick(function() {
+        console.log('k');
+    });
     
 });

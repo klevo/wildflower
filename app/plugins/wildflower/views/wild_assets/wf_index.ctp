@@ -24,7 +24,7 @@
         <li id="file-<?php echo $file['WildAsset']['id']; ?>">
             <h3><?php echo !empty($file['WildAsset']['title']) ? hsc($file['WildAsset']['title']) : hsc($file['WildAsset']['name']); ?></h3>
             <a href="<?php echo $html->url(array('action' => 'wf_edit', $file['WildAsset']['id'])); ?>">
-    	        <img src="<?php echo $html->url(array('action' => 'wf_thumbnail', $file['WildAsset']['name'], 120, 120, 1)); ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" /></a>
+    	        <img width="120" height="120" src="<?php echo $html->url("/wildflower/thumbnail/{$file['WildAsset']['name']}/120/120/1"); ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" /></a>
         </li>
              
     <?php endforeach; ?>

@@ -45,6 +45,9 @@ Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', arra
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index', 'plugin' => 'wildflower'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
 
+// Image thumbnails
+Router::connect('/wildflower/thumbnail/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail'));
+
 WildflowerRootPagesCache::connect();
 
 /**

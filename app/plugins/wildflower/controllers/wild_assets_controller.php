@@ -160,7 +160,7 @@ class WildAssetsController extends WildflowerAppController {
      *
      * @param $imageName File name from webroot/uploads/
      */
-    function wf_thumbnail($imageName, $width = 120, $height = 120, $crop = 0) {
+    function thumbnail($imageName, $width = 120, $height = 120, $crop = 0) {
         $this->autoRender = false;
         
         $imageName = str_replace(array('..', '/'), '', $imageName); // Don't allow escaping to upper directories
