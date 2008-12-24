@@ -17,7 +17,6 @@ $.jlm.component('TypeSearch', '*', function() {
     var url = $.jlm.base + '/' + $.jlm.params.prefix + '/' + $.jlm.params.controller.replace('wild_', '') + '/search/';
     
     var doSearch = function() {
-
         $('#sidebar-search-results').remove();
         
         // Abort previous search
@@ -35,7 +34,6 @@ $.jlm.component('TypeSearch', '*', function() {
         searchRequest = $.post(url + encodeURI(query), {
             'data[Search][query]': query
         }, function(responce) {
-            console.debug(responce);
             $('#sidebar-search-results').remove();
             searchFormEl.append(responce);
         });

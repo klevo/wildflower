@@ -242,7 +242,38 @@ h2 {
         text-decoration: none;
         background-color: #6f6f6f;
     }
+    
+    
+/* Sidebar search */
 
+        #sidebar .search .input {
+            margin-bottom: 0;
+        }
+        
+        #sidebar .search input {
+            width: 99%;
+            margin: 2px 0 0 0;
+            display: block;
+        }
+
+#sidebar-search-results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    #sidebar-search-results li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    #sidebar-search-results a {
+        display: block;
+        padding: 3px 6px;
+        background: #0033CC;
+        color: #fff;
+        text-decoration: none;
+    }
     
 /* Select actions */
 
