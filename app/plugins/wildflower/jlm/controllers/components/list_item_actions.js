@@ -1,12 +1,12 @@
 $.jlm.component('ListItemActions', '*', function() {
+    
     var actionHandleEls = $('.actions-handle');
     
     if (actionHandleEls.size() < 1) return;
     
     var itemActionsTimeout = null;
-      
-    actionHandleEls.hover(        // Over
-    function(){
+    
+    var over = function() {
         if (itemActionsTimeout) {
             // Cancel all to be closed and hide them
             clearTimeout(itemActionsTimeout);
@@ -14,8 +14,9 @@ $.jlm.component('ListItemActions', '*', function() {
         }
         
         $(this).find('.row-actions').show();
-    },        // Out 
-    function(){
+    }
+    
+    var out = function() {
         if (itemActionsTimeout) {
             clearTimeout(itemActionsTimeout);
         }
@@ -30,6 +31,8 @@ $.jlm.component('ListItemActions', '*', function() {
                 $(el).find('.row-actions').fadeOut(500);
             }
         }, 1000);
-    });
+    }
+      
+    actionHandleEls.hover(over, out);
     
 });
