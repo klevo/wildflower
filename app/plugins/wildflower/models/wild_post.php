@@ -118,18 +118,18 @@ class WildPost extends WildflowerAppModel {
      */
     function search($query) {
     	$fields = array('id', 'title', 'slug');
-    	$titleResults = $this->findAll("Post.title LIKE '%$query%'", $fields, null, null, 1);
+    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%'", $fields, null, null, 1);
     	$contentResults = array();
     	if (empty($titleResults)) {
     		$titleResults = array();
-			$contentResults = $this->findAll("MATCH (Post.content) AGAINST ('$query')", $fields, null, null, 1);
+			$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')", $fields, null, null, 1);
     	} else {
-    		$alredyFoundIds = join(', ', Set::extract($titleResults, '{n}.Post.id'));
+    		$alredyFoundIds = join(', ', Set::extract($titleResults, '{n}.WildPost.id'));
     	    $notInQueryPart = '';
             if (!empty($alredyFoundIds)) {
                 $notInQueryPart = " AND {$this->name}.id NOT IN ($alredyFoundIds)";
             }
-    		$contentResults = $this->findAll("MATCH (Post.content) AGAINST ('$query')$notInQueryPart", $fields, null, null, 1);
+    		$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')$notInQueryPart", $fields, null, null, 1);
     	}
     	
     	if (!is_array(($contentResults))) {

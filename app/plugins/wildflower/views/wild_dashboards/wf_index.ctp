@@ -45,8 +45,8 @@
     <li>
         <?php
             echo
-            $form->create('WildPage', array('action' => 'search', 'class' => 'search')),
-            $form->input('query', array('label' => __('Find a page by typing', true))),
+            $form->create('Search', array('url' => $html->url(array('action' => 'wf_search')), 'class' => 'search')),
+            $form->input('query', array('label' => __('Find a page or post by typing', true))),
             $form->end();
         ?>
     </li>

@@ -28,7 +28,9 @@ foreach ($wfControllers as $shortcut) {
 }
 
 // Dashboard
-Router::connect("/$prefix", array('plugin' => 'wildflower', 'controller' => "wild_dashboards", 'action' => 'index', 'prefix' => 'wf'));
+Router::connect("/$prefix", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'index', 'prefix' => 'wf'));
+Router::connect("/$prefix/dashboards/search", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search', 'prefix' => 'wf'));
+
 
 // Login screen
 Router::connect('/login', array('controller' => 'wild_users', 'action' => 'login', 'plugin' => 'wildflower'));
@@ -47,6 +49,9 @@ Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('c
 
 // Image thumbnails
 Router::connect('/wildflower/thumbnail/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail'));
+
+// Site search (pages & posts)
+Router::connect('/wildflower/search', array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search'));
 
 WildflowerRootPagesCache::connect();
 

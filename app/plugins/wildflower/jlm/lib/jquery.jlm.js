@@ -122,6 +122,10 @@ jQuery.jlm = {
         // Execute components that have initOn defined
         jQuery.each(jQuery.jlm.components, function() {
             if (typeof(this.initOn) === 'string') {
+                if (this.initOn === '*') {
+                    return this.startup();
+                }
+                
                 // Parse initOn
                 var routesArr = this.initOn.split(',');
                 var execute = false;
