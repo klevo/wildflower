@@ -133,6 +133,8 @@ img {
 
 #content-pad {
     padding: 20px;
+    border: 3px solid #ddd;
+    border-width: 0 3px 3px 0;
 }
 
 .cleaner {
