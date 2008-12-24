@@ -49,7 +49,9 @@ img {
 }
 
 #footer {
-    margin-top: 10px;
+    padding: 10px 0 20px;
+    text-align: center;
+    font-size: 11px;
 }
 
     #footer a {
