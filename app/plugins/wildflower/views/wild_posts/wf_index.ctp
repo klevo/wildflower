@@ -19,7 +19,7 @@
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post) { ?>
-        <li class="post-row">
+        <li class="post-row actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
             <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
             <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>

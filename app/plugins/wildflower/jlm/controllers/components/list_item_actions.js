@@ -1,5 +1,5 @@
 $.jlm.component('ListItemActions', '*', function() {
-    var actionHandleEls = $('.list li');
+    var actionHandleEls = $('.actions-handle');
     
     if (actionHandleEls.size() < 1) return;
     
