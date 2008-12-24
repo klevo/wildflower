@@ -545,7 +545,7 @@ h2 {
 /* Image browser (image insert) */
 
 #image-browser {
-    height: 200px;
+    height: 150px;
 }
 
     #image-browser ul {
@@ -556,7 +556,7 @@ h2 {
     
     #image-browser li {
         float: left;
-        margin: 0 10px 10px 0;
+        margin: 0 10px 0 0;
     }
     
     #image-browser button {
