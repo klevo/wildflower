@@ -31,39 +31,6 @@ class WildPagesController extends WildflowerAppController {
         $this->set('data', array('id' => $this->WildPage->id));
         $this->render('/elements/json');
     }
-    
-    function wf_create_preview() {
-        $cacheDir = TMP . 'preview' . DS;
-        
-        // Create a unique file name
-        $fileName = time();
-        $path = $cacheDir . $fileName . '.json';
-        while (file_exists($path)) {
-            $fileName++;
-            $path = $cacheDir . $fileName . '.json';
-        }
-        
-        // Write data to preview file
-        $data = json_encode($this->data[$this->modelClass]);
-        file_put_contents($path, $data);
-        
-        // Garbage collector
-        $this->previewCacheGC($cacheDir);
-        
-        $responce = array('previewFileName' => $fileName);
-        $this->set('data', $responce);
-        $this->render('/elements/json');
-    }
-    
-    /**
-     * View all drafts
-     *
-     */
-    function wf_drafts() {
-        $this->WildPage->recursive = -1;
-        $pages = $this->WildPage->find('all', array('order' => 'created DESC', 'conditions' => 'draft = 1'));
-        $this->set(compact('pages'));
-    }
 
     /**
      * @TODO not implemented yet. Steal something from Wordpress :)
@@ -78,6 +45,8 @@ class WildPagesController extends WildflowerAppController {
     }
     
     /**
+     * @TODO not done yet
+     *
      * Discard any unsaved changes to a page
      *
      * @param int $id
@@ -285,42 +254,7 @@ class WildPagesController extends WildflowerAppController {
         $this->assertInternalRequest();
         return $this->WildPage->getChildrenForMenu($pageSlug);
     }
-    
-    /**
-     * Preview a page
-     *
-     * @param string $fileName
-     */
-    function wf_preview($fileName) {
-    	$this->layout = 'default';
-    	
-    	$previewPageData = $this->readPreviewCache($fileName);
-    	$id = intval($previewPageData[$this->modelClass]['id']);
-        $page = $this->WildPage->findById($id);
-        if (empty($page)) {
-            exit("Page with id $id does not exist!");
-        }
-        
-        if (is_array($previewPageData) && !empty($previewPageData)) {
-            $page[$this->modelClass] = am($page[$this->modelClass], $previewPageData[$this->modelClass]);
-        }
-        
-        // View variables must be exactly the same as with PagesController::view()
-        $this->set(array(
-            'page' => $page,
-            'currentPageId' => $page[$this->modelClass]['id'],
-            'descriptionMetaTag' => $page[$this->modelClass]['description_meta_tag']
-        ));
-        
-        // Parameters
-        $this->params['current'] = array(
-            'type' => 'page', 
-            'slug' => $page[$this->modelClass]['slug'], 
-            'id' => $page[$this->modelClass]['id']);
-        
-        $this->_chooseTemplate($page[$this->modelClass]['slug']);
-    }
-    
+
     /**
      * View a page
      * 
@@ -411,24 +345,6 @@ class WildPagesController extends WildflowerAppController {
         }
         
         return $rootPages;
-    }
-    
-    /**
-     * Read page data from preview cache
-     * 
-     * @param string $fileName
-     * @return array
-     */
-    private function readPreviewCache($fileName) {
-        $previewCachePath = TMP . 'preview' . DS . $fileName . '.json';
-        if (!file_exists($previewCachePath)) {
-            trigger_error("Cache file $previewCachePath does not exist!");
-        }
-        
-        $json = file_get_contents($previewCachePath);
-        $page[$this->modelClass] = json_decode($json, true);
-        
-        return $page;
     }
     
     /**

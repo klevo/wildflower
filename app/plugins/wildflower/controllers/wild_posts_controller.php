@@ -41,30 +41,6 @@ class WildPostsController extends WildflowerAppController {
         $this->set('posts', $posts);
     }
 
-    function wf_create_preview() {
-        $cacheDir = Configure::read('Wildflower.previewCache');
-        
-        // Create a unique file name
-        $fileName = time();
-        $path = $cacheDir . $fileName . '.json';
-        while (file_exists($path)) {
-            $fileName++;
-            $path = $cacheDir . $fileName . '.json';
-        }
-        
-        // Write data to preview file
-        $data = json_encode($this->data[$this->modelClass]);
-        file_put_contents($path, $data);
-        
-        // Garbage collector
-        $this->previewCacheGC($cacheDir);
-        
-        $responce = array('previewFileName' => $fileName);
-        $this->set('data', $responce);
-        //$this->autoLayout = false;
-        $this->render('/elements/json');
-    }
-    
     /**
      * Edit page
      * 
@@ -226,37 +202,6 @@ class WildPostsController extends WildflowerAppController {
     }
     
     /**
-     * Preview a post
-     *
-     * @param string $fileName Cached post content file name
-     */
-    function wf_preview($fileName = null) {
-        if (is_null($fileName)) return $this->cakeError('object_not_found');
-        
-    	$this->layout = 'default';
-    	
-        $previewPostData = $this->_readPreviewCache($fileName);
-        $id = intval($previewPostData[$this->modelClass]['id']);
-        $post = $this->WildPost->findById($id);
-        if (empty($post)) $this->cakeError('object_not_found');
-        
-        if (is_array($previewPostData) && !empty($previewPostData)) {
-            unset($previewPostData[$this->modelClass]['created']);
-            $post[$this->modelClass] = am($post[$this->modelClass], $previewPostData[$this->modelClass]);
-        }
-        
-        $this->set(array(
-            'post' => $post,
-            'descriptionMetaTag' => $post[$this->modelClass]['description_meta_tag']
-        ));
-        
-        // Parameters
-        $this->pageTitle = $post[$this->modelClass]['title'];
-        
-        $this->render('view');
-    }
-    
-    /**
      * View a post
      * 
      * @param string $slug
@@ -313,24 +258,6 @@ class WildPostsController extends WildflowerAppController {
             $this->set('post', $post);
             $this->render('view');
         }  
-    }
-     
-    /**
-     * Read post data from preview cache
-     * 
-     * @param string $fileName
-     * @return array
-     */
-    private function _readPreviewCache($fileName) {
-        $previewCachePath = Configure::read('Wildflower.previewCache') . $fileName . '.json';
-        if (!file_exists($previewCachePath)) {
-            trigger_error("Cache file $previewCachePath does not exist!");
-        }
-        
-        $json = file_get_contents($previewCachePath);
-        $post[$this->modelClass] = json_decode($json, true);
-        
-        return $post;
     }
     
 }

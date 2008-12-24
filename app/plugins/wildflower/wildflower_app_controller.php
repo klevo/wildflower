@@ -89,6 +89,51 @@ class WildflowerAppController extends AppController {
         $results = $this->{$this->modelClass}->search($query, array('title', 'content'));
         $this->set(compact('query', 'results'));
     }
+    
+    /**
+     * Preview a post or a page
+     *
+     * @param string $fileName Cached page/post content file name
+     */
+    function wf_preview($fileName = null) {
+        if (is_null($fileName)) return $this->cakeError('object_not_found');
+        
+    	$this->layout = 'default';
+    	
+        $previewData = $this->__readPreviewCache($fileName);
+        $id = intval($previewData[$this->modelClass]['id']);
+        $item = $this->{$this->modelClass}->findById($id);
+        if (empty($item)) $this->cakeError('object_not_found');
+        
+        if (is_array($previewData) && !empty($previewData)) {
+            unset($previewData[$this->modelClass]['created']);
+            $item[$this->modelClass] = am($item[$this->modelClass], $previewData[$this->modelClass]);
+        }
+        
+        $itemName = 'item';
+        switch ($this->modelClass) {
+            case 'WildPost':
+                $itemName = 'post';
+                break;
+            case 'WildPage':
+                $itemName = 'page';
+                break;
+        }
+        
+        $params = array($itemName => $item);
+        if (isset($item[$this->modelClass]['description_meta_tag'])) {
+            $params['descriptionMetaTag'] = $item[$this->modelClass]['description_meta_tag'];
+        }
+        $this->set($params);
+        
+        $this->pageTitle = $item[$this->modelClass]['title'];
+        
+        if ($this->modelClass = 'WildPost') {
+            return $this->render('view');
+        } else if ($this->modelClass = 'WildPage') {
+            return $this->_chooseTemplate($item[$this->modelClass]['slug']);
+        }
+    }
 	
 	/**
 	 * Make sure the application returns 404 if it's not a requested action
@@ -319,6 +364,30 @@ class WildflowerAppController extends AppController {
 		
 		return $user;
 	}
+	
+	function wf_create_preview() {
+        $cacheDir = Configure::read('Wildflower.previewCache');
+        
+        // Create a unique file name
+        $fileName = time();
+        $path = $cacheDir . $fileName . '.json';
+        while (file_exists($path)) {
+            $fileName++;
+            $path = $cacheDir . $fileName . '.json';
+        }
+        
+        // Write data to preview file
+        $data = json_encode($this->data[$this->modelClass]);
+        file_put_contents($path, $data);
+        
+        // Garbage collector
+        $this->__previewCacheGC($cacheDir);
+        
+        $responce = array('previewFileName' => $fileName);
+        $this->set('data', $responce);
+        $this->render('/elements/json');
+    }
+    
 
     /**
      * Delete old files from preview cache
@@ -327,7 +396,7 @@ class WildflowerAppController extends AppController {
      *
      * @param string $path
      */
-    protected function previewCacheGC($path) {
+    protected function __previewCacheGC($path) {
         // Filetypes to check (you can also use *.*)
         $fileTypes = '*.json';
          
@@ -347,6 +416,24 @@ class WildflowerAppController extends AppController {
             }
         }
     }
+    
+     /**
+      * Read and decode data from preview cache
+      * 
+      * @param string $fileName
+      * @return array
+      */
+     protected function __readPreviewCache($fileName) {
+         $previewCachePath = Configure::read('Wildflower.previewCache') . $fileName . '.json';
+         if (!file_exists($previewCachePath)) {
+             return trigger_error("Cache file $previewCachePath does not exist!");
+         }
+
+         $json = file_get_contents($previewCachePath);
+         $item[$this->modelClass] = json_decode($json, true);
+
+         return $item;
+     }
 	
 	/**
 	 * Read login data from cookie
