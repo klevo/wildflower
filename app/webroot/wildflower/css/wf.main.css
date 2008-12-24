@@ -259,7 +259,7 @@ h2 {
 #sidebar-search-results {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
 }
 
     #sidebar-search-results li {
