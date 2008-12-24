@@ -192,19 +192,15 @@ class WildPostsController extends WildflowerAppController {
     /**
      * RSS feed for posts
      *
-     * Also echoes the XML definition. (when in view there is a whitespace before it <- bad)
      */
-    function feed() {
+    function rss() {
         $this->layout = 'rss/default';
-        
-        $posts = $this->WildPost->find(
-             'all', 
-             array(
-                  'order' => 'WildPost.created desc'
-             )
-        );
-        
-        $this->set('posts', $posts);
+        $posts = $this->WildPost->find('all', array(
+             'order' => 'WildPost.created DESC',
+             'contain' => 'WildUser',
+        ));
+        $this->set(compact('posts'));
+        $this->RequestHandler->respondAs('text/xml');
     }
      
     /**
