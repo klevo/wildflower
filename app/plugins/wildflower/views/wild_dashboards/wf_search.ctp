@@ -1,4 +1,4 @@
-<?php if (isset($results) && !empty($results)) { ?>
+<?php if (isset($results) && !empty($results)): ?>
 <ul id="sidebar-search-results">
 <?php
 	foreach ($results as $item) {
@@ -18,6 +18,6 @@
 	}
 ?>
 </ul>
-<?php } else { ?>
+<?php else: ?>
     <div id="sidebar-search-results" class="nomatch">No matches</div>
-<?php } ?>
+<?php endif; ?>

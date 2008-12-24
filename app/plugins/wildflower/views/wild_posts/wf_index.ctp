@@ -61,12 +61,7 @@
         </ul>
     </li>
     <li>
-    <?php
-        echo
-        $form->create('WildPost', array('action' => 'search', 'class' => 'search')),
-        $form->input('query', array('label' => __('Find a post by typing', true))),
-        $form->end();
-    ?>
+        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
     <li>
         <p><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')); ?></p>

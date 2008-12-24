@@ -45,8 +45,8 @@
     <li>
         <?php
             echo
-            $form->create('Search', array('url' => $html->url(array('action' => 'wf_search')), 'class' => 'search')),
-            $form->input('query', array('label' => __('Find a page or post by typing', true))),
+            $form->create('WildDashboard', array('url' => $html->url(array('action' => 'wf_search', 'base' => false)), 'class' => 'search')),
+            $form->input('query', array('label' => __('Find a page or post by typing', true), 'id' => 'SearchQuery')),
             $form->end();
         ?>
     </li>

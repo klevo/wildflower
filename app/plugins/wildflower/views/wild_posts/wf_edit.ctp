@@ -126,11 +126,6 @@
         </ul>
     </li>
     <li>
-        <?php
-            echo
-            $form->create('WildPost'),
-            $form->input('query', array('label' => __('Find a post by typing', true))),
-            $form->end();
-        ?>
+        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

@@ -14,7 +14,7 @@ $.jlm.component('TypeSearch', '*', function() {
     queryInputEl.val('');
     var timedAction = null;
     var searchRequest = null;
-    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/' + $.jlm.params.controller.replace('wild_', '') + '/search/';
+    var url = searchFormEl.attr('action') + '/';
     
     var doSearch = function() {
         $('#sidebar-search-results').remove();
@@ -31,11 +31,9 @@ $.jlm.component('TypeSearch', '*', function() {
             return;
         }   
 
-        searchRequest = $.post(url + encodeURI(query), {
-            'data[Search][query]': query
-        }, function(responce) {
+        searchRequest = $.get(url + encodeURI(query), function(html) {
             $('#sidebar-search-results').remove();
-            searchFormEl.append(responce);
+            searchFormEl.append(html);
         });
     }
     

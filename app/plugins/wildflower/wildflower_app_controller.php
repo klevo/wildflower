@@ -81,13 +81,15 @@ class WildflowerAppController extends AppController {
     }
     
     /**
-     * Fulltext search
+     * Admin search
      *
+     * @param string $query Search term, encoded by Javascript's encodeURI()
      */
-    function wf_search() {
-    	$query = trim($this->data['Query']);
-        $results = $this->{$this->modelClass}->search($query, array('title', 'content'));
-        $this->set(compact('query', 'results'));
+    function wf_search($query = '') {
+        $query = urldecode($query);
+        $results = $this->{$this->modelClass}->search($query);
+        $this->set('results', $results);
+        $this->render('/wild_dashboards/wf_search');
     }
     
     /**

@@ -22,12 +22,7 @@
             array('class' => 'add', 'escape' => false)) ?>
     </li>
     <li>
-        <?php
-            echo
-            $form->create('WildPage', array('action' => 'search', 'class' => 'search')),
-            $form->input('query', array('label' => __('Find a page by typing', true))),
-            $form->end();
-        ?>
+        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>
 

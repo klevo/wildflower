@@ -11,6 +11,11 @@ class WildDashboardsController extends WildflowerAppController {
 		$this->set(compact('comments', 'messages'));
 	}
 	
+    /**
+     * Admin page and post search
+     *
+     * @param string $query Search term, encoded by Javascript's encodeURI()
+     */
     function wf_search($query = '') {
         $query = urldecode($query);
         $postResults = ClassRegistry::init('WildPost')->search($query);
@@ -19,6 +24,10 @@ class WildDashboardsController extends WildflowerAppController {
         $this->set('results', $results);
     }
     
+    /**
+     * Public search @TODO
+     *
+     */
     function search() {
         if (!empty($this->data)) {
             $query = '';
