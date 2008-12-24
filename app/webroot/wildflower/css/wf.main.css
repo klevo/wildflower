@@ -358,11 +358,8 @@ h2 {
     top: 4px;
     right: 4px;
     display: none;
+    font-size: 12px;
 }
-
-    .list li:hover > .row-actions {
-        display: block;
-    }
 
 .post-categories {
     color: #535353;
