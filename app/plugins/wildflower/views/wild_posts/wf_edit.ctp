@@ -5,14 +5,6 @@
     $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
 ?>
 
-<ul class="edit-sections">
-    <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit', $this->data['WildPost']['id']), array('class' => 'current', 'rel' => 'title-content')); ?></li>
-    <li><?php echo $html->link('Categories & Options', '#Categories', array('rel' => 'post-categories')); ?></li>
-    <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
-    <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
-    <li><?php echo $html->link('View', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
-</ul>
-
 <div id="title-content">
 <?php
     echo
@@ -121,11 +113,18 @@
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
+    </li>
+    <li>
+        <ul class="sidebar-menu-alt">
+            <li><?php echo $html->link('Categorize this post', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
+            <li><?php echo $html->link('View published', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
         </ul>
     </li>
     <li>
-        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+        </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>

@@ -1,6 +1,11 @@
 /*
-    Wildflower CMS main stylesheet
-
+Wildflower CMS main stylesheet
+ 
+Colors
+======
+#2f2f2f - Ligter Black - Main type color
+#eee - Light Grey - Non-content background 
+#0033CC - Link Blue - Hyperlinks
 */
 
 html,
@@ -242,6 +247,31 @@ h2 {
         color: #fff;
         text-decoration: none;
         background-color: #6f6f6f;
+    }
+    
+.sidebar-menu-alt {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .sidebar-menu-alt li {
+        margin: 0 0 5px;
+        padding: 0;
+    }
+    
+    .sidebar-menu-alt a {
+        display: block;
+        color: #2f2f2f;
+        background: #ddd;
+        padding: 5px 10px;
+        text-decoration: underline;
+    }
+    
+    .sidebar-menu-alt a:hover {
+        text-decoration: none;
+        background-color: #969696;
+        color: #fff;
     }
     
     
