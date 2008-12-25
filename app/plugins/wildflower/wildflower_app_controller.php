@@ -180,6 +180,10 @@ class WildflowerAppController extends AppController {
      */
     function beforeFilter() {
         parent::beforeFilter();
+        //$this->Security->blackHoleCallback = 'xssBlackHole';
+        
+        // Wilflower callbacks from app/controllers/wildflower_callbacks
+        $this->wildflowerCallback('before');
         
         // AuthComponent settings
         $this->Auth->userModel = 'WildUser';
@@ -188,14 +192,9 @@ class WildflowerAppController extends AppController {
         $this->Auth->loginAction = "/$prefix/login";
         $this->Auth->autoRedirect = false;
         
-        //$this->Security->blackHoleCallback = 'xssBlackHole';
-        
-        // Wilflower callbacks from app/controllers/wildflower_callbacks
-        $this->wildflowerCallback('before');
-        
 		$this->_assertDatabaseConnection();
 
-		$this->configureSite();
+		$this->_configureSite();
 
 		$user = $this->findUserInSessions();
 
@@ -327,27 +326,20 @@ class WildflowerAppController extends AppController {
      * @return bool
      */
     function isAdminAction() {
-        if (isset($this->params['admin']) && $this->params['admin'] === Configure::read('Wildflower.prefix')) return true;
-        return (isset($this->params['prefix']) && $this->params['prefix'] == Configure::read('Wildflower.prefix'));
+        $adminRoute = Configure::read('Routing.admin');
+        $wfPrefix = Configure::read('Wildflower.prefix');
+        if (isset($this->params[$adminRoute]) && $this->params[$adminRoute] === $wfPrefix) return true;
+        return (isset($this->params['prefix']) && $this->params['prefix'] === $wfPrefix);
     }
-    
-	/**
-	 * Reloads (redirects to) current url
-	 */
-	function reload() {
-		$this->redirect($this->here, null, true);
-	}
 
 	/**
 	 * Write all site settings to Configure class as key => value pairs.
 	 * Access them anywhere in the application with Configure::read().
 	 *
 	 */
-	private function configureSite() {
-		App::import('Model', 'Wildflower.WildSetting');
-		$WildSetting = new WildSetting;
-		$settings = $WildSetting->getKeyValuePairs();
-        Configure::write('AppSettings', $settings);
+	private function _configureSite() {
+		$settings = ClassRegistry::init('Wildflower.WildSetting')->getKeyValuePairs();
+        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
 	}
 	
 	/**
