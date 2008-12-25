@@ -18,4 +18,12 @@ Installation
    3. Edit the app/config/database.php file with your database connection details.
    4. You've got a working copy of this site. You can start working on your project by modifying the application inside the app directory. When a new release of Wildflower comes, you simply update the cake, vendors and wildflower directories.
    5. Default login/password combination for /admin area is admin/admin321 --Don`t forget to change this when in production.
+   
+Problems with passwords after updating to AuthComponent enabled version?
+=======================================================================
+
+Use the UtilityShell to generate an AuthComponent compatible password:
+./cake/console/cake utility hash myPassword
+
+Insert the result into your DB in the 'password' field.
 
