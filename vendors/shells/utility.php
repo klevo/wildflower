@@ -1,9 +1,11 @@
 <?php 
+App::import('Security');
+
 class UtilityShell extends Shell {
 
     function hash() {
         $value = Configure::read('Security.salt') . trim($this->args[0]);
-        $this->out(sha1($value)); // @TODO replace with Security::hash() class
+        $this->out(Security::hash($value, null, true));
     }
     
 }

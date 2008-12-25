@@ -39,20 +39,44 @@ class WildUsersController extends WildflowerAppController {
         $this->layout = 'login';   
         $this->pageTitle = 'Login';
         
-        if ($this->Auth->user()) {
-            if (!empty($this->data)) {
-                if (empty($this->data['WildUser']['remember'])) {
-                    $this->Cookie->del('WildUser');
-                } else {
-                    $cookie = array();
-                    $cookie['login'] = $this->data['WildUser']['login'];
-                    $cookie['password'] = $this->data['WildUser']['password'];
-                    $this->Cookie->write('WildUser', $cookie, true, '+2 weeks');
-                }
-                unset($this->data['WildUser']['remember']);
-            }
-            $this->redirect($this->Auth->redirect());
-        }
+    	if ($user = $this->Auth->user()) {
+    		if (!empty($this->data) && $this->data['WildUser']['remember']) {
+    		    // Generate unique cookie token
+    			$cookieToken = Security::hash(String::uuid(), null, true);
+    			$WildUser = ClassRegistry::init('WildUser');
+    			while ($WildUser->findByCookieToken($cookieToken)) {
+    			    $cookieToken = Security::hash(String::uuid(), null, true);
+    			}
+    			
+    			// Save token to DB
+    			$WildUser->create($user);
+    			$WildUser->saveField('cookie_token', $cookieToken);
+    			
+    			// Save login cookie
+    			$cookie = array();
+    			$cookie['login'] = $this->data['WildUser']['login'];
+    			$cookie['cookie_token'] = $cookieToken;
+    			$this->Cookie->write('Auth.WildUser', $cookie, true, '+2 weeks');
+    			unset($this->data['WildUser']['remember']);
+    		}
+    		$this->redirect($this->Auth->redirect());
+    	}
+    	
+    	// Try login cookie
+    	if (empty($this->data)) {
+    		$cookie = $this->Cookie->read('Auth.WildUser');
+    		if (!is_null($cookie)) {
+    		    $this->Auth->fields = array('username' => 'login', 'password' => 'cookie_token');
+    			if ($this->Auth->login($cookie)) {
+    				//  Clear auth message, just in case we use it.
+    				$this->Session->del('Message.auth');
+    				return $this->redirect($this->Auth->redirect());
+    			} else { 
+    			    // Delete invalid Cookie
+    				$this->Cookie->del('Auth.User');
+    			}
+    		}
+    	}
     }
 
     /**
@@ -61,25 +85,7 @@ class WildUsersController extends WildflowerAppController {
      * Delete User info from Session, Cookie and reset cookie UUID.
      */
     function wf_logout() {
-        //         $cookieName = Configure::read('Wildflower.cookie.name');
-        //         if ($this->Session->check($this->modelClass)) {
-        //             // Generate an unique UUID
-        //             $uuid = String::uuid();
-        //             $user = $this->WildUser->findByCookie($uuid);
-        //             while (!empty($user)) {
-        //                 $uuid = String::uuid();
-        //                 $user = $this->WildUser->findByCookie($uuid);
-        //             }
-        //             
-        //             $user = $this->Session->read($this->modelClass);
-        //             $this->WildUser->create($user);
-        //             $this->WildUser->saveField('cookie', $uuid);
-        //             $this->Session->del($this->modelClass);
-        //         }
-        // 
-        // // Destroy the keep-logged-in cookie
-        //         $this->Cookie->destroy();
-       
+        $this->Cookie->del('Auth.WildUser');
         $this->redirect($this->Auth->logout());
     }
 
