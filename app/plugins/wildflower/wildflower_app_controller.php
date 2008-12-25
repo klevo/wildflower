@@ -317,31 +317,9 @@ class WildflowerAppController extends AppController {
 	}
 	
     function getLoggedInUserId() {
-        return intval($this->Session->read('WildUser.id'));
+        return intval($this->Auth->user('id'));
     }
 
-    /**
-     * Tell wheather the current action should be protected
-     *
-     * @return bool
-     */
-    function isAdminAction() {
-        $adminRoute = Configure::read('Routing.admin');
-        $wfPrefix = Configure::read('Wildflower.prefix');
-        if (isset($this->params[$adminRoute]) && $this->params[$adminRoute] === $wfPrefix) return true;
-        return (isset($this->params['prefix']) && $this->params['prefix'] === $wfPrefix);
-    }
-
-	/**
-	 * Write all site settings to Configure class as key => value pairs.
-	 * Access them anywhere in the application with Configure::read().
-	 *
-	 */
-	private function _configureSite() {
-		$settings = ClassRegistry::init('Wildflower.WildSetting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
-	}
-	
 	/**
 	 * @depraceted Using AuthComponent
 	 *
@@ -391,6 +369,28 @@ class WildflowerAppController extends AppController {
         $this->set('data', $responce);
         $this->render('/elements/json');
     }
+
+    /**
+     * Tell wheather the current action should be protected
+     *
+     * @return bool
+     */
+    function isAdminAction() {
+        $adminRoute = Configure::read('Routing.admin');
+        $wfPrefix = Configure::read('Wildflower.prefix');
+        if (isset($this->params[$adminRoute]) && $this->params[$adminRoute] === $wfPrefix) return true;
+        return (isset($this->params['prefix']) && $this->params['prefix'] === $wfPrefix);
+    }
+
+	/**
+	 * Write all site settings to Configure class as key => value pairs.
+	 * Access them anywhere in the application with Configure::read().
+	 *
+	 */
+	private function _configureSite() {
+		$settings = ClassRegistry::init('Wildflower.WildSetting')->getKeyValuePairs();
+        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
+	}
 
     /**
      * Delete old files from preview cache
