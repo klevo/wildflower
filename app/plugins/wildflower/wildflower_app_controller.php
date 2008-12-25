@@ -343,6 +343,8 @@ class WildflowerAppController extends AppController {
 	}
 	
 	/**
+	 * @depraceted Using AuthComponent
+	 *
 	 * Authorize (log in) user with valid session or cookie
 	 *
 	 * @return array User model array
@@ -389,7 +391,6 @@ class WildflowerAppController extends AppController {
         $this->set('data', $responce);
         $this->render('/elements/json');
     }
-    
 
     /**
      * Delete old files from preview cache
