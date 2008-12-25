@@ -154,12 +154,13 @@ img {
         padding: 0 0 0 0;
         display: inline-block;
         color: #01591e;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: bold;
         text-decoration: none;
     }
     
         #wrap a.add span {
-            padding: 12px 20px 12px 0;
+            padding: 11px 20px 12px 0;
             margin: 0 0 0 20px;
             display: block;
             background: url(img/sidebar-button.png) top right no-repeat;
@@ -469,6 +470,7 @@ h2 {
     }
     
 #post-categories,
+#post-options,
 #post-revisions,
 #post-preview {
     display: none;

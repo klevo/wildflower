@@ -34,12 +34,12 @@
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
         <?php echo $html->link(
-            '<span>' . __('Write a new page', true) . '</span>', 
-            array('controller' => 'wild_pages', 'action' => 'wf_create'),
-            array('class' => 'add', 'escape' => false)); ?>
-        <?php echo $html->link(
             '<span>' . __('Write a new post', true) . '</span>', 
             array('controller' => 'wild_posts', 'action' => 'wf_create'),
+            array('class' => 'add', 'escape' => false)); ?>
+        <?php echo $html->link(
+            '<span>' . __('Write a new page', true) . '</span>', 
+            array('controller' => 'wild_pages', 'action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li>

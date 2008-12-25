@@ -37,8 +37,10 @@
         </li>
     <?php endforeach; ?>
     </ul>
-    
-    <h2>Options</h2>
+</div>   
+
+<div id="post-options">
+    <h2>Post Options</h2>
     <?php
         echo 
         $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPost::getStatusOptions())),
@@ -46,8 +48,7 @@
         //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
         $form->input('created', array('between' => '<br />'));
     ?>
-
-</div>    
+</div> 
 
 <div id="post-revisions">
     <h2 class="section">Older versions of this post</h2>
@@ -118,6 +119,7 @@
     <li>
         <ul class="sidebar-menu-alt">
             <li><?php echo $html->link('Categorize this post', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
             <li><?php echo $html->link('View published', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
         </ul>
