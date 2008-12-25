@@ -39,9 +39,7 @@ img {
 #wrap,
 #footer,
 #header-wrap {
-    max-width: 1000px;
-    min-width: 800px;
-    margin: 0 auto;
+    padding: 0 30px;
 }
 
 #wrap {
@@ -59,7 +57,7 @@ img {
     }
 
 #header {
-    background: #27323a;
+    background: #324c60;
     overflow: hidden;
 }
 
@@ -96,10 +94,10 @@ img {
     #nav a {
         display: block;
         height: 12px;
-        margin: 0 4px 0 0;
-        padding: 3px 10px 8px 10px;
-        background: #e4e4e4;
-        color: #1d1d1d;
+        margin: 0 2px 0 0;
+        padding: 3px 9px 8px 9px;
+        background-color: #7f7f7f;
+        color: #fff;
         text-decoration: none;
         -moz-border-radius: 3px 3px 0 0;
         -webkit-border-radius: 3px 3px 0 0;
@@ -108,13 +106,14 @@ img {
     
         #nav .current a,
         #nav .current a:hover {
-            color: #fff;
-            background-color: #7f7f7f;
+            color: #1d1d1d;
+            background-color: #eee;
             font-weight: bold;
         }
         
     #nav a:hover {
-        background-color: #fff;
+        color: #1d1d1d;
+        background-color: #eee;
     }
 
 #login-info {
@@ -356,7 +355,6 @@ h2 {
 
 .row-actions {
     position: absolute;
-    background: #fff;
     top: 4px;
     right: 4px;
     display: none;
@@ -472,7 +470,7 @@ h2 {
 
 .edit-sections {
     list-style: none;
-    margin: 0 0 16px;
+    margin: -10px 0 14px -10px;
     padding: 0;
     overflow: hidden;
 }
