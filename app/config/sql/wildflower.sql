@@ -210,7 +210,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8','The first post','<p>Ola <span style=\"text-decoration: line-through;\">ola</span>.</p>',0,'Just a draft.',NULL,'2008-12-05 18:48:00','2008-12-24 00:29:27',0,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8'),(2,'58a268f56e1206c7ac7841958aab194d9a65230d','Git is COOL 1','<p>wildflower.categories: OK<br />wildflower.categories_posts: Table is already up to date<br />wildflower.comments: OK<br />wildflower.messages: Table is already up to date<br />wildflower.pages: OK<br />wildflower.posts: Table is already up to date<br />wildflower.revisions: Table is already up to date<br />wildflower.schema_info: OK<br />wildflower.settings: OK<br />wildflower.sitemaps: Table is already up to date<br />wildflower.tags: Table is already up to date<br />wildflower.tags_uploads: Table is already up to date<br />wildflower.uploads: OK<br />wildflower.users: OK</p>\r\n<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/Good_Vibrations-1440x900.jpg\" alt=\"Good_Vibrations-1440x900.jpg\" /></p>',1,'',NULL,'2008-12-05 18:50:00','2008-12-24 13:10:15',0,'58a268f56e1206c7ac7841958aab194d9a65230d'),(14,'b383a3b0c13566981f53f27e06ca4ef248419a72','How to handle unsaved & empty new posts','<ul>\r\n<li>add special status =&gt; <strong>new</strong></li>\r\n<li>don\'t display <strong>new</strong> anywhere</li>\r\n<li>remove this status on save</li>\r\n</ul>\r\n<p>-- or --</p>\r\n<ul>\r\n<li>1.2 Beta approach -&gt; before create ask for post name<br /></li>\r\n</ul>',1,'',NULL,'2008-12-25 00:37:00','2008-12-25 14:47:35',0,'b383a3b0c13566981f53f27e06ca4ef248419a72'),(8,'91b3363ce57a447c7ea91c12805007ea877690c7','South Park','<p>Text and text..</p>\r\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',0,'Google loves me.',NULL,'2008-12-15 03:13:00','2008-12-23 23:09:13',0,'91b3363ce57a447c7ea91c12805007ea877690c7'),(9,'f9a5f79375356ff82ab6402c641f78f45f66cbf1','Meaningful contribution','<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>\r\n<div class=\"rc\">\r\n<h2 class=\"why\"><span>Why do we use it?</span></h2>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n</div>\r\n&nbsp;\r\n<h2 class=\"where\"><span>Where does it come from?</span></h2>\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>',0,'',NULL,'2008-12-23 22:36:00','2008-12-25 00:35:19',0,'f9a5f79375356ff82ab6402c641f78f45f66cbf1'),(12,'835bb5f875e9219af691968c25022136fc8f9b53','Test','<p>dasasd</p>',0,'',NULL,'2008-12-24 16:07:00','2008-12-25 13:41:43',0,'835bb5f875e9219af691968c25022136fc8f9b53');
+INSERT INTO `posts` VALUES (1,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8','The first post','<p>Ola <span style=\"text-decoration: line-through;\">ola</span>.</p>',0,'Just a draft.',NULL,'2008-12-05 18:48:00','2008-12-24 00:29:27',0,'e12fb31d656da0fe469c45b84fd1de4b2d0104d8'),(2,'58a268f56e1206c7ac7841958aab194d9a65230d','Git is COOL 1','<p>wildflower.categories: OK<br />wildflower.categories_posts: Table is already up to date<br />wildflower.comments: OK<br />wildflower.messages: Table is already up to date<br />wildflower.pages: OK<br />wildflower.posts: Table is already up to date<br />wildflower.revisions: Table is already up to date<br />wildflower.schema_info: OK<br />wildflower.settings: OK<br />wildflower.sitemaps: Table is already up to date<br />wildflower.tags: Table is already up to date<br />wildflower.tags_uploads: Table is already up to date<br />wildflower.uploads: OK<br />wildflower.users: OK</p>\r\n<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/Good_Vibrations-1440x900.jpg\" alt=\"Good_Vibrations-1440x900.jpg\" /></p>',1,'',NULL,'2008-12-05 18:50:00','2008-12-24 13:10:15',0,'58a268f56e1206c7ac7841958aab194d9a65230d'),(14,'b383a3b0c13566981f53f27e06ca4ef248419a72','How to handle unsaved & empty new posts','<ul>\r\n<li>add special status =&gt; <strong>new</strong></li>\r\n<li>don\'t display <strong>new</strong> anywhere</li>\r\n<li>remove this status on save</li>\r\n</ul>\r\n<p>-- or --</p>\r\n<ul>\r\n<li>1.2 Beta approach -&gt; before create ask for post name<br /></li>\r\n</ul>',1,'',NULL,'2008-12-25 00:37:00','2008-12-25 14:47:35',0,'b383a3b0c13566981f53f27e06ca4ef248419a72'),(8,'91b3363ce57a447c7ea91c12805007ea877690c7','South Park','<p>Text and text..</p>\r\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',0,'Google loves me.',NULL,'2008-12-15 03:13:00','2008-12-23 23:09:13',0,'91b3363ce57a447c7ea91c12805007ea877690c7'),(9,'f9a5f79375356ff82ab6402c641f78f45f66cbf1','Meaningful contribution','<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>\r\n<div class=\"rc\">\r\n<h2 class=\"why\"><span>Why do we use it?</span></h2>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n</div>\r\n&nbsp;\r\n<h2 class=\"where\"><span>Where does it come from?</span></h2>\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>',1,'',NULL,'2008-12-23 22:36:00','2008-12-25 16:00:14',0,'f9a5f79375356ff82ab6402c641f78f45f66cbf1'),(12,'835bb5f875e9219af691968c25022136fc8f9b53','Test','<p>dasasd</p>',0,'',NULL,'2008-12-24 16:07:00','2008-12-25 13:41:43',0,'835bb5f875e9219af691968c25022136fc8f9b53');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +262,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `schema_info` WRITE;
 /*!40000 ALTER TABLE `schema_info` DISABLE KEYS */;
-INSERT INTO `schema_info` VALUES (10);
+INSERT INTO `schema_info` VALUES (12);
 /*!40000 ALTER TABLE `schema_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,34 +403,34 @@ INSERT INTO `uploads` VALUES (7,'Good_Vibrations-1440x900.jpg','Good_Vibrations-
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `wild_users`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `wild_users`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `users` (
+CREATE TABLE `wild_users` (
   `id` int(11) NOT NULL auto_increment,
   `login` varchar(255) collate utf8_unicode_ci NOT NULL,
   `password` char(40) collate utf8_unicode_ci NOT NULL,
   `email` varchar(255) collate utf8_unicode_ci NOT NULL,
   `name` varchar(255) collate utf8_unicode_ci default NULL,
-  `cookie` varchar(255) collate utf8_unicode_ci default NULL,
+  `cookie_token` varchar(255) collate utf8_unicode_ci default NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `cookie` (`cookie`)
+  KEY `cookie` (`cookie_token`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `wild_users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','495171fa-4f7c-49b1-b900-5f52a695e31f','2008-07-11 14:24:43','2008-12-24 00:19:22');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `wild_users` WRITE;
+/*!40000 ALTER TABLE `wild_users` DISABLE KEYS */;
+INSERT INTO `wild_users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','49539182-e938-4200-a93e-5407a695e31f','2008-07-11 14:24:43','2008-12-25 14:58:26');
+/*!40000 ALTER TABLE `wild_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -442,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-12-25 13:51:57
+-- Dump completed on 2008-12-25 21:04:59
