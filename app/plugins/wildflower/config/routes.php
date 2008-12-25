@@ -31,9 +31,8 @@ foreach ($wfControllers as $shortcut) {
 Router::connect("/$prefix", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'index', 'prefix' => 'wf'));
 Router::connect("/$prefix/dashboards/search", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search', 'prefix' => 'wf'));
 
-
 // Login screen
-Router::connect('/login', array('controller' => 'wild_users', 'action' => 'login', 'plugin' => 'wildflower'));
+Router::connect("/$prefix/login", array('controller' => 'wild_users', 'action' => 'login', 'plugin' => 'wildflower'));
 
 // Contact form
 Router::connect('/contact', array('controller' => 'wild_messages', 'action' => 'index', 'plugin' => 'wildflower'));

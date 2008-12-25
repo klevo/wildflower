@@ -4,7 +4,7 @@ App::import('Core', 'l10n');
 
 class WildflowerAppController extends AppController {
 
-	public $components = array('Cookie', 'RequestHandler'/* , 'Security'*/, 'Wildflower.Seo');
+	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Wildflower.Seo');
 	public $currentUserId;
 	public $helpers = array('Html', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation', 'Wildflower.PartialLayout');
 	public $homePageId;
@@ -180,6 +180,13 @@ class WildflowerAppController extends AppController {
      */
     function beforeFilter() {
         parent::beforeFilter();
+        
+        // AuthComponent settings
+        $this->Auth->userModel = 'WildUser';
+        $this->Auth->fields = array('username' => 'login', 'password' => 'password');
+        $prefix = Configure::read('Wildflower.prefix');
+        $this->Auth->loginAction = "/$prefix/login";
+        $this->Auth->autoRedirect = false;
         
         //$this->Security->blackHoleCallback = 'xssBlackHole';
         
