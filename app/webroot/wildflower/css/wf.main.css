@@ -494,9 +494,8 @@ h2 {
 }
 
 .post-info {
-    margin: 16px 0;
-    padding: 6px;
-    font-size: 11px;
+    margin: 20px -20px -20px;
+    padding: 20px;
     background: #f0f0f0;
 }
 

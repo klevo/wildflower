@@ -1,3 +1,4 @@
+// @TODO create a Sections menu component from this
 $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
     
     $('.title-input input').focus();
@@ -13,7 +14,7 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
     }
     
     // Section switching
-    $('.edit-sections a').click(function() {
+    $('.edit-sections-menu a').click(function() {
         var linkEl = $(this);
         var linkElRel = linkEl.attr('rel')
         linkEl.addClass('current');
@@ -22,7 +23,7 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
             return true;
         }
         
-        $('.edit-sections .current').not(linkEl).removeClass('current');
+        $('.edit-sections-menu .current').not(linkEl).removeClass('current');
         
         if (linkElRel == 'post-preview') {
             loadPreview();

@@ -40,7 +40,7 @@
 </div>   
 
 <div id="post-options">
-    <h2>Post Options</h2>
+    <h2 class="section">Post Options</h2>
     <?php
         echo 
         $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPost::getStatusOptions())),
@@ -117,7 +117,7 @@
         <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
     <li>
-        <ul class="sidebar-menu-alt">
+        <ul class="sidebar-menu-alt edit-sections-menu">
             <li><?php echo $html->link('Categorize this post', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>

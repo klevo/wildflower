@@ -362,6 +362,7 @@ class WildflowerAppController extends AppController {
 			$user['WildUser']['id'] = 0;
 		}
 		
+		// @TODO do we need this one? remove
 		Configure::write('Wildflower.user_id', $user['WildUser']['id']);
 		
 		return $user;
