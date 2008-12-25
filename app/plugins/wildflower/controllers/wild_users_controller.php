@@ -102,7 +102,7 @@ class WildUsersController extends WildflowerAppController {
 		// Destroy the keep-logged-in cookie
         $this->Cookie->destroy();
        
-        $this->redirect('/login');
+        $this->redirect($this->Auth->loginAction);
     }
 
     function wf_view($id) {

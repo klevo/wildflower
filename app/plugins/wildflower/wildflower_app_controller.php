@@ -10,12 +10,69 @@ class WildflowerAppController extends AppController {
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
-    // /** Actions that should not be tokenized. */
-    // public $xssSafe = array(
-    //     'wild_posts.wf_index',
-    // );
 	
 	private $_isDatabaseConnected = true;
+	
+	/**
+     * Called before any controller action
+     * 
+     * Do 3 things:
+     *   1. protect admin area
+     *   2. check for user sessions
+     *   3. set site parameters
+     */
+    function beforeFilter() {
+        parent::beforeFilter();
+
+        // Wilflower callbacks from app/controllers/wildflower_callbacks
+        $this->wildflowerCallback('before');
+        
+        // AuthComponent settings
+        $this->Auth->userModel = 'WildUser';
+        $this->Auth->fields = array('username' => 'login', 'password' => 'password');
+        $prefix = Configure::read('Wildflower.prefix');
+        $this->Auth->loginAction = "/$prefix/login";
+        $this->Auth->logoutAction = array('plugin' => 'wildflower', 'prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
+        $this->Auth->autoRedirect = false;
+        
+		$this->_assertDatabaseConnection();
+
+		$this->_configureSite();
+
+		$user = $this->findUserInSessions();
+
+		// Admin area requires authentification
+		if ($this->isAdminAction()) {
+			//$this->assertAdminLoggedIn();
+
+			// Set admin layout and admin specific view vars
+			$this->layout = 'admin_default';
+			$userId = $this->getLoggedInUserId();
+			$this->set('loggedUserId', $userId);
+		} else {
+			$this->layout = 'default';
+		}
+		
+		// Internationalization
+		$this->L10n = new L10n();
+        $this->L10n->get('eng');
+        Configure::write('Config.language', 'en');
+
+		// Site settings
+		$this->_siteSettings = Configure::read('AppSettings');
+		// Home page ID
+		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
+
+		// Set cookie defaults
+		$this->cookieName = Configure::read('Wildflower.cookie.name');
+		$this->cookieTime = Configure::read('Wildflower.cookie.expire');
+		$this->cookieDomain = '.' . getenv('SERVER_NAME');
+
+		// Compress output to save bandwith / speed site up
+		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
+		    $this->gzipOutput();
+		}
+    }
 
     /**
      * @TODO legacy code, refacor
@@ -169,68 +226,6 @@ class WildflowerAppController extends AppController {
 	function xssBlackHole() {
 	    $this->cakeError('xss');
 	}
-	
-    /**
-     * Callback before any controller action
-     * 
-     * Do 3 things:
-     * 1.   protect admin area
-     * 2.   check for user sessions
-     * 3.   set site parameters
-     */
-    function beforeFilter() {
-        parent::beforeFilter();
-        //$this->Security->blackHoleCallback = 'xssBlackHole';
-        
-        // Wilflower callbacks from app/controllers/wildflower_callbacks
-        $this->wildflowerCallback('before');
-        
-        // AuthComponent settings
-        $this->Auth->userModel = 'WildUser';
-        $this->Auth->fields = array('username' => 'login', 'password' => 'password');
-        $prefix = Configure::read('Wildflower.prefix');
-        $this->Auth->loginAction = "/$prefix/login";
-        $this->Auth->autoRedirect = false;
-        
-		$this->_assertDatabaseConnection();
-
-		$this->_configureSite();
-
-		$user = $this->findUserInSessions();
-
-		// Admin area requires authentification
-		if ($this->isAdminAction()) {
-			$this->assertAdminLoggedIn();
-
-			// Set admin layout and admin specific view vars
-			$this->layout = 'admin_default';
-			$this->set('loggedUserId', $user['WildUser']['id']);
-			$this->currentUserId = $user['WildUser']['id'];
-		} else {
-			$this->layout = 'default';
-			$this->params['breadcrumb'][] = array('title' => 'Home', 'url' => '/');
-		}
-		
-		// Internationalization
-		$this->L10n = new L10n();
-        $this->L10n->get('eng');
-        Configure::write('Config.language', 'en');
-
-		// Site settings
-		$this->_siteSettings = Configure::read('AppSettings');
-		// Home page ID
-		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
-
-		// Set cookie defaults
-		$this->cookieName = Configure::read('Wildflower.cookie.name');
-		$this->cookieTime = Configure::read('Wildflower.cookie.expire');
-		$this->cookieDomain = '.' . getenv('SERVER_NAME');
-
-		// Compress output to save bandwith / speed site up
-		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
-		    $this->gzipOutput();
-		}
-    }
     
     function afterFilter() {
         parent::afterFilter();
