@@ -1,7 +1,6 @@
 <?php
 class WildUsersController extends WildflowerAppController {
 
-	public $components = array('Cookie');
     public $helpers = array('Wildflower.List');
 	/** Cookie settings */
 	public $cookieDomain;
@@ -54,27 +53,6 @@ class WildUsersController extends WildflowerAppController {
             }
             $this->redirect($this->Auth->redirect());
         }
-        
-        // After succesful login redirect to desired location in admin
-        // $afterLoginRedirectTo = '/' . Configure::read('Wildflower.prefix');
-        //         if ($this->Session->check('afterLoginRedirectTo')) {
-        //             $afterLoginRedirectTo = $this->Session->read('afterLoginRedirectTo');
-        //         }
-        // 
-        //         if (!empty($this->data)) {
-        //             $user = $this->WildUser->authenticate($this->data[$this->modelClass]['login'], $this->data[$this->modelClass]['password']);
-        //             if (empty($user)) {
-        //                 $this->WildUser->invalidate('password', 'Login and password do not match.');
-        //             } else {
-        //                 $this->saveSession($user);
-        //                 // Cleanup the referer
-        //                 $this->Session->del('afterLoginRedirectTo');
-        //                 return $this->redirect($afterLoginRedirectTo);
-        //             }
-        //         }
-        // 
-        //         $this->layout = 'login';
-        //         $this->pageTitle = 'Login';
     }
 
     /**

@@ -34,17 +34,14 @@ class WildflowerAppController extends AppController {
         $this->Auth->loginAction = "/$prefix/login";
         $this->Auth->logoutAction = array('plugin' => 'wildflower', 'prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
         $this->Auth->autoRedirect = false;
+        $this->Auth->allow('update_root_cache'); // requested actions need to be allowed
         
 		$this->_assertDatabaseConnection();
 
 		$this->_configureSite();
-
-		$user = $this->findUserInSessions();
-
+        
 		// Admin area requires authentification
 		if ($this->isAdminAction()) {
-			//$this->assertAdminLoggedIn();
-
 			// Set admin layout and admin specific view vars
 			$this->layout = 'admin_default';
 			$userId = $this->getLoggedInUserId();

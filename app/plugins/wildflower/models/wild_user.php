@@ -10,8 +10,6 @@ uses('Sanitize');
  */
 class WildUser extends WildflowerAppModel {
 	
-	public $useTable = 'users';
-	
 	public $hasMany = array('Wildflower.WildPage');
 
     public $validate = array(

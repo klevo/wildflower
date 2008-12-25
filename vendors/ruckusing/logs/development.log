@@ -144,3 +144,29 @@ Dec 25 14:52:20 [info] UPDATE users SET password = 'e569c558b6119c2948d97ff3bffd
 Dec 25 14:52:20 [info] UPDATE schema_info SET version = 11
 Dec 25 14:52:25 [info] SELECT version FROM schema_info
 Dec 25 14:52:27 [info] SELECT version FROM schema_info
+Dec 25 20:31:57 [info] SELECT version FROM schema_info
+Dec 25 20:31:57 [info] RENAME TABLE users TO wild_users
+Dec 25 20:31:57 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
+Dec 25 20:31:57 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
+Dec 25 20:31:57 [info] UPDATE schema_info SET version = 12
+Dec 25 20:32:04 [info] SELECT version FROM schema_info
+Dec 25 20:32:04 [info] RENAME TABLE wild_users TO users
+Dec 25 20:32:04 [info] SHOW COLUMNS FROM `users` LIKE 'cookie_token'
+Dec 25 20:32:04 [info] ALTER TABLE `users` CHANGE `cookie_token` `cookie` varchar(255)
+Dec 25 20:32:04 [info] UPDATE schema_info SET version = 11
+Dec 25 20:32:06 [info] SELECT version FROM schema_info
+Dec 25 20:32:06 [info] RENAME TABLE users TO wild_users
+Dec 25 20:32:06 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
+Dec 25 20:32:06 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
+Dec 25 20:32:06 [info] UPDATE schema_info SET version = 12
+Dec 25 21:49:41 [info] SELECT version FROM schema_info
+Dec 25 21:49:46 [info] SELECT version FROM schema_info
+Dec 25 21:49:46 [info] RENAME TABLE wild_users TO users
+Dec 25 21:49:46 [info] SHOW COLUMNS FROM `users` LIKE 'cookie_token'
+Dec 25 21:49:46 [info] ALTER TABLE `users` CHANGE `cookie_token` `cookie` varchar(255)
+Dec 25 21:49:46 [info] UPDATE schema_info SET version = 11
+Dec 25 21:50:24 [info] SELECT version FROM schema_info
+Dec 25 21:50:24 [info] RENAME TABLE users TO wild_users
+Dec 25 21:50:24 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
+Dec 25 21:50:24 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
+Dec 25 21:50:24 [info] UPDATE schema_info SET version = 12
