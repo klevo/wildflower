@@ -83,26 +83,26 @@ class WildUsersController extends WildflowerAppController {
      * Delete User info from Session, Cookie and reset cookie UUID.
      */
     function wf_logout() {
-        $cookieName = Configure::read('Wildflower.cookie.name');
-        if ($this->Session->check($this->modelClass)) {
-            // Generate an unique UUID
-            $uuid = String::uuid();
-            $user = $this->WildUser->findByCookie($uuid);
-            while (!empty($user)) {
-                $uuid = String::uuid();
-                $user = $this->WildUser->findByCookie($uuid);
-            }
-            
-            $user = $this->Session->read($this->modelClass);
-            $this->WildUser->create($user);
-            $this->WildUser->saveField('cookie', $uuid);
-            $this->Session->del($this->modelClass);
-        }
-
-		// Destroy the keep-logged-in cookie
-        $this->Cookie->destroy();
+        //         $cookieName = Configure::read('Wildflower.cookie.name');
+        //         if ($this->Session->check($this->modelClass)) {
+        //             // Generate an unique UUID
+        //             $uuid = String::uuid();
+        //             $user = $this->WildUser->findByCookie($uuid);
+        //             while (!empty($user)) {
+        //                 $uuid = String::uuid();
+        //                 $user = $this->WildUser->findByCookie($uuid);
+        //             }
+        //             
+        //             $user = $this->Session->read($this->modelClass);
+        //             $this->WildUser->create($user);
+        //             $this->WildUser->saveField('cookie', $uuid);
+        //             $this->Session->del($this->modelClass);
+        //         }
+        // 
+        // // Destroy the keep-logged-in cookie
+        //         $this->Cookie->destroy();
        
-        $this->redirect($this->Auth->loginAction);
+        $this->redirect($this->Auth->logout());
     }
 
     function wf_view($id) {
