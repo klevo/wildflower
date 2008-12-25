@@ -34,7 +34,7 @@ class WildflowerAppController extends AppController {
         $this->Auth->loginAction = "/$prefix/login";
         $this->Auth->logoutAction = array('plugin' => 'wildflower', 'prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
         $this->Auth->autoRedirect = false;
-        $this->Auth->allow('update_root_cache'); // requested actions need to be allowed
+        $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         
 		$this->_assertDatabaseConnection();
 
@@ -48,6 +48,7 @@ class WildflowerAppController extends AppController {
 			$this->set('loggedUserId', $userId);
 		} else {
 			$this->layout = 'default';
+			$this->Auth->allow('*');
 		}
 		
 		// Internationalization
