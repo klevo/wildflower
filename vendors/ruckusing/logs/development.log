@@ -139,3 +139,8 @@ Nov 08 22:12:32 [info] SELECT version FROM schema_info
 Nov 08 22:12:32 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
 Nov 08 22:12:38 [info] UPDATE schema_info SET version = 10
 Nov 08 22:27:28 [info] SELECT version FROM schema_info
+Dec 25 14:52:20 [info] SELECT version FROM schema_info
+Dec 25 14:52:20 [info] UPDATE users SET password = 'e569c558b6119c2948d97ff3bffd87423f75c2b1' WHERE login = 'admin'
+Dec 25 14:52:20 [info] UPDATE schema_info SET version = 11
+Dec 25 14:52:25 [info] SELECT version FROM schema_info
+Dec 25 14:52:27 [info] SELECT version FROM schema_info
