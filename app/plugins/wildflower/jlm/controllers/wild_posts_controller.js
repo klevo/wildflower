@@ -95,15 +95,16 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
     });
     
     // Save buttons
-    $('.submit input').click(function() {
+    $('.submit input').click(editButtonsOnClick);
+    
+    function editButtonsOnClick() {
         buttonEl = $(this);
         var originalLabel = buttonEl.attr('value');
         buttonEl.attr('value', 'Saving...').attr('disabled', 'disabled');
         
         var isPublish = (buttonEl.parent().attr('id') == 'save-publish');
-        
         if (isPublish) {
-            $('#WildPostDraft, #WildPageDraft').val('0');
+            $('#WildPageDraft, #WildPostDraft').val('0');
         }
         
         // Do AJAX save
@@ -119,17 +120,17 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
             // Update post info
             $('.post-info').html(json['post-info']).effect('highlight', {}, 4000);
             
-            if (isPublish) {
-                // Remove publish button
-                $('#save-publish').hide();
-                $('#save-draft input').val('Save changes'); // @TODO add L18n
-            }
+            // Update buttons
+            $('#edit-buttons').html(json['edit-buttons']);
+            
+            // Rebind
+            $('.submit input').click(editButtonsOnClick);
         };
         
         formEl.ajaxSubmit({ dataType: 'json', success: successCallback });
         
         return false;
-    });
+    }
     
 });
 
