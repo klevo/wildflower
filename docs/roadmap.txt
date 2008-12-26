@@ -1,16 +1,16 @@
 Wildflower Roadmap
 ******************
 
-1. Finish all the sections of the admin interface.
-    - Dashboard
-    - Blog (60% done)
-    - Pages (20%)
-    - Comments
-    - User Accounts
-    - Site Settings
+1. Finish all the sections of the admin interface. (% - done)
+    - Dashboard (20%)
+    - Blog (80%)
+    - Pages (50%)
+    - Comments & Contact form messages (20%)
+    - User Accounts (20%)
+    - Site Settings (20%)
     
 2. Hooks all around the system & plugin architecture for extending Wildflower functionality, without hacking the original files.    
     
 3. Post/Page saving and staging: Ability to edit and save the post/page without publishing the new changes. The latest published revision is visible to the public.
 
-4. Integrate Cake's AuthComponent to manage user auth.
+4. Integrate Cake's AuthComponent to manage user auth. - DONE
