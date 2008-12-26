@@ -112,18 +112,14 @@ class WildPostsController extends WildflowerAppController {
         // clearCache($cacheName, 'views', '.php');
 		
         if ($this->RequestHandler->isAjax()) {
-            $revisions = $this->WildPost->getRevisions($this->WildPost->id, 1);
-            
             $this->WildPost->contain('WildUser');
             $post = $this->WildPost->findById($this->WildPost->id);
-            
-            $this->set(compact('revisions', 'post'));
+            $this->set(compact('post'));
             return $this->render('wf_update');
-        } else {
-            $time = date('h:i A');
-            $this->Session->setFlash("$time: Post saved.");
         }
 
+        $time = date('h:i A');
+        $this->Session->setFlash("$time: Post saved.");
         $this->redirect(array('action' => 'edit', $this->WildPost->id));
     }
     

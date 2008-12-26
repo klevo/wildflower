@@ -94,9 +94,33 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
         return false;
     });
     
+    // Save buttons
+    $('.submit input').click(function() {
+        buttonEl = $(this);
+        var originalLabel = buttonEl.attr('value');
+        buttonEl.attr('value', 'Saving...').attr('disabled', 'disabled');
+        
+        // Do AJAX save
+        // Save content back to textareas
+        tinyMCE.triggerSave();
+
+        // Do AJAX form submit
+        var formEl = $('form:first');
+
+        var successCallback = function(response) {
+            buttonEl.attr('value', originalLabel).removeAttr('disabled');
+
+            console.debug(response);
+        };
+        
+        formEl.ajaxSubmit({ dataType: 'json', success: successCallback });
+        
+        return false;
+    });
+    
 });
 
-$.jlm.bind('wild_posts.wf_index', function() {
+$.jlm.bind('wild_posts.wf_index, wild_pages.wf_index', function() {
     
     // Double click on a post item takes you to the edit screen
     $('.list-of-posts li').dblclick(function() {

@@ -115,7 +115,7 @@
 <?php echo $form->end(); ?>
 
 <p class="post-info">
-    This post is <?php if ($isDraft): ?>not published, therefore not visible to the public.<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . WildPost::getUrl($this->data['WildPost']['uuid']), WildPost::getUrl($this->data['WildPost']['uuid'])); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPost']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
+    This post is <?php if ($isDraft): ?>not published, therefore not visible to the public<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . WildPost::getUrl($this->data['WildPost']['uuid']), WildPost::getUrl($this->data['WildPost']['uuid'])); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPost']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
 </p>
     
 
@@ -134,7 +134,6 @@
             <li><?php echo $html->link('Categorize this post', '#Categories', array('rel' => 'post-categories')); ?></li>
             <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
-            <li><?php echo $html->link('View published', WildPost::getUrl($this->data['WildPost']['uuid']), array('class' => 'permalink')); ?></li>
         </ul>
     </li>
     <li>

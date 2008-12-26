@@ -119,8 +119,7 @@ class VersionableBehavior extends ModelBehavior {
             'type' => $this->_type,
             'node_id' => $nodeId, 
             'content' => $archive, 
-            'revision_number' => $revNo,
-            'user_id' => Configure::read('Wildflower.user_id')
+            'revision_number' => $revNo
         );
         
         // Save only if the content has changed
