@@ -107,10 +107,11 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
         // Do AJAX form submit
         var formEl = $('form:first');
 
-        var successCallback = function(response) {
+        var successCallback = function(json) {
             buttonEl.attr('value', originalLabel).removeAttr('disabled');
 
-            console.debug(response);
+            // Update post info
+            $('.post-info').html(json['post-info']).effect('highlight', {}, 4000);
         };
         
         formEl.ajaxSubmit({ dataType: 'json', success: successCallback });
