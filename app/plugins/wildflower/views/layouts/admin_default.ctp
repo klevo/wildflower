@@ -14,12 +14,10 @@
         // Load your CSS files here
         $html->css(array(
             '/wildflower/css/wf.main',
-            '/wildflower/css/wf.switcher',
         )),
-        // Load your Javascript here
-        $javascript->link(array(
-            'tiny_mce/tiny_mce',
-        ));
+        // TinyMCE 
+        // @TODO load only on pages with editor?
+        $javascript->link('/wildflower/js/tiny_mce/tiny_mce');
     ?>
     
     <!--[if lte IE 6]>
