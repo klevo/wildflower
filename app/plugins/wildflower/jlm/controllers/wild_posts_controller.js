@@ -13,25 +13,14 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
         switchToSection = '#' + possibleSection[1];
     }
     
-    // Section switching
-    $('.edit-sections-menu a').click(function() {
-        var linkEl = $(this);
-        var linkElRel = linkEl.attr('rel')
-        linkEl.addClass('current');
-        
-        if (!linkElRel) {
-            return true;
-        }
-        
-        $('.edit-sections-menu .current').not(linkEl).removeClass('current');
-        
-        if (linkElRel == 'post-preview') {
+    function switchToSectionId(switchToId) {
+        if (switchToId == 'post-preview') {
             loadPreview();
         }
         
         var activeSectionHeight = activeSectionEl.height();
         
-        var switchToSectionId = '#' + linkElRel;
+        var switchToSectionId = '#' + switchToId;
         var switchToSectionEl = $(switchToSectionId);
         
         var switchToSelectionHeight = switchToSectionEl.height();
@@ -48,11 +37,26 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
             $('input[@type=text]:first:visible').focus();
             activeSectionEl = switchToSectionEl;
         });
+    }
+    
+    // Section switching
+    $('.edit-sections-menu a').click(function() {
+        var linkEl = $(this);
+        var switchToId = linkEl.attr('rel');
+        linkEl.addClass('current');
+        
+        if (!switchToId) {
+            return true;
+        }
+        
+        $('.edit-sections-menu .current').not(linkEl).removeClass('current');
+        
+        switchToSectionId(switchToId);
         
         if (linkEl.attr('href').split('#').length == 1) {
             return false; // We don't want a reload on items without #Section
         }
-        return true;
+        return false;
     }).each(function() {
         var linkEl = $(this);
         var linkHref = linkEl.attr('href');
@@ -83,6 +87,12 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
             dataType: 'json'
         });
     }
+    
+    // Bind cancel section links
+    $('.cancel-section').click(function() {
+        switchToSectionId('title-content');
+        return false;
+    });
     
 });
 
