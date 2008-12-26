@@ -377,6 +377,12 @@ h2 {
     height: 100%;
 }
 
+.draft-status {
+    font-size: 11px;
+    font-weight: bold;
+    border: none;
+}
+
 .row-actions {
     position: absolute;
     top: 4px;

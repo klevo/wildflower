@@ -21,7 +21,13 @@
     <?php foreach ($posts as $post) { ?>
         <li class="post-row actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
-            <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
+            <?php
+                $draftStatus = '';
+                if ($post['WildPost']['draft']) {
+                    $draftStatus = '<abbr title="This post is not published, therefore not visible to the public." class="draft-status">(Draft)</abbr> ';
+                }
+            ?>
+            <span class="title-row"><?php echo $draftStatus, $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
             <span class="post-date"><?php echo $time->format('j M y', $post['WildPost']['created']) ?></span>
             <?php
                 // Post categories list
