@@ -451,13 +451,15 @@ h2 {
 }
 
 #save-draft,
-#save-publish {
+#save-publish,
+#save-preview {
     float: left;
     margin-right: 6px;
 }
 
     #save-draft input,
-    #save-publish input {
+    #save-publish input,
+    #save-preview input {
         font-size: 13px;
     }
     

@@ -85,6 +85,9 @@
     <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
 </div>
 
+<div class="submit" id="save-preview">
+    <input type="submit" value="<?php __('Preview'); ?>" />
+</div>
 <?php if ($isDraft): ?>    
 <div class="submit" id="save-draft">
     <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
