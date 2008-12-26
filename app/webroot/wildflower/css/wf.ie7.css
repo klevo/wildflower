@@ -1,5 +1,10 @@
-.sidebar-menu {
+#content-pad {
+    padding-top: 1px;
+}
 
+.sidebar-menu,
+.sidebar-menu-alt {
+    overflow: hidden;
 }
 
     .sidebar-menu a {

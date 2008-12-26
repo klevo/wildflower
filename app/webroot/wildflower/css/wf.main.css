@@ -211,7 +211,7 @@ h2 {
 }
 
     #sidebar ul {
-        padding: 6px 0 0;
+        padding: 0;
         list-style: none;
         margin: 0;
     }
@@ -230,7 +230,6 @@ h2 {
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow: hidden;
     position: relative;
     left: -14px;
 }        
