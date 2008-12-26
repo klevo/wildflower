@@ -52,7 +52,8 @@ img {
 }
 
 #footer {
-    padding: 10px 0 20px;
+    margin: 0;
+    padding: 0 0 20px;
     text-align: center;
     font-size: 11px;
 }
@@ -68,6 +69,12 @@ img {
 
     #header a {
         color: #eee;
+    }
+    
+    #header a:hover,
+    #footer a:hover {
+        background-color: #606060;
+        color: #fff;
     }
 
 #header-wrap {

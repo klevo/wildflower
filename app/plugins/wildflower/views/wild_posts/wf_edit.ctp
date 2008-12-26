@@ -109,6 +109,7 @@
             echo "<p id=\"revisions\">No revisions yet.</p>";
         }
     ?>        
+    <div class="cancel-edit cancel-section"><?php echo $html->link(__('Go back to post edit', true), '#Cancel'); ?></div>
 </div>
 
 <?php echo $form->end(); ?>
