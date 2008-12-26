@@ -100,6 +100,12 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
         var originalLabel = buttonEl.attr('value');
         buttonEl.attr('value', 'Saving...').attr('disabled', 'disabled');
         
+        var isPublish = (buttonEl.parent().attr('id') == 'save-publish');
+        
+        if (isPublish) {
+            $('#WildPostDraft, #WildPageDraft').val('0');
+        }
+        
         // Do AJAX save
         // Save content back to textareas
         tinyMCE.triggerSave();
@@ -112,6 +118,12 @@ $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
 
             // Update post info
             $('.post-info').html(json['post-info']).effect('highlight', {}, 4000);
+            
+            if (isPublish) {
+                // Remove publish button
+                $('#save-publish').hide();
+                $('#save-draft input').val('Save changes'); // @TODO add L18n
+            }
         };
         
         formEl.ajaxSubmit({ dataType: 'json', success: successCallback });
