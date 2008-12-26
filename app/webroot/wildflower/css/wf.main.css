@@ -460,7 +460,7 @@ h2 {
 #save-draft,
 #save-publish,
 #save-preview,
-#save-section {
+.save-section {
     float: left;
     margin-right: 6px;
 }
@@ -468,7 +468,7 @@ h2 {
     #save-draft input,
     #save-publish input,
     #save-preview input,
-    #save-section input {
+    .save-section input {
         font-size: 13px;
     }
     

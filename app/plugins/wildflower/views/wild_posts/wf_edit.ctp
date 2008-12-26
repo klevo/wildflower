@@ -26,27 +26,7 @@
     ?>
     
     <div id="edit-buttons">
-        <div id="post-preview">
-            <h2 class="section">Post Preview</h2>
-            <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
-        </div>
-
-        <div class="submit" id="save-preview">
-            <input type="submit" value="<?php __('Preview'); ?>" />
-        </div>
-        <?php if ($isDraft): ?>    
-        <div class="submit" id="save-draft">
-            <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
-        </div>
-        <div class="submit" id="save-publish">
-            <input type="submit" value="<?php __('Publish'); ?>" name="data[__save][publish]" />
-        </div>
-        <?php else: ?>
-        <div class="submit" id="save-draft">
-            <input type="submit" value="<?php __('Save changes'); ?>" />
-        </div>
-        <?php endif; ?>
-        <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to all posts', true), array('action' => 'wf_index')); ?></div>
+        <?php echo $this->element('wf_edit_buttons'); ?>
     </div>
 </div>
 
@@ -62,7 +42,7 @@
     <?php endforeach; ?>
     </ul>
     
-    <div class="submit" id="save-section">
+    <div class="submit save-section">
         <input type="submit" value="<?php __('Save categories'); ?>" />
     </div>
     <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
@@ -77,7 +57,7 @@
         //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
         $form->input('created', array('between' => '<br />'));
     ?>
-    <div class="submit" id="save-section">
+    <div class="submit save-section">
         <input type="submit" value="<?php __('Save options'); ?>" />
     </div>
     <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>

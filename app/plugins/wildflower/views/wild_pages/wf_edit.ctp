@@ -5,39 +5,33 @@
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
 ?>
 
-<ul class="edit-sections">
-    <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current', 'rel' => 'title-content')); ?></li>
-    <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-categories')); ?></li>
-    <li><?php echo $html->link('Revisions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
-    <li><?php echo $html->link('Preview', '#Preview', array('rel' => 'post-preview')); ?></li>
-    <li><?php echo $html->link('View', $this->data['WildPage']['url'], array('class' => 'permalink')); ?></li>
-</ul>
-
-
 <div id="title-content">
-<?php
-    echo
-    $form->input('title', array(
-        'between' => '<br />',
-        'tabindex' => '1',
-        'label' => __('Page Title', true),
-        'div' => array('class' => 'input title-input'))),
-    $form->input('content', array(
-        'type' => 'textarea',
-        'tabindex' => '2',
-        'class' => 'tinymce',
-        'rows' => '25',
-        'label' => false,
-        'div' => array('class' => 'input editor'))),
-    '<div>',
-    $form->hidden('id'),
-    '</div>';
-?>
+    <?php
+        echo
+        $form->input('title', array(
+            'between' => '<br />',
+            'tabindex' => '1',
+            'label' => __('Page Title', true),
+            'div' => array('class' => 'input title-input'))),
+        $form->input('content', array(
+            'type' => 'textarea',
+            'tabindex' => '2',
+            'class' => 'tinymce',
+            'rows' => '25',
+            'label' => false,
+            'div' => array('class' => 'input editor'))),
+        '<div>',
+        $form->hidden('id'),
+        '</div>';
+    ?>
+    
+    <div id="edit-buttons">
+        <?php echo $this->element('wf_edit_buttons'); ?>
+    </div>
 </div>
 
-<div id="post-categories">
-    
-    <h2>Options</h2>
+<div id="post-options">
+    <h2 class="section">Page Options</h2>
     <?php
         echo 
         $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPage::getStatusOptions())),
@@ -45,7 +39,10 @@
         //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
         $form->input('created', array('between' => '<br />'));
     ?>
-
+    <div class="submit save-section">
+        <input type="submit" value="<?php __('Save options'); ?>" />
+    </div>
+    <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
 </div>    
 
 <div id="post-revisions">
@@ -78,26 +75,11 @@
     ?>        
 </div>
 
-<div id="post-preview">
-    <h2 class="section">Page Preview</h2>
-    <object data="<?php echo $html->url(array('action' => 'wf_preview')); ?>" type="text/html"></object>
-</div>
-    
-<?php if ($isDraft): ?>    
-<div class="submit" id="save-draft">
-    <input type="submit" value="<?php __('Save, but don\'t publish'); ?>" name="data[__save][draft]" />
-</div>
-<div class="submit" id="save-publish">
-    <input type="submit" value="<?php __('Publish'); ?>" name="data[__save][publish]" />
-</div>
-<?php else: ?>
-<div class="submit" id="save-draft">
-    <input type="submit" value="<?php __('Save changes'); ?>" />
-</div>
-<?php endif; ?>
-<div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
-
 <?php echo $form->end(); ?>
+
+<div class="post-info">
+    This page is <?php if ($this->data['WildPage']['draft']): ?>not published, therefore not visible to the public<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPage']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
+</div>
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>
@@ -108,11 +90,17 @@
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link('All Pages', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
+    </li>
+    <li>
+        <ul class="sidebar-menu-alt edit-sections-menu">
+            <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
+            <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>
     <li>
-        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link('All Pages', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+        </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>
