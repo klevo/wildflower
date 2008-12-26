@@ -21,10 +21,11 @@
     <?php foreach ($posts as $post) { ?>
         <li class="post-row actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
-            <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
             <span class="title-row"><?php echo $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
+            <small><?php echo $time->format('j M', $post['WildPost']['created']) ?></small>
             <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <?php
+                // Post categories list
                 $categories = Set::extract($post['WildCategory'], '{n}.title');
                 foreach ($categories as &$category) {
                     //$category = $html->link($category['name'], array(''))
