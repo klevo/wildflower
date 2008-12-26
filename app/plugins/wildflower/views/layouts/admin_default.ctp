@@ -19,16 +19,10 @@
         // @TODO load only on pages with editor?
         $javascript->link('/wildflower/js/tiny_mce/tiny_mce');
     ?>
-    
-    <!--[if lte IE 6]>
+     
+    <!--[if lte IE 7]>
     <?php
-        // CSS file for Microsoft Internet Explorer 6 and lower
-        echo $html->css('/wildflower/css/wf.ie6');
-    ?>
-    <![endif]-->    
-    <!--[if IE 7]>
-    <?php
-        // CSS file for Microsoft Internet Explorer 7
+        // CSS file for Microsoft Internet Explorer 7 and lower
         echo $html->css('/wildflower/css/wf.ie7');
     ?>
     <![endif]-->
@@ -87,11 +81,13 @@
             </div>
         </div>
         
+        <?php if (isset($sidebar_for_layout)): ?>
         <div id="sidebar">
             <ul>
-                <?php if (isset($sidebar_for_layout)) echo $sidebar_for_layout; ?>
+                <?php echo $sidebar_for_layout; ?>
             </ul>
         </div>
+        <?php endif; ?>
             
         <div class="cleaner"></div>
     </div>
