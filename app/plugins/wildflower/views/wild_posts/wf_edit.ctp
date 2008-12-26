@@ -59,6 +59,7 @@
         </li>
     <?php endforeach; ?>
     </ul>
+    
     <div class="submit" id="save-section">
         <input type="submit" value="<?php __('Save categories'); ?>" />
     </div>
@@ -74,6 +75,10 @@
         //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
         $form->input('created', array('between' => '<br />'));
     ?>
+    <div class="submit" id="save-section">
+        <input type="submit" value="<?php __('Save options'); ?>" />
+    </div>
+    <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
 </div> 
 
 <div id="post-revisions">
