@@ -62,17 +62,17 @@
         array('class' => 'add', 'escape' => false)) ?>
     </li>
     <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link(__('All Posts', true), array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
-            <li><?php echo $html->link(__('Comments', true), array('controller' => 'wild_comments', 'action' => 'wf_index')); ?></li>
-            <!-- <li><?php echo $html->link('Categories', array('action' => 'wf_categories')); ?></li> -->
-        </ul>
-    </li>
-    <li>
         <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
     <li>
-        <p><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/feed', array('id' => 'posts-feed')); ?></p>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link(__('All Posts', true), array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
+        </ul>
+    </li>
+    <li>
+        <ul class="sidebar-menu-alt">
+            <li><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/rss', array('id' => 'posts-feed')); ?></li>
+        </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>
 

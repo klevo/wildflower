@@ -436,17 +436,11 @@ h2 {
 }
 
 #posts-feed {
-    background: url(img/rss-coffee.png) left 5px no-repeat;
-    padding: 5px 0 5px 22px;
-    margin-top: -10px;
-    display: block;
+    background-image: url(img/rss-coffee.png);
+    background-position: 9px 5px;
+    background-repeat: no-repeat;
+    padding-left: 32px;
 }
-
-    #wrap #posts-feed:hover {
-        color: #c34507;
-        background-color: transparent;
-        text-decoration: underline;
-    }
     
     
 /* Post edit */
