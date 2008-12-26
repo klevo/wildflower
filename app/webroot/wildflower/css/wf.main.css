@@ -452,14 +452,16 @@ h2 {
 
 #save-draft,
 #save-publish,
-#save-preview {
+#save-preview,
+#save-section {
     float: left;
     margin-right: 6px;
 }
 
     #save-draft input,
     #save-publish input,
-    #save-preview input {
+    #save-preview input,
+    #save-section input {
         font-size: 13px;
     }
     

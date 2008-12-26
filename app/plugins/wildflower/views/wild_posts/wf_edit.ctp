@@ -27,7 +27,7 @@
 </div>
 
 <div id="post-categories">
-    <h2 class="section">Post under following categories</h2>
+    <h2 class="section">Post "<?php echo hsc($this->data['WildPost']['title']); ?>" under following categories:</h2>
     <ul>
     <?php foreach ($categories as $id => $label): ?>
         <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
@@ -37,6 +37,10 @@
         </li>
     <?php endforeach; ?>
     </ul>
+    <div class="submit" id="save-section">
+        <input type="submit" value="<?php __('Save categories'); ?>" />
+    </div>
+    <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
 </div>   
 
 <div id="post-options">
