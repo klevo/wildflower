@@ -97,7 +97,7 @@
     <input type="submit" value="<?php __('Save changes'); ?>" />
 </div>
 <?php endif; ?>
-<div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'wf_index')); ?></div>
+<div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Discard changes and go back to all posts', true), array('action' => 'wf_index')); ?></div>
 
 <?php echo $form->end(); ?>
 
