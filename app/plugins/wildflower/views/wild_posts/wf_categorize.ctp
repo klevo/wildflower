@@ -9,7 +9,7 @@
 ?>
 
 <h2 class="section">Post "<?php echo hsc($this->data['WildPost']['title']); ?>" under following categories:</h2>
-<ul>
+<ul class="category-list checkbox-list">
 <?php foreach ($categories as $id => $label): ?>
     <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
     <li>
@@ -32,9 +32,9 @@
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li>
+    <li class="sidebar-box">
         <h4>Editing categories for post...</h4>
-        <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id'])); ?>
+        <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id']), array('class' => 'edited-item-link')); ?>
     </li>
     <li class="sidebar-box">
         <h4>Add a new category</h4>
@@ -42,7 +42,7 @@
             $createCategoryUrl = $html->url(array('controller' => 'wild_categories', 'action' => 'create'));
             echo
             $form->create('WildCategory', array('url' => $createCategoryUrl)),
-            $form->input('WildCategory.title'),
+            $form->input('WildCategory.title', array('between' => '<br />')),
             $form->end('Add category');
         ?>
     </li>

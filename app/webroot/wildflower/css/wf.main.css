@@ -18,7 +18,7 @@ body {
 
 html {
 	font: 12px/16px "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif; /* Lucida Grande works best on OS X, Tahoma is very similar and a system font on Windows */
-	background: #eee;
+	background: #e2e2e2;
 	color: #2f2f2f;
 }
 
@@ -282,8 +282,38 @@ h2 {
         color: #fff;
     }
     
+    /* Sidebar box */
     
-/* Sidebar search */
+    #sidebar .sidebar-box {
+        background-color: #f5f5f5;
+        border: 2px solid #cbcbcb;
+        border-width: 0 2px 2px 0;
+        border-bottom-color: #c0c0c0;
+        padding: 12px;
+        margin: 8px 0 6px 10px !important;
+    }
+
+    #sidebar .sidebar-box:last-child {
+        border-bottom: 2px solid #c0c0c0;
+    }
+
+    .sidebar-box h4 {
+        margin: 0 0 6px 0;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+        .sidebar-box .input input {
+            width: 96%;
+            font-size: 12px;
+        }
+    
+.edited-item-link {
+    font-size: 14px;
+    line-height: 17px;
+}    
+
+    /* Sidebar search */
 
         #sidebar .search .input {
             margin-bottom: 0;
@@ -492,11 +522,21 @@ h2 {
     display: none;
 }
 
-    #post-categories ul {
-        margin: 0 0 14px 0;
+.category-list {
+    margin: 14px 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .category-list li {
+        margin: 0;
         padding: 0;
-        list-style: none;
     }
+
+    .checkbox-list label {
+        position: relative;
+        top: -2px;
+    }    
     
     #post-preview object {
         width: 100%;
