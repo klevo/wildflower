@@ -186,9 +186,7 @@ h2 {
 }
 
 .section {
-    margin: -20px -20px 14px;
-    padding: 14px 20px;
-    background: #eff8ff;
+    margin: 0 0 14px;
     font-size: 14px;
     font-weight: bold;
     line-height: 17px;
