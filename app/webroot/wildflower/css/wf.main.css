@@ -697,3 +697,14 @@ h2 {
     #image-browser .selected {
         outline: 4px solid red;
     }
+    
+    
+/* Reorder list */
+
+    .reorder-list .item {
+        margin: 4px 0;
+        border: 1px solid #ddd;
+        background-color: #eee;
+        padding: 4px;
+        cursor: move;
+    }
