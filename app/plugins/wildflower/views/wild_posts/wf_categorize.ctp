@@ -4,6 +4,7 @@
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
+    $form->hidden('categories_can_be_empty'), // Helps to determine whether the user deselected all the categories
     '</div>';
 ?>
 

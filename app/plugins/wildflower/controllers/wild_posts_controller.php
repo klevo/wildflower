@@ -116,11 +116,14 @@ class WildPostsController extends WildflowerAppController {
         }
         unset($this->data['__save']);
         
-        fb($this->data);
-        
         $this->WildPost->create($this->data);
         
         if (!$this->WildPost->exists()) return $this->cakeError('object_not_found');
+        
+        if (isset($this->data[$this->modelClass]['categories_can_be_empty']) && !isset($this->data['WildCategory'])) {
+             // Delete all post categories
+             $this->WildPost->query("DELETE FROM categories_posts WHERE post_id = {$this->WildPost->id}");
+        }
 
         if (!$this->WildPost->save()) return $this->cakeError('save_error'); // @TODO Rendering the exact save errors would be better
 
