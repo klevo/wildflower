@@ -80,15 +80,16 @@ class WildPostsController extends WildflowerAppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function wf_edit_categories($id = null) {
+    function wf_categorize($id = null) {
         $this->WildPost->contain(array('WildUser', 'WildCategory'));
         $this->data = $this->WildPost->findById($id);
         
         if (empty($this->data)) return $this->cakeError('object_not_found');
    
         $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
-        
-        $this->set(compact('categories'));
+        $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
+        $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
+        $this->set(compact('categories', 'inCategories', 'isDraft'));
         
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }

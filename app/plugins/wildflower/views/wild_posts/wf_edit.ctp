@@ -28,25 +28,7 @@
     <div id="edit-buttons">
         <?php echo $this->element('wf_edit_buttons'); ?>
     </div>
-</div>
-
-<div id="post-categories">
-    <h2 class="section">Post "<?php echo hsc($this->data['WildPost']['title']); ?>" under following categories:</h2>
-    <ul>
-    <?php foreach ($categories as $id => $label): ?>
-        <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
-        <li>
-            <input id="WildCategoryWildCategory<?php echo $id ?>" type="checkbox" value="<?php echo $id ?>" name="data[WildCategory][WildCategory][]"<?php echo $checked ?> />
-            <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?></label>
-        </li>
-    <?php endforeach; ?>
-    </ul>
-    
-    <div class="submit save-section">
-        <input type="submit" value="<?php __('Save categories'); ?>" />
-    </div>
-    <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
-</div>   
+</div> 
 
 <div id="post-options">
     <h2 class="section">Post Options</h2>
@@ -113,7 +95,7 @@
     </li>
     <li>
         <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Categorize this post', '#Categories', array('rel' => 'post-categories')); ?></li>
+            <li><?php echo $html->link('Categorize this post', array('action' => 'categorize', $this->data['WildPost']['id'])); ?></li>
             <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
