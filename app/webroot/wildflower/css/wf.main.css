@@ -303,9 +303,21 @@ h2 {
         font-weight: bold;
     }
     
-        .sidebar-box .input input,
-        .sidebar-box select {
+    .sidebar-box .input {
+        margin: 10px 0;
+    }
+    
+    .sidebar-box .submit {
+        margin-top: 16px;
+    }
+    
+        .sidebar-box .input input {
             width: 96%;
+            font-size: 12px;
+        }
+        
+        .sidebar-box .submit input,
+        .sidebar-box select {
             font-size: 12px;
         }
     

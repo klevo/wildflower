@@ -37,7 +37,7 @@
         <h4>Editing categories for post...</h4>
         <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id']), array('class' => 'edited-item-link')); ?>
     </li>
-    <li class="sidebar-box">
+    <li id="add-category-box" class="sidebar-box">
         <h4>Add a new category</h4>
         <?php
             $createCategoryUrl = $html->url(array('controller' => 'wild_categories', 'action' => 'create'));
@@ -45,7 +45,7 @@
             $form->create('WildCategory', array('url' => $createCategoryUrl)),
             $form->input('WildCategory.title', array('between' => '<br />')),
             $form->input('WildCategory.parent_id', array('between' => '<br />', 'options' => $categories, 'empty' => '(none)')),
-            $form->end('Add category');
+            $form->end('Add this category');
         ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>
