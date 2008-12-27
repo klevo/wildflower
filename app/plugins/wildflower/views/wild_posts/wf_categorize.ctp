@@ -38,6 +38,9 @@
             $form->create('WildCategory', array('url' => $createCategoryUrl)),
             $form->input('WildCategory.title', array('between' => '<br />')),
             $form->input('WildCategory.parent_id', array('between' => '<br />', 'options' => $categories, 'empty' => '(none)')),
+            '<div>',
+            $form->hidden('WildPost.id', array('value' => $this->data['WildPost']['id'])),
+            '</div>',
             $form->end('Add this category');
         ?>
     </li>

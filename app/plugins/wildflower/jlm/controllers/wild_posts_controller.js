@@ -117,11 +117,12 @@ $.jlm.bind('wild_posts.wf_categorize', function() {
     var successCallback = function(json) {
         buttonEl.attr('value', originalLabel).removeAttr('disabled');
         
-        // Append new category to the list & check it
-        var parentCategoryId = $('select', formEl).val();
-        parentLiEl = $('#WildCategoryWildCategory' + parentCategoryId).parent('li');
+        // Replace the list with updated one
+        $('.category-list').before(json.list).remove();
+        
+        // Hight the added category
 
-        parentLiEl.after(json['category-list-item']).effect('highlight', {}, 4000);
+        //parentLiEl.after(json['category-list-item']).effect('highlight', {}, 4000);
     };
     
     var errorCallback = function(data) {

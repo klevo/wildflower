@@ -30,9 +30,19 @@ class WildCategoriesController extends WildflowerAppController {
     		unset($this->data[$this->modelClass]['parent_id']);
     	}
     	
-    	if ($category = $this->WildCategory->save($this->data)) {
-    	    $category[$this->modelClass]['id'] = $this->WildCategory->id;
-    		$this->set(compact('category'));
+    	$postId = intval($this->data['WildPost']['id']);
+    	unset($this->data['WildPost']['id']);
+    	
+    	if ($this->WildCategory->save($this->data)) {
+    	    // Category list
+        	$post = $this->WildCategory->WildPost->find('first', array(
+        	    'conditions' => array('WildPost.id' => $postId),
+        	    'fields' => array('id'),
+        	    'contain' => 'WildCategory',
+        	));
+        	$inCategories = Set::extract($post['WildCategory'], '{n}.id');
+            $categoriesForTree = $this->WildCategory->find('all', array('order' => 'lft ASC', 'recursive' => -1));
+            $this->set(compact('inCategories', 'categoriesForTree'));
     	}
     }
     
