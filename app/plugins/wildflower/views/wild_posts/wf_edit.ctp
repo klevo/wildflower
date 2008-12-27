@@ -30,21 +30,6 @@
     </div>
 </div> 
 
-<div id="post-options">
-    <h2 class="section">Post Options</h2>
-    <?php
-        echo 
-        $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPost::getStatusOptions())),
-        $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
-        //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
-        $form->input('created', array('between' => '<br />'));
-    ?>
-    <div class="submit save-section">
-        <input type="submit" value="<?php __('Save options'); ?>" />
-    </div>
-    <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
-</div> 
-
 <div id="post-revisions">
     <h2 class="section">Older versions of this post</h2>
     <?php 
@@ -96,7 +81,7 @@
     <li>
         <ul class="sidebar-menu-alt edit-sections-menu">
             <li><?php echo $html->link('Categorize this post', array('action' => 'categorize', $this->data['WildPost']['id'])); ?></li>
-            <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
+            <li><?php echo $html->link('Options', array('action' => 'options', $this->data['WildPost']['id'])); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>

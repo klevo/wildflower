@@ -145,7 +145,8 @@ img {
 
 #content-pad {
     padding: 20px;
-    border: 3px solid #ddd;
+    border: 3px solid #cecece;
+    border-right-color: #d5d5d5;
     border-width: 0 3px 3px 0;
 }
 
@@ -187,7 +188,8 @@ h2 {
     margin: -20px -20px 14px;
     padding: 14px 20px;
     background: #eff8ff;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: bold;
     line-height: 17px;
 }
 
@@ -598,7 +600,8 @@ h2 {
 .post-info {
     margin: 20px -20px -20px;
     padding: 20px;
-    background: #f0f0f0;
+    background: #eee;
+    border-top: 1px solid #ddd;
 }
 
 .edit-sections {

@@ -95,6 +95,18 @@ class WildPostsController extends WildflowerAppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
+    function wf_options($id = null) {
+        $this->WildPost->contain(array('WildUser', 'WildCategory'));
+        $this->data = $this->WildPost->findById($id);
+        
+        if (empty($this->data)) return $this->cakeError('object_not_found');
+   
+        $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
+        $this->set(compact('isDraft'));
+        
+        $this->pageTitle = $this->data[$this->modelClass]['title'];
+    }
+    
     function wf_update() {
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
 

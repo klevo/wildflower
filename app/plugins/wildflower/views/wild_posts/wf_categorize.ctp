@@ -1,8 +1,6 @@
 <?php 
-    $session->flash();
-    
     echo 
-    $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
+    $form->create('WildPost', array('url' => $html->url(array('action' => 'update', 'base' => false)))),
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
