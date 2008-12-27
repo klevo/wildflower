@@ -28,19 +28,19 @@
                 }
             ?>
             <span class="title-row"><?php echo $draftStatus, $html->link($post['WildPost']['title'], array('action' => 'wf_edit', $post['WildPost']['id']), array('title' => __('Edit this post.', true))) ?></span>
-            <span class="post-date"><?php echo $time->format('j M y', $post['WildPost']['created']) ?></span>
+            <span class="post-date"><?php echo $html->link($time->format('j M y', $post['WildPost']['created']), array('action' => 'options', $post['WildPost']['id']), array('title' => __('Change post options.', true))); ?></span>
+            <div class="post-categories">
             <?php
                 // Post categories list
                 $categories = Set::extract($post['WildCategory'], '{n}.title');
-                foreach ($categories as &$category) {
-                    //$category = $html->link($category['name'], array(''))
-                }
                 if (!empty($categories)) {
                     $categories = join(', ', $categories);
-
-                    echo '<div class="post-categories">' . $categories . '</div>';
+                } else {
+                    $categories = 'Uncategorized';
                 }
+                echo $html->link($categories, array('action' => 'categorize', $post['WildPost']['id']), array('title' => __('Categorize this post.', true)));
             ?>
+            </div>
             <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <span class="cleaner"></span>
         </li>

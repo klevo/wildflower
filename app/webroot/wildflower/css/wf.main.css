@@ -145,7 +145,7 @@ img {
 }
 
 #content-pad {
-    padding: 20px;
+    padding: 20px 25px;
     border: 3px solid #cecece;
     border-right-color: #d5d5d5;
     border-width: 0 3px 3px 0;
@@ -510,6 +510,18 @@ h2 {
     font-size: 11px;
     float: left;
 }
+
+    .post-date a,
+    .post-categories a {
+        color: #535353;
+        text-decoration: none;
+    }
+    
+    .post-date a:hover,
+    .post-categories a:hover {
+        background-color: #535353;
+        color: #fff;
+    }
    
 .permalink,
 .edit-sections .permalink {
@@ -635,7 +647,7 @@ h2 {
 }
 
 .post-info {
-    margin: 20px -20px -20px;
+    margin: 20px -25px -20px;
     padding: 20px;
     background: #eee;
     border-top: 1px solid #ddd;
