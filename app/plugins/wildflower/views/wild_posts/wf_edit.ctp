@@ -71,13 +71,13 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
+        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
+    </li>
+    <li>
         <?php echo $html->link(
             '<span>Write a new post</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)); ?>
-    </li>
-    <li>
-        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
     <li>
         <ul class="sidebar-menu-alt edit-sections-menu">
