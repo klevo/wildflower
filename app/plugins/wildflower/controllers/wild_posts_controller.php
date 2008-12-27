@@ -120,8 +120,6 @@ class WildPostsController extends WildflowerAppController {
             return $this->render('wf_update');
         }
 
-        $time = date('h:i A');
-        $this->Session->setFlash("$time: Post saved.");
         $this->redirect(array('action' => 'edit', $this->WildPost->id));
     }
     

@@ -185,8 +185,8 @@ h2 {
 
 .section {
     margin: -20px -20px 14px;
-    padding: 20px;
-    background: #dfecf4;
+    padding: 14px 20px;
+    background: #eff8ff;
     font-size: 16px;
     line-height: 17px;
 }
@@ -275,7 +275,7 @@ h2 {
     .sidebar-menu-alt a {
         display: block;
         color: #2f2f2f;
-        background: #ddd;
+        background: #ccc;
         padding: 5px 10px;
         text-decoration: underline;
     }
@@ -702,9 +702,22 @@ h2 {
 /* Reorder list */
 
     .reorder-list .item {
-        margin: 4px 0;
-        border: 1px solid #ddd;
-        background-color: #eee;
-        padding: 4px;
+        border: 1px solid #a5a5a5;
+        background-color: #b3b3b3;
         cursor: move;
+        display: inline;
     }
+    
+    .reorder-list li {
+        display: block;
+    }
+    
+#jTreeHelper {
+    width: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+#jTreeHelper li {
+    display: inline;
+}
