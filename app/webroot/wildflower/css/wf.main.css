@@ -387,7 +387,21 @@ h2 {
 .selected {
     background-color: #fffde0;
 }    
+
+.trash {
+    background: url(img/cross.png) 0 0 no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+    .trash span {
+        display: none;
+    }
     
+    .trash:hover {
+        background-color: transparent;
+    }
         
 /* List of posts */
 
@@ -544,6 +558,14 @@ h2 {
     .category-list li {
         margin: 0;
         padding: 0;
+    }
+    
+    .category-list .trash {
+        visibility: hidden;
+    }
+    
+    .category-list label:hover .trash {
+        visibility: visible;
     }
 
     .checkbox-list label {

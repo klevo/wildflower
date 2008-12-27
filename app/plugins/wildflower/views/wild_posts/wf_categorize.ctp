@@ -15,7 +15,7 @@
     <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
     <li>
         <input id="WildCategoryWildCategory<?php echo $id ?>" type="checkbox" value="<?php echo $id ?>" name="data[WildCategory][WildCategory][]"<?php echo $checked ?> />
-        <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?></label>
+        <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?> <?php echo $html->link('<span>Trash</span>', array('controller' => 'wild_categories', 'action' => 'delete', $id), array('class' => 'trash', 'escape' => false)); ?></label>
     </li>
 <?php endforeach; ?>
 </ul>
@@ -40,7 +40,7 @@
     <li id="add-category-box" class="sidebar-box">
         <h4>Add a new category</h4>
         <?php
-            $createCategoryUrl = $html->url(array('controller' => 'wild_categories', 'action' => 'create'));
+            $createCategoryUrl = $html->url(array('controller' => 'wild_categories', 'action' => 'create', 'base' => false));
             echo
             $form->create('WildCategory', array('url' => $createCategoryUrl)),
             $form->input('WildCategory.title', array('between' => '<br />')),

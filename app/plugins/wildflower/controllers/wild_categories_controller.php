@@ -14,26 +14,26 @@ class WildCategoriesController extends WildflowerAppController {
     /**
      * Categories overview
      * 
-     * Also proccesses add category requests.
      */
     function wf_index() {
-        if (!empty($this->data)) {
-			// Create new category
-			if (empty($this->data['WildCategory']['parent_id'])) {
-	    		// Make sure parent_id will be NULL
-	    		unset($this->data['WildCategory']['parent_id']);
-	    	}
-	    	if ($this->WildCategory->save($this->data)) {
-	    		return $this->redirect(array('action' => 'index'));
-	    	}
-		}
-		
 		$categories = $this->WildCategory->findAll(null, null, 'lft ASC', null, 1, 0);
 		$parentCategories = $this->WildCategory->generatetreelist(null, null, null, '-');
 		
         $this->set(compact('categories', 'parentCategories'));
         
         $this->pageTitle = 'Post categories';
+    }
+    
+    function wf_create() {
+		if (empty($this->data[$this->modelClass]['parent_id'])) {
+    		// Make sure parent_id will be NULL
+    		unset($this->data[$this->modelClass]['parent_id']);
+    	}
+    	
+    	if ($category = $this->WildCategory->save($this->data)) {
+    	    $category[$this->modelClass]['id'] = $this->WildCategory->id;
+    		$this->set(compact('category'));
+    	}
     }
     
     /**
