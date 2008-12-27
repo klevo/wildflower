@@ -9,7 +9,7 @@
     '</div>';
 ?>
 
-<h2 class="section">Categorizing post: <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id'])); ?></h2>
+<h2 class="section">Choose categories</h2>
 
 <?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list checkbox-list', 'element' => '../wild_categories/list_item', 'inCategories' => $inCategories)); ?>
 
@@ -39,7 +39,7 @@
             $form->input('WildCategory.title', array('between' => '<br />')),
             $form->input('WildCategory.parent_id', array('between' => '<br />', 'options' => $categories, 'empty' => '(none)')),
             '<div>',
-            $form->hidden('WildPost.id', array('value' => $this->data['WildPost']['id'])),
+            $form->hidden('WildCategory.wild_post_id', array('value' => $this->data['WildPost']['id'])),
             '</div>',
             $form->end('Add this category');
         ?>

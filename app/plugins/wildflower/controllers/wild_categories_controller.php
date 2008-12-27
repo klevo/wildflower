@@ -24,14 +24,19 @@ class WildCategoriesController extends WildflowerAppController {
         $this->pageTitle = 'Post categories';
     }
     
+    /**
+     * Create a new category 
+     *
+     * Returns the updated category list as JSON.
+     */
     function wf_create() {
 		if (empty($this->data[$this->modelClass]['parent_id'])) {
     		// Make sure parent_id will be NULL
     		unset($this->data[$this->modelClass]['parent_id']);
     	}
     	
-    	$postId = intval($this->data['WildPost']['id']);
-    	unset($this->data['WildPost']['id']);
+    	$postId = intval($this->data[$this->modelClass]['wild_post_id']);
+    	unset($this->data[$this->modelClass]['wild_post_id']);
     	
     	if ($this->WildCategory->save($this->data)) {
     	    // Category list
