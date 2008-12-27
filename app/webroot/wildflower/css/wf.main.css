@@ -303,7 +303,8 @@ h2 {
         font-weight: bold;
     }
     
-        .sidebar-box .input input {
+        .sidebar-box .input input,
+        .sidebar-box select {
             width: 96%;
             font-size: 12px;
         }

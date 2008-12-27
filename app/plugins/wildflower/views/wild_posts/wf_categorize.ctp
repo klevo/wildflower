@@ -5,6 +5,7 @@
     $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
     '<div>',
     $form->hidden('id'),
+    $form->hidden('draft'),
     '</div>';
 ?>
 
@@ -43,6 +44,7 @@
             echo
             $form->create('WildCategory', array('url' => $createCategoryUrl)),
             $form->input('WildCategory.title', array('between' => '<br />')),
+            $form->input('WildCategory.parent_id', array('between' => '<br />', 'options' => $categories, 'empty' => '(none)')),
             $form->end('Add category');
         ?>
     </li>

@@ -103,11 +103,13 @@ class WildPostsController extends WildflowerAppController {
         }
         unset($this->data['__save']);
         
+        fb($this->data);
+        
         $this->WildPost->create($this->data);
         
         if (!$this->WildPost->exists()) return $this->cakeError('object_not_found');
 
-        if (!$this->WildPost->save()) return $this->cakeError('save_error');
+        if (!$this->WildPost->save()) return $this->cakeError('save_error'); // @TODO Rendering the exact save errors would be better
 
         // $cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cache for proper naming method
         // clearCache($cacheName, 'views', '.php');

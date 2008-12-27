@@ -8,12 +8,14 @@ class WildPost extends WildflowerAppModel {
 	   'Wildflower.Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'),
 	   'Wildflower.Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
 	);
+	
 	public $belongsTo = array(
 	   'WildUser' => array(
 	       'className' => 'Wildflower.WildUser',
 	       'foreignKey' => 'user_id'
 	   )
 	);
+	
 	public $hasAndBelongsToMany = array(
 	   'WildCategory' => array(
 	       'className' => 'Wildflower.WildCategory',
@@ -22,6 +24,7 @@ class WildPost extends WildflowerAppModel {
 	       'associationForeignKey' => 'category_id'
 	   )
 	);
+	
 	public $hasMany = array(
 	   'WildComment' => array(
 	       'className' => 'Wildflower.WildComment',
@@ -30,9 +33,7 @@ class WildPost extends WildflowerAppModel {
 	       //'foreignKey' => 'post_id'
 	   )
 	);
-	public $validate = array(
-		'title' => array('rule' => array('maxLength', 255), 'allowEmpty' => false, 'required' => true)
-	);
+	
 	public static $statusOptions = array(
        '0' => 'Published',
        '1' => 'Draft'

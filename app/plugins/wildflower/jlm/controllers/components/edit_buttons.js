@@ -1,4 +1,4 @@
-$.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize', function() {
+$.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize, wild_pages.wf_edit', function() {
     
     // Save buttons
     $('.submit input').click(editButtonsOnClick);
@@ -32,7 +32,7 @@ $.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize', f
         };
         
         var errorCallback = function(data) {
-            alert('Error while saving.');
+            alert('Error while saving. Check FireBug console for debug data.');
             if (typeof(console) == 'object') {
                 console.debug(data);
             }
