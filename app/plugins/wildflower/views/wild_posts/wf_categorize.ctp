@@ -7,14 +7,14 @@
     '</div>';
 ?>
 
-<h2 class="section">Check categories to post under</h2>
+<h2 class="section"><?php __('Check categories to post under'); ?></h2>
 
 <?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list checkbox-list', 'element' => '../wild_categories/list_item', 'inCategories' => $inCategories)); ?>
 
 <div class="submit save-section">
     <input type="submit" value="<?php __('Save categories'); ?>" />
 </div>
-<div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), array('action' => 'edit', $this->data['WildPost']['id'])); ?></div>
+<div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), array('action' => 'edit', $this->data['WildPost']['id'])); ?></div>
 
 <?php echo $form->end(); ?>
 
@@ -25,7 +25,7 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="sidebar-box">
-        <h4>Editing categories for post...</h4>
+        <h4><?php __('Categorizing post...'); ?></h4>
         <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id']), array('class' => 'edited-item-link')); ?>
     </li>
     <li id="add-category-box" class="sidebar-box">

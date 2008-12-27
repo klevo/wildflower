@@ -49,6 +49,7 @@ img {
 
 #wrap {
     color: #2f2f2f;
+    min-width: 870px;
 }
 
 #footer {
@@ -120,13 +121,13 @@ img {
         #nav .current a,
         #nav .current a:hover {
             color: #1d1d1d;
-            background-color: #eee;
+            background-color: #e2e2e2;
             font-weight: bold;
         }
         
     #nav a:hover {
         color: #1d1d1d;
-        background-color: #eee;
+        background-color: #e2e2e2;
     }
 
 #login-info {
@@ -188,7 +189,7 @@ h2 {
     margin: -20px -20px 14px;
     padding: 14px 20px;
     background: #eff8ff;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 17px;
 }
@@ -197,7 +198,36 @@ h2 {
 /* Form elements */
 
 .input {
-    margin-bottom: 14px;
+    padding: 8px 0;
+    margin: 0;
+}
+
+#WildPostCreatedYear,
+#WildPageCreatedYear {
+    margin-right: 10px;
+}
+
+    .input input,
+    .input textarea,
+    select {
+        font-size: 12px;
+        font-family: "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    .horizontal-form label {
+        display: block;
+        float: left;
+        width: 80px;
+        text-align: right;
+        padding: 3px 8px 0 0;
+    }
+    
+    .horizontal-form .input {
+        overflow: hidden;
+    }
+    
+.horizontal-form-buttons {
+    padding: 14px 0 0 90px;
 }
 
 
@@ -228,11 +258,15 @@ h2 {
         list-style: none;
         margin: 0;
     }
+    
+    #sidebar .input {
+        padding: 0;
+    }
 
     #sidebar > ul > li {
         margin: 0;
-        padding: 7px 14px;
-        border-bottom: 1px solid #dbdfe1;
+        padding: 10px 14px;
+        border-bottom: 1px solid #cacaca;
     }
     
     #sidebar > ul > li:last-child {
@@ -514,11 +548,16 @@ h2 {
     
     
 /* Post edit */
-    
-.title-input input {
-    font-size: 18px;
-    width: 99%;
+
+.title-input {
+    padding-top: 0;
+    margin-top: -4px;
 }
+    
+    .title-input input {
+        font-size: 18px;
+        width: 99%;
+    }
 
 #save-draft,
 #save-publish,
