@@ -65,13 +65,13 @@
         array('class' => 'add', 'escape' => false)) ?>
     </li>
     <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link(__('All Posts', true), array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
+        <ul class="sidebar-menu-alt">
+            <li><?php echo $html->link(__('Subscribe to blog RSS feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/rss', array('id' => 'posts-feed')); ?></li>
         </ul>
     </li>
     <li>
-        <ul class="sidebar-menu-alt">
-            <li><?php echo $html->link(__('Blog RSS Feed', true), '/' . Configure::read('Wildflower.blogIndex') . '/rss', array('id' => 'posts-feed')); ?></li>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link(__('All Posts', true), array('action' => 'wf_index'), array('class' => 'back-to-all current')); ?></li>
         </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>
