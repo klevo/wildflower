@@ -3,5 +3,5 @@
 $.jlm.bind('app_controller.beforeFilter', function () {
     
     $.jlm.components.tinyMce.startup();
-
+    
 });
