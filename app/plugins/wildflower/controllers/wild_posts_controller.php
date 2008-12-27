@@ -116,6 +116,8 @@ class WildPostsController extends WildflowerAppController {
         }
         unset($this->data['__save']);
         
+        fb($this->data);
+        
         $this->WildPost->create($this->data);
         
         if (!$this->WildPost->exists()) return $this->cakeError('object_not_found');
