@@ -10,15 +10,8 @@
 ?>
 
 <h2 class="section">Post "<?php echo hsc($this->data['WildPost']['title']); ?>" under following categories:</h2>
-<ul class="category-list checkbox-list">
-<?php foreach ($categories as $id => $label): ?>
-    <?php $checked = in_array($id, $inCategories) ? ' checked="checked"' : ''; ?>
-    <li>
-        <input id="WildCategoryWildCategory<?php echo $id ?>" type="checkbox" value="<?php echo $id ?>" name="data[WildCategory][WildCategory][]"<?php echo $checked ?> />
-        <label for="WildCategoryWildCategory<?php echo $id ?>"><?php echo hsc($label) ?> <?php echo $html->link('<span>Trash</span>', array('controller' => 'wild_categories', 'action' => 'delete', $id), array('class' => 'trash', 'escape' => false)); ?></label>
-    </li>
-<?php endforeach; ?>
-</ul>
+
+<?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list checkbox-list', 'element' => '../wild_categories/list_item', 'inCategories' => $inCategories)); ?>
 
 <div class="submit save-section">
     <input type="submit" value="<?php __('Save categories'); ?>" />

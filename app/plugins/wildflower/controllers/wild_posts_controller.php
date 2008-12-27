@@ -1,6 +1,6 @@
 <?php
 class WildPostsController extends WildflowerAppController {
-	public $helpers = array('Cache', 'Wildflower.List', 'Rss', 'Wildflower.Textile', 'Wildflower.Category', 'Time');
+	public $helpers = array('Cache', 'Wildflower.List', 'Rss', 'Wildflower.Textile', 'Wildflower.Category', 'Wildflower.Tree', 'Time');
 	/** Pagination options for the wf_index action **/
     public $paginate = array(
         'limit' => 10,
@@ -89,7 +89,8 @@ class WildPostsController extends WildflowerAppController {
         $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
         $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
         $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
-        $this->set(compact('categories', 'inCategories', 'isDraft'));
+        $categoriesForTree = $this->WildPost->WildCategory->find('all', array('order' => 'lft ASC', 'recursive' => -1));
+        $this->set(compact('categories', 'inCategories', 'isDraft', 'categoriesForTree'));
         
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
