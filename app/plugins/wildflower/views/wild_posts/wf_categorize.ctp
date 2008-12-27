@@ -9,7 +9,7 @@
     '</div>';
 ?>
 
-<h2 class="section">Post "<?php echo hsc($this->data['WildPost']['title']); ?>" under following categories:</h2>
+<h2 class="section">Categorizing post: <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id'])); ?></h2>
 
 <?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list checkbox-list', 'element' => '../wild_categories/list_item', 'inCategories' => $inCategories)); ?>
 

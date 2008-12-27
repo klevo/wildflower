@@ -1,7 +1,7 @@
 $.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize, wild_pages.wf_edit', function() {
     
     // Save buttons
-    $('.submit input').click(editButtonsOnClick);
+    $('#save-draft input, #save-publish input, .save-section input').click(editButtonsOnClick);
     
     function editButtonsOnClick() {
         buttonEl = $(this);

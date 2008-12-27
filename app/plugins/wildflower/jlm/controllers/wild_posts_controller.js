@@ -109,33 +109,33 @@ $.jlm.bind('wild_posts.wf_index, wild_pages.wf_index', function() {
 
 $.jlm.bind('wild_posts.wf_categorize', function() {
     
-    // Add new category box
-    $('#add-category-box .submit input').click(function() {
-        buttonEl = $(this);
-        var originalLabel = buttonEl.attr('value');
-        buttonEl.attr('value', 'Adding...').attr('disabled', 'disabled');
+    // Add new category box AJAX form
+    var buttonEl = $('#add-category-box .submit input');
+    var formEl = $('#add-category-box form');
+    var originalLabel;
+    
+    var successCallback = function(json) {
+        buttonEl.attr('value', originalLabel).removeAttr('disabled');
         
-        var formEl = buttonEl.parents('form').eq(0);
+        // Append new category to the list & check it
+        var parentCategoryId = $('select', formEl).val();
+        parentLiEl = $('#WildCategoryWildCategory' + parentCategoryId).parent('li');
 
-        // Do AJAX form submit
-        var successCallback = function(json) {
-            buttonEl.attr('value', originalLabel).removeAttr('disabled');
-            
-            // Append new category to the list & check it
-            var parentCategoryId = $('select', formEl).val();
-            parentLiEl = $('#WildCategoryWildCategory' + parentCategoryId).parent('li');
-
-            parentLiEl.after(json['category-list-item']).effect('highlight', {}, 4000);
-        };
-        
-        var errorCallback = function(data) {
-            alert('Error while saving. Check FireBug console for debug data.');
-            if (typeof(console) == 'object') {
-                console.debug(data);
-            }
-            buttonEl.attr('value', originalLabel).removeAttr('disabled');
+        parentLiEl.after(json['category-list-item']).effect('highlight', {}, 4000);
+    };
+    
+    var errorCallback = function(data) {
+        alert('Error while saving. Check FireBug console for debug data.');
+        if (typeof(console) == 'object') {
+            console.debug(data);
         }
-        
+        buttonEl.attr('value', originalLabel).removeAttr('disabled');
+    }
+    
+    formEl.submit(function() {
+        originalLabel = buttonEl.attr('value');
+        buttonEl.attr('value', 'Adding...').attr('disabled', 'disabled');
+
         formEl.ajaxSubmit({ dataType: 'json', success: successCallback, error: errorCallback });
         
         return false;

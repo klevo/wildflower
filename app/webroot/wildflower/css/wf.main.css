@@ -184,7 +184,11 @@ h2 {
 }
 
 .section {
-    margin-top: 0;
+    margin: -20px -20px 14px;
+    padding: 20px;
+    background: #dfecf4;
+    font-size: 16px;
+    line-height: 17px;
 }
 
 
@@ -555,9 +559,15 @@ h2 {
     list-style: none;
 }
 
+    .category-list ul,
     .category-list li {
+        list-style: none;
         margin: 0;
         padding: 0;
+    }
+    
+    .category-list ul {
+        margin-left: 17px;
     }
     
     .category-list .trash {
@@ -571,6 +581,7 @@ h2 {
     .checkbox-list label {
         position: relative;
         top: -2px;
+        left: -3px;
     }    
     
     #post-preview object {
