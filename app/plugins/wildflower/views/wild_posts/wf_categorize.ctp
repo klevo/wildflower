@@ -11,6 +11,8 @@
 
 <h2 class="section">Choose categories</h2>
 
+<p><?php echo $html->link(__('Reorder categories', true), array('controller' => 'wild_categories')); ?></p>
+
 <?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list checkbox-list', 'element' => '../wild_categories/list_item', 'inCategories' => $inCategories)); ?>
 
 <div class="submit save-section">

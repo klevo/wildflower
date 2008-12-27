@@ -12,16 +12,13 @@ class WildCategoriesController extends WildflowerAppController {
     );
 	
     /**
-     * Categories overview
+     * Reorder categories
      * 
      */
     function wf_index() {
-		$categories = $this->WildCategory->findAll(null, null, 'lft ASC', null, 1, 0);
-		$parentCategories = $this->WildCategory->generatetreelist(null, null, null, '-');
-		
-        $this->set(compact('categories', 'parentCategories'));
-        
-        $this->pageTitle = 'Post categories';
+		$categoriesForTree = $this->WildCategory->find('all', array('order' => 'lft ASC', 'recursive' => -1));
+        $this->set(compact('categoriesForTree'));
+        $this->pageTitle = 'Blog Categories';
     }
     
     /**
