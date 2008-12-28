@@ -195,6 +195,13 @@ h2 {
 
 /* Form elements */
 
+input,
+textarea,
+select {
+    font-size: 12px;
+    font-family: "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
 .input {
     padding: 8px 0;
     margin: 0;
@@ -204,13 +211,6 @@ h2 {
 #WildPageCreatedYear {
     margin-right: 10px;
 }
-
-    .input input,
-    .input textarea,
-    select {
-        font-size: 12px;
-        font-family: "Lucida Grande", Tahoma, Verdana, Arial, Helvetica, sans-serif;
-    }
 
     .horizontal-form label {
         display: block;
@@ -572,7 +572,8 @@ h2 {
 #save-draft,
 #save-publish,
 #save-preview,
-.save-section {
+.save-section,
+.wf-form-button {
     float: left;
     margin-right: 6px;
 }
@@ -580,7 +581,8 @@ h2 {
     #save-draft input,
     #save-publish input,
     #save-preview input,
-    .save-section input {
+    .save-section input,
+    .wf-form-button input {
         font-size: 13px;
     }
     
