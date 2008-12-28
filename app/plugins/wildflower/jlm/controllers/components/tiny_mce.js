@@ -61,10 +61,11 @@ $.jlm.addComponent('tinyMce', {
 	        doBindAndLoad = true;
 	        browserEl = $($.jlm.element('image_browser')).hide();
 	    } 
-	    $('.title-input:first').after(browserEl);
+	    
+	    $('#sidebar > ul').prepend(browserEl);
 	    
 	    if (browserEl.css('display') == 'none') {
-	        browserEl.slideDown(300);
+            browserEl.slideDown(600);
 	    } else {
 	        // Already open, close
 	        browserEl.slideUp(200);
@@ -83,7 +84,7 @@ $.jlm.addComponent('tinyMce', {
 	    $.get(url, function(imagesHtml) {
 	        areImagesLoaded = true;
 	        var imagesHtmlEl = $(imagesHtml).hide();
-            browserEl.prepend(imagesHtml);
+            $('h4:first', browserEl).after(imagesHtml);
             imagesHtmlEl.fadeIn('normal');
             
             // Bind selecting
