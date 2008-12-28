@@ -24,6 +24,8 @@
     	    </a>
     	    
             <h3><?php echo $html->link($label, array('action' => 'edit', $file['WildAsset']['id'])); ?></h3>
+            
+            <span class="row-actions"><?php echo $html->link(__('View/Download', true), WildAsset::getUploadUrl($file['WildAsset']['name']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View or download this file.', true))) ?></span>
         </li>
              
     <?php endforeach; ?>

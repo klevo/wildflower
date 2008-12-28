@@ -802,13 +802,13 @@ select {
 
 .file-list {
     list-style: none;
-    margin: 14px 0;
+    margin: 0;
     padding: 0;
 }
 
     .file-list li {
         margin: 0 0 4px 0;
-        padding: 4px 0 4px;
+        padding: 4px 0 8px;
         border-bottom: 1px solid #e0e0e0;
         overflow: hidden;
     }
@@ -816,6 +816,11 @@ select {
     .file-list a.thumbnail {
         float: left;
         margin: 0 10px 0 5px;
+        display: block;
+    }
+    
+    .file-list img {
+        display: block;
     }
     
     .file-list h3 {

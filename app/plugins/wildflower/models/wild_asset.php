@@ -55,6 +55,10 @@ class WildAsset extends WildflowerAppModel {
 	    return "/img/thumb/$name/$size/$size/1";
 	}
 	
+	static function getUploadUrl($name) {
+	    return '/' . Configure::read('Wildflower.uploadsDirectory') . '/' . $name;
+	}
+	
     /**
      * Delete one or more files
      *
