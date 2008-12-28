@@ -27,9 +27,9 @@ class WildPagesController extends WildflowerAppController {
      */
     function wf_create() {
         $this->data[$this->modelClass]['draft'] = 1;
-        $this->WildPage->save($this->data);
-        $this->set('data', array('id' => $this->WildPage->id));
-        $this->render('/elements/json');
+        $this->WildPage->create($this->data);
+        $this->WildPage->save();
+        $this->redirect(array('action' => 'edit', $this->WildPage->id));
     }
 
     /**
@@ -91,7 +91,8 @@ class WildPagesController extends WildflowerAppController {
         $isDraft = ($page[$this->modelClass]['draft'] == 1) ? true : false;
         $isRevision = !is_null($revisionNumber);
         $revisions = $this->WildPage->getRevisions($id);
-        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'revisions'));
+        $newParentPageOptions = $this->WildPage->getListThreaded();
+        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'revisions', 'newParentPageOptions'));
         $this->_setParentSelectBox($page[$this->modelClass]['id']);
     }
     
@@ -134,7 +135,8 @@ class WildPagesController extends WildflowerAppController {
         $this->pageTitle = 'Pages';
         $this->WildPage->recursive = -1;
     	$pages = $this->WildPage->find('all', array('order' => 'lft ASC'));
-    	$this->set(compact('pages'));
+    	$newParentPageOptions = $this->WildPage->getListThreaded();
+    	$this->set(compact('pages', 'newParentPageOptions'));
     }
     
     /**
@@ -379,7 +381,7 @@ class WildPagesController extends WildflowerAppController {
      * @param int $id Page ID
      */
     private function _setParentSelectBox($id = null) {
-        $list = $this->WildPage->getSelectBoxData($id, 'title');
+        $list = $this->WildPage->getListThreaded($id, 'title');
         $this->set('parentPages', $list);
     }
     

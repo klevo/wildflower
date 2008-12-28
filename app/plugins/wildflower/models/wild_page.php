@@ -150,7 +150,7 @@ class WildPage extends WildflowerAppModel {
      * @deprecated: Use Cake's TreeBehavior::genera...
      * @param int $skipId id to skip
      */
-    function getSelectBoxData($skipId = null, $alias = 'title') {
+    function getListThreaded($skipId = null, $alias = 'title') {
         $parentPages = $this->findAll(null, null, "{$this->name}.lft ASC", null, 1, 0);
         
         // Array for form::select

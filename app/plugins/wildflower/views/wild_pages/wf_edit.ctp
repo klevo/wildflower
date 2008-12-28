@@ -75,7 +75,14 @@
     ?>        
 </div>
 
-<?php echo $form->end(); ?>
+<?php 
+    echo 
+    
+    // Options for create new JS
+	$form->input('parent_id_options', array('type' => 'select', 'options' => $newParentPageOptions, 'empty' => '(none)', 'div' => array('class' => 'all-page-parents input select'), 'label' => __('Parent page', true), 'escape' => false)),
+	
+	$form->end();
+?>
 
 <div class="post-info">
     This page is <?php if ($this->data['WildPage']['draft']): ?>not published, therefore not visible to the public<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPage']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.

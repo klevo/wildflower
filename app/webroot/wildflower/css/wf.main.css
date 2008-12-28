@@ -792,3 +792,7 @@ select {
     .new-dialog .select {
         margin-bottom: 14px;
     }
+    
+.all-page-parents {
+    display: none;
+}

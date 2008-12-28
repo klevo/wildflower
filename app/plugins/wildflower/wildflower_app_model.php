@@ -6,7 +6,7 @@ class WildflowerAppModel extends AppModel {
      * 
      * @param int $skipId id to skip
      */
-    function getSelectBoxData($skipId = null, $alias = 'title') {
+    function getListThreaded($skipId = null, $alias = 'title') {
         $condition = null;
         if (is_numeric($skipId)) {
             // Ignore the page for which we're looking for parents

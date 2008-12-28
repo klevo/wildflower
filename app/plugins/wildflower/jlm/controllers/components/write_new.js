@@ -8,7 +8,8 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         var parentPageOptions = null;
         if ($.jlm.params.controller == 'wild_pages') {
             templatePath = 'pages/new_page';
-            parentPageOptions = '<option value="">@TODO</option>';
+            parentPageOptions = $('.all-page-parents').html();
+            parentPageOptions = parentPageOptions.replace('[parent_id_options]', '[parent_id]');
         }
         
         var dialogEl = $($.jlm.template(templatePath, { action: formAction, parentPageOptions: parentPageOptions }));

@@ -10,6 +10,10 @@
     $this->element('wf_select_actions'),
     $tree->generate($pages, array('model' => 'WildPage', 'class' => 'list pages-list', 'element' => 'wf_page_list_item')),
     $this->element('wf_select_actions'),
+    
+    // Options for create new JS
+	$form->input('parent_id_options', array('type' => 'select', 'options' => $newParentPageOptions, 'empty' => '(none)', 'div' => array('class' => 'all-page-parents input select'), 'label' => __('Parent page', true), 'escape' => false)),
+    
     $form->end();
 ?>
 
