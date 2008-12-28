@@ -4,12 +4,12 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         var buttonEl = $(this);
         var formAction = buttonEl.attr('href');
         
-        var templatePath = 'posts';
+        var templatePath = 'posts/new_post';
         if ($.jlm.params.controller == 'wild_pages') {
-            templatePath = 'pages';
+            templatePath = 'pages/new_page';
         }
         
-        var dialogEl = $($.jlm.template(templatePath + '/new_post', { action: formAction }));
+        var dialogEl = $($.jlm.template(templatePath, { action: formAction }));
         
         var contentEl = $('#content-pad');
         
