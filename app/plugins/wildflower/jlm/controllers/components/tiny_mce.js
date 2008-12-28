@@ -1,10 +1,12 @@
 $.jlm.addComponent('tinyMce', {
+    
+    focusOnReady: false,
 
     startup: function() {
         if (typeof(tinyMCE) == 'object') {
             $('textarea.tinymce').each(function() {
-                var id = $(this).attr('id');
-                tinyMCE.execCommand("mceAddControl", true, id);
+                $.jlm.components.tinyMce.editorId = $(this).attr('id');
+                tinyMCE.execCommand("mceAddControl", true, $.jlm.components.tinyMce.editorId);
             });
         }
 	},
@@ -35,8 +37,20 @@ $.jlm.addComponent('tinyMce', {
             remove_script_host: true,
             document_base_url: $.jlm.base,
             
-            content_css: stylesheetUrl
+            content_css: stylesheetUrl,
+            
+            init_instance_callback: $.jlm.components.tinyMce.onReady
         };
+	},
+	
+	focus: function() {
+	    $.jlm.components.tinyMce.focusOnReady = true;
+	},
+	
+	onReady: function(ed) {
+	    if ($.jlm.components.tinyMce.focusOnReady) {
+	        ed.focus();
+	    }
 	},
 	
 	insertImage: function(editor) {

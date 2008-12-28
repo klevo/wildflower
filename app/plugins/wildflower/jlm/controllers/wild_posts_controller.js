@@ -1,7 +1,7 @@
 // @TODO create a Sections menu component from this
 $.jlm.bind('wild_posts.wf_edit, wild_pages.wf_edit', function() {
     
-    $('.title-input input').focus();
+    $.jlm.components.tinyMce.focus();
     
     var activeSectionEl = $('#title-content');
     
