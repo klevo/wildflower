@@ -91,13 +91,13 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
+        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
+    </li>
+    <li>
         <?php echo $html->link(
             '<span>Write a new page</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)); ?>
-    </li>
-    <li>
-        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
     </li>
     <li>
         <ul class="sidebar-menu-alt edit-sections-menu">
@@ -107,7 +107,7 @@
     </li>
     <li>
         <ul class="sidebar-menu">
-            <li><?php echo $html->link('All Pages', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+            <li><?php echo $html->link(__('All Pages', true), array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
         </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>

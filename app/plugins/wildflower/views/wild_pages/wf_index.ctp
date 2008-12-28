@@ -20,13 +20,18 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
+        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
+    </li>
+    <li>
         <?php echo $html->link(
             '<span>' . __('Write a new page', true) . '</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)) ?>
     </li>
     <li>
-        <?php echo $this->element('../wild_pages/_sidebar_search'); ?>
+        <ul class="sidebar-menu">
+            <li><?php echo $html->link(__('All Pages', true), array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
+        </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>
 
