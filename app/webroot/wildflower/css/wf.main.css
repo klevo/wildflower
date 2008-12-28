@@ -739,8 +739,6 @@ select {
     }
     
     #image-browser li {
-        float: left;
-        margin: 0 10px 0 0;
     }
     
     #image-browser button {
@@ -748,7 +746,6 @@ select {
     }
     
     #image-browser .selected {
-        outline: 4px solid red;
     }
     
     
@@ -816,7 +813,7 @@ select {
         overflow: hidden;
     }
 
-    .file-list a.thumbnail {
+    .file-list .thumbnail {
         float: left;
         margin: 0 10px 0 5px;
         display: block;

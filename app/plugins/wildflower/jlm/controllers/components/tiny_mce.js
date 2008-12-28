@@ -88,15 +88,15 @@ $.jlm.addComponent('tinyMce', {
             imagesHtmlEl.fadeIn('normal');
             
             // Bind selecting
-            $('#image-browser ul img').click(function() {
-                $(this).toggleClass('selected');
-                $('#image-browser .selected').not(this).removeClass('selected');
+            $('.file-list > li').click(function() {
+                $('#image-browser .selected').removeClass('selected');
+                $(this).addClass('selected');
             });
 		});
 	    
 	    // Bind insert button
 		$('button', browserEl).click(function() {
-			var imgName = $('.selected', browserEl).attr('alt');
+			var imgName = $('.selected img', browserEl).attr('alt');
 			
 			if (typeof(imgName) == 'undefined') {
 			    return false;
