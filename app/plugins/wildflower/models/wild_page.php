@@ -14,7 +14,12 @@ class WildPage extends WildflowerAppModel {
 		)
 	);
 	public $validate = array(
-	   'title' => array('rule' => array('maxLength', 255), 'allowEmpty' => false, 'required' => true)
+	   'title' => array(
+	       'rule' => array('maxLength', 255), 
+	       'allowEmpty' => false, 
+	       'required' => true, 
+	       'on' => 'wf_create'
+	    )
 	);
 	public static $statusOptions = array(
 	   '0' => 'Published',

@@ -69,7 +69,7 @@ class WildPagesController extends WildflowerAppController {
      * 
      * @param int $id Page ID
      */
-    function wf_edit($id, $revisionNumber = null) {
+    function wf_edit($id = null, $revisionNumber = null) {
         $this->WildPage->contain('WildUser');
         $page = $this->WildPage->findById($id);
         
@@ -96,6 +96,17 @@ class WildPagesController extends WildflowerAppController {
         $this->_setParentSelectBox($page[$this->modelClass]['id']);
     }
     
+    function wf_options($id = null) {
+        $this->WildPage->contain('WildUser');
+        $this->data = $this->WildPage->findById($id);
+        
+        if (empty($this->data)) return $this->cakeError('object_not_found');
+        
+        $this->pageTitle = $this->data[$this->modelClass]['title'];
+        $parentPageOptions = $this->WildPage->getListThreaded($this->data['WildPage']['id']);
+        $this->set(compact('parentPageOptions'));
+    }
+    
     function wf_update() {
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
         
@@ -103,15 +114,12 @@ class WildPagesController extends WildflowerAppController {
         if (!$this->WildPage->exists()) return $this->cakeError('object_not_found');
         
         // Publish?
-        if (isset($this->data[$this->modelClass]['publish'])) {
+        if (isset($this->data['__save']['publish'])) {
             $this->data[$this->modelClass]['draft'] = 0;
         }
+        unset($this->data['__save']);
         
         if (!$this->WildPage->save()) return $this->cakeError('save_error');
-        // 
-        //         // Clear page cache
-        // $cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cakes cache for proper method
-        // clearCache($cacheName, 'views', '.php');
 
         // JSON response
         if ($this->RequestHandler->isAjax()) {

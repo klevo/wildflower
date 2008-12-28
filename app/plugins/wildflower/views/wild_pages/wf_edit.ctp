@@ -82,11 +82,11 @@
 	$form->input('parent_id_options', array('type' => 'select', 'options' => $newParentPageOptions, 'empty' => '(none)', 'div' => array('class' => 'all-page-parents input select'), 'label' => __('Parent page', true), 'escape' => false)),
 	
 	$form->end();
+	
+	echo $this->element('../wild_pages/_page_info');
 ?>
 
-<div class="post-info">
-    This page is <?php if ($this->data['WildPage']['draft']): ?>not published, therefore not visible to the public<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPage']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
-</div>
+
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>
@@ -101,7 +101,7 @@
     </li>
     <li>
         <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options', '#Options', array('rel' => 'post-options')); ?></li>
+            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>
