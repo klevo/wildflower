@@ -120,6 +120,7 @@ jQuery.jlm = {
         }
         
         // Execute components that have initOn defined
+        // @TODO rethink and refactor
         jQuery.each(jQuery.jlm.components, function() {
             if (typeof(this.initOn) === 'string') {
                 if (this.initOn === '*') {
@@ -182,6 +183,7 @@ jQuery.jlm = {
     template: function(templatePath, viewVars) {
         var templateContent = this.getTemplate(templatePath);
         if (templateContent == null) {
+            alert('JLM template "jlm/views/' + templatePath + '.html" is not present!');
             return null;
         }
 

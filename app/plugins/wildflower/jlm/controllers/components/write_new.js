@@ -1,9 +1,15 @@
-$.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit', function() {
+$.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages.wf_index, wild_pages.wf_edit', function() {
     
     $('#sidebar .add').click(function() {
         var buttonEl = $(this);
         var formAction = buttonEl.attr('href');
-        var dialogEl = $($.jlm.template('posts/new_post', { action: formAction }));
+        
+        var templatePath = 'posts';
+        if ($.jlm.params.controller == 'wild_pages') {
+            templatePath = 'pages';
+        }
+        
+        var dialogEl = $($.jlm.template(templatePath + '/new_post', { action: formAction }));
         
         var contentEl = $('#content-pad');
         
@@ -13,7 +19,7 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit', function(
         
         var hiddenContentEls = contentEl.animate({
             height: toHeight
-        }, 1000).children().not(dialogEl).hide();
+        }, 600).children().not(dialogEl).hide();
         
         $('.input input', dialogEl).focus();
         
