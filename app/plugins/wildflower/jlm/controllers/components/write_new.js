@@ -25,6 +25,12 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit', function(
             return false;
         });
         
+        // Create link
+        $('.submit input', dialogEl).click(function() {
+            $(this).attr('disabled', 'disabled').attr('value', '<l18n>Saving...</l18n>');
+            return true;
+        });
+        
         return false;
     });
     
