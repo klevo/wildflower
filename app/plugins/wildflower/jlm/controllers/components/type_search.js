@@ -1,3 +1,8 @@
+/**
+ * Type Search
+ *
+ * Powers the sidebar search boxes. Searches as you type.
+ */
 $.jlm.component('TypeSearch', '*', function() {
     
     var searchFormEl = $('#sidebar .search');
