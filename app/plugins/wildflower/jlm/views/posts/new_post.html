@@ -1,0 +1,16 @@
+<div id="name-new-post" class="new-dialog">
+    <h2 class="section">Name your new post</h2>
+    
+    <form action="${action}" method="post">
+        <fieldset style="display:none">
+            <input type="hidden" name="_method" value="POST" />
+        </fieldset>
+        <div class="input">
+            <input id="WildPostTitle" type="text" size="60" name="data[WildPost][title]" maxlength="256" />
+        </div>
+        <div class="submit">
+            <input type="submit" value="Create this post" />
+        </div>
+    </form>
+    
+</div>
