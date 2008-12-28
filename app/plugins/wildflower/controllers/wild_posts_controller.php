@@ -19,16 +19,25 @@ class WildPostsController extends WildflowerAppController {
     }
 
     /**
-     * Create an empty post and redirect to it's edit screen
+     * Create a post and redirect to it's edit screen
+     *
      */
     function wf_create() {
-        $uuid = sha1(String::uuid()); // @TODO check if unique
-        $this->data = array($this->modelClass => array(
+        // Generate UUID
+        $uuid = sha1(String::uuid()); 
+        // Check if unique
+        while ($this->{$this->modelClass}->findByUuid($uuid)) {
+            $uuid = sha1(String::uuid()); 
+        }
+        
+        $defaultParams = array(
             'draft' => 1,
             'uuid' => $uuid,
             'slug' => $uuid,
-        ));
-        $this->{$this->modelClass}->save($this->data, false);
+        );
+        $this->data[$this->modelClass] = am($this->data[$this->modelClass], $defaultParams);
+        $this->{$this->modelClass}->create($this->data);
+        $this->{$this->modelClass}->save();
         $this->redirect(array('action' => 'wf_edit', $this->{$this->modelClass}->id));
     }
     

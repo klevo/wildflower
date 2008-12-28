@@ -15,7 +15,7 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit', function(
             height: toHeight
         }, 1000).children().not(dialogEl).hide();
         
-        $('input', dialogEl).focus();
+        $('.input input', dialogEl).focus();
         
         // Bind cancel link
         $('.cancel-edit a', dialogEl).click(function() {

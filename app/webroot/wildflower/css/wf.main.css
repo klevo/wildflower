@@ -780,5 +780,11 @@ select {
 /* Write new dialog */
 
 .new-dialog {
-    
+    background: #e8fbff;
+    padding: 20px;
+    border: 1px solid #a9d7df;
 }
+
+    .new-dialog h2 {
+        margin-bottom: 0;
+    }
