@@ -20,7 +20,8 @@ Configure::write(array('Wildflower' => array(
         'expire' => 2592000,
     ),
     'gzipOutput' => true,
-    'uploadDirectory' => APP . WEBROOT_DIR .  DS . 'uploads',
+    'uploadsDirectoryName' => 'uploads',
+    'uploadDirectory' => APP . WEBROOT_DIR .  DS . 'uploads', // @TODO rename the key
     'prefix' => 'wf',
     'rootPageCache' => CACHE . 'wf_root_pages',
     'previewCache' => CACHE . 'wf_previews' . DS,

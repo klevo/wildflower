@@ -10,7 +10,7 @@
     <ul class="file-list list">
     <?php foreach ($files as $file): ?>
 
-        <li id="file-<?php echo $file['WildAsset']['id']; ?>">
+        <li id="file-<?php echo $file['WildAsset']['id']; ?>" class="actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $file['WildAsset']['id']) ?></span>
             <?php 
                 $label = $file['WildAsset']['title'];
@@ -25,7 +25,7 @@
     	    
             <h3><?php echo $html->link($label, array('action' => 'edit', $file['WildAsset']['id'])); ?></h3>
             
-            <span class="row-actions"><?php echo $html->link(__('View/Download', true), WildAsset::getUploadUrl($file['WildAsset']['name']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View or download this file.', true))) ?></span>
+            <span class="row-actions"><?php echo $html->link(__('View/Download', true), WildAsset::getUploadUrl($file['WildAsset']['name']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View or download this file.', true))); ?></span>
         </li>
              
     <?php endforeach; ?>

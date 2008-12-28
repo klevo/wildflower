@@ -56,7 +56,7 @@ class WildAsset extends WildflowerAppModel {
 	}
 	
 	static function getUploadUrl($name) {
-	    return '/' . Configure::read('Wildflower.uploadsDirectory') . '/' . $name;
+	    return '/' . Configure::read('Wildflower.uploadsDirectoryName') . '/' . $name;
 	}
 	
     /**
