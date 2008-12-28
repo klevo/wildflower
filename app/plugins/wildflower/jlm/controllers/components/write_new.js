@@ -5,11 +5,13 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         var formAction = buttonEl.attr('href');
         
         var templatePath = 'posts/new_post';
+        var parentPageOptions = null;
         if ($.jlm.params.controller == 'wild_pages') {
             templatePath = 'pages/new_page';
+            parentPageOptions = '<option value="">@TODO</option>';
         }
         
-        var dialogEl = $($.jlm.template(templatePath, { action: formAction }));
+        var dialogEl = $($.jlm.template(templatePath, { action: formAction, parentPageOptions: parentPageOptions }));
         
         var contentEl = $('#content-pad');
         

@@ -788,3 +788,7 @@ select {
     .new-dialog h2 {
         margin-bottom: 0;
     }
+    
+    .new-dialog .select {
+        margin-bottom: 14px;
+    }

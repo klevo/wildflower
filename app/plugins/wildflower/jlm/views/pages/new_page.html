@@ -1,15 +1,23 @@
 <div id="name-new-page" class="new-dialog">
-    <h2 class="section"><l18n>Name your new post</l18n></h2>
+    <h2 class="section"><l18n>Name your new page</l18n></h2>
     
     <form action="${action}" method="post">
         <fieldset style="display:none">
             <input type="hidden" name="_method" value="POST" />
         </fieldset>
         <div class="input">
-            <input id="WildPostTitle" type="text" size="60" name="data[WildPost][title]" maxlength="256" />
+            <input id="NewWildPageTitle" type="text" size="60" name="data[WildPage][title]" maxlength="256" />
+        </div>
+        <div class="input select">
+            <label for="NewWildPageParentId"><l18n>Parent page</l18n></label>
+            <br />
+            <select id="NewWildPageParentId" name="data[WildPage][parent_id]">
+                ${parentPageOptions}
+            </select>
+            <div><l18n>If you want to organize pages into a hierarchy, you can do so by selecting a parent page.</l18n></div>
         </div>
         <div class="submit wf-form-button">
-            <input type="submit" value="<l18n>Create this post</l18n>" />
+            <input type="submit" value="<l18n>Create this page</l18n>" />
         </div>
         <div class="cancel-edit"> or <a href="#Cancel"><l18n>Cancel</l18n></a></div>
     </form>
