@@ -368,7 +368,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `uploads` WRITE;
 /*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
-INSERT INTO `uploads` VALUES (7,'Good_Vibrations-1440x900.jpg','Good_Vibrations-1440x900.jpg','image/jpeg','2008-10-10 12:49:23','2008-10-10 12:49:23'),(9,'company-image.jpg','company-image.jpg','image/jpeg','2008-12-05 18:25:06','2008-12-05 18:25:06'),(10,'12-09-2002 17.30.57.JPG','That\'s klevo doing Aikido','image/jpeg','2008-12-05 18:25:39','2008-12-05 18:25:39'),(11,'Pixel_tennis_by_iTop_edition.gif','Pixel_tennis_by_iTop_edition.gif','image/gif','2008-12-14 12:43:22','2008-12-14 12:43:22'),(12,'index.php','index.php','application/octet-st','2008-12-23 23:15:19','2008-12-23 23:15:19'),(13,'Picture 2.jpg','Picture 2.jpg','image/jpeg','2008-12-27 00:44:21','2008-12-27 00:44:21'),(14,'00_wall.jpg','00_wall.jpg','image/jpeg','2008-12-28 18:56:49','2008-12-28 18:56:49');
+INSERT INTO `uploads` VALUES (7,'Good_Vibrations-1440x900.jpg','Good_Vibrations-1440x900.jpg','image/jpeg','2008-10-10 12:49:23','2008-10-10 12:49:23'),(9,'company-image.jpg','company-image.jpg','image/jpeg','2008-12-05 18:25:06','2008-12-05 18:25:06'),(11,'Pixel_tennis_by_iTop_edition.gif','Pixel_tennis_by_iTop_edition.gif','image/gif','2008-12-14 12:43:22','2008-12-14 12:43:22'),(13,'Picture 2.jpg','Picture 2.jpg','image/jpeg','2008-12-27 00:44:21','2008-12-27 00:44:21'),(14,'00_wall.jpg','00_wall.jpg','image/jpeg','2008-12-28 18:56:49','2008-12-28 18:56:49');
 /*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-12-28 18:04:43
+-- Dump completed on 2008-12-28 18:14:33

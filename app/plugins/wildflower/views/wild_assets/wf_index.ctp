@@ -3,18 +3,32 @@
 <?php if (empty($files)): ?>
     <p>No files uploaded yet.</p>
 <?php else: ?>
-
+    
+    <?php echo $form->create('Asset', array('url' => $html->url(array('action' => 'mass_update', 'base' => false)))); ?>
+    <?php echo $this->element('wf_select_actions'); ?>
+    
     <ul class="file-list">
     <?php foreach ($files as $file): ?>
 
         <li id="file-<?php echo $file['WildAsset']['id']; ?>">
-            <h3><?php echo !empty($file['WildAsset']['title']) ? hsc($file['WildAsset']['title']) : hsc($file['WildAsset']['name']); ?></h3>
-            <a href="<?php echo $html->url(array('action' => 'wf_edit', $file['WildAsset']['id'])); ?>">
-    	        <img width="120" height="120" src="<?php echo $html->url("/wildflower/thumbnail/{$file['WildAsset']['name']}/120/120/1"); ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" /></a>
+            <span class="row-check"><?php echo $form->checkbox('id.' . $file['WildAsset']['id']) ?></span>
+            <?php 
+                $label = $file['WildAsset']['title'];
+                if (empty($label)) {
+                    $label = $file['WildAsset']['name'];
+                }
+            ?>
+            <h3><?php echo $html->link($label, array('action' => 'edit', $file['WildAsset']['id'])); ?></h3>
+            <a href="<?php echo $html->url(array('action' => 'edit', $file['WildAsset']['id'])); ?>">
+    	        <img width="90" height="90" src="<?php echo $html->url("/wildflower/thumbnail/{$file['WildAsset']['name']}/90/90/1"); ?>" alt="<?php echo hsc($file['WildAsset']['title']); ?>" />
+    	    </a>
         </li>
              
     <?php endforeach; ?>
     </ul>
+    
+    <?php echo $this->element('wf_select_actions'); ?>
+    <?php echo $form->end(); ?>
 
 <?php endif; ?>
 
