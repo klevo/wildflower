@@ -1,18 +1,16 @@
-<div id="content">
-    
-    <h2 class="section">Files</h2>
-    
-    <div id="file-upload">
-	<?php
-		echo 
-		$form->create('WildAsset', array('type' => 'file', 'action' => 'wf_create')),
-        $form->input('file', array('type' => 'file', 'between' => '<br />', 'label' => 'Upload a new file')),
-        //$form->input('title', array('between' => '<br />', 'label' => 'Title <small>(optional)</small>')),
-        $form->submit('Upload file'),
-        "<p><small>$uploadLimits.</small></p>",
-        $form->end();
-	?>
-    </div>
+<h2 class="section">Files</h2>
+
+<div id="file-upload">
+<?php
+	echo 
+	$form->create('WildAsset', array('type' => 'file', 'action' => 'wf_create')),
+    $form->input('file', array('type' => 'file', 'between' => '<br />', 'label' => 'Upload a new file')),
+    //$form->input('title', array('between' => '<br />', 'label' => 'Title <small>(optional)</small>')),
+    $form->submit('Upload file'),
+    "<p><small>$uploadLimits.</small></p>",
+    $form->end();
+?>
+</div>
 
 <?php if (empty($files)): ?>
     <p>No files uploaded yet.</p>
@@ -34,4 +32,3 @@
 
 <?php echo $this->element('wf_pagination') ?>
 
-</div>
