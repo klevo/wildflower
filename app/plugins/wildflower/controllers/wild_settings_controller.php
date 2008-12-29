@@ -28,7 +28,7 @@ class WildSettingsController extends WildflowerAppController {
 	function wf_index() {
 	    $this->pageTitle = 'Site settings';
 	    
-	    $homePageIdOptions = $this->WildPage->getSelectBoxData();
+	    $homePageIdOptions = $this->WildPage->getListThreaded();
 	    
 	    $settings = $this->WildSetting->find('all', array('order' => 'order ASC'));
 	    
