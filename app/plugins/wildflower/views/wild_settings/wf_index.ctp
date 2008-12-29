@@ -1,13 +1,13 @@
+<h2 class="section">Site Settings</h2>
+
 <?php
     $session->flash();
-    
-    echo $form->create('WildSetting', array('action' => 'update'/* , 'enctype' => 'multipart/form-data'*/));
+    echo $form->create('WildSetting', array('action' => 'update', 'class' => 'horizontal-form'));
     
     foreach ($settings as $setting) {
         $name = "WildSetting.{$setting['WildSetting']['id']}";
         $options = array(
             'type' => $setting['WildSetting']['type'],
-            'between' => '<br />',
             'value' => $setting['WildSetting']['value'],
             'div' => array('id' => "setting-{$setting['WildSetting']['name']}")
         );
@@ -34,10 +34,18 @@
             $options['label'] = $setting['WildSetting']['label'];
         }
         
+        if ($options['type'] == 'text') {
+            $options['size'] = 60;
+        } else if ($options['type'] == 'textbox') {
+            $options['rows'] = 4;
+            $options['cols'] = 58;
+        }
+        
         echo $form->input($name, $options);
     }
     
     echo
-    $wild->submit('Save changes');
+    $form->submit('Save changes', array('div' => array('class' => 'submit save-section'))),
+    '<div class="cleaner"></div>',
     $form->end();
 ?>
