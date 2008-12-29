@@ -44,7 +44,7 @@ class WildPage extends WildflowerAppModel {
     	// Construct the absolute page URL
     	if (isset($this->data[$this->name]['slug'])) {
 	    	$level = 0;
-	    	if ($this->id === intval(Configure::read('AppSettings.home_page_id'))) {
+	    	if (intval($this->id) === intval(Configure::read('AppSettings.home_page_id'))) {
 	    		// Home page has the URL of root
 	    		$this->data[$this->name]['url'] = '/';
 	    	} else if (!isset($this->data[$this->name]['parent_id']) or !is_numeric($this->data[$this->name]['parent_id'])) {
@@ -83,6 +83,21 @@ class WildPage extends WildflowerAppModel {
         }
     	
     	return true;
+    }
+    
+    function updateChildPageUrls($id, $oldUrl, $newUrl) {
+        // Update child pages URLs
+    	$children = $this->find('all', array(
+    	    'conditions' => "{$this->name}.url LIKE '$oldUrl%' AND {$this->name}.id != $id",
+    	    'recursive' => -1,
+    	    'fields' => array('id', 'url', 'slug'),
+    	));
+        if (!empty($children)) {
+            foreach ($children as $page) {
+                        $childNewUrl = str_replace($oldUrl, $newUrl, $page[$this->name]['url']);
+                        $this->query("UPDATE {$this->useTable} SET url = '$childNewUrl' WHERE id = {$page[$this->name]['id']}");
+            }
+        }
     }
     
     function findAllRoot() {

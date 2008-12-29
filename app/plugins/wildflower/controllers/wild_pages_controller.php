@@ -119,16 +119,21 @@ class WildPagesController extends WildflowerAppController {
         }
         unset($this->data['__save']);
         
-        if (!$this->WildPage->save()) return $this->cakeError('save_error');
+        $oldUrl = $this->WildPage->field('url');
+        
+        $page = $this->WildPage->save();
+        if (empty($page)) return $this->cakeError('save_error');
+        
+        $this->WildPage->contain('WildUser');
+        $page = $this->WildPage->findById($this->WildPage->id);
+        
+        if (Configure::read('AppSettings.home_page_id') != $this->WildPage->id) {
+            $this->WildPage->updateChildPageUrls($this->WildPage->id, $oldUrl, $page['WildPage']['url']);
+        }
 
         // JSON response
         if ($this->RequestHandler->isAjax()) {
-            $revisions = $this->WildPage->getRevisions($this->WildPage->id, 1);
-            
-            $this->WildPage->contain('WildUser');
-            $page = $this->WildPage->findById($this->WildPage->id);
-            
-            $this->set(compact('revisions', 'page'));
+            $this->set(compact('page'));
             return $this->render('wf_update');
         }
         
