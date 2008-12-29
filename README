@@ -5,7 +5,7 @@ Requirements
 ============
 
     * Apache web server with mod_rewrite
-    * No problem to run under some other web server like lighttpd or IIS, you just need to emulate the mod_rewrite rules
+    * No problem to run under some other web server like lighttpd or IIS, you just need to emulate the mod_rewrite rules 
     * PHP 5.2 or higher
     * MySQL 4.1 or higher
 
