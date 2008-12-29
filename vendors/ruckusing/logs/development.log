@@ -182,3 +182,21 @@ Dec 26 17:59:53 [info] SELECT version FROM schema_info
 Dec 26 17:59:53 [info] ALTER TABLE `revisions` DROP COLUMN `user_id`
 Dec 26 17:59:53 [info] RENAME TABLE revisions TO wild_revisions
 Dec 26 17:59:53 [info] UPDATE schema_info SET version = 13
+Dec 29 11:18:43 [info] SELECT version FROM schema_info
+Dec 29 11:18:43 [info] SHOW COLUMNS FROM `pages` LIKE 'user_id'
+Dec 29 11:18:43 [info] ALTER TABLE `pages` CHANGE `user_id` `wild_user_id` int(11)
+Dec 29 11:18:43 [info] SHOW COLUMNS FROM `posts` LIKE 'user_id'
+Dec 29 11:18:43 [info] ALTER TABLE `posts` CHANGE `user_id` `wild_user_id` int(11)
+Dec 29 11:18:43 [info] UPDATE schema_info SET version = 14
+Dec 29 11:18:52 [info] SELECT version FROM schema_info
+Dec 29 11:18:52 [info] SHOW COLUMNS FROM `pages` LIKE 'wild_user_id'
+Dec 29 11:18:52 [info] ALTER TABLE `pages` CHANGE `wild_user_id` `user_id` int(11)
+Dec 29 11:18:52 [info] SHOW COLUMNS FROM `posts` LIKE 'wild_user_id'
+Dec 29 11:18:52 [info] ALTER TABLE `posts` CHANGE `wild_user_id` `user_id` int(11)
+Dec 29 11:18:52 [info] UPDATE schema_info SET version = 13
+Dec 29 11:18:54 [info] SELECT version FROM schema_info
+Dec 29 11:18:54 [info] SHOW COLUMNS FROM `pages` LIKE 'user_id'
+Dec 29 11:18:54 [info] ALTER TABLE `pages` CHANGE `user_id` `wild_user_id` int(11)
+Dec 29 11:18:54 [info] SHOW COLUMNS FROM `posts` LIKE 'user_id'
+Dec 29 11:18:54 [info] ALTER TABLE `posts` CHANGE `user_id` `wild_user_id` int(11)
+Dec 29 11:18:54 [info] UPDATE schema_info SET version = 14

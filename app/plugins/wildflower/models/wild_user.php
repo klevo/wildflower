@@ -1,16 +1,19 @@
 <?php
-uses('Sanitize');
+App::import('Sanitize');
 /**
- * User model
+ * WildUser model
  * 
  * Users are Wildflower`s administrator accounts.
  *
- * @todo Allow login to have some chars like _.
+ * @todo Allow login to have chars like _.
  * @package wildflower
  */
 class WildUser extends WildflowerAppModel {
 	
-	public $hasMany = array('Wildflower.WildPage');
+	public $hasMany = array(
+	    'Wildflower.WildPage',
+	    'Wildflower.WildPost',
+	);
 
     public $validate = array(
         'name' => array(

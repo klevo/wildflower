@@ -117,7 +117,7 @@ class WildPostsController extends WildflowerAppController {
     }
     
     function wf_update() {
-        $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
+        $this->data[$this->modelClass]['wild_user_id'] = $this->getLoggedInUserId();
 
         // Publish?
         if (isset($this->data['__save']['publish'])) {

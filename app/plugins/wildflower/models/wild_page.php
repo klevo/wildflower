@@ -9,8 +9,7 @@ class WildPage extends WildflowerAppModel {
     );
     public $belongsTo = array(
 		'WildUser' => array(
-			'className' => 'Wildflower.WildUser',
-			'foreignKey' => 'user_id'
+			'className' => 'Wildflower.WildUser'
 		)
 	);
 	public $validate = array(

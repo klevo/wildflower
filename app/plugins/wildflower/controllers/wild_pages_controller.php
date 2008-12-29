@@ -108,7 +108,7 @@ class WildPagesController extends WildflowerAppController {
     }
     
     function wf_update() {
-        $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
+        $this->data[$this->modelClass]['wild_user_id'] = $this->getLoggedInUserId();
         
         $this->WildPage->create($this->data);
         if (!$this->WildPage->exists()) return $this->cakeError('object_not_found');
