@@ -380,8 +380,12 @@ class WildPagesController extends WildflowerAppController {
             $templateFile = $appWfPages . $template . '.ctp';
         }
         
+        $pluginViewsFile = WILDFLOWER_PLUGIN . DS . 'views' . DS . 'wild_pages' . DS . $template . '.ctp';
+        
         if (file_exists($templateFile)) {
             $this->render($template, $this->layout, $templateFile);
+        } else if (file_exists($pluginViewsFile)) {
+            $this->render($template, $this->layout, $pluginViewsFile);
         } else {
         	$this->render('view');
         }
