@@ -9,6 +9,8 @@ class WildUsersController extends WildflowerAppController {
 	public $cookieTime;
 
     /**
+     * @TODO shit code, refactor
+     *
      * Delete an user
      *
      * @param int $id
@@ -16,8 +18,7 @@ class WildUsersController extends WildflowerAppController {
     function wf_delete($id) {
         $id = intval($id);
         if ($this->RequestHandler->isAjax()) {
-            $this->WildUser->del($id);
-            exit();
+            return $this->WildUser->del($id);
         }
 
         if (empty($this->data)) {
@@ -147,24 +148,6 @@ class WildUsersController extends WildflowerAppController {
             return $this->redirect(array('action' => 'edit', $this->data[$this->modelClass]['id']));
         }
         $this->render('wf_change_password');
-    }
-
-    /**
-     * Save user info in Session and Cookie
-     *
-     * @param array $user Cake data array
-     */
-    private function saveSession($user) {
-        $this->Session->write($user);
-
-        // Remember this user?
-        if (isset($this->data[$this->modelClass]['remember']) 
-            and $this->data[$this->modelClass]['remember'] == 1) {
-            $this->Cookie->write(array(
-				'login' => $user[$this->modelClass]['login'],
-				'cookie' => $user[$this->modelClass]['cookie']
-			));
-        }
     }
 
 }

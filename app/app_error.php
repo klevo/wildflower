@@ -3,12 +3,12 @@ class AppError extends ErrorHandler {
     
     function object_not_found() {
         $this->controller->set(array('referer' => $this->controller->referer()));
-        $this->__outputMessage('object_not_found');
+        $this->_outputMessage('object_not_found');
     }
     
     function save_error() {
         $this->controller->set(array('referer' => $this->controller->referer()));
-        $this->__outputMessage('save_error');
+        $this->_outputMessage('save_error');
     }
     
     function xss() {
@@ -16,7 +16,7 @@ class AppError extends ErrorHandler {
             'referer' => $this->controller->referer(),
             'data' => $this->controller->data,
         ));
-        $this->__outputMessage('cross-site-scripting');
+        $this->_outputMessage('cross-site-scripting');
     }
     
 }

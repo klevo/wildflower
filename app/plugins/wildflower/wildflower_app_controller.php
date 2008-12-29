@@ -207,20 +207,6 @@ class WildflowerAppController extends AppController {
 	    return false;
 	}
 	
-	/**
-	 * Coninue only if an admin is logged in
-	 * 
-	 * If admin is not logged in redirect to login screen and exit.
-	 * Remember the URL user wanted to access in the session.
-	 */
-	function assertAdminLoggedIn() {
-	    if ($this->isAuthorized) return;
-	    
-        $this->Session->write('afterLoginRedirectTo', FULL_BASE_URL . $this->here);
-        
-        $this->redirect('/login', null, true);
-	}
-	
 	function xssBlackHole() {
 	    $this->cakeError('xss');
 	}
@@ -312,33 +298,6 @@ class WildflowerAppController extends AppController {
     function getLoggedInUserId() {
         return intval($this->Auth->user('id'));
     }
-
-	/**
-	 * @depraceted Using AuthComponent
-	 *
-	 * Authorize (log in) user with valid session or cookie
-	 *
-	 * @return array User model array
-	 */
-	private function findUserInSessions() {
-		$this->isAuthorized = $this->Session->check('WildUser');
-		
-		if ($this->isAuthorized) {
-			$user = $this->Session->read('WildUser');
-		} else {
-			$user = $this->_readCookie();
-		}
-		
-		// Not logged in
-		if (!isset($user['WildUser']['id'])) {
-			$user['WildUser']['id'] = 0;
-		}
-		
-		// @TODO do we need this one? remove
-		Configure::write('Wildflower.user_id', $user['WildUser']['id']);
-		
-		return $user;
-	}
 	
 	function wf_create_preview() {
         $cacheDir = Configure::read('Wildflower.previewCache');
@@ -432,37 +391,12 @@ class WildflowerAppController extends AppController {
      }
 	
 	/**
-	 * Read login data from cookie
-	 *
-	 * @return mixed User array or null
-	 */
-	private function _readCookie() {
-        $cookieData = $this->Cookie->read();
-        if (isset($cookieData['login']) && isset($cookieData['cookie'])) {
-            $login = Sanitize::escape($cookieData['login']);
-            $cookieUuid = Sanitize::escape($cookieData['cookie']);
-            if ($login && $cookieUuid) {
-				App::import('Model', 'Wildflower.WildUser');
-				$WildUser = new WildUser();
-				$WildUser->recursive = -1;
-                $user = $WildUser->findByLoginAndCookie($login, $cookieUuid);
-                if (!empty($user)) {
-                    $this->Session->write('WildUser', $user);
-                    $this->isAuthorized = true;
-                    return $user;
-                }
-            }
-        }
-        return null;
-	}
-	
-	/**
 	 * Gzip output
 	 * 
 	 * Cuts the bandwith cost down to half.
 	 * Helps the responce time.
 	 */
-	private function gzipOutput() {
+	function gzipOutput() {
 		if (@ob_start('ob_gzhandler')) {
 			header('Content-type: text/html; charset: UTF-8');
 			header('Cache-Control: must-revalidate');
