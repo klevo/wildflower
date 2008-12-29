@@ -1,29 +1,73 @@
-Wildflower - A CakePHP CMS
-**************************
-
-! Some stuff here is outdated (applies for 1.2 Beta 2). I'll update this soon. !
+Wildflower 1.3b1 - A CakePHP CMS
+********************************
 
 Requirements
 ============
 
     * Apache web server with mod_rewrite
-    * PHP 5.2+
-    * MySQL 4.1+
+    * No problem to run under some other web server like lighttpd or IIS, you just need to emulate the mod_rewrite rules
+    * PHP 5.2 or higher
+    * MySQL 4.1 or higher
 
 Installation
 ============
 
-   1. Extract the archive. Place the wildflower directory inside your apache document root.
-   2. Create a new MySQL database (preferably use utf8_unicode_ci collation) and into this new database import the SQL file app/config/sql/wildflower.sql.
+   1. Extract the archive. Place the 'wildflower' directory inside your apache document root or some folder under it. Of course you can rename the 'wildflower' directory at will.
+   2. Create a new MySQL database. Use 'utf8_unicode_ci' collation. Into this new database import the SQL dump file 'app/config/sql/wildflower.sql'.
    3. Edit the app/config/database.php file with your database connection details.
-   4. You've got a working copy of this site. You can start working on your project by modifying the application inside the app directory. When a new release of Wildflower comes, you simply update the cake, vendors and wildflower directories.
-   5. Default login/password combination for /admin area is admin/admin321 --Don`t forget to change this when in production.
+   4. You've got a working copy of http://wf.klevo.sk site. You can start working on your project by modifying the application inside the app directory. When a new release of Wildflower comes, you simply update the cake, vendors and wildflower directories.
+   5. The admin area is located under 'http://your-site/wf'. This can be changed by changing the 'Wildflower.prefix' configure key in 'app/plugins/wildflower/config/core.php'.
+   6. Default login/password combination for admin area is admin/admin321 --Don`t forget to change this when in production.
    
-Problems with passwords after updating to AuthComponent enabled version?
-=======================================================================
+Upgrading
+=========
 
-Use the UtilityShell to generate an AuthComponent compatible password:
+    1. Copy and overwrite all the files with the new version.
+    2. Run database migrations. From your working folder launch from the shell: 'php vendors/ruckusing/main.php db:migrate'. This will update your database to the latest version.
+   
+Problems logging in after updating to AuthComponent enabled version? (1.3b1)
+============================================================================
+
+Use the UtilityShell to generate an AuthComponent compatible password hash:
 ./cake/console/cake utility hash myPassword
 
-Insert the result into your DB in the 'password' field.
+Insert the result into your database in the 'password' field of the 'wild_users' table.
 
+
+Content of CakePHP README file
+******************************
+
+CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC. Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+
+The Cake Software Foundation - promoting development related to CakePHP
+http://www.cakefoundation.org/
+
+CakePHP - the rapid development PHP framework
+http://www.cakephp.org
+
+Cookbook - user documentation for learning about CakePHP
+http://book.cakephp.org
+
+API - quick reference to CakePHP
+http://api.cakephp.org
+
+The Bakery - everything CakePHP
+http://bakery.cakephp.org
+
+The Show - live and archived podcasts about CakePHP and more
+http://live.cakephp.org
+
+CakePHP Google Group - community mailing list and forum
+http://groups.google.com/group/cake-php
+
+#cakephp on irc.freenode.net - chat with CakePHP developers
+irc://irc.freenode.net/cakephp
+
+CakeForge - open development for CakePHP
+http://cakeforge.org
+
+CakePHP gear
+http://www.cafepress.com/cakefoundation
+
+Recommended Reading
+http://astore.amazon.com/cakesoftwaref-20/
