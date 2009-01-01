@@ -18,7 +18,7 @@
 <?php echo $this->element('wf_select_actions'); ?>
 
 <ul class="list-of-posts list">
-    <?php foreach ($posts as $post) { ?>
+    <?php foreach ($posts as $post): ?>
         <li class="post-row actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $post['WildPost']['id']) ?></span>
             <?php
@@ -44,7 +44,7 @@
             <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <span class="cleaner"></span>
         </li>
-    <?php } ?>
+    <?php endforeach; ?>
 </ul>
 
 <?php

@@ -1,31 +1,44 @@
 <?php
-    // The list node
-    function listItemCallback($node, $html) {
-        $editLink = $html->link($node['WildUser']['name'], 
-           array('action' => 'wf_edit', $node['WildUser']['id']),
-           array('title' => 'Edit'));
-        
-        return '<div class="list-item">' . $editLink . '</div>';
-    }
-
-    echo
-	$navigation->create(array(
-	        'Delete' => '#Delete', 
-	    ), array('id' => 'list-toolbar')),	
-	$list->create($users, array('model' => 'WildUser', 'class' => 'list selectable-list'));
+	echo 
+	$form->create('User', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
 ?>
 
-<div id="new-user">
-    <h3>Add a new user account</h3>
-    <?php echo 
-        $form->create('WildUser', array('action' => 'create')),
-        $form->input('name', array('between' => '<br />', 'tabindex' => '1')),
-        $form->input('email', array('between' => '<br />', 'tabindex' => '2')),
-        $form->input('login', array('between' => '<br />', 'tabindex' => '3')),
-        $form->input('password', array('between' => '<br />', 'tabindex' => '4')),
-        $form->input('confirm_password', array('between' => '<br />', 'type' => 'password', 'tabindex' => '5')),
-        $wild->submit('Create user'),
-        $form->end();
-    ?>
-</div>
+<h2 class="section"><?php __('User Accounts'); ?></h2>
+
+<?php echo $this->element('wf_select_actions'); ?>
+
+<ul class="list">
+    <?php foreach ($users as $user): ?>
+        <li class="post-row actions-handle">
+            <span class="row-check"><?php echo $form->checkbox('id.' . $user['WildUser']['id']) ?></span>
+            <span class="title-row"><?php echo $html->link($user['WildUser']['name'], array('action' => 'wf_edit', $user['WildUser']['id']), array('title' => __('Edit this user account.', true))) ?></span>
+            <span class="cleaner"></span>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+<?php
+    echo
+    $this->element('wf_select_actions'), 
+	//$this->element('wf_pagination'),
+    $form->end();
+?>
+
+
+
+<?php $partialLayout->blockStart('sidebar'); ?>
+    <li class="sidebar-box">
+        <h4>Add a new user account</h4>
+        <?php echo 
+            $form->create('WildUser', array('action' => 'create')),
+            $form->input('name', array('between' => '<br />')),
+            $form->input('email', array('between' => '<br />')),
+            $form->input('login', array('between' => '<br />')),
+            $form->input('password', array('between' => '<br />')),
+            $form->input('confirm_password', array('between' => '<br />', 'type' => 'password')),
+            $wild->submit('Create this user'),
+            $form->end();
+        ?>
+    </li>
+<?php $partialLayout->blockEnd(); ?>
     

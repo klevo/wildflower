@@ -708,6 +708,8 @@ select {
     
     .pages-list li {
         position: relative;
+        border: none !important;
+        padding: 0 !important;
     }
     
 
@@ -800,30 +802,35 @@ select {
     position: relative;
 }
 
-.file-list {
+.file-list,
+.list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-    .file-list li {
-        margin: 0 0 4px 0;
-        padding: 4px 0 8px;
+    .file-list li,
+    .list li {
+        margin: 0;
+        padding: 4px 0;
         border-bottom: 1px solid #e0e0e0;
         overflow: hidden;
     }
 
-    .file-list .thumbnail {
+    .file-list .thumbnail,
+    .list .thumbnail {
         float: left;
         margin: 0 10px 0 5px;
         display: block;
     }
     
-    .file-list img {
+    .file-list img,
+    .list img {
         display: block;
     }
     
-    .file-list h3 {
+    .file-list h3,
+    .list h3 {
         font-size: 14px;
         font-weight: normal;
         margin: 0;
