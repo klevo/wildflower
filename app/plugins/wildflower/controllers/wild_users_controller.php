@@ -2,11 +2,7 @@
 class WildUsersController extends WildflowerAppController {
 
     public $helpers = array('Wildflower.List', 'Time');
-	/** Cookie settings */
-	public $cookieDomain;
-	public $cookieKey = 'ajjH21=JAso214=ajj93jasjdAJKLhd=AL';
-	public $cookieName;
-	public $cookieTime;
+    public $pageTitle = 'User Accounts';
 
     /**
      * @TODO shit code, refactor
