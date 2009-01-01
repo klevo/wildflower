@@ -179,6 +179,16 @@ img {
         #wrap a.add:hover {
             color: #2c4d66;
         }
+        
+    #sidebar h4.add {
+        background: url(img/add.png) center left no-repeat;
+        padding: 0 0 0 21px;
+        font-size: 13px;
+    }
+    
+    #sidebar a.add + a.add {
+        margin-top: 7px;
+    }
     
         
 /* Headings */

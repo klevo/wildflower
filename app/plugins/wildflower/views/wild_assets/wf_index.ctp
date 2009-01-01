@@ -41,7 +41,7 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="sidebar-box">
-        <h4><?php __('Upload a new file'); ?></h4>
+        <h4 class="add"><?php __('Upload a new file'); ?></h4>
         <?php
         	echo 
         	$form->create('WildAsset', array('type' => 'file', 'action' => 'wf_create')),

@@ -30,7 +30,7 @@
         <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id']), array('class' => 'edited-item-link')); ?>
     </li>
     <li id="add-category-box" class="sidebar-box">
-        <h4>Add a new category</h4>
+        <h4 class="add"><?php __('Add a new post category'); ?></h4>
         <?php
             $createCategoryUrl = $html->url(array('controller' => 'wild_categories', 'action' => 'create', 'base' => false));
             echo

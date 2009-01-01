@@ -28,7 +28,7 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="sidebar-box">
-        <h4>Add a new user account</h4>
+        <h4 class="add"><?php __('Add a new user account'); ?></h4>
         <?php echo 
             $form->create('WildUser', array('action' => 'create')),
             $form->input('name', array('between' => '<br />')),
