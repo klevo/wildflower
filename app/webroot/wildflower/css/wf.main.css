@@ -164,7 +164,7 @@ img {
         padding: 0 0 0 14px;
         display: inline-block;
         color: #2f2f2f;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: bold;
         text-decoration: none;
     }
@@ -277,8 +277,7 @@ select {
 
     #sidebar > ul > li {
         margin: 0;
-        padding: 10px 14px;
-        border-bottom: 1px solid #cacaca;
+        padding: 8px 14px;
     }
     
     #sidebar > ul > li:last-child {
