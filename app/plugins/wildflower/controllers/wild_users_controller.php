@@ -111,7 +111,8 @@ class WildUsersController extends WildflowerAppController {
     }
 
     /**
-     * Add new user
+     * Create new user
+     *
      */
     function wf_create() {
         if ($this->WildUser->save($this->data)) {

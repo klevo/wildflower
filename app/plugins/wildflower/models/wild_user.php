@@ -45,40 +45,14 @@ class WildUser extends WildflowerAppModel {
     );
 
     /**
-     * Check if user`s login/password matches our records
-     *
-     * @param string $login
-     * @param string $password
-     * @return array
-     */
-    function authenticate($login, $password) {
-        $login = Sanitize::escape($login);
-        $password = sha1($password);
-        $this->recursive = -1;
-        return $this->findByLoginAndPassword($login, $password);
-    }
-
-    /**
-     * Before data validation callback
+     * Does password and password confirm match?
      *
      * @return bool true
      */
     function confirmPassword() {
-        if ($this->data[$this->name]['confirm_password'] !== $this->data[$this->name]['password']) {
+        App::import('Security');
+        if (Security::hash($this->data[$this->name]['confirm_password'], null, true) !== $this->data[$this->name]['password']) {
             return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Hash password before save
-     *
-     * @return bool true
-     */
-    function beforeSave() {
-        if (isset($this->data[$this->name]['password'])) {
-            $this->data[$this->name]['password'] = sha1($this->data[$this->name]['password']);
         }
         return true;
     }
