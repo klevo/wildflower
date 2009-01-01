@@ -43,7 +43,7 @@ class SeoComponent extends Object {
         if ($this->controller->isHome) {
             $this->controller->pageTitle = $nameAndDescription;
         } else {
-            $this->controller->pageTitle = "$pageTitle &bull; $nameAndDescription";
+            $this->controller->pageTitle = "$pageTitle &#8226; $nameAndDescription";
         }
         
         $this->controller->set('page_title_for_layout', $pageTitle);
