@@ -2,7 +2,7 @@
     $session->flash();
     
     echo 
-    $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false))));
+    $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
 ?>
 
 <div id="title-content">
@@ -11,14 +11,14 @@
         $form->input('title', array(
             'between' => '<br />',
             'tabindex' => '1',
-            'label' => __('Page Title', true),
+            'label' => __('Page title', true),
             'div' => array('class' => 'input title-input'))),
         $form->input('content', array(
             'type' => 'textarea',
             'tabindex' => '2',
             'class' => 'tinymce',
             'rows' => '25',
-            'label' => false,
+            'label' => __('Body', true),
             'div' => array('class' => 'input editor'))),
         '<div>',
         $form->hidden('id'),
