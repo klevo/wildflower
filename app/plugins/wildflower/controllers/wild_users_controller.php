@@ -83,9 +83,11 @@ class WildUsersController extends WildflowerAppController {
     /**
      * Logout
      * 
-     * Delete User info from Session, Cookie and reset cookie UUID.
+     * Delete User info from Session, Cookie and reset cookie token.
      */
     function wf_logout() {
+        $this->WildUser->create($this->Auth->user());
+        $this->WildUser->saveField('cookie_token', '');
         $this->Cookie->del('Auth.WildUser');
         $this->redirect($this->Auth->logout());
     }
