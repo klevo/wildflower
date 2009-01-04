@@ -86,7 +86,7 @@
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>
-    <li class="sidebar-box">
+    <li class="sidebar-box post-info">
         <?php echo $this->element('../wild_pages/_page_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>
