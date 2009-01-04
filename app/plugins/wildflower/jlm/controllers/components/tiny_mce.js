@@ -5,7 +5,16 @@ $.jlm.addComponent('tinyMce', {
     startup: function() {
         if (typeof(tinyMCE) == 'object') {
             $('textarea.tinymce').each(function() {
-                $.jlm.components.tinyMce.editorId = $(this).attr('id');
+                var textareaEl = $(this);
+                $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
+                
+                $(window).bind('resize', function() {
+                    var height = $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
+                    $('.mceLayout').height(height);
+                    $('.mceLayout iframe').height(height);
+                });
+                
+                $.jlm.components.tinyMce.editorId = textareaEl.attr('id');
                 tinyMCE.execCommand("mceAddControl", true, $.jlm.components.tinyMce.editorId);
             });
         }
@@ -48,6 +57,7 @@ $.jlm.addComponent('tinyMce', {
 	},
 	
 	onReady: function(ed) {
+	    $.jlm.components.tinyMce.editorInstance = ed;
 	    if ($.jlm.components.tinyMce.focusOnReady) {
 	        ed.focus();
 	    }
@@ -136,21 +146,13 @@ $.jlm.addComponent('tinyMce', {
 	    return false;
 	},
 	
-	bindPaginator: function() {
-		var t = this;
-		$('#image-browser .paginate-page').click(function() {
-            var url = $(this).attr('href');
-            t.loaderEl.show();
-            $('#image-browser').remove();
-            $.get(url, function(data) {
-                t.loaderEl.hide().before(data);
-                // rebind select
-                t.bindImageSelecting();
-                // rebind pager
-				t.bindPaginator();
-            });
-            return false;
-        });
+	resizeToFillScreen: function(textareaEl) {
+	    var otherContentHeight = $('body').height() - textareaEl.height();
+	    var bumper = 20;
+	    var result = $(window).height() - otherContentHeight - bumper; 
+	    
+		textareaEl.height(result);
+		return result;
 	},
 	
 	closeDialog: function() {
