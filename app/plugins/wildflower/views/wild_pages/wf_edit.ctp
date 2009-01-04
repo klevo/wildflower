@@ -23,6 +23,7 @@
             'div' => array('class' => 'input editor'))),
         '<div>',
         $form->hidden('id'),
+        $form->hidden('draft'),
         '</div>';
     ?>
     
