@@ -37,10 +37,15 @@ class PartialLayoutHelper extends WildflowerAppHelper {
 
         $out = $buffer; 
             
-        $view =& ClassRegistry::getObject('view');
+        $view = ClassRegistry::getObject('view');
         $view->viewVars[$this->__blockName.'_for_layout'] = $out;
         
         $this->__blockName = null;
+    }
+    
+    function setLayoutVar($name, $value) {
+        $view = ClassRegistry::getObject('view');
+        $view->viewVars[$name] = $value;
     }
     
     /**

@@ -19,5 +19,3 @@
 </div>
 
 <?php endif; ?>
-
-<div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to all posts', true), array('action' => 'wf_index')); ?></div>

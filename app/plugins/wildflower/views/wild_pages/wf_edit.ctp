@@ -1,4 +1,5 @@
 <?php 
+    $partialLayout->setLayoutVar('isFullEdit', true);
     $session->flash();
     
     echo 
@@ -29,21 +30,6 @@
         <?php echo $this->element('wf_edit_buttons'); ?>
     </div>
 </div>
-
-<div id="post-options">
-    <h2 class="section">Page Options</h2>
-    <?php
-        echo 
-        $form->input('draft', array('type' => 'select', 'between' => '<br />', 'label' => 'Status', 'options' => WildPage::getStatusOptions())),
-        $form->input('description_meta_tag', array('between' => '<br />', 'type' => 'textarea', 'rows' => 6, 'cols' => 27, 'tabindex' => '4')),
-        //$form->input('slug', array('between' => '<br />', 'label' => 'URL slug', 'size' => 30)),
-        $form->input('created', array('between' => '<br />'));
-    ?>
-    <div class="submit save-section">
-        <input type="submit" value="<?php __('Save options'); ?>" />
-    </div>
-    <div class="cancel-edit cancel-section"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to post edit', true), '#Cancel'); ?></div>
-</div>    
 
 <div id="post-revisions">
     <h2 class="section">Older versions of this page</h2>
@@ -82,12 +68,7 @@
 	$form->input('parent_id_options', array('type' => 'select', 'options' => $newParentPageOptions, 'empty' => '(none)', 'div' => array('class' => 'all-page-parents input select'), 'label' => __('Parent page', true), 'escape' => false)),
 	
 	$form->end();
-	
-	echo $this->element('../wild_pages/_page_info');
 ?>
-
-
-
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
@@ -105,9 +86,7 @@
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
         </ul>
     </li>
-    <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link(__('All Pages', true), array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
-        </ul>
+    <li class="sidebar-box">
+        <?php echo $this->element('../wild_pages/_page_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

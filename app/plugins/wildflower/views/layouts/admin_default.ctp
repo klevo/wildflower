@@ -52,14 +52,15 @@
 
 <div id="header">
     <div id="header-wrap">
+    <?php if (!isset($isFullEdit)): ?>
         <h1 id="site-title">
             <?php echo $html->link($siteName, '/', array('title' => __('View site home page', true))) ?>
         </h1>
-    
+
         <div id="login-info">
             <?php echo $html->link(__('Log out', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
         </div>
-    
+
         <?php 
             echo $navigation->create(array(
                 __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
@@ -70,6 +71,9 @@
                 __('Settings', true) => array('controller' => 'wild_settings')
             ), array('id' => 'nav'));
         ?>
+    <?php else: ?>
+        <?php echo $html->link(__('← Back to all pages', true), array('action' => 'index')); ?>
+    <?php endif; ?>
     </div>
 </div>
 
