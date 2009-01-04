@@ -49,7 +49,6 @@
 </head>
 <body>
 
-
 <div id="header">
     <div id="header-wrap">
     <?php if (!isset($isFullEdit)): ?>
@@ -72,7 +71,7 @@
             ), array('id' => 'nav'));
         ?>
     <?php else: ?>
-        <?php echo $html->link(__('← Back to all pages', true), array('action' => 'index')); ?>
+        <?php echo $html->link(__('← Back to all pages', true), array('action' => 'index'), array('id' => 'full-edit-back-link')); ?>
     <?php endif; ?>
     </div>
 </div>

@@ -54,13 +54,13 @@ img {
 
 #footer {
     margin: 0;
-    padding: 0 0 20px;
-    text-align: center;
-    font-size: 11px;
+    padding: 0 30px 14px;
+    font-size: 10px;
 }
 
     #footer a {
-        color: #2f2f2f;
+        color: #686868;
+        text-decoration: none;
     }
 
 #header {
@@ -140,12 +140,12 @@ img {
     float: left;
     width: 70%;
     position: relative;
-    margin: 12px 0 14px 0;
+    margin: 12px 0 8px 0;
     background: #fff;
 }
 
 #content-pad {
-    padding: 20px 25px;
+    padding: 20px 25px 35px;
     border: 3px solid #cecece;
     border-right-color: #d5d5d5;
     border-width: 0 3px 3px 0;
@@ -208,6 +208,12 @@ h2 {
     line-height: 17px;
     background: #e8f5f1;
     border-bottom: 1px solid #eee;
+}
+
+#full-edit-back-link {
+    margin: 2px 0;
+    display: block;
+    padding: 5px;
 }
 
 
