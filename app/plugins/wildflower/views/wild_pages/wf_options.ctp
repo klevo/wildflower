@@ -7,7 +7,7 @@
     '</div>';
 ?>
 
-<h2 class="section">Page Options</h2>
+<h2 class="section">Page options for <?php echo $html->link($this->data['WildPage']['title'], array('action' => 'edit', $this->data['WildPage']['id'])); ?></h2>
 <?php
     echo 
     $form->input('parent_id', array('type' => 'select', 'label' => 'Parent page', 'options' => $parentPageOptions, 'empty' => '(none)', 'escape' => false)),
@@ -26,8 +26,7 @@
 
 <?php 
     echo 
-    $form->end(),
-    $this->element('../wild_pages/_page_info');
+    $form->end();
 ?>
 
 

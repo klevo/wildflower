@@ -609,6 +609,10 @@ select {
     
 /* Post edit */
 
+#save-preview {
+    display: none; /* Preview does not work yet */
+}
+
 #save-draft,
 #save-publish,
 #save-preview,
