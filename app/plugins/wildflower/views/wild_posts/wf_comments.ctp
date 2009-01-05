@@ -17,7 +17,7 @@
         <li>
             <p class="comment-head">From: <?php echo hsc($comment['name']); ?>, <?php echo $time->niceShort($comment['created']); ?></p>
             <div class="comment-body">
-                <?php echo $textile->format($comment['Comment']['content']); ?>
+                <?php echo $textile->format($comment['content']); ?>
             </div>
         </li>
     <?php endforeach; ?>
@@ -36,5 +36,8 @@
     <li class="sidebar-box">
         <h4><?php __('Editing comments for post...'); ?></h4>
         <?php echo $html->link($this->data['WildPost']['title'], array('action' => 'edit', $this->data['WildPost']['id']), array('class' => 'edited-item-link')); ?>
+    </li>
+    <li class="sidebar-box post-info">
+        <?php echo $this->element('../wild_posts/_post_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

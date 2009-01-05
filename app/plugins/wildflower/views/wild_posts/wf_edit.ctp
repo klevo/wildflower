@@ -63,10 +63,6 @@
 </div>
 
 <?php echo $form->end(); ?>
-
-<p class="post-info">
-    This post is <?php if ($isDraft): ?>not published, therefore not visible to the public<?php else: ?>published and visible to the public at <?php echo $html->link(FULL_BASE_URL . $this->base . WildPost::getUrl($this->data['WildPost']['uuid']), WildPost::getUrl($this->data['WildPost']['uuid'])); ?><?php endif; ?>. Latest changes were made <?php echo $time->nice($this->data['WildPost']['updated']); ?> by <?php echo hsc($this->data['WildUser']['name']); ?>.
-</p>
     
 
 <?php $partialLayout->blockStart('sidebar'); ?>
@@ -87,9 +83,7 @@
             <li><?php echo $html->link('Comments', array('action' => 'comments', $this->data['WildPost']['id'])); ?></li>
         </ul>
     </li>
-    <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link('All Posts', array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
-        </ul>
+    <li class="sidebar-box post-info">
+        <?php echo $this->element('../wild_posts/_post_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

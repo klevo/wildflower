@@ -40,7 +40,7 @@
         $form->input('url', array('label' => 'Website URL (optional)')),
         $form->input('content', array('label' => 'Message', 'type' => 'textbox')),
         '<div>',
-        $form->hidden('post_id', array('value' => $post['WildPost']['id'])),
+        $form->hidden('wild_post_id', array('value' => $post['WildPost']['id'])),
         '</div>',
         $form->hidden('WildPost.permalink', array('value' => $html->url($postUrl, true))),
         $form->submit('Post comment'),

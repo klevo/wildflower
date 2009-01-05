@@ -52,7 +52,8 @@ class WildPostsController extends WildflowerAppController {
                 'WildComment' => array(
                     'order' => 'WildComment.created DESC',
                     'conditions' => array('WildComment.spam' => 0)
-                )
+                ),
+                'WildUser'
             )
         ));
     }
@@ -282,20 +283,17 @@ class WildPostsController extends WildflowerAppController {
         $this->WildPost->WildComment->spamCheck = true;
         if ($this->WildPost->WildComment->save($this->data)) {
             $this->Session->setFlash('Comment succesfuly added.');
-            $postId = intval($this->data['WildComment']['post_id']);
+            $postId = intval($this->data['WildComment']['wild_post_id']);
             $postSlug = $this->WildPost->field('slug', "id = $postId");
             $postLink = '/' . Configure::read('Wildflower.blogIndex') . "/$postSlug";
 
             // Clear post cache
-            $cacheName = str_replace('-', '_', $postSlug);
-            clearCache($cacheName, 'views', '.php');
+            // @TODO find out better method
+            // $cacheName = str_replace('-', '_', $postSlug);
+            // clearCache($cacheName, 'views', '.php');
 
             $this->redirect($this->data['WildPost']['permalink'] . '#comment-' . $this->WildPost->WildComment->id);
-        } else {
-            $post = $this->WildPost->findById(intval($this->data['WildComment']['post_id']));
-            $this->set('post', $post);
-            $this->render('view');
-        }  
+        }
     }
     
 }

@@ -1,8 +1,6 @@
 <?php
 class WildPost extends WildflowerAppModel {
     
-    public $useTable = 'posts';
-
 	public $actsAs = array(
 	   'Containable',
 	   'Wildflower.Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'),
@@ -28,8 +26,7 @@ class WildPost extends WildflowerAppModel {
 	   'WildComment' => array(
 	       'className' => 'Wildflower.WildComment',
 	       'conditions' => 'WildComment.spam = 0',
-	       'order' => 'WildComment.created asc',
-	       //'foreignKey' => 'post_id'
+	       'order' => 'WildComment.created ASC'
 	   )
 	);
 	
