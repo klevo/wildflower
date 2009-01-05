@@ -552,7 +552,8 @@ select {
     float: left;
 }
 
-.post-categories {
+.post-categories,
+.post-comments {
     color: #535353;
     margin: 0;
     padding: 4px 0 0 30px;
@@ -562,16 +563,22 @@ select {
 }
 
     .post-date a,
-    .post-categories a {
+    .post-categories a,
+    .post-comments a {
         color: #535353;
         text-decoration: none;
     }
     
     .post-date a:hover,
-    .post-categories a:hover {
+    .post-categories a:hover,
+    .post-comments a:hover {
         background-color: #535353;
         color: #fff;
     }
+    
+.post-comments {
+    background-image: url(img/comment.png);
+}
    
 .permalink,
 .edit-sections .permalink {
