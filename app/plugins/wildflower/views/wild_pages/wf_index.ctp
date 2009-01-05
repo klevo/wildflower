@@ -28,10 +28,5 @@
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)) ?>
     </li>
-    <li>
-        <ul class="sidebar-menu">
-            <li><?php echo $html->link(__('All Pages', true), array('action' => 'wf_index'), array('class' => 'back-to-all')); ?></li>
-        </ul>
-    </li>
 <?php $partialLayout->blockEnd(); ?>
 
