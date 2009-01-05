@@ -42,6 +42,22 @@ class WildPostsController extends WildflowerAppController {
     }
     
     /**
+     * View particular post's comments
+     * 
+     */
+    function wf_comments($id = null) {
+        $this->data = $this->{$this->modelClass}->find('first', array(
+            'conditions' => array('WildPost.id' => $id),
+            'contain' => array(
+                'WildComment' => array(
+                    'order' => 'WildComment.created DESC',
+                    'conditions' => array('WildComment.spam' => 0)
+                )
+            )
+        ));
+    }
+    
+    /**
      * Posts overview
      * 
      */
