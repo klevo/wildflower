@@ -7,7 +7,8 @@ class WildComment extends WildflowerAppModel {
 	public $belongsTo = array(
 	    'WildPost' => array(
 	        'className' => 'Wildflower.WildPost',
-	        'foreignKey' => 'post_id'
+	        'foreignKey' => 'post_id',
+	        'counterCache' => true
 	    )
 	);
 	/** @var bool Do a spam check before save? **/

@@ -200,3 +200,18 @@ Dec 29 11:18:54 [info] ALTER TABLE `pages` CHANGE `user_id` `wild_user_id` int(1
 Dec 29 11:18:54 [info] SHOW COLUMNS FROM `posts` LIKE 'user_id'
 Dec 29 11:18:54 [info] ALTER TABLE `posts` CHANGE `user_id` `wild_user_id` int(11)
 Dec 29 11:18:54 [info] UPDATE schema_info SET version = 14
+Jan 05 20:11:15 [info] SELECT version FROM schema_info
+Jan 05 20:11:15 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:11:15 [info] RENAME TABLE comments TO wild_comments
+Jan 05 20:11:15 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
+Jan 05 20:11:16 [info] UPDATE schema_info SET version = 15
+Jan 05 20:11:24 [info] SELECT version FROM schema_info
+Jan 05 20:11:24 [info] ALTER TABLE `wild_posts` DROP COLUMN `wild_comment_count`
+Jan 05 20:11:24 [info] RENAME TABLE wild_posts TO posts
+Jan 05 20:11:24 [info] RENAME TABLE wild_comments TO comments
+Jan 05 20:11:24 [info] UPDATE schema_info SET version = 14
+Jan 05 20:11:30 [info] SELECT version FROM schema_info
+Jan 05 20:11:30 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:11:30 [info] RENAME TABLE comments TO wild_comments
+Jan 05 20:11:30 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
+Jan 05 20:11:30 [info] UPDATE schema_info SET version = 15
