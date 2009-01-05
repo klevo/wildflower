@@ -80,7 +80,7 @@
             <li><?php echo $html->link('Categorize this post', array('action' => 'categorize', $this->data['WildPost']['id'])); ?></li>
             <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPost']['id']), array('escape' => false)); ?></li>
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
-            <li><?php echo $html->link('Comments', array('action' => 'comments', $this->data['WildPost']['id'])); ?></li>
+            <li><?php echo $html->link("Comments ({$this->data['WildPost']['wild_comment_count']})", array('action' => 'comments', $this->data['WildPost']['id'])); ?></li>
         </ul>
     </li>
     <li class="sidebar-box post-info">

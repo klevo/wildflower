@@ -26,7 +26,7 @@
 
 
 <div class="horizontal-form-buttons">
-    <div class="cancel-edit"><?php echo $html->link(__('Go back to post edit', true), array('action' => 'edit', $this->data['WildPost']['id'])); ?></div>
+    <div class="cancel-edit"><?php echo $html->link(__('Go back', true), $goBackAction); ?></div>
 </div>
 
 <?php echo $form->end(); ?>

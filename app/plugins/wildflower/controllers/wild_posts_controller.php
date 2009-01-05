@@ -56,6 +56,9 @@ class WildPostsController extends WildflowerAppController {
                 'WildUser'
             )
         ));
+        
+        $goBackAction = $this->referer(array('action' => 'edit', $this->data['WildPost']['id']));
+        $this->set('goBackAction', $goBackAction);
     }
     
     /**
