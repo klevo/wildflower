@@ -1,6 +1,6 @@
 <?php
 
-class MySQLTableDefinition {
+class Ruckusing_MySQLTableDefinition {
 	
 	private $adapter;
 	private $name;
@@ -12,18 +12,18 @@ class MySQLTableDefinition {
 	
 	function __construct($adapter, $name, $options = array()) {
 		//sanity check
-		if( !($adapter instanceof BaseAdapter)) {
-			throw new MissingAdapterException("Invalid MySQL Adapter instance.");
+		if( !($adapter instanceof Ruckusing_BaseAdapter)) {
+			throw new Ruckusing_MissingAdapterException("Invalid MySQL Adapter instance.");
 		}
 		if(!$name) {
-			throw new ArgumentException("Invalid 'name' parameter");
+			throw new Ruckusing_ArgumentException("Invalid 'name' parameter");
 		}
 
 		$this->adapter = $adapter;
 		$this->name = $name;
 		$this->options = $options;		
 		$this->init_sql($name, $options);
-		$this->table_def = new TableDefinition($this->adapter);
+		$this->table_def = new Ruckusing_TableDefinition($this->adapter);
 
 		//Add a primary key field if necessary, defaulting to "id"
 		$pk_name = null;
@@ -54,7 +54,7 @@ class MySQLTableDefinition {
 			return;
 		}
 		
-		$column = new ColumnDefinition($this->adapter, $column_name, $type);
+		$column = new Ruckusing_ColumnDefinition($this->adapter, $column_name, $type);
 		foreach($options as $key => $value) {
 			$column->$key = $value;
 		}
@@ -63,7 +63,7 @@ class MySQLTableDefinition {
 	
 	public function finish($wants_sql = false) {
 		if($this->initialized == false) {
-			throw new InvalidTableDefinitionException(sprintf("Table Definition: '%s' has not been initialized", $this->name));
+			throw new Ruckusing_InvalidTableDefinitionException(sprintf("Table Definition: '%s' has not been initialized", $this->name));
 		}
 		if(is_array($this->options) && array_key_exists('options', $this->options)) {
 			$opt_str = $this->options['options'];
@@ -96,7 +96,7 @@ class MySQLTableDefinition {
 		if(array_key_exists('force', $options) && $options['force'] == true) {
 			try {
 				$this->adapter->drop_table($name);
-			}catch(MissingTableException $e) {
+			}catch(Ruckusing_MissingTableException $e) {
 				//do nothing
 			}
 		}
@@ -112,7 +112,7 @@ class MySQLTableDefinition {
 }
 
 
-class TableDefinition {
+class Ruckusing_TableDefinition {
 
 	private $columns = array();
 	private $adapter;
@@ -122,7 +122,7 @@ class TableDefinition {
 	}
 	
 	public function column($name, $type, $options = array()) {
-		$column = new ColumnDefinition($this->adapter, $name, $type);
+		$column = new Ruckusing_ColumnDefinition($this->adapter, $name, $type);
 		$native_types = $this->adapter->native_database_types();
 		
 		if($native_types && array_key_exists('limit', $native_types)) {
@@ -172,7 +172,7 @@ class TableDefinition {
 		table definition.
 		
 		This method is lax enough that it can take either a string column name
-		or a full-blown ColumnDefinition object.
+		or a Ruckusing_ColumnDefinition object.
 	*/
 	public function included($column) {
 		$k = count($this->columns);
@@ -181,7 +181,7 @@ class TableDefinition {
 			if(is_string($column) && $col->name == $column) {
 				return true;
 			}
-			if(($column instanceof ColumnDefinition) && $col->name == $column->name) {
+			if(($column instanceof Ruckusing_ColumnDefinition) && $col->name == $column->name) {
 				return true;
 			}
 		}
@@ -193,7 +193,7 @@ class TableDefinition {
 	}
 }
 
-class ColumnDefinition {
+class Ruckusing_ColumnDefinition {
 	private $adapter;
 	public $name;
 	public $type;

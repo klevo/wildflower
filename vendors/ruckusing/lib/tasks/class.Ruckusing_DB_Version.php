@@ -4,11 +4,11 @@
 	This task retrieves the current version of the schema.
 */
 
-require_once BASE . '/lib/classes/task/class.iTask.php';
-require_once BASE . '/config/config.inc.php';
+require_once RUCKUSING_BASE . '/lib/classes/task/class.Ruckusing_iTask.php';
+require_once RUCKUSING_BASE . '/config/config.inc.php';
 
 
-class DB_Version implements iTask {
+class Ruckusing_DB_Version implements Ruckusing_iTask {
 	
 	private $adapter = null;
 	private $create_ddl = ""; 
@@ -21,7 +21,7 @@ class DB_Version implements iTask {
 	public function execute($args) {
 		echo "Started: " . date('Y-m-d g:ia T') . "\n\n";		
 		echo "[db:version]: \n";
-		if( ! $this->adapter->table_exists(SCHEMA_TBL_NAME) ) {
+		if( ! $this->adapter->table_exists(RUCKUSING_SCHEMA_TBL_NAME) ) {
 			//it doesnt exist, create it
 			echo "\tSchema info table does not exist. Do you need to run 'db:setup'?";
 		} else {

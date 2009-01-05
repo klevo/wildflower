@@ -2,9 +2,9 @@
 require_once 'PHPUnit/Framework.php';
  
 require_once '../test_helper.php';
-require_once BASE  . '/lib/classes/class.BaseAdapter.php';
-require_once BASE  . '/lib/classes/class.iAdapter.php';
-require_once BASE  . '/lib/classes/adapters/class.MySQLAdapter.php';
+require_once RUCKUSING_BASE  . '/lib/classes/class.Ruckusing_BaseAdapter.php';
+require_once RUCKUSING_BASE  . '/lib/classes/class.Ruckusing_iAdapter.php';
+require_once RUCKUSING_BASE  . '/lib/classes/adapters/class.Ruckusing_MySQLAdapter.php';
 
 /*
 	To run these unit-tests an empty test database needs to be setup in database.inc.php
@@ -14,27 +14,18 @@ require_once BASE  . '/lib/classes/adapters/class.MySQLAdapter.php';
 class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 		
 		protected function setUp() {
-			require BASE . '/config/database.inc.php';
+			require RUCKUSING_BASE . '/config/database.inc.php';
 
-			if( !is_array($db) || !array_key_exists("test", $db)) {
+			if( !is_array($ruckusing_db_config) || !array_key_exists("test", $ruckusing_db_config)) {
 				die("\n'test' DB is not defined in config/database.inc.php\n\n");
 			}
 
-			$test_db = $db['test'];
-			$dsn = sprintf("%s://%s:%s@%s:%d/%s",
-				"mysql",
-				$test_db['user'],
-				$test_db['password'],
-				$test_db['host'],				
-				$test_db['port'],
-				$test_db['database']
-			);
+			$test_db = $ruckusing_db_config['test'];
 
 			//setup our log
-			#$logger = &Log::factory('file', BASE . '/tests/logs/test.log');
-			$logger = &Logger::instance(BASE . '/tests/logs/test.log');
+			$logger = &Ruckusing_Logger::instance(RUCKUSING_BASE . '/tests/logs/test.log');
 
-			$this->adapter = new MySQLAdapter($dsn, $logger);
+			$this->adapter = new Ruckusing_MySQLAdapter($test_db, $logger);
 			$this->adapter->logger->log("Test run started: " . date('Y-m-d g:ia T') );
 			
 		}//setUp()
@@ -53,42 +44,6 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			}			
 		}
 		
-		public function test_dsn_to_array_with_no_port() {
-		  $dsn = sprintf("%s://%s:%s@%s/%s",
-				'mysql',
-				'some_user',
-				'mypassword',
-				'the_host',
-				'the_database'
-			);
-			$dsn_parts = $this->adapter->dsn_to_array($dsn);
-			$this->assertNotNull($dsn_parts);
-			$this->assertEquals('mysql', $dsn_parts['type']);
-			$this->assertEquals('some_user', $dsn_parts['user']);
-			$this->assertEquals('mypassword', $dsn_parts['password']);
-			$this->assertEquals('the_host', $dsn_parts['host']);
-			$this->assertEquals('the_database', $dsn_parts['database']);
-	  }
-
-		public function test_dsn_to_array_with_port() {
-		  $dsn = sprintf("%s://%s:%s@%s:3306/%s",
-				'mysql',
-				'some_user',
-				'mypassword',
-				'the_host',
-				'the_database'
-			);
-			$dsn_parts = $this->adapter->dsn_to_array($dsn);
-			$this->assertNotNull($dsn_parts);
-			$this->assertEquals('mysql', $dsn_parts['type']);
-			$this->assertEquals('some_user', $dsn_parts['user']);
-			$this->assertEquals('mypassword', $dsn_parts['password']);
-			$this->assertEquals('the_host', $dsn_parts['host']);
-			$this->assertEquals(3306, (int)$dsn_parts['port']);
-			$this->assertEquals('the_database', $dsn_parts['database']);
-	  }
-
-		
 		public function test_ensure_table_does_not_exist() {
 			$this->assertEquals(false, $this->adapter->has_table('unknown_table') );
 		}
@@ -101,7 +56,7 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			//create it
 			//$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");
 			
-			$t1 = new MySQLTableDefinition($this->adapter, "users", array('options' => 'Engine=InnoDB') );
+			$t1 = new Ruckusing_MySQLTableDefinition($this->adapter, "users", array('options' => 'Engine=InnoDB') );
 			$t1->column("name", "string", array('limit' => 20));
 			$sql = $t1->finish();
 			

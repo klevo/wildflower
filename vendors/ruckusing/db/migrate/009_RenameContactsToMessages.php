@@ -1,6 +1,6 @@
 <?php
 
-class RenameContactsToMessages extends BaseMigration {
+class RenameContactsToMessages extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->rename_table('contacts', 'messages');

@@ -1,5 +1,5 @@
 <?php
-class RefactorUsersTable extends BaseMigration {
+class RefactorUsersTable extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->rename_table('users', 'wild_users');

@@ -7,10 +7,10 @@
 */
 
 
-define('BASE', realpath(dirname(__FILE__)));
-require_once BASE . '/config/config.inc.php';
-require_once BASE  . '/lib/classes/util/class.NamingUtil.php';
-require_once BASE  . '/lib/classes/util/class.VersionUtil.php';
+define('RUCKUSING_BASE', realpath(dirname(__FILE__)));
+require_once RUCKUSING_BASE . '/config/config.inc.php';
+require_once RUCKUSING_BASE  . '/lib/classes/util/class.Ruckusing_NamingUtil.php';
+require_once RUCKUSING_BASE  . '/lib/classes/util/class.Ruckusing_VersionUtil.php';
 
 $args = parse_args($argv);
 main($args);
@@ -53,21 +53,21 @@ function main($args) {
   clearstatcache();
   
   //check to make sure our migration directory exists
-  if(!is_dir(MIGRATION_DIR)) {
-   die_with_error("ERROR: migration directory '" . MIGRATION_DIR . "' does not exist. Specify MIGRATION_DIR in config/config.inc.php and try again.");
+  if(!is_dir(RUCKUSING_MIGRATION_DIR)) {
+   die_with_error("ERROR: migration directory '" . RUCKUSING_MIGRATION_DIR . "' does not exist. Specify MIGRATION_DIR in config/config.inc.php and try again.");
   }
   
   //generate a complete complete
-  $highest_version  = VersionUtil::get_highest_migration(MIGRATION_DIR);
-  $next_version     = VersionUtil::to_migration_number($highest_version + 1);
-  $klass            = NamingUtil::camelcase($migration_name);
+  $highest_version  = Ruckusing_VersionUtil::get_highest_migration(RUCKUSING_MIGRATION_DIR);
+  $next_version     = Ruckusing_VersionUtil::to_migration_number($highest_version + 1);
+  $klass            = Ruckusing_NamingUtil::camelcase($migration_name);
   $file_name        = $next_version . '_' . $klass . '.php';
-  $full_path        = realpath(MIGRATION_DIR) . '/' . $file_name;
+  $full_path        = realpath(RUCKUSING_MIGRATION_DIR) . '/' . $file_name;
   $template_str     = get_template($klass);
     
   //check to make sure our destination directory is writable
-  if(!is_writable(MIGRATION_DIR . '/')) {
-    die_with_error("ERROR: migration directory '" . MIGRATION_DIR . "' is not writable by the current user. Check permissions and try again.");
+  if(!is_writable(RUCKUSING_MIGRATION_DIR . '/')) {
+    die_with_error("ERROR: migration directory '" . RUCKUSING_MIGRATION_DIR . "' is not writable by the current user. Check permissions and try again.");
   }
 
   //write it out!
@@ -86,7 +86,7 @@ function die_with_error($str) {
 function get_template($klass) {
 $template = <<<TPL
 <?php\n
-class $klass extends BaseMigration {\n\n\tpublic function up() {\n\n\t}//up()
+class $klass extends Ruckusing_BaseMigration {\n\n\tpublic function up() {\n\n\t}//up()
 \n\tpublic function down() {\n\n\t}//down()
 }
 ?>

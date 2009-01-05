@@ -1,5 +1,5 @@
 <?php
-class WildUserIdsInAllTables extends BaseMigration {
+class WildUserIdsInAllTables extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->rename_column('pages', 'user_id', 'wild_user_id');

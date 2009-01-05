@@ -2,6 +2,7 @@
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
+define('BASE', dirname(__FILE__) . '/..');
 
 require_once dirname(__FILE__) . DS . '..'  
     . DS . '..'  . DS . '..'  
@@ -13,7 +14,7 @@ $cakeDbConfig = new DATABASE_CONFIG();
 //----------------------------
 // DATABASE CONFIGURATION
 //----------------------------
-$db = array(
+$ruckusing_db_config = array(
 	
 	'development' => array(
 			'type' 			=> 'mysql',
@@ -41,6 +42,3 @@ $db = array(
 	)
 	
 );
-
-
-?>

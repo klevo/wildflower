@@ -1,6 +1,6 @@
 <?php
 
-class AddOrderColumnToSettings extends BaseMigration {
+class AddOrderColumnToSettings extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->add_column('settings', 'order', 'integer', array('null' => false));

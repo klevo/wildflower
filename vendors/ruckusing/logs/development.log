@@ -1,217 +1,54 @@
-Oct 31 16:38:18 [info] SELECT version FROM schema_info
-Oct 31 16:38:18 [info] CREATE TABLE users (
+Aug 03 19:11:11  [info] CREATE TABLE schema_info (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:38:18 [info] UPDATE schema_info SET version = 1
-Oct 31 16:38:18 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:38:18 [info] UPDATE schema_info SET version = 2
-Oct 31 16:39:59 [info] SELECT version FROM schema_info
-Oct 31 16:44:25 [info] SELECT version FROM schema_info
-Oct 31 16:44:25 [info] DROP INDEX `idx_users_age` ON `users`
-Oct 31 16:44:25 [info] UPDATE schema_info SET version = 2
-Oct 31 16:44:25 [info] DROP TABLE `users`
-Oct 31 16:44:25 [info] UPDATE schema_info SET version = 0
-Oct 31 16:44:39 [info] CREATE TABLE schema_info (
 `version` int(11) DEFAULT '0' NOT NULL
 ) ;
-Oct 31 16:45:29 [info] SELECT version FROM schema_info
-Oct 31 16:45:29 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:45:29 [info] UPDATE schema_info SET version = 1
-Oct 31 16:45:29 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:45:29 [info] UPDATE schema_info SET version = 2
-Oct 31 16:45:48 [info] CREATE TABLE schema_info (
+Aug 03 19:11:11  [info] INSERT INTO schema_info (version) VALUES (0)
+Aug 03 19:11:51  [info] CREATE TABLE schema_info (
 `version` int(11) DEFAULT '0' NOT NULL
 ) ;
-Oct 31 16:45:48 [info] INSERT INTO schema_info (version) VALUES (0)
-Oct 31 16:50:41 [info] SELECT version FROM schema_info
-Oct 31 16:50:41 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:50:41 [info] UPDATE schema_info SET version = 1
-Oct 31 16:50:41 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:50:41 [info] UPDATE schema_info SET version = 2
-Oct 31 16:50:55 [info] CREATE TABLE schema_info (
-`version` int(11) DEFAULT '0' NOT NULL
-) ;
-Oct 31 16:50:55 [info] INSERT INTO schema_info (version) VALUES (0)
-Oct 31 16:50:55 [info] SELECT version FROM schema_info
-Oct 31 16:50:55 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:50:55 [info] UPDATE schema_info SET version = 1
-Oct 31 16:50:55 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:50:55 [info] UPDATE schema_info SET version = 2
-Oct 31 16:51:16 [info] CREATE TABLE schema_info (
-`version` int(11) DEFAULT '0' NOT NULL
-) ;
-Oct 31 16:51:16 [info] INSERT INTO schema_info (version) VALUES (0)
-Oct 31 16:51:16 [info] SELECT version FROM schema_info
-Oct 31 16:51:16 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:51:16 [info] UPDATE schema_info SET version = 1
-Oct 31 16:51:16 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:51:16 [info] UPDATE schema_info SET version = 2
-Oct 31 16:51:33 [info] CREATE TABLE schema_info (
-`version` int(11) DEFAULT '0' NOT NULL
-) ;
-Oct 31 16:51:33 [info] INSERT INTO schema_info (version) VALUES (0)
-Oct 31 16:51:33 [info] SELECT version FROM schema_info
-Oct 31 16:51:33 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:51:33 [info] UPDATE schema_info SET version = 1
-Oct 31 16:51:33 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:51:33 [info] UPDATE schema_info SET version = 2
-Oct 31 16:51:44 [info] CREATE TABLE schema_info (
-`version` int(11) DEFAULT '0' NOT NULL
-) ;
-Oct 31 16:51:44 [info] INSERT INTO schema_info (version) VALUES (0)
-Oct 31 16:51:44 [info] SELECT version FROM schema_info
-Oct 31 16:51:44 [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`age` int(11),
-`name` varchar(255)
-) ;
-Oct 31 16:51:44 [info] UPDATE schema_info SET version = 1
-Oct 31 16:51:44 [info] CREATE INDEX idx_users_age ON users(age)
-Oct 31 16:51:44 [info] UPDATE schema_info SET version = 2
-Oct 31 16:59:09 [info] SELECT version FROM schema_info
-Oct 31 16:59:27 [info] SELECT version FROM schema_info
-Oct 31 17:02:10 [info] SELECT version FROM schema_info
-Oct 31 17:02:48 [info] SELECT version FROM schema_info
-Oct 31 17:03:35 [info] SELECT version FROM schema_info
-Oct 31 17:04:35 [info] SELECT version FROM schema_info
-Oct 31 17:05:01 [info] SELECT version FROM schema_info
-Oct 31 17:05:08 [info] SELECT version FROM schema_info
-Oct 31 17:05:25 [info] SELECT version FROM schema_info
-Oct 31 17:06:06 [info] SELECT version FROM schema_info
-Oct 31 17:06:51 [info] SELECT version FROM schema_info
-Oct 31 17:07:08 [info] SELECT version FROM schema_info
-Oct 31 17:07:14 [info] SELECT version FROM schema_info
-Oct 31 17:07:36 [info] SELECT version FROM schema_info
-Oct 31 17:07:48 [info] SELECT version FROM schema_info
-Oct 31 17:07:57 [info] SELECT version FROM schema_info
-Oct 31 17:07:57 [info] CREATE TABLE foobar (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`name` varchar(255)
-) ;
-Oct 31 17:07:57 [info] UPDATE schema_info SET version = 3
-Nov 08 21:50:05 [info] SELECT version FROM schema_info
-Nov 08 21:50:05 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
-Nov 08 21:50:11 [info] UPDATE schema_info SET version = 10
-Nov 08 21:51:49 [info] SELECT version FROM schema_info
-Nov 08 21:51:55 [info] SELECT version FROM schema_info
-Nov 08 21:51:59 [info] SELECT version FROM schema_info
-Nov 08 21:52:14 [info] SELECT version FROM schema_info
-Nov 08 21:52:14 [info] ALTER TABLE `public` DROP COLUMN `uuid`
-Nov 08 21:52:24 [info] SELECT version FROM schema_info
-Nov 08 21:52:24 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
-Nov 08 21:52:30 [info] UPDATE schema_info SET version = 9
-Nov 08 21:52:35 [info] SELECT version FROM schema_info
-Nov 08 21:52:35 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
-Nov 08 21:52:41 [info] UPDATE schema_info SET version = 10
-Nov 08 21:56:46 [info] SELECT version FROM schema_info
-Nov 08 21:56:46 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
-Nov 08 21:56:52 [info] UPDATE schema_info SET version = 9
-Nov 08 22:11:41 [info] SELECT version FROM schema_info
-Nov 08 22:11:51 [info] SELECT version FROM schema_info
-Nov 08 22:11:51 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
-Nov 08 22:11:58 [info] UPDATE schema_info SET version = 10
-Nov 08 22:12:17 [info] SELECT version FROM schema_info
-Nov 08 22:12:17 [info] ALTER TABLE `posts` DROP COLUMN `uuid`
-Nov 08 22:12:23 [info] UPDATE schema_info SET version = 9
-Nov 08 22:12:32 [info] SELECT version FROM schema_info
-Nov 08 22:12:32 [info] ALTER TABLE posts ADD `uuid` varchar(255) NOT NULL
-Nov 08 22:12:38 [info] UPDATE schema_info SET version = 10
-Nov 08 22:27:28 [info] SELECT version FROM schema_info
-Dec 25 14:52:20 [info] SELECT version FROM schema_info
-Dec 25 14:52:20 [info] UPDATE users SET password = 'e569c558b6119c2948d97ff3bffd87423f75c2b1' WHERE login = 'admin'
-Dec 25 14:52:20 [info] UPDATE schema_info SET version = 11
-Dec 25 14:52:25 [info] SELECT version FROM schema_info
-Dec 25 14:52:27 [info] SELECT version FROM schema_info
-Dec 25 20:31:57 [info] SELECT version FROM schema_info
-Dec 25 20:31:57 [info] RENAME TABLE users TO wild_users
-Dec 25 20:31:57 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
-Dec 25 20:31:57 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
-Dec 25 20:31:57 [info] UPDATE schema_info SET version = 12
-Dec 25 20:32:04 [info] SELECT version FROM schema_info
-Dec 25 20:32:04 [info] RENAME TABLE wild_users TO users
-Dec 25 20:32:04 [info] SHOW COLUMNS FROM `users` LIKE 'cookie_token'
-Dec 25 20:32:04 [info] ALTER TABLE `users` CHANGE `cookie_token` `cookie` varchar(255)
-Dec 25 20:32:04 [info] UPDATE schema_info SET version = 11
-Dec 25 20:32:06 [info] SELECT version FROM schema_info
-Dec 25 20:32:06 [info] RENAME TABLE users TO wild_users
-Dec 25 20:32:06 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
-Dec 25 20:32:06 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
-Dec 25 20:32:06 [info] UPDATE schema_info SET version = 12
-Dec 25 21:49:41 [info] SELECT version FROM schema_info
-Dec 25 21:49:46 [info] SELECT version FROM schema_info
-Dec 25 21:49:46 [info] RENAME TABLE wild_users TO users
-Dec 25 21:49:46 [info] SHOW COLUMNS FROM `users` LIKE 'cookie_token'
-Dec 25 21:49:46 [info] ALTER TABLE `users` CHANGE `cookie_token` `cookie` varchar(255)
-Dec 25 21:49:46 [info] UPDATE schema_info SET version = 11
-Dec 25 21:50:24 [info] SELECT version FROM schema_info
-Dec 25 21:50:24 [info] RENAME TABLE users TO wild_users
-Dec 25 21:50:24 [info] SHOW COLUMNS FROM `wild_users` LIKE 'cookie'
-Dec 25 21:50:24 [info] ALTER TABLE `wild_users` CHANGE `cookie` `cookie_token` varchar(255)
-Dec 25 21:50:24 [info] UPDATE schema_info SET version = 12
-Dec 26 17:59:44 [info] SELECT version FROM schema_info
-Dec 26 17:59:44 [info] ALTER TABLE `revisions` DROP COLUMN `user_id`
-Dec 26 17:59:44 [info] RENAME TABLE revisions TO wild_revisions
-Dec 26 17:59:44 [info] UPDATE schema_info SET version = 13
-Dec 26 17:59:50 [info] SELECT version FROM schema_info
-Dec 26 17:59:50 [info] RENAME TABLE wild_revisions TO revisions
-Dec 26 17:59:50 [info] ALTER TABLE revisions ADD `user_id` int(11)
-Dec 26 17:59:50 [info] UPDATE schema_info SET version = 12
-Dec 26 17:59:53 [info] SELECT version FROM schema_info
-Dec 26 17:59:53 [info] ALTER TABLE `revisions` DROP COLUMN `user_id`
-Dec 26 17:59:53 [info] RENAME TABLE revisions TO wild_revisions
-Dec 26 17:59:53 [info] UPDATE schema_info SET version = 13
-Dec 29 11:18:43 [info] SELECT version FROM schema_info
-Dec 29 11:18:43 [info] SHOW COLUMNS FROM `pages` LIKE 'user_id'
-Dec 29 11:18:43 [info] ALTER TABLE `pages` CHANGE `user_id` `wild_user_id` int(11)
-Dec 29 11:18:43 [info] SHOW COLUMNS FROM `posts` LIKE 'user_id'
-Dec 29 11:18:43 [info] ALTER TABLE `posts` CHANGE `user_id` `wild_user_id` int(11)
-Dec 29 11:18:43 [info] UPDATE schema_info SET version = 14
-Dec 29 11:18:52 [info] SELECT version FROM schema_info
-Dec 29 11:18:52 [info] SHOW COLUMNS FROM `pages` LIKE 'wild_user_id'
-Dec 29 11:18:52 [info] ALTER TABLE `pages` CHANGE `wild_user_id` `user_id` int(11)
-Dec 29 11:18:52 [info] SHOW COLUMNS FROM `posts` LIKE 'wild_user_id'
-Dec 29 11:18:52 [info] ALTER TABLE `posts` CHANGE `wild_user_id` `user_id` int(11)
-Dec 29 11:18:52 [info] UPDATE schema_info SET version = 13
-Dec 29 11:18:54 [info] SELECT version FROM schema_info
-Dec 29 11:18:54 [info] SHOW COLUMNS FROM `pages` LIKE 'user_id'
-Dec 29 11:18:54 [info] ALTER TABLE `pages` CHANGE `user_id` `wild_user_id` int(11)
-Dec 29 11:18:54 [info] SHOW COLUMNS FROM `posts` LIKE 'user_id'
-Dec 29 11:18:54 [info] ALTER TABLE `posts` CHANGE `user_id` `wild_user_id` int(11)
-Dec 29 11:18:54 [info] UPDATE schema_info SET version = 14
-Jan 05 20:11:15 [info] SELECT version FROM schema_info
-Jan 05 20:11:15 [info] RENAME TABLE posts TO wild_posts
-Jan 05 20:11:15 [info] RENAME TABLE comments TO wild_comments
-Jan 05 20:11:15 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
-Jan 05 20:11:16 [info] UPDATE schema_info SET version = 15
-Jan 05 20:11:24 [info] SELECT version FROM schema_info
-Jan 05 20:11:24 [info] ALTER TABLE `wild_posts` DROP COLUMN `wild_comment_count`
-Jan 05 20:11:24 [info] RENAME TABLE wild_posts TO posts
-Jan 05 20:11:24 [info] RENAME TABLE wild_comments TO comments
-Jan 05 20:11:24 [info] UPDATE schema_info SET version = 14
-Jan 05 20:11:30 [info] SELECT version FROM schema_info
-Jan 05 20:11:30 [info] RENAME TABLE posts TO wild_posts
-Jan 05 20:11:30 [info] RENAME TABLE comments TO wild_comments
-Jan 05 20:11:30 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
-Jan 05 20:11:30 [info] UPDATE schema_info SET version = 15
+Aug 03 19:11:51  [info] INSERT INTO schema_info (version) VALUES (0)
+Jan 05 20:25:24 [info] SELECT version FROM schema_info
+Jan 05 20:25:37 [info] SELECT version FROM schema_info
+Jan 05 20:27:11 [info] SELECT version FROM schema_info
+Jan 05 20:27:11 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:28:40 [info] SELECT version FROM schema_info
+Jan 05 20:28:56 [info] SELECT version FROM schema_info
+Jan 05 20:28:56 [info] ALTER TABLE `wild_posts` DROP COLUMN `wild_comment_count`
+Jan 05 20:28:56 [info] RENAME TABLE wild_posts TO posts
+Jan 05 20:28:56 [info] RENAME TABLE wild_comments TO comments
+Jan 05 20:28:56 [info] UPDATE schema_info SET version = 14
+Jan 05 20:29:01 [info] SELECT version FROM schema_info
+Jan 05 20:29:13 [info] SELECT version FROM schema_info
+Jan 05 20:29:13 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:29:13 [info] RENAME TABLE comments TO wild_comments
+Jan 05 20:29:13 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
+Jan 05 20:29:13 [info] SHOW COLUMNS FROM `wild_posts` LIKE 'post_id'
+Jan 05 20:29:13 [info] ALTER TABLE `wild_posts` CHANGE `post_id` `wild_post_id` 
+Jan 05 20:30:16 [info] SELECT version FROM schema_info
+Jan 05 20:31:02 [info] SELECT version FROM schema_info
+Jan 05 20:31:02 [info] ALTER TABLE `wild_posts` DROP COLUMN `wild_comment_count`
+Jan 05 20:31:02 [info] RENAME TABLE wild_posts TO posts
+Jan 05 20:31:02 [info] RENAME TABLE wild_comments TO comments
+Jan 05 20:31:02 [info] UPDATE schema_info SET version = 14
+Jan 05 20:31:05 [info] SELECT version FROM schema_info
+Jan 05 20:31:05 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:31:05 [info] RENAME TABLE comments TO wild_comments
+Jan 05 20:31:05 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
+Jan 05 20:31:05 [info] SHOW COLUMNS FROM `wild_comments` LIKE 'post_id'
+Jan 05 20:31:05 [info] ALTER TABLE `wild_comments` CHANGE `post_id` `wild_post_id` int(11)
+Jan 05 20:31:05 [info] UPDATE schema_info SET version = 15
+Jan 05 20:31:16 [info] SELECT version FROM schema_info
+Jan 05 20:31:16 [info] SHOW COLUMNS FROM `wild_comments` LIKE 'wild_post_id'
+Jan 05 20:31:16 [info] ALTER TABLE `wild_comments` CHANGE `wild_post_id` `post_id` int(11)
+Jan 05 20:31:16 [info] ALTER TABLE `wild_posts` DROP COLUMN `wild_comment_count`
+Jan 05 20:31:16 [info] RENAME TABLE wild_posts TO posts
+Jan 05 20:31:16 [info] RENAME TABLE wild_comments TO comments
+Jan 05 20:31:16 [info] UPDATE schema_info SET version = 14
+Jan 05 20:31:18 [info] SELECT version FROM schema_info
+Jan 05 20:31:18 [info] RENAME TABLE posts TO wild_posts
+Jan 05 20:31:18 [info] RENAME TABLE comments TO wild_comments
+Jan 05 20:31:18 [info] ALTER TABLE wild_posts ADD `wild_comment_count` int(11) DEFAULT '0'
+Jan 05 20:31:18 [info] SHOW COLUMNS FROM `wild_comments` LIKE 'post_id'
+Jan 05 20:31:18 [info] ALTER TABLE `wild_comments` CHANGE `post_id` `wild_post_id` int(11)
+Jan 05 20:31:18 [info] UPDATE schema_info SET version = 15
+Jan 05 20:31:23 [info] SELECT version FROM schema_info

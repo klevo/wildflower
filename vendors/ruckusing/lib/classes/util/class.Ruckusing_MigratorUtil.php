@@ -1,6 +1,6 @@
 <?php
 
-class MigratorUtil {
+class Ruckusing_MigratorUtil {
  
  function __construct($direction, $migrations_path, $target_version = null) {
  }
@@ -13,7 +13,7 @@ class MigratorUtil {
 	public static function get_migration_files($direction, $directory, $nested = false) { 
    $valid_files = array();
   	if(!is_dir($directory)) {
-  	  die("MigratorUtil - ({$dir}) is not a directory.");
+  	  die("Ruckusing_MigratorUtil - ({$dir}) is not a directory.");
   	}
   	$files = scandir($directory);
   	$file_cnt = count($files);
@@ -51,11 +51,11 @@ class MigratorUtil {
   }//get_migration_files
  
 	public static function migration_files($directory, $direction, $current, $destination) {
-		$migrations = MigratorUtil::get_migration_files($direction, $directory, true);
+		$migrations = self::get_migration_files($direction, $directory, true);
 		if(empty($migrations)) {
 			throw new Exception("Error: not able to get migrations in $directory");
 		}
-		return MigratorUtil::get_relevant_files($direction, $migrations, $current, $destination);
+		return self::get_relevant_files($direction, $migrations, $current, $destination);
 	}//migrations
 
 	public static function get_relevant_files($direction, $files, $current, $destination) {

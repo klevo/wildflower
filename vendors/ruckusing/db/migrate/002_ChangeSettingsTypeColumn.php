@@ -1,6 +1,6 @@
 <?php
 
-class ChangeSettingsTypeColumn extends BaseMigration {
+class ChangeSettingsTypeColumn extends Ruckusing_BaseMigration {
 
 	public function up() {
         $query = "ALTER TABLE settings MODIFY COLUMN type ENUM('text','textbox','select','checkbox','radio','password') NOT NULL";

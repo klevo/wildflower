@@ -1,6 +1,6 @@
 <?php
 
-class AddCacheSetting extends BaseMigration {
+class AddCacheSetting extends Ruckusing_BaseMigration {
 	
     public function up() {
         $query = "INSERT INTO settings SET name = 'cache', value = 'on', type = 'select', label = 'Page and post caching', `order` = 11";

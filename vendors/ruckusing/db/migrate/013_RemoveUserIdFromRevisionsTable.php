@@ -1,6 +1,6 @@
 <?php
 
-class RemoveUserIdFromRevisionsTable extends BaseMigration {
+class RemoveUserIdFromRevisionsTable extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->remove_column('revisions', 'user_id');

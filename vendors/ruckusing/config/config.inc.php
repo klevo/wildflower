@@ -8,19 +8,19 @@
 
 
 // DB table where the version info is stored
-if(!defined('SCHEMA_TBL_NAME')) {
-	define('SCHEMA_TBL_NAME', 'schema_info');
+if(!defined('RUCKUSING_SCHEMA_TBL_NAME')) {
+	define('RUCKUSING_SCHEMA_TBL_NAME', 'schema_info');
 }
 
 //Parent of migrations directory.
 //Where schema.txt will be placed when 'db:schema' is executed
-if(!defined('DB_DIR')) {
-	define('DB_DIR', BASE . '/db');
+if(!defined('RUCKUSING_DB_DIR')) {
+	define('RUCKUSING_DB_DIR', RUCKUSING_BASE . '/db');
 }
 
 //Where the actual migrations reside
-if(!defined('MIGRATION_DIR')) {
-	define('MIGRATION_DIR', DB_DIR . '/migrate');
+if(!defined('RUCKUSING_MIGRATION_DIR')) {
+	define('RUCKUSING_MIGRATION_DIR', RUCKUSING_DB_DIR . '/migrate');
 }
 
 ?>

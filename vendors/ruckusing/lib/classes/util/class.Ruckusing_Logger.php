@@ -1,6 +1,6 @@
 <?php
 
-class Logger {
+class Ruckusing_Logger {
   
   private $file = '';
   
@@ -15,7 +15,7 @@ class Logger {
     if($instance !== NULL) {
       return $instance;
     }
-    $instance = new Logger($logfile);
+    $instance = new Ruckusing_Logger($logfile);
     return $instance; 
   }
   

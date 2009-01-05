@@ -15,9 +15,13 @@
 
 */
 
-class NamingUtil {
+class Ruckusing_NamingUtil {
+
+  const class_ns_prefix = 'Ruckusing_';
 
 	public static function task_from_class_name($klass) {
+	  //strip namespace
+	  $klass = str_replace(self::class_ns_prefix, '', $klass);
 		$klass = strtolower($klass);
 		$klass = str_replace("_", ":", $klass);
 		return $klass;
@@ -28,7 +32,7 @@ class NamingUtil {
 		if(count($parts) < 2) {
 			throw new Exception("Task name invalid: $task");
 		}
-		return strtoupper($parts[0]) . '_' . ucfirst($parts[1]);
+		return self::class_ns_prefix . strtoupper($parts[0]) . '_' . ucfirst($parts[1]);
 	}
 
 	public static function class_from_file_name($file_name) {
@@ -68,7 +72,7 @@ class NamingUtil {
   }
 
 	public static function index_name($table_name, $column_name) {
-		$name = sprintf("idx_%s", NamingUtil::underscore($table_name));
+		$name = sprintf("idx_%s", self::underscore($table_name));
 		//if the column parameter is an array then the user wants to create a multi-column
 		//index
 		if(is_array($column_name)) {

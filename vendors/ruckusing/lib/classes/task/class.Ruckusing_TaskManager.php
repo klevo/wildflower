@@ -1,25 +1,18 @@
 <?php
 
 //requirements
-require_once BASE . '/lib/classes/util/class.NamingUtil.php';
-//require_once BASE . '/lib/classes/task/class.DB_Setup.php';
+require_once RUCKUSING_BASE . '/lib/classes/util/class.Ruckusing_NamingUtil.php';
 
-define('TASK_DIR', BASE . '/lib/tasks');
+define('RUCKUSING_TASK_DIR', RUCKUSING_BASE . '/lib/tasks');
 
-class TaskManager  {
+class Ruckusing_TaskManager  {
 	
 	private $adapter;
 	private $tasks = array();
 	
 	function __construct($adapter) {
 		$this->set_adapter($adapter);
-		//$this->set_logger($logger);
-		
-		$this->load_all_tasks(TASK_DIR);
-		
-		//$this->register_task('db:setup', new DB_Setup($this->get_adapter()) );
-		//$this->register_task('db:schema', new DB_Schema($this->get_adapter()) );
-
+		$this->load_all_tasks(RUCKUSING_TASK_DIR);
 	}//__construct
 	
 	public function set_adapter($adapter) { 
@@ -28,14 +21,6 @@ class TaskManager  {
 	public function get_adapter() {
 		return $this->adapter;
 	}
-/*
-	public function set_logger($logger) { 
-		$this->logger = $logger;
-	}
-	public function get_logger() {
-		return $this->logger;
-	}
-*/
 	
 	/* 
 		Searches for the given task, and if found
@@ -97,8 +82,8 @@ class TaskManager  {
 			//skip over invalid files
 			if($f == '.' || $f == ".." || !preg_match($regex,$f, $matches) ) { continue; }
 			require_once $task_dir . '/' . $f;
-			$task_name = NamingUtil::task_from_class_name($matches[1]);
-			$klass = NamingUtil::class_from_file_name($f);
+			$task_name = Ruckusing_NamingUtil::task_from_class_name($matches[1]);
+			$klass = Ruckusing_NamingUtil::class_from_file_name($f);
 			$this->register_task($task_name, new $klass($this->get_adapter()));
 		}
 	}//require_tasks

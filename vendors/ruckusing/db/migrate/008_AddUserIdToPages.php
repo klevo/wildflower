@@ -1,6 +1,6 @@
 <?php
 
-class AddUserIdToPages extends BaseMigration {
+class AddUserIdToPages extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->add_column('pages', 'user_id', 'integer');

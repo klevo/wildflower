@@ -1,14 +1,14 @@
 <?php
 
 //requirements
-require_once BASE . '/lib/classes/task/class.TaskManager.php';
+require_once RUCKUSING_BASE . '/lib/classes/task/class.Ruckusing_TaskManager.php';
 
 /*
 	Primary work-horse class. This class bootstraps the framework by loading
 	all adapters and tasks.
 */
 
-class FrameworkRunner {
+class Ruckusing_FrameworkRunner {
 	
 	private $db = null; //reference to our DB connection
 	private $active_db_config; //the currently active config 
@@ -26,13 +26,13 @@ class FrameworkRunner {
 	
 	function __construct($db, $argv) {
 		try {
-			set_error_handler( array("FrameworkRunner", "scr_error_handler"), E_ALL );
+			set_error_handler( array("Ruckusing_FrameworkRunner", "scr_error_handler"), E_ALL );
 
 			//parse arguments
 			$this->parse_args($argv);
 
 			//initialize logger
-			$log_dir = BASE . "/logs";
+			$log_dir = RUCKUSING_BASE . "/logs";
 			if(is_dir($log_dir) && !is_writable($log_dir)) {
 				die("\n\nCannot write to log directory: $log_dir\n\nCheck permissions.\n\n");
 			}elseif(!is_dir($log_dir)){
@@ -40,10 +40,10 @@ class FrameworkRunner {
 				mkdir($log_dir);
 			}
 			$log_name = sprintf("%s.log", $this->ENV);
-			$this->logger = &Logger::instance($log_dir . "/" . $log_name);
+			$this->logger = &Ruckusing_Logger::instance($log_dir . "/" . $log_name);
 			
 			//include all adapters
-			$this->load_all_adapters(BASE . '/lib/classes/adapters');
+			$this->load_all_adapters(RUCKUSING_BASE . '/lib/classes/adapters');
 			$this->db_config = $db;
 			$this->initialize_db();
 			$this->init_tasks();
@@ -70,21 +70,21 @@ class FrameworkRunner {
 	}
 	
 	public function init_tasks() {
-		$this->task_mgr = new TaskManager($this->adapter);
+		$this->task_mgr = new Ruckusing_TaskManager($this->adapter);
 	}
 	
 	public function initialize_db() {
-		//print_r($this->opt_map);
 		try {
 			$this->verify_db_config();			
-			list($adapter, $dsn) = $this->construct_dsn();
+			$db = $this->db_config[$this->ENV];
+			$adapter = $this->get_adapter_class($db['type']);
 			
-			if($adapter == null) {
-				trigger_error(sprintf("No adapter available for DB type: %s", $this->active_db_config['type']));
+			if($adapter === null) {
+				trigger_error(sprintf("No adapter available for DB type: %s", $db['type']));
 				exit;
 			}			
-			//construct our adapter
-			$this->adapter = new $adapter($dsn, $this->logger);
+			//construct our adapter			
+			$this->adapter = new $adapter($db, $this->logger);
 		}catch(Exception $ex) {
 			trigger_error(sprintf("\n%s\n",$ex->getMessage()));
 		}
@@ -168,36 +168,18 @@ class FrameworkRunner {
 			throw new Exception(sprintf("Error: 'password' is not set for '%s' DB",$this->ENV));			
 		}
 	}//verify_db_config
-	
-	private function construct_dsn() {
-		$adapter = null;
-		$dsn = $type = $host = $db = $user = $password = "";
-		
-		$adapter_class = $this->get_adapter_class($this->active_db_config['type']);
-		
-		$dsn = sprintf("%s://%s:%s@%s:%d/%s",
-			$this->active_db_config['type'],
-			$this->active_db_config['user'],
-			$this->active_db_config['password'],
-			$this->active_db_config['host'],
-			$this->active_db_config['port'],
-			$this->active_db_config['database']
-		);
-		return array($adapter_class, $dsn);
-		//return $dsn;
-	}//construct_dsn
-	
+
 	private function get_adapter_class($db_type) {
-		$adapter_class = "";
+		$adapter_class = null;
 		switch($db_type) {
 			case 'mysql':
-				$adapter_class = "MySQLAdapter";
+				$adapter_class = "Ruckusing_MySQLAdapter";
 				break;
 			case 'mssql':
-				$adapter_class = "MSSQLAdapter";
+				$adapter_class = "Ruckusing_MSSQLAdapter";
 				break;
 			case 'pgsql':
-				$adapter_class = "PostgresAdapter";
+				$adapter_class = "Ruckusing_PostgresAdapter";
 				break;
 		}
 		return $adapter_class;

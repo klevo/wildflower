@@ -1,22 +1,24 @@
 <?php
 
-require_once BASE . '/lib/classes/class.BaseAdapter.php';
-require_once BASE . '/lib/classes/class.iAdapter.php';
-require_once BASE . '/lib/classes/adapters/class.MySQLTableDefinition.php';
-require_once BASE . '/lib/classes/util/class.NamingUtil.php';	
+require_once RUCKUSING_BASE . '/lib/classes/class.Ruckusing_BaseAdapter.php';
+require_once RUCKUSING_BASE . '/lib/classes/class.Ruckusing_iAdapter.php';
+require_once RUCKUSING_BASE . '/lib/classes/adapters/class.Ruckusing_MySQLTableDefinition.php';
+require_once RUCKUSING_BASE . '/lib/classes/util/class.Ruckusing_NamingUtil.php';	
 
-define('SELECT', 2);
-define('INSERT', 4);
-define('UPDATE', 8);
-define('DELETE', 16);
-define('ALTER', 32);
-define('DROP', 64);
-define('CREATE', 128);
-define('SHOW', 256);
-define('RENAME', 512);
+define('SQL_UNKNOWN_QUERY_TYPE', 1);
+define('SQL_SELECT', 2);
+define('SQL_INSERT', 4);
+define('SQL_UPDATE', 8);
+define('SQL_DELETE', 16);
+define('SQL_ALTER', 32);
+define('SQL_DROP', 64);
+define('SQL_CREATE', 128);
+define('SQL_SHOW', 256);
+define('SQL_RENAME', 512);
+define('SQL_SET', 1024);
 
 
-class MySQLAdapter extends BaseAdapter implements iAdapter {
+class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_iAdapter {
 
 	private $name = "MySQL";
 	private $tables = array();
@@ -88,7 +90,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 
 	
 	public function column_definition($column_name, $type, $options = null) {
-		$col = new ColumnDefinition($this, $column_name, $type, $options);
+		$col = new Ruckusing_ColumnDefinition($this, $column_name, $type, $options);
 		return $col->__toString();
 	}//column_definition
 
@@ -149,9 +151,12 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 			$stmt = "SHOW CREATE TABLE `$tbl`";
 			$result = $this->query($stmt);
 
-			if(is_array($result) && count($result) == 2) {
-				$final .= $result['Create Table'] . ";\n\n";
-			}
+      if(is_array($result) && count($result) == 1) {
+        $row = $result[0];
+        if(count($row) == 2) {
+          $final .= $row['Create Table'] . ";\n\n";
+        }
+      }
 		}
 		return $final;
 	}
@@ -173,7 +178,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		$this->logger->log($query);
 		$query_type = $this->determine_query_type($query);
 		$data = array();
-		if($query_type == SELECT || $query_type == SHOW) {		  
+		if($query_type == SQL_SELECT || $query_type == SQL_SHOW) {		  
 			$res = mysql_query($query, $this->conn);
 			if($this->isError($res)) { 
   			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
@@ -196,7 +201,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	public function select_one($query) {
 		$this->logger->log($query);
 		$query_type = $this->determine_query_type($query);
-		if($query_type == SELECT || $query_type == SHOW) {
+		if($query_type == SQL_SELECT || $query_type == SQL_SHOW) {
 		  $res = mysql_query($query, $this->conn);
 			if($this->isError($res)) { 
   			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
@@ -231,7 +236,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	}
 	
 	public function create_table($table_name, $options = array()) {
-		return new MySQLTableDefinition($this, $table_name, $options);
+		return new Ruckusing_MySQLTableDefinition($this, $table_name, $options);
 	}
 	
 	public function quote_string($str) {
@@ -244,10 +249,10 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function rename_table($name, $new_name) {
 		if(empty($name)) {
-			throw new ArgumentException("Missing original column name parameter");
+			throw new Ruckusing_ArgumentException("Missing original column name parameter");
 		}
 		if(empty($new_name)) {
-			throw new ArgumentException("Missing new column name parameter");
+			throw new Ruckusing_ArgumentException("Missing new column name parameter");
 		}
 		$sql = sprintf("RENAME TABLE %s TO %s", $name, $new_name);
 		return $this->execute_ddl($sql);
@@ -255,13 +260,13 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function add_column($table_name, $column_name, $type, $options = array()) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing column name parameter");
+			throw new Ruckusing_ArgumentException("Missing column name parameter");
 		}
 		if(empty($type)) {
-			throw new ArgumentException("Missing type parameter");
+			throw new Ruckusing_ArgumentException("Missing type parameter");
 		}
 		//default types
 		if(!array_key_exists('limit', $options)) {
@@ -285,13 +290,13 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function rename_column($table_name, $column_name, $new_column_name) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing original column name parameter");
+			throw new Ruckusing_ArgumentException("Missing original column name parameter");
 		}
 		if(empty($new_column_name)) {
-			throw new ArgumentException("Missing new column name parameter");
+			throw new Ruckusing_ArgumentException("Missing new column name parameter");
 		}
 		$column_info = $this->column_info($table_name, $column_name);
 		$current_type = $column_info['type'];
@@ -302,13 +307,13 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 
 	public function change_column($table_name, $column_name, $type, $options = array()) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing original column name parameter");
+			throw new Ruckusing_ArgumentException("Missing original column name parameter");
 		}
 		if(empty($type)) {
-			throw new ArgumentException("Missing type parameter");
+			throw new Ruckusing_ArgumentException("Missing type parameter");
 		}
 		$column_info = $this->column_info($table_name, $column_name);
 		//default types
@@ -328,10 +333,10 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 
 	public function column_info($table, $column) {
 		if(empty($table)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column)) {
-			throw new ArgumentException("Missing original column name parameter");
+			throw new Ruckusing_ArgumentException("Missing original column name parameter");
 		}
 		try {
 			$sql = sprintf("SHOW COLUMNS FROM `%s` LIKE '%s'", $table, $column);
@@ -348,10 +353,10 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function add_index($table_name, $column_name, $options = array()) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing column name parameter");
+			throw new Ruckusing_ArgumentException("Missing column name parameter");
 		}
 		//unique index?
 		if(is_array($options) && array_key_exists('unique', $options)) {
@@ -363,7 +368,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		if(is_array($options) && array_key_exists('name', $options)) {
 			$index_name = $options['name'];
 		} else {
-			$index_name = NamingUtil::index_name($table_name, $column_name);
+			$index_name = Ruckusing_NamingUtil::index_name($table_name, $column_name);
 		}
 		if(!is_array($column_name)) {
 			$column_name = array($column_name);
@@ -378,16 +383,16 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	
 	public function remove_index($table_name, $column_name, $options = array()) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing column name parameter");
+			throw new Ruckusing_ArgumentException("Missing column name parameter");
 		}
 		//did the user specify an index name?
 		if(is_array($options) && array_key_exists('name', $options)) {
 			$index_name = $options['name'];
 		} else {
-			$index_name = NamingUtil::index_name($table_name, $column_name);
+			$index_name = Ruckusing_NamingUtil::index_name($table_name, $column_name);
 		}
 		$sql = sprintf("DROP INDEX `%s` ON `%s`", $index_name, $table_name);		
 		return $this->execute_ddl($sql);
@@ -395,16 +400,16 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 
 	public function has_index($table_name, $column_name, $options = array()) {
 		if(empty($table_name)) {
-			throw new ArgumentException("Missing table name parameter");
+			throw new Ruckusing_ArgumentException("Missing table name parameter");
 		}
 		if(empty($column_name)) {
-			throw new ArgumentException("Missing column name parameter");
+			throw new Ruckusing_ArgumentException("Missing column name parameter");
 		}
 		//did the user specify an index name?
 		if(is_array($options) && array_key_exists('name', $options)) {
 			$index_name = $options['name'];
 		} else {
-			$index_name = NamingUtil::index_name($table_name, $column_name);
+			$index_name = Ruckusing_NamingUtil::index_name($table_name, $column_name);
 		}
 		$indexes = $this->indexes($table_name);
 		foreach($indexes as $idx) {
@@ -441,7 +446,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		    if($t == 'primary_key') { continue; }
 		    $error .= "\t{$t}\n";
 	    }
-			throw new ArgumentException($error);
+			throw new Ruckusing_ArgumentException($error);
 	  }
 		
 		$native_type = $natives[$type];
@@ -466,7 +471,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 				}//scale
 			} else {
 				if($scale) {
-					throw new ArgumentException("Error adding decimal column: precision cannot be empty if scale is specified");
+					throw new Ruckusing_ArgumentException("Error adding decimal column: precision cannot be empty if scale is specified");
 				}
 			}//precision			
 		} else {
@@ -509,7 +514,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	}
 	
 	public function __toString() {
-		return "MySQLAdapter, version " . $this->version;
+		return "Ruckusing_MySQLAdapter, version " . $this->version;
 	}
 
 	
@@ -521,7 +526,7 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 	}
 	
   private function db_connect($dsn) {
-    $db_info = $this->dsn_to_array($dsn);
+    $db_info = $this->get_dsn();
     if($db_info) {
       $this->db_info = $db_info;
       //we might have a port
@@ -567,39 +572,41 @@ class MySQLAdapter extends BaseAdapter implements iAdapter {
 		$query = strtolower(trim($query));
 		
 		if(preg_match('/^select/', $query)) {
-			return SELECT;
+			return SQL_SELECT;
 		}
 		if(preg_match('/^update/', $query)) {
-			return UPDATE;
+			return SQL_UPDATE;
 		}
 		if(preg_match('/^delete/', $query)) {
-			return DELETE;
+			return SQL_DELETE;
 		}
 		if(preg_match('/^insert/', $query)) {
-			return INSERT;
+			return SQL_INSERT;
 		}
 		if(preg_match('/^alter/', $query)) {
-			return ALTER;
+			return SQL_ALTER;
 		}
 		if(preg_match('/^drop/', $query)) {
-			return DROP;
+			return SQL_DROP;
 		}
 		if(preg_match('/^create/', $query)) {
-			return CREATE;
+			return SQL_CREATE;
 		}
 		if(preg_match('/^show/', $query)) {
-			return SHOW;
+			return SQL_SHOW;
 		}
 		if(preg_match('/^rename/', $query)) {
-			return RENAME;
+			return SQL_RENAME;
 		}
-
-		//else ...
-		throw new Exception("could not determine query type for: $query");
+		if(preg_match('/^set/', $query)) {
+			return SQL_SET;
+		}
+		// else
+		return SQL_UNKNOWN_QUERY_TYPE;
 	}
 	
 	private function is_select($query_type) {
-		if($query_type == SELECT) {
+		if($query_type == SQL_SELECT) {
 			return true;
 		}
 		return false;

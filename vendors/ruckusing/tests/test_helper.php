@@ -2,21 +2,21 @@
 
 //set up some preliminary defaults, this is so all of our
 //framework includes work!
-if(!defined('BASE')) {
-	define('BASE', realpath(dirname('../../../')));
+if(!defined('RUCKUSING_BASE')) {
+	define('RUCKUSING_BASE', realpath(dirname('../../../')));
 }
 
 //Parent of migrations directory.
-if(!defined('DB_DIR')) {
-	define('DB_DIR', BASE . '/tests/dummy/db');
+if(!defined('RUCKUSING_DB_DIR')) {
+	define('RUCKUSING_DB_DIR', RUCKUSING_BASE . '/tests/dummy/db');
 }
 
 //Where the dummy migrations reside
-if(!defined('MIGRATION_DIR')) {
-	define('MIGRATION_DIR', DB_DIR . '/migrate');
+if(!defined('RUCKUSING_MIGRATION_DIR')) {
+	define('RUCKUSING_MIGRATION_DIR', RUCKUSING_DB_DIR . '/migrate');
 }
 
-require BASE . '/lib/classes/util/class.Logger.php';
+require RUCKUSING_BASE . '/lib/classes/util/class.Ruckusing_Logger.php';
 
 
 ?>

@@ -1,8 +1,8 @@
 <?php
 
-require_once BASE . '/lib/classes/class.iAdapter.php';
+require_once RUCKUSING_BASE . '/lib/classes/class.Ruckusing_iAdapter.php';
 
-class BaseMigration {
+class Ruckusing_BaseMigration {
 	
 	private $adapter;
 	
@@ -78,6 +78,6 @@ class BaseMigration {
 	 return $this->adapter->quote_string($str); 
   }
 	
-}//BaseMigration
+}//Ruckusing_BaseMigration
 
 ?>

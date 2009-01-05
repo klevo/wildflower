@@ -6,7 +6,7 @@
 
 */
 
-class VersionUtil {
+class Ruckusing_VersionUtil {
   
   /*
     Returns an integer representing the highest migration file in the specified directory.

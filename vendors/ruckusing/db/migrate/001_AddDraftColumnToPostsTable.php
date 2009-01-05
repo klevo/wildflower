@@ -1,6 +1,6 @@
 <?php
 
-class AddDraftColumnToPostsTable extends BaseMigration {
+class AddDraftColumnToPostsTable extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->add_column("posts", "draft", "integer", array('default' => 0, 'limit' => 1, 'null' => false));

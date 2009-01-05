@@ -1,6 +1,6 @@
 <?php
 
-class AddLabelColumnToSettings extends BaseMigration {
+class AddLabelColumnToSettings extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->add_column('settings', 'label', 'string');

@@ -1,6 +1,6 @@
 <?php
 
-interface iAdapter {
+interface Ruckusing_iAdapter {
 
 	public function quote($value, $column);
 	public function supports_migrations();

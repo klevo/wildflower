@@ -1,13 +1,11 @@
 <?php
 class WildComment extends WildflowerAppModel {
     
-    public $useTable = 'comments';
-
     public $actsAs = array('Containable');
 	public $belongsTo = array(
 	    'WildPost' => array(
 	        'className' => 'Wildflower.WildPost',
-	        'foreignKey' => 'post_id',
+	        'foreignKey' => 'wild_post_id',
 	        'counterCache' => true
 	    )
 	);

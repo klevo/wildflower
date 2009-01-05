@@ -1,5 +1,5 @@
 <?php
-class AddUuidToPosts extends BaseMigration {
+class AddUuidToPosts extends Ruckusing_BaseMigration {
 
 	public function up() {
         $this->add_column('posts', 'uuid', 'string', array('length' => 40, 'null' => false));

@@ -1,6 +1,6 @@
 <?php
 
-class AddEmailDeliverySetting extends BaseMigration {
+class AddEmailDeliverySetting extends Ruckusing_BaseMigration {
 
 	public function up() {
         $query = "INSERT INTO settings SET name = 'email_delivery', value = 'php', type = 'select'";

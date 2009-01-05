@@ -5,10 +5,10 @@
 	as a text file.	
 */
 
-require_once BASE . '/lib/classes/task/class.iTask.php';
-require_once BASE . '/config/config.inc.php';
+require_once RUCKUSING_BASE . '/lib/classes/task/class.Ruckusing_iTask.php';
+require_once RUCKUSING_BASE . '/config/config.inc.php';
 
-class DB_Schema implements iTask {
+class Ruckusing_DB_Schema implements Ruckusing_iTask {
 	
 	private $adapter = null;
 	
@@ -22,12 +22,10 @@ class DB_Schema implements iTask {
 			echo "Started: " . date('Y-m-d g:ia T') . "\n\n";		
 			echo "[db:schema]: \n";
 			$schema = $this->adapter->schema();
-			if($schema != "") {
-				//write to disk
-				$schema_file = DB_DIR . '/schema.txt';
-				file_put_contents($schema_file, $schema, LOCK_EX);
-				echo "\tSchema written to: $schema_file\n\n";
-			}
+			//write to disk
+			$schema_file = RUCKUSING_DB_DIR . '/schema.txt';
+			file_put_contents($schema_file, $schema, LOCK_EX);
+			echo "\tSchema written to: $schema_file\n\n";
 			echo "\n\nFinished: " . date('Y-m-d g:ia T') . "\n\n";							
 		}catch(Exception $ex) {
 			throw $ex; //re-throw
