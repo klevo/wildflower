@@ -51,29 +51,15 @@ class WildPage extends WildflowerAppModel {
 	    	    // Page has no parent
 	    	    $this->data[$this->name]['url'] = "/{$this->data[$this->name]['slug']}";
 	    	} else {
-	    		$parentPage = $this->findById($this->data[$this->name]['parent_id'], array('lft', 'rght', 'slug'));
-	    		$ancestors = $this->findPath($parentPage[$this->name]['lft'], $parentPage[$this->name]['rght'], array('slug'));
-	    		
-	    		if (empty($ancestors)) {
-	    		    $ancestors = array($parentPage);
-	    		} else {
-	    		    $ancestors[] = $parentPage;
-	    		}
-	    		
-	    		$level = count($ancestors);
+	    		$parentPage = $this->findById($this->data[$this->name]['parent_id'], array('url'));
 	    		
 	    		$url = "/{$this->data[$this->name]['slug']}";
-	    		if (!empty($ancestors)) {
-	    			$slugs = Set::extract($ancestors, '{n}.' . $this->name . '.slug');
-	    			$url = '/' . join('/', $slugs) . $url;
+	    		if ($parentPage[$this->name]['url'] !== '/') {
+	    		    $url = $parentPage[$this->name]['url'] . $url;
 	    		}
 	    		
 	    		$this->data[$this->name]['url'] = $url;
 	    	}
-	    	
-	    	// Page level in the hierarchy cache
-	    	// @TODO never used, maybe remove?
-	    	$this->data[$this->name]['level'] = $level;
     	}
     	
     	// Publish?

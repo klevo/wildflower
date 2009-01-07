@@ -349,8 +349,10 @@ class WildPagesController extends WildflowerAppController {
             return $this->do404();
         }
         
+        // Get all pages without a parent except the home page and also all the home page children
+        $homePageId = Configure::read('Wildflower.settings.home_page_id');
         $rootPages = $this->{$this->modelClass}->find('all', array(
-            'conditions' => 'parent_id IS NULL AND url <> \'/\'',
+            'conditions' => "parent_id IS NULL AND url <> '/' OR parent_id = $homePageId",
             'recursive' => -1,
             'fields' => array('id', 'url', 'slug'),
         ));
