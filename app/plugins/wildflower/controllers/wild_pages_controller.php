@@ -294,7 +294,7 @@ class WildPagesController extends WildflowerAppController {
         
         // Determine if this is the site root (home page)
         $homeArgs = array('app', 'webroot');
-        if (empty($args) or $args === $homeArgs) {
+        if ($url === '//' or $args === $homeArgs) {
             $this->isHome = true;
         }
         
@@ -341,7 +341,7 @@ class WildPagesController extends WildflowerAppController {
             'id' => $page[$this->modelClass]['id']);
         $this->params['Wildflower']['page']['slug'] = $page[$this->modelClass]['slug'];        
         
-        $this->_chooseTemplate($page[$this->modelClass]['slug']);
+        $this->_chooseTemplate();
     }
     
     function update_root_cache() {
@@ -365,32 +365,17 @@ class WildPagesController extends WildflowerAppController {
     }
     
     /**
-     * Renders a template if it exists depending on the slug
+     * Renders a normal page view or home view
      *
      * @param string $slug
      */
-    private function _chooseTemplate($slug) {
-        // If there is a specific template for this page render it
-        $appWfPages = APP . 'views' . DS . 'wild_pages' . DS;
-        
-        $templateFile = $appWfPages . $slug . '.ctp';
-        $template = $slug;
-        
+    private function _chooseTemplate() {
         // For home page home.ctp is the default
+        $template = 'view';
         if ($this->isHome) {
             $template = 'home';
-            $templateFile = $appWfPages . $template . '.ctp';
         }
-        
-        $pluginViewsFile = WILDFLOWER_PLUGIN . DS . 'views' . DS . 'wild_pages' . DS . $template . '.ctp';
-        
-        if (file_exists($templateFile)) {
-            $this->render($template, $this->layout, $templateFile);
-        } else if (file_exists($pluginViewsFile)) {
-            $this->render($template, $this->layout, $pluginViewsFile);
-        } else {
-        	$this->render('view');
-        }
+        return $this->render($template);
     }
     
     /**
