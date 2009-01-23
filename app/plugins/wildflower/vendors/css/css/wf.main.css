@@ -83,9 +83,9 @@ img {
 }
 
 #site-title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
-    margin: 18px 10px;
+    margin: 15px 10px;
 }
 
     #site-title a {
@@ -217,14 +217,8 @@ h2 {
 #full-edit-back-link {
     margin: 2px 0;
     display: block;
-    padding: 5px 25px;
-    float: left;
+    padding: 5px;
 }
-
-    #full-edit-back-link:hover {
-        color: yellow !important;
-        background-color: transparent !important;
-    }
 
 
 /* Form elements */

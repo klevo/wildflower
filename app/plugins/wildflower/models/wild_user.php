@@ -51,9 +51,14 @@ class WildUser extends WildflowerAppModel {
      */
     function confirmPassword() {
         App::import('Security');
-        if (Security::hash($this->data[$this->name]['confirm_password'], null, true) !== $this->data[$this->name]['password']) {
+        $confirmPassword = $this->data[$this->name]['confirm_password'];
+        $confirmPassword = Security::hash($confirmPassword, null, true);
+        if ($confirmPassword !== $this->data[$this->name]['password']) {
             return false;
         }
+        // if (!isset($this->data[$this->name]['id'])) {
+        //     $this->data[$this->name]['password'] = $confirmPassword;
+        // }
         return true;
     }
 

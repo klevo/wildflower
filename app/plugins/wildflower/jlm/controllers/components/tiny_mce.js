@@ -22,6 +22,7 @@ $.jlm.addComponent('tinyMce', {
 	
 	getConfig: function() {
 	    var stylesheetUrl = $.jlm.base + '/css/tiny_mce.css';
+        var fullBaseUrl = window.location.protocol + "//" + window.location.host + '/';
 	    return {
             mode: "none",
             theme: "advanced",
@@ -42,9 +43,10 @@ $.jlm.addComponent('tinyMce', {
             width: '100%',
 
             // URLs
-            relative_urls: false,
+            relative_urls: true,
             remove_script_host: true,
-            document_base_url: $.jlm.base,
+            document_base_url: fullBaseUrl,
+            convert_urls: true,
             
             content_css: stylesheetUrl,
             

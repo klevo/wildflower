@@ -6,7 +6,7 @@ class WildflowerAppController extends AppController {
 
 	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Wildflower.Seo');
 	public $currentUserId;
-	public $helpers = array('Html', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation', 'Wildflower.PartialLayout');
+	public $helpers = array('Html', 'Wildflower.Htmla', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation', 'Wildflower.PartialLayout');
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
@@ -47,8 +47,6 @@ class WildflowerAppController extends AppController {
 		if ($this->isAdminAction()) {
 			// Set admin layout and admin specific view vars
 			$this->layout = 'admin_default';
-			$userId = $this->getLoggedInUserId();
-			$this->set('loggedUserId', $userId);
 		} else {
 			$this->layout = 'default';
 			$this->Auth->allow('*');
@@ -288,6 +286,9 @@ class WildflowerAppController extends AppController {
         );
         $this->params['Wildflower']['view'] = $params;
     	$this->set($params);
+    	
+    	// User ID for views
+		$this->set('loggedUserId', $this->Auth->user('id'));
     }
 
 	function do404() {
@@ -299,7 +300,7 @@ class WildflowerAppController extends AppController {
 	}
 	
     function getLoggedInUserId() {
-        return intval($this->Auth->user('id'));
+        return $this->Auth->user('id');
     }
 	
 	function wf_create_preview() {

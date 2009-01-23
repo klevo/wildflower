@@ -2,13 +2,14 @@
 class WildDashboardsController extends WildflowerAppController {
 	
 	public $helpers = array('Wildflower.List', 'Time', 'Text');
-	public $uses = array('Wildflower.WildComment', 'Wildflower.WildMessage');
+	public $uses = array('Wildflower.WildComment', 'Wildflower.WildMessage', 'WildFlower.WildPage');
 	public $pageTitle = 'Dashboard';
 	
 	function wf_index() {
-		$comments = $this->WildComment->find('all', array('limit' => 5, 'conditions' => 'spam = 0'));
-		$messages = $this->WildMessage->find('all', array('limit' => 5));
-		$this->set(compact('comments', 'messages'));
+        // $comments = $this->WildComment->find('all', array('limit' => 5, 'conditions' => 'spam = 0'));
+        // $messages = $this->WildMessage->find('all', array('limit' => 5));
+        $pages = $this->WildPage->find('all', array('limit' => 10, 'order' => 'WildPage.updated DESC'));
+		$this->set(compact('pages'));
 	}
 	
     /**

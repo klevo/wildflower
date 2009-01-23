@@ -10,9 +10,7 @@
     "<legend>Contact form</legend>\n",
     $form->input('name'),
     $form->input('email'),
-    $form->input('phone'),
-    $form->input('subject'),
-    $form->input('content', array('type' => 'textarea')),
+    $form->input('content', array('type' => 'textarea', 'label' => 'Message')),
     $form->submit('Send my message'),
     "</fieldset>\n",
     $form->end();

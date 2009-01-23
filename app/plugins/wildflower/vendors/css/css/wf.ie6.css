@@ -1,0 +1,23 @@
+body {
+	behavior: url("htc/csshover.htc");
+}
+
+#nav li {
+    width: 1%;
+}
+
+#wrap,
+#footer,
+#header {
+    width: 900px;
+    margin: 0 auto;
+}
+
+#nav {
+    height: 26px;
+}
+
+
+#login-info {
+    top: 6px;
+}

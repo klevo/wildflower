@@ -141,6 +141,8 @@ class WildUsersController extends WildflowerAppController {
     
     function wf_update_password() {
         unset($this->WildUser->validate['name'], $this->WildUser->validate['email'], $this->WildUser->validate['login']);
+        App::import('Security');
+        $this->data['WildUser']['password'] = Security::hash($this->data['WildUser']['password'], null, true);
         $this->WildUser->create($this->data);
         if (!$this->WildUser->exists()) $this->cakeError('object_not_found');
         if ($this->WildUser->save()) {
