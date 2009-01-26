@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: schema.php 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Command-line database management utility to automate programmer chores.
  *
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5550
- * @version       $Revision: 7961 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 17:21:36 -0600 (Thu, 25 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('File');
@@ -153,7 +153,7 @@ class SchemaShell extends Shell {
 			$count = 1;
 			if (!empty($result[1])) {
 				foreach ($result[1] as $file) {
-					if (preg_match('/schema(?:[_\d]*)?\.php$/', $file)) {
+					if (preg_match('/schema(?:[_\d]*)?\.php/', $file)) {
 						$count++;
 					}
 				}
@@ -305,7 +305,7 @@ class SchemaShell extends Shell {
 
 		if ('y' == $this->in(__('Are you sure you want to drop the table(s)?', true), array('y', 'n'), 'n')) {
 			$this->out('Dropping table(s).');
-			$this->__run($drop, 'drop', $Schema);
+			$this->__run($drop, 'drop');
 		}
 
 		$this->out("\n" . __('The following table(s) will be created.', true));
@@ -313,7 +313,7 @@ class SchemaShell extends Shell {
 
 		if ('y' == $this->in(__('Are you sure you want to create the table(s)?', true), array('y', 'n'), 'y')) {
 			$this->out('Creating table(s).');
-			$this->__run($create, 'create', $Schema);
+			$this->__run($create, 'create');
 		}
 
 		$this->out(__('End create.', true));
@@ -351,7 +351,7 @@ class SchemaShell extends Shell {
 		if ('y' == $this->in(__('Are you sure you want to alter the tables?', true), array('y', 'n'), 'n')) {
 			$this->out('');
 			$this->out(__('Updating Database...', true));
-			$this->__run($contents, 'update', $Schema);
+			$this->__run($contents, 'update');
 		}
 
 		$this->out(__('End update.', true));
@@ -361,7 +361,7 @@ class SchemaShell extends Shell {
  *
  * @access private
  */
-	function __run($contents, $event, $Schema) {
+	function __run($contents, $event) {
 		if (empty($contents)) {
 			$this->err(__('Sql could not be run', true));
 			return;
@@ -379,14 +379,14 @@ class SchemaShell extends Shell {
 					$this->out(sprintf(__('Dry run for %s :', true), $table));
 					$this->out($sql);
 				} else {
-					if (!$Schema->before(array($event => $table))) {
+					if (!$this->Schema->before(array($event => $table))) {
 						return false;
 					}
 					if (!$db->_execute($sql)) {
 						$error = $table . ': '  . $db->lastError();
 					}
 
-					$Schema->after(array($event => $table, 'errors'=> $errors));
+					$this->Schema->after(array($event => $table, 'errors'=> $errors));
 
 					if (isset($error)) {
 						$this->out($error);

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: translate.php 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP(tm) v 1.2.0.4525
- * @version       $Revision: 7961 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 17:21:36 -0600 (Thu, 25 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -58,7 +58,7 @@ class TranslateBehavior extends ModelBehavior {
 		$db =& ConnectionManager::getDataSource($model->useDbConfig);
 		if (!$db->connected) {
 			trigger_error(
-				sprintf(__('Datasource %s for TranslateBehavior of model %s is not connected', true), $model->useDbConfig, $model->alias),
+				sprintf(__('Datasource %s for TranslateBehavior of model %s is not connected'), $model->useDbConfig, $model->alias),
 				E_USER_ERROR
 			);
 			return false;
@@ -427,7 +427,7 @@ class TranslateBehavior extends ModelBehavior {
 				foreach (array('hasOne', 'hasMany', 'belongsTo', 'hasAndBelongsToMany') as $type) {
 					if (isset($model->{$type}[$association]) || isset($model->__backAssociation[$type][$association])) {
 						trigger_error(
-							sprintf(__('Association %s is already binded to model %s', true), $association, $model->alias),
+							sprintf(__('Association %s is already binded to model %s'), $association, $model->alias),
 							E_USER_ERROR
 						);
 						return false;

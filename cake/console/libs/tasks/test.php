@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: test.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * The TestTask handles creating and updating test files.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs.tasks
  * @since         CakePHP(tm) v 1.2
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -162,9 +162,7 @@ class TestTask extends Shell {
 		$out .= "{$extras}";
 		$out .= "}\n\n";
 		$out .= "class {$name}{$class}Test extends CakeTestCase {\n";
-		$out .= "\n\tfunction startTest() {";
-		$out .= "\n\t\t\$this->{$name} = new Test{$name}();";
-		$out .= "\n\t}\n";
+		$out .= "\n\tfunction start() {\n\t\tparent::start();\n\t\t\$this->{$name} = new Test{$name}();\n\t}\n";
 		$out .= "\n\tfunction test{$name}Instance() {\n";
 		$out .= "\t\t\$this->assertTrue(is_a(\$this->{$name}, '{$name}{$class}'));\n\t}\n";
 		foreach ($cases as $case) {
@@ -193,8 +191,7 @@ class TestTask extends Shell {
 		$extras = null;
 		switch ($class) {
 			case 'Model':
-				$extras = "\n\tvar \$cacheSources = false;";
-				$extras .= "\n\tvar \$useDbConfig = 'test_suite';\n";
+				$extras = "\n\tvar \$cacheSources = false;\n";
 			break;
 		}
 		return $extras;

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_sqlite.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * SQLite layer for DBO
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.9.0
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -412,7 +412,7 @@ class DboSqlite extends DboSource {
  * @param integer $offset Offset from which to start results
  * @return string SQL limit/offset statement
  */
-	function limit($limit, $offset = null) {
+	function limit ($limit, $offset = null) {
 		if ($limit) {
 			$rt = '';
 			if (!strpos(strtolower($limit), 'limit') || strpos(strtolower($limit), 'limit') === 0) {
@@ -529,43 +529,6 @@ class DboSqlite extends DboSource {
 		}
 		return $join;
 	}
-/**
- * Overrides DboSource::index to handle SQLite indexe introspection
- * Returns an array of the indexes in given table name.
- *
- * @param string $model Name of model to inspect
- * @return array Fields in table. Keys are column and unique
- */
-	function index(&$model) {
-		$index = array();
-		$table = $this->fullTableName($model);
-		if ($table) {
-			$indexes = $this->query('PRAGMA index_list(' . $table . ')');
-			$tableInfo = $this->query('PRAGMA table_info(' . $table . ')');
-			foreach ($indexes as $i => $info) {
-				$key = array_pop($info);
-				$keyInfo = $this->query('PRAGMA index_info("' . $key['name'] . '")');
-				foreach ($keyInfo as $keyCol) {
-					if (!isset($index[$key['name']])) {
-						$col = array();
-						if (preg_match('/autoindex/', $key['name'])) {
-							$key['name'] = 'PRIMARY';
-						}
-						$index[$key['name']]['column'] = $keyCol[0]['name'];
-						$index[$key['name']]['unique'] = intval($key['unique'] == 1);
-					} else {
-						if (!is_array($index[$key['name']]['column'])) {
-							$col[] = $index[$key['name']]['column'];
-						}
-						$col[] = $keyCol[0]['name'];
-						$index[$key['name']]['column'] = $col;
-					}
-				}
-			}
-		}
-		return $index;
-	}
-	
 /**
  * Overrides DboSource::renderStatement to handle schema generation with SQLite-style indexes
  *

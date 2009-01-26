@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: folder.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Convenience class for handling directories.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -106,7 +106,7 @@ class Folder extends Object {
 		if (!file_exists($path) && $create === true) {
 			$this->create($path, $this->mode);
 		}
-		if (!Folder::isAbsolute($path)) {
+		if (!$this->isAbsolute($path)) {
 			$path = realpath($path);
 		}
 		if (!empty($path)) {
@@ -163,7 +163,7 @@ class Folder extends Object {
 				continue;
 			}
 
-			$path = Folder::addPathElement($this->path, $item);
+			$path = $this->addPathElement($this->path, $item);
 			if (is_dir($path)) {
 				$dirs[] = $fullPath ? $path : $item;
 			} else {
@@ -216,12 +216,12 @@ class Folder extends Object {
 		$found = array();
 		foreach ($files as $file) {
 			if (preg_match('/^' . $pattern . '$/i', $file)) {
-				$found[] = Folder::addPathElement($this->path, $file);
+				$found[] = $this->addPathElement($this->path, $file);
 			}
 		}
 		$start = $this->path;
 		foreach ($dirs as $dir) {
-			$this->cd(Folder::addPathElement($start, $dir));
+			$this->cd($this->addPathElement($start, $dir));
 			$found = array_merge($found, $this->findRecursive($pattern));
 		}
 		return $found;
@@ -261,7 +261,10 @@ class Folder extends Object {
  * @static
  */
 	function normalizePath($path) {
-		return Folder::correctSlashFor($path);
+		if (Folder::isWindowsPath($path)) {
+			return '\\';
+		}
+		return '/';
 	}
 /**
  * Returns a correct set of slashes for given $path. (\\ for Windows paths and / for other paths.)
@@ -272,10 +275,7 @@ class Folder extends Object {
  * @static
  */
 	function correctSlashFor($path) {
-		if (Folder::isWindowsPath($path)) {
-			return '\\';
-		}
-		return '/';
+		return Folder::normalizePath($path);
 	}
 /**
  * Returns $path with added terminating slash (corrected for Windows or other OS).
@@ -301,7 +301,7 @@ class Folder extends Object {
  * @static
  */
 	function addPathElement($path, $element) {
-		return Folder::slashTerm($path) . $element;
+		return $this->slashTerm($path) . $element;
 	}
 /**
  * Returns true if the File is in a given CakePath.
@@ -310,7 +310,7 @@ class Folder extends Object {
  * @access public
  */
 	function inCakePath($path = '') {
-		$dir = substr(Folder::slashTerm(ROOT), 0, -1);
+		$dir = substr($this->slashTerm(ROOT), 0, -1);
 		$newdir = $dir . $path;
 
 		return $this->inPath($newdir);
@@ -322,8 +322,8 @@ class Folder extends Object {
  * @access public
  */
 	function inPath($path = '', $reverse = false) {
-		$dir = Folder::slashTerm($path);
-		$current = Folder::slashTerm($this->pwd());
+		$dir = $this->slashTerm($path);
+		$current = $this->slashTerm($this->pwd());
 
 		if (!$reverse) {
 			$return = preg_match('/^(.*)' . preg_quote($dir, '/') . '(.*)/', $current);
@@ -484,7 +484,7 @@ class Folder extends Object {
  */
 	function dirsize() {
 		$size = 0;
-		$directory = Folder::slashTerm($this->path);
+		$directory = $this->slashTerm($this->path);
 		$stack = array($directory);
 		$count = count($stack);
 		for ($i = 0, $j = $count; $i < $j; ++$i) {
@@ -500,7 +500,7 @@ class Folder extends Object {
 						$add = $stack[$i] . $entry;
 
 						if (is_dir($stack[$i] . $entry)) {
-							$add = Folder::slashTerm($add);
+							$add = $this->slashTerm($add);
 						}
 						$stack[] = $add;
 					}
@@ -522,7 +522,7 @@ class Folder extends Object {
 		if (!$path) {
 			$path = $this->pwd();
 		}
-		$path = Folder::slashTerm($path);
+		$path = $this->slashTerm($path);
 		if (is_dir($path) === true) {
 			$normalFiles = glob($path . '*');
 			$hiddenFiles = glob($path . '\.?*');
@@ -590,8 +590,8 @@ class Folder extends Object {
 		if ($handle = @opendir($fromDir)) {
 			while (false !== ($item = readdir($handle))) {
 				if (!in_array($item, $exceptions)) {
-					$from = Folder::addPathElement($fromDir, $item);
-					$to = Folder::addPathElement($toDir, $item);
+					$from = $this->addPathElement($fromDir, $item);
+					$to = $this->addPathElement($toDir, $item);
 					if (is_file($from)) {
 						if (copy($from, $to)) {
 							chmod($to, intval($mode, 8));
@@ -722,8 +722,8 @@ class Folder extends Object {
 	function realpath($path) {
 		$path = str_replace('/', DS, trim($path));
 		if (strpos($path, '..') === false) {
-			if (!Folder::isAbsolute($path)) {
-				$path = Folder::addPathElement($this->path, $path);
+			if (!$this->isAbsolute($path)) {
+				$path = $this->addPathElement($this->path, $path);
 			}
 			return $path;
 		}
@@ -750,7 +750,7 @@ class Folder extends Object {
 		}
 		$newpath .= implode(DS, $newparts);
 
-		return Folder::slashTerm($newpath);
+		return $this->slashTerm($newpath);
 	}
 /**
  * Returns true if given $path ends in a slash (i.e. is slash-terminated).
@@ -761,8 +761,10 @@ class Folder extends Object {
  * @static
  */
 	function isSlashTerm($path) {
-		$lastChar = $path[strlen($path) - 1];
-		return $lastChar === '/' || $lastChar === '\\';
+		if (preg_match('/[\/\\\]$/', $path)) {
+			return true;
+		}
+		return false;
 	}
 }
 ?>

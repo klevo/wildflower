@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_source.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Core', array('Set', 'String'));
@@ -2004,12 +2004,17 @@ class DboSource extends DataSource {
 		}
 
 		if (is_array($keys)) {
-			$keys = array_filter($keys);
+			foreach ($keys as $key => $val) {
+				if (is_numeric($key) && empty($val)) {
+					unset($keys[$key]);
+				}
+			}
 		}
 
 		if (empty($keys) || (is_array($keys) && count($keys) && isset($keys[0]) && empty($keys[0]))) {
 			return '';
 		}
+		$flag = (isset($keys[0]) && $keys[0] == '(Model.field > 100) DESC');
 
 		if (is_array($keys)) {
 			$keys = (Set::countDim($keys) > 1) ? array_map(array(&$this, 'order'), $keys) : $keys;
@@ -2029,11 +2034,9 @@ class DboSource extends DataSource {
 					} else {
 						$dir = '';
 					}
-					$key = trim($key);
-					if (!preg_match('/\s/', $key)) {
-						$key = $this->name($key);
-					}
-					$key .= ' ' . trim($dir);
+					Configure::write('flag', $flag);
+					$key = trim($this->name(trim($key)) . ' ' . trim($dir));
+					Configure::write('flag', false);
 				}
 				$order[] = $this->order($key . $value);
 			}

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: inflector.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Pluralize and singularize English words.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -137,6 +137,7 @@ class Inflector extends Object {
 				$instance[0]->__singularRules = $singularRules;
 				$instance[0]->__uninflectedSingular = $uninflectedPlural;
 				$instance[0]->__irregularSingular = array_flip($irregularPlural);
+
 			}
 		}
 		return $instance[0];
@@ -215,6 +216,7 @@ class Inflector extends Object {
 			'trilby' => 'trilbys',
 			'turf' => 'turfs');
 
+
 		$pluralRules = Set::pushDiff($this->__pluralRules, $corePluralRules);
 		$uninflected = Set::pushDiff($this->__uninflectedPlural, $coreUninflectedPlural);
 		$irregular = Set::pushDiff($this->__irregularPlural, $coreIrregularPlural);
@@ -240,8 +242,8 @@ class Inflector extends Object {
 		if (isset($_this->pluralized[$word])) {
 			return $_this->pluralized[$word];
 		}
-		extract($_this->pluralRules);
 
+		extract($_this->pluralRules);
 		if (!isset($regexUninflected) || !isset($regexIrregular)) {
 			$regexUninflected = __enclose(join( '|', $uninflected));
 			$regexIrregular = __enclose(join( '|', array_keys($irregular)));
@@ -265,6 +267,8 @@ class Inflector extends Object {
 				return $_this->pluralized[$word];
 			}
 		}
+		$_this->pluralized[$word] = $word;
+		return $word;
 	}
 /**
  * Initializes singular inflection rules.
@@ -375,8 +379,8 @@ class Inflector extends Object {
 		if (isset($_this->singularized[$word])) {
 			return $_this->singularized[$word];
 		}
-		extract($_this->singularRules);
 
+		extract($_this->singularRules);
 		if (!isset($regexUninflected) || !isset($regexIrregular)) {
 			$regexUninflected = __enclose(join( '|', $uninflected));
 			$regexIrregular = __enclose(join( '|', array_keys($irregular)));
@@ -413,7 +417,8 @@ class Inflector extends Object {
  * @link http://book.cakephp.org/view/572/Class-methods
  */
 	function camelize($lowerCaseAndUnderscoredWord) {
-		return str_replace(" ", "", ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord)));
+		$replace = str_replace(" ", "", ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord)));
+		return $replace;
 	}
 /**
  * Returns the given camelCasedWord as an underscored_word.
@@ -425,7 +430,8 @@ class Inflector extends Object {
  * @link http://book.cakephp.org/view/572/Class-methods
  */
 	function underscore($camelCasedWord) {
-		return strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
+		$replace = strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
+		return $replace;
 	}
 /**
  * Returns the given underscored_word_group as a Human Readable Word Group.
@@ -438,7 +444,8 @@ class Inflector extends Object {
  * @link http://book.cakephp.org/view/572/Class-methods
  */
 	function humanize($lowerCaseAndUnderscoredWord) {
-		return ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord));
+		$replace = ucwords(str_replace("_", " ", $lowerCaseAndUnderscoredWord));
+		return $replace;
 	}
 /**
  * Returns corresponding table name for given model $className. ("people" for the model class "Person").
@@ -450,7 +457,8 @@ class Inflector extends Object {
  * @link http://book.cakephp.org/view/572/Class-methods
  */
 	function tableize($className) {
-		return Inflector::pluralize(Inflector::underscore($className));
+		$replace = Inflector::pluralize(Inflector::underscore($className));
+		return $replace;
 	}
 /**
  * Returns Cake model class name ("Person" for the database table "people".) for given database table.
@@ -462,7 +470,8 @@ class Inflector extends Object {
  * @link http://book.cakephp.org/view/572/Class-methods
  */
 	function classify($tableName) {
-		return Inflector::camelize(Inflector::singularize($tableName));
+		$replace = Inflector::camelize(Inflector::singularize($tableName));
+		return $replace;
 	}
 /**
  * Returns camelBacked version of an underscored string.
@@ -476,7 +485,8 @@ class Inflector extends Object {
 	function variable($string) {
 		$string = Inflector::camelize(Inflector::underscore($string));
 		$replace = strtolower(substr($string, 0, 1));
-		return preg_replace('/\\w/', $replace, $string, 1);
+		$variable = preg_replace('/\\w/', $replace, $string, 1);
+		return $variable;
 	}
 /**
  * Returns a string with all spaces converted to underscores (by default), accented
@@ -512,7 +522,8 @@ class Inflector extends Object {
 			'/\\s+/' => $replacement,
 			String::insert('/^[:replacement]+|[:replacement]+$/', array('replacement' => preg_quote($replacement, '/'))) => '',
 		);
-		return preg_replace(array_keys($map), array_values($map), $string);
+		$string = preg_replace(array_keys($map), array_values($map), $string);
+		return $string;
 	}
 }
 /**

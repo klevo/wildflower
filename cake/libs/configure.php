@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: configure.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.0.0.2363
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -249,14 +249,8 @@ class Configure extends Object {
  * Usage
  * Configure::write('One.key1', 'value of the Configure::One[key1]');
  * Configure::write(array('One.key1' => 'value of the Configure::One[key1]'));
- * Configure::write('One', array(
- *     'key1' => 'value of the Configure::One[key1]',
- *     'key2' => 'value of the Configure::One[key2]'
- * );
- * Configure::write(array(
- *     'One.key1' => 'value of the Configure::One[key1]',
- *     'One.key2' => 'value of the Configure::One[key2]'
- * ));
+ * Configure::write('One', array('key1'=>'value of the Configure::One[key1]', 'key2'=>'value of the Configure::One[key2]');
+ * Configure::write(array('One.key1' => 'value of the Configure::One[key1]', 'One.key2' => 'value of the Configure::One[key2]'));
  *
  * @link          http://book.cakephp.org/view/412/write
  * @param array $config Name of var to write
@@ -385,8 +379,7 @@ class Configure extends Object {
  * Usage Configure::load('configure_file');
  *
  * @link          http://book.cakephp.org/view/415/load
- * @param string $fileName name of file to load, extension must be .php and only the name
- *                         should be used, not the extenstion
+ * @param string $fileName name of file to load, extension must be .php and only the name should be used, not the extenstion
  * @return mixed false if file not found, void if load successful
  * @access public
  */
@@ -414,8 +407,7 @@ class Configure extends Object {
 		}
 
 		if (!isset($config)) {
-			$error = __("Configure::load() - no variable \$config found in %s.php", true);
-			trigger_error(sprintf($error, $fileName), E_USER_WARNING);
+			trigger_error(sprintf(__("Configure::load() - no variable \$config found in %s.php", true), $fileName), E_USER_WARNING);
 			return false;
 		}
 		return Configure::write($config);
@@ -441,9 +433,7 @@ class Configure extends Object {
 /**
  * Used to write a config file to disk.
  *
- * Configure::store('Model', 'class.paths', array('Users' => array(
- *      'path' => 'users', 'plugin' => true
- * )));
+ * Configure::store('Model', 'class.paths', array('Users' => array('path' => 'users', 'plugin' => true)));
  *
  * @param string $type Type of config file to write, ex: Models, Controllers, Helpers, Components
  * @param string $name file name.
@@ -480,8 +470,7 @@ class Configure extends Object {
  * Returns a key/value list of all paths where core libs are found.
  * Passing $type only returns the values for a given value of $key.
  *
- * @param string $type valid values are: 'model', 'behavior', 'controller', 'component',
- *                      'view', 'helper', 'datasource', 'libs', and 'cake'
+ * @param string $type valid values are: 'model', 'behavior', 'controller', 'component', 'view', 'helper', 'libs', and 'cake'
  * @return array numeric keyed array of core lib paths
  * @access public
  */
@@ -515,6 +504,7 @@ class Configure extends Object {
 					$paths['view'][] = $libs . 'view' . DS;
 					$paths['helper'][] = $libs . 'view' . DS . 'helpers' . DS;
 					$paths['cake'][] = $cake;
+					$paths['class'][] = $cake;
 					$paths['vendor'][] = $path . DS . 'vendors' . DS;
 					$paths['shell'][] = $cake . 'console' . DS . 'libs' . DS;
 					break;
@@ -599,8 +589,7 @@ class Configure extends Object {
 			'plugin' => array(APP . 'plugins' . DS),
 			'vendor' => array(APP . 'vendors' . DS, VENDORS),
 			'locale' => array(APP . 'locale' . DS),
-			'shell' => array(),
-			'datasource' => array(MODELS . 'datasources')
+			'shell' => array()
 		);
 
 		foreach ($basePaths as $type => $default) {
@@ -620,9 +609,7 @@ class Configure extends Object {
 			$_this->{$pathsVar} = $default;
 
 			if (isset($paths[$pathsVar]) && !empty($paths[$pathsVar])) {
-				$path = array_flip(array_flip((array_merge(
-					$_this->{$pathsVar}, (array)$paths[$pathsVar], $merge
-				))));
+				$path = array_flip(array_flip((array_merge($_this->{$pathsVar}, (array)$paths[$pathsVar], $merge))));
 				$_this->{$pathsVar} = array_values($path);
 			} else {
 				$path = array_flip(array_flip((array_merge($_this->{$pathsVar}, $merge))));
@@ -689,10 +676,7 @@ class Configure extends Object {
 				}
 				Cache::config('default');
 			}
-			Configure::buildPaths(compact(
-				'modelPaths', 'viewPaths', 'controllerPaths', 'helperPaths', 'componentPaths',
-				'behaviorPaths', 'pluginPaths', 'vendorPaths', 'localePaths', 'shellPaths'
-			));
+			Configure::buildPaths(compact('modelPaths', 'viewPaths', 'controllerPaths', 'helperPaths', 'componentPaths', 'behaviorPaths', 'pluginPaths', 'vendorPaths', 'localePaths', 'shellPaths'));
 		}
 	}
 /**
@@ -761,17 +745,13 @@ class App extends Object {
  * Finds classes based on $name or specific file(s) to search.
  *
  * @link          http://book.cakephp.org/view/529/Using-App-import
- * @param mixed $type The type of Class if passed as a string, or all params can be passed as
- *                    an single array to $type,
+ * @param mixed $type The type of Class if passed as a string, or all params can be passed as an single array to $type,
  * @param string $name Name of the Class or a unique name for the file
- * @param mixed $parent boolean true if Class Parent should be searched, accepts key => value
- *              array('parent' => $parent ,'file' => $file, 'search' => $search, 'ext' => '$ext');
- *              $ext allows setting the extension of the file name
- *              based on Inflector::underscore($name) . ".$ext";
+ * @param mixed $parent boolean true if Class Parent should be searched, accepts key => value array('parent' => $parent ,'file' => $file, 'search' => $search, 'ext' => '$ext');
+ *  $ext allows setting the extension of the file name based on Inflector::underscore($name) . ".$ext";
  * @param array $search paths to search for files, array('path 1', 'path 2', 'path 3');
  * @param string $file full name of the file to search for including extension
- * @param boolean $return, return the loaded file, the file must have a return
- *                         statement in it to work: return $variable;
+ * @param boolean $return, return the loaded file, the file must have a return statement in it to work: return $variable;
  * @return boolean true if Class is already in memory or if file is found and loaded, false if not
  * @access public
  */

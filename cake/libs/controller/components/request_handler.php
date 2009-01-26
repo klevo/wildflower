@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: request_handler.php 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Request object for handling alternative HTTP requests
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 0.10.4.1076
- * @version       $Revision: 7961 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 17:21:36 -0600 (Thu, 25 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -250,7 +250,7 @@ class RequestHandlerComponent extends Object {
  * @access public
  */
 	function isFlash() {
-		return (preg_match('/^(Shockwave|Adobe) Flash/', env('HTTP_USER_AGENT')) == 1);
+		return env('HTTP_USER_AGENT') === "Shockwave Flash";
 	}
 /**
  * Returns true if the current request is over HTTPS, false otherwise.
@@ -401,8 +401,8 @@ class RequestHandlerComponent extends Object {
  * @return string Client IP address
  * @access public
  */
-	function getClientIP($safe = true) {
-		if (!$safe && env('HTTP_X_FORWARDED_FOR') != null) {
+	function getClientIP() {
+		if (env('HTTP_X_FORWARDED_FOR') != null) {
 			$ipaddr = preg_replace('/(?:,.*)/', '', env('HTTP_X_FORWARDED_FOR'));
 		} else {
 			if (env('HTTP_CLIENT_IP') != null) {

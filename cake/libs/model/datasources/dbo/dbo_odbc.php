@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_odbc.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 
 /**
  * ODBC for DBO
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.dbo
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -91,14 +91,10 @@ class DboOdbc extends DboSource {
 	function connect() {
 		$config = $this->config;
 		$connect = $config['connect'];
-		if (!$config['persistent']) {
-			$connect = 'odbc_connect';
-		}
-		if (!function_exists($connect)) {
-			die('no odbc?');
-		}
+
 		$this->connected = false;
-		$this->connection = $connect($config['database'], $config['login'], $config['password'],  SQL_CUR_USE_ODBC);
+		$this->connection = $connect($config['database'], $config['login'], $config['password']);
+
 		if ($this->connection) {
 			$this->connected = true;
 		}
@@ -121,15 +117,6 @@ class DboOdbc extends DboSource {
  * @access protected
  */
 	function _execute($sql) {
-		switch ($sql) {
-			case 'BEGIN':
-				return odbc_autocommit($this->connection, false);
-			case 'COMMIT':
-				return odbc_commit($this->connection);
-			case 'ROLLBACK':
-				return odbc_rollback($this->connection);
-		}
-		// TODO: should flags be set? possible requirement:  SQL_CURSOR_STATIC
 		return odbc_exec($this->connection, $sql);
 	}
 /**
@@ -147,7 +134,7 @@ class DboOdbc extends DboSource {
 
 		$tables = array();
 		while (odbc_fetch_row($result)) {
-			array_push($tables, odbc_result($result, 'TABLE_NAME'));
+			array_push($tables, odbc_result($result, "TABLE_NAME"));
 		}
 
 		parent::listSources($tables);
@@ -177,12 +164,31 @@ class DboOdbc extends DboSource {
 		}
 
 		foreach ($cols as $column) {
-			$type = odbc_field_type(odbc_exec($this->connection, 'SELECT ' . $column . ' FROM ' . $this->fullTableName($model)), 1);
+			$type = odbc_field_type(odbc_exec($this->connection, "SELECT " . $column . " FROM " . $this->fullTableName($model)), 1);
 			$fields[$column] = array('type' => $type);
 		}
 
 		$this->__cacheDescription($model->tablePrefix . $model->table, $fields);
 		return $fields;
+	}
+/**
+ * Name
+ *
+ * @param string $data
+ * @access public
+ * @return void
+ */
+	function name($data) {
+		if ($data == '*') {
+			return '*';
+		}
+
+		if (strpos($data, '`') === false) {
+			$data = '' . str_replace('.', '.', $data) . '';
+			//$data = '`'. str_replace('.', '`.`', $data) .'`';
+		}
+
+		return $data;
 	}
 /**
  * Returns a quoted and escaped string of $data for use in an SQL statement.
@@ -204,10 +210,80 @@ class DboOdbc extends DboSource {
 		}
 
 		if (!is_numeric($data)) {
-				return "'" . $data . "'";
+				$return = "'" . $data . "'";
+		} else {
+				$return = $data;
 		}
 
-		return $data;
+		return $return;
+	}
+/**
+ * Not sure about this one, MySQL needs it but does ODBC?  Safer just to leave it
+ * Translates between PHP boolean values and MySQL (faked) boolean values
+ *
+ * @param mixed $data Value to be translated
+ * @return mixed Converted boolean value
+ */
+	function boolean($data) {
+		if ($data === true || $data === false) {
+			if ($data === true) {
+				return 1;
+			}
+			return 0;
+		} else {
+			if (intval($data !== 0)) {
+				return true;
+			}
+			return false;
+		}
+	}
+/**
+ * Begin a transaction
+ *
+ * @param unknown_type $model
+ * @return boolean True on success, false on fail
+ * (i.e. if the database/model does not support transactions).
+ */
+	function begin(&$model) {
+		if (parent::begin($model)) {
+			if (odbc_autocommit($this->connection, false)) {
+				$this->_transactionStarted = true;
+				return true;
+			}
+		}
+		return false;
+	}
+/**
+ * Commit a transaction
+ *
+ * @param unknown_type $model
+ * @return boolean True on success, false on fail
+ * (i.e. if the database/model does not support transactions,
+ * or a transaction has not started).
+ */
+	function commit(&$model) {
+		if (parent::commit($model)) {
+			if (odbc_commit($this->connection)) {
+				$this->_transactionStarted = false;
+				return true;
+			}
+		}
+		return false;
+	}
+/**
+ * Rollback a transaction
+ *
+ * @param unknown_type $model
+ * @return boolean True on success, false on fail
+ * (i.e. if the database/model does not support transactions,
+ * or a transaction has not started).
+ */
+	function rollback(&$model) {
+		if (parent::rollback($model)) {
+			$this->_transactionStarted=false;
+			return odbc_rollback($this->connection);
+		}
+		return false;
 	}
 /**
  * Returns a formatted error message from previous database operation.
@@ -215,8 +291,8 @@ class DboOdbc extends DboSource {
  * @return string Error message with error number
  */
 	function lastError() {
-		if ($error = odbc_errormsg($this->connection)) {
-			return odbc_error($this->connection) . ': ' . $error;
+		if (odbc_errormsg($this->connection)) {
+			return odbc_error($this->connection) . ': ' . odbc_errormsg($this->connection);
 		}
 		return null;
 	}
@@ -228,9 +304,9 @@ class DboOdbc extends DboSource {
  */
 	function lastAffected() {
 		if ($this->hasResult()) {
-			return odbc_num_rows($this->_result);
+			return false;
 		}
-		return null;
+		return false;
 	}
 /**
  * Returns number of rows in previous resultset. If no previous resultset exists,
@@ -240,7 +316,12 @@ class DboOdbc extends DboSource {
  */
 	function lastNumRows() {
 		if ($this->hasResult()) {
-			return odbc_num_rows($this->_result);
+			$counter = 0;
+			if (@odbc_fetch_into($this->_result, $results)) {
+				return count($results);
+			} else {
+				return null;
+			}
 		}
 		return null;
 	}
@@ -280,14 +361,14 @@ class DboOdbc extends DboSource {
 		$this->map = array();
 		$index = 0;
 		$j = 0;
-		while ($j < $num_fields) {
-			$column = odbc_field_name($results, $j+1);
+		while($j < $num_fields) {
+			$columnName = odbc_field_name($results, $j+1);
 
-			if (strpos($column, '_dot_') !== false) {
-				list($table, $column) = explode('_dot_', $column);
-				$this->map[$index++] = array($table, $column);
+			if (strpos($columnName, '_dot_') !== false) {
+				$parts = explode('_dot_', $columnName);
+				$this->map[$index++] = array($parts[0], $parts[1]);
 			} else {
-				$this->map[$index++] = array(0, $column);
+				$this->map[$index++] = array(0, $columnName);
 			}
 			$j++;
 		}
@@ -306,7 +387,12 @@ class DboOdbc extends DboSource {
 		}
 		if (!is_array($fields)) {
 			if ($fields != null) {
-				$fields = array_map('trim', explode(',', $fields));
+				if (strpos($fields, ',')) {
+					$fields = explode(',', $fields);
+				} else {
+					$fields = array($fields);
+				}
+				$fields = array_map('trim', $fields);
 			} else {
 				foreach($model->tableToModel as $tableName => $modelName) {
 					foreach($this->__descriptions[$model->tablePrefix .$tableName] as $field => $type) {
@@ -324,7 +410,7 @@ class DboOdbc extends DboSource {
 					$prepend = '';
 					if (strpos($fields[$i], 'DISTINCT') !== false) {
 						$prepend = 'DISTINCT ';
-						$fields[$i] = trim(str_replace('DISTINCT', '', $fields[$i]));
+						$fields[$i] = trim(r('DISTINCT', '', $fields[$i]));
 					}
 
 					if (strrpos($fields[$i], '.') === false) {
@@ -350,11 +436,12 @@ class DboOdbc extends DboSource {
 			$i = 0;
 			for($i = 0; $i < $numFields; $i++) {
 				list($table, $column) = $this->map[$i];
-				$resultRow[$table][$column] = odbc_result($this->results, $i + 1);
+				$resultRow[$table][$column] = odbc_result($this->results, $i +1);
 			}
 			return $resultRow;
+		} else {
+			return false;
 		}
-		return false;
 	}
 }
 ?>

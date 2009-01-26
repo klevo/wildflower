@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: set.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Library of array functions for Cake.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -406,7 +406,7 @@ class Set extends Object {
 					if (count($context['trace']) == 1) {
 						$context['trace'][] = $context['key'];
 					}
-					$parent = join('/', $context['trace']) . '/.';
+					$parent = join('/', $context['trace']).'/.';
 					$context['item'] = Set::extract($parent, $data);
 					$context['key'] = array_pop($context['trace']);
 					if (isset($context['trace'][1]) && $context['trace'][1] > 0) {
@@ -434,29 +434,10 @@ class Set extends Object {
 							$items = array($items);
 						}
 					}
-
-					foreach ($items as $key => $item) {
-						$ctext = array($context['key']);
-						if (!is_numeric($key)) {
-							$ctext[] = $token;
-							$token = array_shift($tokens);
-							if (isset($items[$token])) {
-								$ctext[] = $token;
-								$item = $items[$token];
-								$matches[] = array(
-									'trace' => array_merge($context['trace'], $ctext),
-									'key' => $key,
-									'item' => $item,
-								);
-								break;
-							}
-						} else {
-							$key = $token;
-						}
-
+					foreach ($items as $item) {
 						$matches[] = array(
-							'trace' => array_merge($context['trace'], $ctext),
-							'key' => $key,
+							'trace' => array_merge($context['trace'], array($context['key'])),
+							'key' => $token,
 							'item' => $item,
 						);
 					}
@@ -474,7 +455,7 @@ class Set extends Object {
 					$filtered = array();
 					$length = count($matches);
 					foreach ($matches as $i => $match) {
-						if (Set::matches(array($condition), $match['item'], $i + 1, $length)) {
+						if (Set::matches(array($condition), $match['item'], $i+1, $length)) {
 							$filtered[] = $match;
 						}
 					}

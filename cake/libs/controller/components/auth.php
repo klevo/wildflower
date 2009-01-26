@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: auth.php 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id$ */
 
 /**
  * Authentication component
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7961 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 17:21:36 -0600 (Thu, 25 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -63,7 +63,7 @@ class AuthComponent extends Object {
  * 'controller' will validate against Controller::isAuthorized()
  * 'actions' will validate Controller::action against an AclComponent::check()
  * 'crud' will validate mapActions against an AclComponent::check()
- * array('model'=> 'name'); will validate mapActions against model $name::isAuthorized(user, controller, mapAction)
+ * array('model'=> 'name'); will validate mapActions against model $name::isAuthorize(user, controller, mapAction)
  * 'object' will validate Controller::action against object::isAuthorized(user, controller, action)
  *
  * @var mixed
@@ -438,7 +438,7 @@ class AuthComponent extends Object {
  * 'actions' will validate Controller::action against an AclComponent::check()
  * 'crud' will validate mapActions against an AclComponent::check()
  * 		array('model'=> 'name'); will validate mapActions against model
- * 		$name::isAuthorized(user, controller, mapAction)
+ * 		$name::isAuthorize(user, controller, mapAction)
  * 'object' will validate Controller::action against
  * 		object::isAuthorized(user, controller, action)
  *
@@ -673,9 +673,9 @@ class AuthComponent extends Object {
  */
 	function redirect($url = null) {
 		if (!is_null($url)) {
-			$redir = $url;
-			$this->Session->write('Auth.redirect', $redir);
-		} elseif ($this->Session->check('Auth.redirect')) {
+			return $this->Session->write('Auth.redirect', $url);
+		}
+		if ($this->Session->check('Auth.redirect')) {
 			$redir = $this->Session->read('Auth.redirect');
 			$this->Session->delete('Auth.redirect');
 

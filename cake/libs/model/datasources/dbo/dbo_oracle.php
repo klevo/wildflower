@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_oracle.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Oracle layer for DBO.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP v 1.2.0.4041
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -63,10 +63,10 @@ class DboOracle extends DboSource {
  * @access public
  */
 	var $columns = array(
-		'primary_key' => array('name' => ''),
+		'primary_key' => array('name' => 'number NOT NULL'),
 		'string' => array('name' => 'varchar2', 'limit' => '255'),
 		'text' => array('name' => 'varchar2'),
-		'integer' => array('name' => 'number'),
+		'integer' => array('name' => 'numeric'),
 		'float' => array('name' => 'float'),
 		'datetime' => array('name' => 'date', 'format' => 'Y-m-d H:i:s'),
 		'timestamp' => array('name' => 'date', 'format' => 'Y-m-d H:i:s'),
@@ -74,7 +74,7 @@ class DboOracle extends DboSource {
 		'date' => array('name' => 'date', 'format' => 'Y-m-d H:i:s'),
 		'binary' => array('name' => 'bytea'),
 		'boolean' => array('name' => 'boolean'),
-		'number' => array('name' => 'number'),
+		'number' => array('name' => 'numeric'),
 		'inet' => array('name' => 'inet'));
 /**
  * Enter description here...
@@ -904,9 +904,6 @@ class DboOracle extends DboSource {
 			case 'select':
 				return "SELECT {$fields} FROM {$table} {$alias} {$joins} {$conditions} {$order} {$limit}";
 			break;
-			case 'create':
-				return "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
-			break;
 			case 'update':
 				if (!empty($alias)) {
 					$aliases = "{$this->alias}{$alias} ";
@@ -919,19 +916,6 @@ class DboOracle extends DboSource {
 				}
 				return "DELETE FROM {$table} {$aliases}{$conditions}";
 			break;
-			case 'schema':
-				foreach (array('columns', 'indexes') as $var) {
-					if (is_array(${$var})) {
-						${$var} = "\t" . join(",\n\t", array_filter(${$var}));
-					}
-				}
-				if (trim($indexes) != '') {
-					$columns .= ',';
-				}
-				return "CREATE TABLE {$table} (\n{$columns}{$indexes})";
-			break;
-			case 'alter':
-				break;
 		}
 	}
 /**
@@ -1092,27 +1076,5 @@ class DboOracle extends DboSource {
 			}
 		}
 	}
-	/**
-	 * Generate a "drop table" statement for the given Schema object
-	 *
-	 * @param object $schema An instance of a subclass of CakeSchema
-	 * @param string $table Optional.  If specified only the table name given will be generated.
-	 *						Otherwise, all tables defined in the schema are generated.
-	 * @return string
-	 */
-		function dropSchema($schema, $table = null) {
-			if (!is_a($schema, 'CakeSchema')) {
-				trigger_error(__('Invalid schema object', true), E_USER_WARNING);
-				return null;
-			}
-			$out = '';
-
-			foreach ($schema->tables as $curTable => $columns) {
-				if (!$table || $table == $curTable) {
-					$out .= 'DROP TABLE ' . $this->fullTableName($curTable) . "\n";
-				}
-			}
-			return $out;
-		}
 }
 ?>

@@ -128,7 +128,7 @@ class DATABASE_CONFIG {
 	 *
 	 * @var array
 	 */
-	public $test = array(
+	public $test_suite = array(
 		'driver' => 'mysqli',
 	    'encoding' => 'utf8',
         'persistent' => false,
