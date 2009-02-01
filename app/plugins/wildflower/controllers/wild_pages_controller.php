@@ -294,7 +294,7 @@ class WildPagesController extends WildflowerAppController {
         
         // Determine if this is the site root (home page)
         $homeArgs = array('app', 'webroot');
-        if ($url === '//' or $args === $homeArgs) {
+        if ($url === '//' or $args === $homeArgs or $url === '/app/webroot/') {
             $this->isHome = true;
         }
         
@@ -341,7 +341,7 @@ class WildPagesController extends WildflowerAppController {
             'id' => $page[$this->modelClass]['id']);
         $this->params['Wildflower']['page']['slug'] = $page[$this->modelClass]['slug'];        
         
-        $this->_chooseTemplate();
+        $this->_chooseTemplate($page[$this->modelClass]['slug']);
     }
     
     function update_root_cache() {
@@ -369,13 +369,20 @@ class WildPagesController extends WildflowerAppController {
      *
      * @param string $slug
      */
-    private function _chooseTemplate() {
+    private function _chooseTemplate($slug) {
         // For home page home.ctp is the default
         $template = 'view';
         if ($this->isHome) {
             $template = 'home';
         }
-        return $this->render($template);
+        $render = $template;
+        
+        $possibleThemeFile = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . $slug . '.ctp';
+        if (file_exists($possibleThemeFile)) {
+            $render = $possibleThemeFile;
+        }
+        
+        return $this->render($render);
     }
     
     /**

@@ -1,6 +1,7 @@
 <?php 
 class WildUserFixture extends CakeTestFixture {
     public $name = 'WildUser';
+    public $table = 'users';
     public $import = 'Wildflower.WildUser';
     public $records = array(
         array('id' => 1, 
@@ -10,8 +11,7 @@ class WildUserFixture extends CakeTestFixture {
               'name' => 'Róbert Starší', 
               'cookie' => '38499d8c-689c-7bf4-45fb-50dbf5edda61', 
               'created' => '2007-08-14 11:28:22', 
-              'updated' => '2008-05-13 19:45:38'
-        ),
+              'updated' => '2008-05-13 19:45:38'),
         array('id' => 3, 
               'login' => 'admin', 
               'password' => '156e058b2b08882cf108b7711ae25d4221ae8e62',  // čýáíľššýíáč
@@ -19,7 +19,6 @@ class WildUserFixture extends CakeTestFixture {
               'name' => 'John Rambo', 
               'cookie' => '38499d8c-689c-7bf4-45fb-50dbf5edda61', 
               'created' => '2007-08-14 11:28:22', 
-              'updated' => '2008-05-13 19:45:38'
-        )
+              'updated' => '2008-05-13 19:45:38')
     );
 }

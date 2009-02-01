@@ -57,21 +57,22 @@
         </h1>
 
         <div id="login-info">
-            <?php echo $html->link(__('Log out', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+            <?php echo $htmla->link(__('Settings', true), array('controller' => 'wild_settings')); ?> | 
+            <?php echo $htmla->link(__('Users', true), array('controller' => 'wild_users')); ?> | 
+            <?php echo $htmla->link(__('Logout', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+            
         </div>
 
         <?php 
             echo $navigation->create(array(
                 __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
-                __('Blog', true) => array('controller' => 'wild_posts'),
                 __('Pages', true) => array('controller' => 'wild_pages'),
+                __('Blog', true) => array('controller' => 'wild_posts'),
                 __('Files', true) => array('controller' => 'wild_assets'),
-                __('Users', true) => array('controller' => 'wild_users'),
-                __('Settings', true) => array('controller' => 'wild_settings')
             ), array('id' => 'nav'));
         ?>
     <?php else: ?>
-        <?php echo $html->link(__('← Back to all pages', true), array('action' => 'index'), array('id' => 'full-edit-back-link')); ?>
+        <?php echo $html->link(__('← Go to all pages', true), array('action' => 'index'), array('id' => 'full-edit-back-link')); ?>
     <?php endif; ?>
     </div>
 </div>

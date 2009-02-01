@@ -66,16 +66,17 @@ img {
 #header {
     background: #324c60;
     overflow: hidden;
+    color: #eee;
 }
 
     #header a {
-        color: #eee;
+        color: #fff;
     }
     
     #header a:hover,
     #footer a:hover {
-        background-color: #606060;
-        color: #fff;
+        background-color: transparent;
+        color: yellow;
     }
 
 #header-wrap {
@@ -85,10 +86,12 @@ img {
 #site-title {
     font-size: 20px;
     font-weight: normal;
-    margin: 18px 10px;
+    padding: 18px 10px;
+    margin: 0;
 }
 
     #site-title a {
+        color: #fff;
         text-decoration: none;
     }
     
@@ -759,6 +762,8 @@ select {
     list-style: none;
     margin: 0;
     padding: 0;
+    position: relative;
+    left: -5px;
     font-size: 14px;
     line-height: 20px;
 }
