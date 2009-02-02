@@ -23,9 +23,10 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         
         var hiddenContentEls = contentEl.animate({
             height: toHeight
-        }, 600).children().not(dialogEl).hide();
-        
-        $('.input input', dialogEl).focus();
+        }, 600, function() {
+            // After the animation, focus the title input box
+            $('.input:first input', dialogEl).focus();
+        }).children().not(dialogEl).hide();
         
         // Bind cancel link
         $('.cancel-edit a', dialogEl).click(function() {

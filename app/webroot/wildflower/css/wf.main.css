@@ -64,7 +64,7 @@ img {
     }
 
 #header {
-    background: #324c60;
+    background: #564114;
     overflow: hidden;
     color: #eee;
 }
@@ -167,7 +167,7 @@ img {
     
     #wrap a.add {
         background: url(img/sidebar-button.png) 0 0 no-repeat;
-        height: 40px;
+        height: 33px;
         padding: 0 0 0 14px;
         display: inline-block;
         color: #2f2f2f;
@@ -178,7 +178,7 @@ img {
     }
     
         #wrap a.add span {
-            padding: 11px 20px 12px 0;
+            padding: 8px 20px 12px 0;
             margin: 0 0 0 20px;
             display: block;
             background: url(img/sidebar-button.png) top right no-repeat;
@@ -213,7 +213,7 @@ h2 {
     font-size: 14px;
     font-weight: bold;
     line-height: 17px;
-    background: #e8f5f1;
+    background: #eef5fb url(img/page_top.png) left bottom repeat-x;
     border-bottom: 1px solid #eee;
 }
 
@@ -845,14 +845,12 @@ select {
 
 /* Write new dialog */
 
-.new-dialog {
-    background: #e8fbff;
-    padding: 20px;
-    border: 1px solid #a9d7df;
-}
+    .new-dialog label {
+        display: block;
+    }
 
     .new-dialog h2 {
-        margin-bottom: 0;
+
     }
     
     .new-dialog .select {
