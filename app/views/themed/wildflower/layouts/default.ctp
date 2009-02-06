@@ -29,7 +29,7 @@
             $c = str_replace('wild_', '', $this->params['controller']);
             $editCurrentLink = '/' 
                 . Configure::read('Wildflower.prefix') 
-                . '/' . $c . '/edit/' . '';
+                . '/' . $c . '/edit/' . $page['WildPage']['id'];
             
             echo 
             '<div id="admin-bar">',
