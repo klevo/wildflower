@@ -13,6 +13,7 @@
     $form->input('parent_id', array('type' => 'select', 'label' => 'Parent page', 'options' => $parentPageOptions, 'empty' => '(none)', 'escape' => false)),
     $form->input('draft', array('type' => 'select', 'label' => 'Status', 'options' => WildPage::getStatusOptions())),
     $form->input('description_meta_tag', array('type' => 'textarea', 'rows' => 4, 'cols' => 60, 'tabindex' => '4')),
+    $form->input('keywords_meta_tag', array('type' => 'textarea', 'rows' => 4, 'cols' => 60)),
     $form->input('slug', array('label' => 'URL slug', 'size' => 61)),
     $form->input('created', array());
 ?>

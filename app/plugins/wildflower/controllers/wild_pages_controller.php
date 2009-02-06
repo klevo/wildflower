@@ -333,7 +333,7 @@ class WildPagesController extends WildflowerAppController {
             'descriptionMetaTag' => $page[$this->modelClass]['description_meta_tag'],
             'keywordsMetaTag' => $page[$this->modelClass]['keywords_meta_tag']
         );
-        
+        $this->set($this->params['pageMeta']);
         // Parameters @TODO unify parameters
         $this->params['current'] = array(
             'type' => 'page', 
