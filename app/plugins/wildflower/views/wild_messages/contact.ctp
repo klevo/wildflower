@@ -5,7 +5,7 @@
 
 <?php
     echo 
-    $form->create('Message', array('url' => '/contact/create', 'class' => 'contact-form')),
+    $form->create('WildMessage', array('url' => $here, 'class' => 'contact-form')),
     "<fieldset>\n",
     "<legend>Contact form</legend>\n",
     $form->input('name'),
