@@ -52,7 +52,7 @@ class WildAssetsController extends WildflowerAppController {
         
         $this->WildAsset->data[$this->modelClass]['name'] = $fileName;
         if (empty($this->WildAsset->data[$this->modelClass]['title'])) {
-            $this->WildAsset->data[$this->modelClass]['title'] = $fileName;
+            $this->WildAsset->data[$this->modelClass]['title'] = str_replace(array('.jpg', '.jpeg', '.gif', '.png'), array('', '', '', ''), $fileName);
         }
         $this->WildAsset->data[$this->modelClass]['mime'] = $this->WildAsset->data[$this->modelClass]['file']['type'];
         
@@ -205,7 +205,6 @@ class WildAssetsController extends WildflowerAppController {
         	$phpThumb = new phpThumb();
 
         	$phpThumb->setSourceFilename($sourceFile);
-
         	$phpThumb->setParameter('config_output_format', 'jpeg');
 
         	$phpThumb->setParameter('w', intval($width));

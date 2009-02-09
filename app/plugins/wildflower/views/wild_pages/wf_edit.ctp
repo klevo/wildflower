@@ -5,7 +5,72 @@
     echo 
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
 ?>
+<script type="text/javascript">
 
+var groupEditor = function (){
+    
+    // Private variables and functions
+    var el;
+    var id;
+    
+    return {
+        // Public functions
+        init: function(element, i) {
+            el = element;
+            id = 'group-editor-' + id;
+            var content = $(el).val();
+            $(el).css('display', 'none').attr('id', id);
+            
+            // Parse JSON - eval is safe here because content is trusted
+            var parsedContent;
+            try {
+                parsedContent = eval('(' + content + ')');
+            } catch(e) {
+                parsedContent = {};
+            }
+            
+            console.log(parsedContent);
+            for(var i = 0; i < parsedContent.length; i ++) {
+                var section = parsedContent[i];
+                    switch(section.type) {
+                        
+                        // A 'content' block is defined as text with an image
+                        case 'content':
+                            this.appendContentBlock(section);
+                            break;
+                    }
+            }
+            
+            this.serialize();
+        },
+        
+        appendContentBlock: function(section) {
+            $(el).parent().append('<div class="content-block"><input type="text" class="group-editor-image" value="' + section.image + '" /><textarea class="group-editor-text">' + section.text + '</textarea></div>');
+        },
+        
+        appendFileBlock: function() {
+            
+        },
+        
+        /**
+         * 
+         */
+        serialize: function() {
+            
+        }
+    }
+    
+}
+
+$(document).ready(function(){
+    $('.group_editor').each(function(i){
+        var editor = new groupEditor();
+        editor.init(this, i);
+    });
+});
+
+
+</script>
 <div id="title-content">
     <?php
         echo
@@ -17,12 +82,22 @@
         $form->input('content', array(
             'type' => 'textarea',
             'tabindex' => '2',
-            'class' => 'tinymce',
+            'class' => 'group_editor',
             'rows' => '25',
             'label' => __('Body', true),
             'div' => array('class' => 'input editor'))),
-        '<div>',
-        $form->hidden('id'),
+        '<div>';
+        ?>
+        <? /*
+        <div class="content-block">
+            <div class="image-chooser">
+                
+            </div>
+            <textarea></textarea>
+        </div>
+        */ ?>
+        <?
+        echo $form->hidden('id'),
         $form->hidden('draft'),
         '</div>';
     ?>
@@ -41,6 +116,7 @@
 
             $first = '<span class="current-revision">&mdash;current version</span>';
             foreach ($revisions as $version) {
+            	//print_r($version);
                 $attr = '';
                 if (ListHelper::isOdd()) {
                     $attr = ' class="odd"';
