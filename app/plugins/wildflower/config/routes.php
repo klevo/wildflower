@@ -48,6 +48,7 @@ Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('c
 
 // Image thumbnails
 Router::connect('/wildflower/thumbnail/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail'));
+Router::connect('/wildflower/thumbnail_by_id/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail_by_id'));
 
 // Site search (pages & posts)
 Router::connect('/wildflower/search', array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search'));

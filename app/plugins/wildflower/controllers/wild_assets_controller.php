@@ -155,6 +155,11 @@ class WildAssetsController extends WildflowerAppController {
         Configure::write('debug', 0);
     }
     
+    function thumbnail_by_id($id, $width = 120, $height = 120, $crop = 0) {
+        $asset = $this->WildAsset->read(null, $id);
+        $this->thumbnail($asset['WildAsset']['name'], $width, $height, $crop);
+    }
+    
     /**
      * Create a thumbnail from an image, cache it and output it
      *

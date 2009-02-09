@@ -65,7 +65,7 @@
             <?php echo $content_for_layout; ?>
             <span class="cleaner">&nbsp;</span>
         </div>
-        
+        <div class="clear"></div>
         <hr />
         
         <div id="footer">
@@ -80,7 +80,7 @@
 	    </div>
         
     </div>
-
+    
     <?php echo $this->element('google_analytics') ?>
     
 </body>
