@@ -77,24 +77,22 @@
     </div>
 </div>
 
-<div id="whiteness">
-    <div id="wrap">
-        <div id="content">
-            <div id="content-pad">
-                <?php echo $content_for_layout; ?>
-            </div>
+<div id="wrap">
+    <div id="content">
+        <div id="content-pad">
+            <?php echo $content_for_layout; ?>
         </div>
-        
-        <?php if (isset($sidebar_for_layout)): ?>
-        <div id="sidebar">
-            <ul>
-                <?php echo $sidebar_for_layout; ?>
-            </ul>
-        </div>
-        <?php endif; ?>
-            
-        <div class="cleaner"></div>
     </div>
+    
+    <?php if (isset($sidebar_for_layout)): ?>
+    <div id="sidebar">
+        <ul>
+            <?php echo $sidebar_for_layout; ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+        
+    <div class="cleaner"></div>
 </div>
 
 <p id="footer">
