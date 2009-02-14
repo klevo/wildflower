@@ -67,6 +67,7 @@ class WildflowerAppController extends AppController {
 			$this->layout = 'default';
 			$this->Auth->allow('*');
 		}
+		$this->isAuthorized = $this->Auth->isAuthorized();
 		
 		// Internationalization
 		$this->L10n = new L10n();

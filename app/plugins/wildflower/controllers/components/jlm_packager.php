@@ -147,7 +147,7 @@ class JlmPackagerComponent {
                 $template = $this->readFile($path, false);
                 
                 // Escape some chars
-                $template = str_replace(array("\n", "'"), array('', "\'"), $template);
+                $template = str_replace(array("\n", "\r", "'"), array('', '', "\'"), $template);
                 $templateName = str_replace('.html', '', $file);
                 $varName = "jQuery.jlm.templates['$dir']['$templateName']";
                 

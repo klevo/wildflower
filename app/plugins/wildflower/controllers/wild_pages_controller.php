@@ -130,10 +130,10 @@ class WildPagesController extends WildflowerAppController {
         if (Configure::read('AppSettings.home_page_id') != $this->WildPage->id) {
             $this->WildPage->updateChildPageUrls($this->WildPage->id, $oldUrl, $page['WildPage']['url']);
         }
-
+		$hasUser = $page['WildUser']['id'] ? true : false;
         // JSON response
         if ($this->RequestHandler->isAjax()) {
-            $this->set(compact('page'));
+            $this->set(compact('page', 'hasUser'));
             return $this->render('wf_update');
         }
         
@@ -333,7 +333,7 @@ class WildPagesController extends WildflowerAppController {
             'descriptionMetaTag' => $page[$this->modelClass]['description_meta_tag'],
             'keywordsMetaTag' => $page[$this->modelClass]['keywords_meta_tag']
         );
-        
+        $this->set($this->params['pageMeta']);
         // Parameters @TODO unify parameters
         $this->params['current'] = array(
             'type' => 'page', 

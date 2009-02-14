@@ -3,7 +3,7 @@ require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
 
 class WildHelper extends WildflowerAppHelper {
 	
-	public $helpers = array('Html');
+	public $helpers = array('Html', 'Textile');
 	private $_isFirstChild = true;
 	private $itemCssClassPrefix;
 	
@@ -197,6 +197,24 @@ class WildHelper extends WildflowerAppHelper {
      */
     private function _getMenuSlug($label) {
         return WildflowerHelper::slug(low($label), '-');
+    }
+    
+    function renderPage($content) {
+        $content = json_decode($content);
+        
+        $output = '';
+        foreach($content as $element) {
+            switch($element->type) {
+                case 'content':
+                    if($element->image != '') {
+                        $output .= '<div class="image-' . $element->align . '"><img src="' . $this->Html->url('/wildflower/thumbnail_by_id/' . $element->image . '/320/1000/0') . '" /></div>';
+                    }
+                    $output .= $this->Textile->format($element->text);
+                    $output .= '<div class="clear"></div>';
+                    break;
+            }
+        }
+        return $output;
     }
 
 }

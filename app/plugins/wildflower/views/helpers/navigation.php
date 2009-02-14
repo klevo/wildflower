@@ -256,7 +256,7 @@ class NavigationHelper extends WildflowerAppHelper {
      * @return string
      */
     function pages($options = array()) {
-        $pages = $this->requestAction('/pages/navigation', array(
+        $pages = $this->requestAction('/wildflower/pages/navigation', array(
             'navOptions' => $options
         ));
         $idAttr = '';

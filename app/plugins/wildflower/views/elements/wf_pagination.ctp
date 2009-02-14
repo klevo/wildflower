@@ -6,7 +6,7 @@
     		'format' => '%start% to %end% of %count%'
     	)),
     	'</div>',
-    	$paginator->prev('« Never ', array('class' => 'paginate-prev'), null, array('class' => 'paginate-prev disabled')),
+    	$paginator->prev('« Newer ', array('class' => 'paginate-prev'), null, array('class' => 'paginate-prev disabled')),
     	'<div class="paginate-numbers">',
     	$paginator->numbers(),
     	'</div>',

@@ -52,7 +52,7 @@ class WildAssetsController extends WildflowerAppController {
         
         $this->WildAsset->data[$this->modelClass]['name'] = $fileName;
         if (empty($this->WildAsset->data[$this->modelClass]['title'])) {
-            $this->WildAsset->data[$this->modelClass]['title'] = $fileName;
+            $this->WildAsset->data[$this->modelClass]['title'] = str_replace(array('.jpg', '.jpeg', '.gif', '.png'), array('', '', '', ''), $fileName);
         }
         $this->WildAsset->data[$this->modelClass]['mime'] = $this->WildAsset->data[$this->modelClass]['file']['type'];
         
@@ -155,6 +155,11 @@ class WildAssetsController extends WildflowerAppController {
         Configure::write('debug', 0);
     }
     
+    function thumbnail_by_id($id, $width = 120, $height = 120, $crop = 0) {
+        $asset = $this->WildAsset->read(null, $id);
+        $this->thumbnail($asset['WildAsset']['name'], $width, $height, $crop);
+    }
+    
     /**
      * Create a thumbnail from an image, cache it and output it
      *
@@ -205,7 +210,6 @@ class WildAssetsController extends WildflowerAppController {
         	$phpThumb = new phpThumb();
 
         	$phpThumb->setSourceFilename($sourceFile);
-
         	$phpThumb->setParameter('config_output_format', 'jpeg');
 
         	$phpThumb->setParameter('w', intval($width));

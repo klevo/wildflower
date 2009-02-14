@@ -159,6 +159,16 @@ a {
     }
 
 
+.image-right {
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.clear {
+    clear: both;
+}
+
 /* Footer */
 
 #footer  {
@@ -248,6 +258,7 @@ a {
 	top: 0;
 	left: 0;
 	width: 100%;
+    z-index: 999;
 }
 
     #admin-bar a {
