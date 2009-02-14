@@ -24,5 +24,11 @@
              
     <?php endforeach; ?>
     </ul>
+    
+    <?php echo $this->element('wf_pagination'); ?>
 
 <?php endif; ?>
+
+<div class="sidebar-box">
+    <?php echo $this->element('../wild_assets/_upload_file_box'); ?>
+</div>

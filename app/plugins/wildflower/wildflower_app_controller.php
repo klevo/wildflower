@@ -15,6 +15,22 @@ class WildflowerAppController extends AppController {
 	
 	private $_isDatabaseConnected = true;
 	
+	function __construct() {
+		// Autoload APP helpers
+		$appHelpers = scandir(APP . 'views' . DS . 'helpers');
+		foreach ($appHelpers as $i => $fileName) {
+		    if ($fileName[0] == '.' or strpos($fileName, '.php') < 1) {
+		        unset($appHelpers[$i]);
+		        continue;
+		    }
+		    
+	        $fileName = str_replace('.php', '', $fileName);
+	        $appHelpers[$i] = Inflector::camelize($fileName);
+		}
+		$this->helpers = am($this->helpers, $appHelpers);
+		parent::__construct();
+	}
+	
 	/**
      * Called before any controller action
      * 
