@@ -86,25 +86,24 @@ $.jlm.addComponent('tinyMce', {
     		$('#insert_image', imageSidebarEl).click(function() {
     			var imgName = $('.selected img', imageSidebarEl).attr('alt');
 
-    			if (typeof(imgName) == 'undefined') {
+    			if (typeof(imgName) == 'undefined' || trim(imgName) == '') {
     			    return false;
     			}
 
-                var width, height;
-                // if (isNaN(width = $('#ImageResizeX', imageSidebarEl).val())) {
-                //     width = 0;
-                // }
-                // if (isNaN(height = $('#ImageResizeY', imageSidebarEl).val())) {
-                //     height = 0;
-                // }
-
                 // Original size
                 imgNameEscaped = escape(imgName);
-                var imgUrl = $.jlm.base + '/uploads/' + imgNameEscaped; // @TODO get 'uploads' from config
+                var imgUrl = $.jlm.base + '/' + $.jlm.params.custom.wildflowerUploads + '/' + imgNameEscaped;
 
                 // Thumbnail
-                if ($('#ImageSize', imageSidebarEl).val() == 'thumbnail') {
-                    imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/120/120/1';
+                var resizeWidth = $('#resize_x', imageSidebarEl).val();
+                var crop = 1;
+                var resizeHeight = $('#resize_y', imageSidebarEl).val();
+                if (intval(resizeHeight) < 1) {
+                    resizeHeight = resizeWidth;
+                }
+                console.debug(resizeHeight);
+                if (!isNaN(resizeWidth)) {
+                    imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
                 }
 
     			// Image HTML

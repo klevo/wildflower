@@ -32,6 +32,11 @@
 
     <?php endif; ?>
     
+    <div id="resize_image">
+        <h5>Resize</h5>
+        Width: <input type="text" id="resize_x" name="data[Resize][width]" size="4"> px&nbsp;&nbsp; Height: <input type="text" name="data[Resize][height]" id="resize_y" size="4"> px
+    </div>
+    
     <span class="cleaner"></span>
     <button id="insert_image">Insert</button>
     <span class="cleaner"></span>

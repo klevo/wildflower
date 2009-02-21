@@ -35,7 +35,10 @@
             base: '<?php echo $this->base ?>',
             controller: '<?php echo $this->params['controller'] ?>',
             action: '<?php echo $this->params['action'] ?>', 
-            prefix: '<?php echo Configure::read('Wildflower.prefix') ?>' 
+            prefix: '<?php echo Configure::read('Wildflower.prefix') ?>',
+            custom: {
+                wildflowerUploads: '<?php echo Configure::read('Wildflower.uploadsDirectoryName'); ?>'
+            }
         });
         
         tinyMCE.init($.jlm.components.tinyMce.getConfig());

@@ -68,6 +68,7 @@ jQuery.jlm = {
         this.params.controller = params.controller;
         this.params.action = params.action;
         this.params.prefix = params.prefix;
+        this.params.custom = params.custom;
     },
     
     /**
