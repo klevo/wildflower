@@ -147,6 +147,20 @@ img {
     background: #fff;
 }
 
+#co_right_shadow {
+    background: url(img/wrap_shadow_right.png) right top repeat-y;
+}
+
+#co_bottom_shadow {
+    background: url(img/wrap_bottom_shadow.png) left bottom repeat-x;
+}
+
+#co_right_bottom_corner {
+    padding-bottom: 10px;
+    padding-right: 16px;
+    background: url(img/wrap_shadow_right_bottom_corner.png) right bottom no-repeat;
+}
+
 #content-pad {
     padding: 20px 25px 35px;
     min-height: 300px;

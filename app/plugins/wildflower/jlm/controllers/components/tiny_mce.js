@@ -101,7 +101,6 @@ $.jlm.addComponent('tinyMce', {
                 if (intval(resizeHeight) < 1) {
                     resizeHeight = resizeWidth;
                 }
-                console.debug(resizeHeight);
                 if (!isNaN(resizeWidth)) {
                     imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
                 }
