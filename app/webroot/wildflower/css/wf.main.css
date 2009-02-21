@@ -811,6 +811,12 @@ select {
     #image-browser .selected {
     }
     
+    #image-browser .sidebar-box {
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none;
+    }
+    
     
 /* Reorder list */
 

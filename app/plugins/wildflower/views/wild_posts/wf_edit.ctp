@@ -66,16 +66,16 @@
     
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li>
+    <li class="main_sidebar">
         <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
     </li>
-    <li>
+    <li class="main_sidebar">
         <?php echo $html->link(
             '<span>Write a new post</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)); ?>
     </li>
-    <li>
+    <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
             <li><?php echo $html->link('Categorize this post', array('action' => 'categorize', $this->data['WildPost']['id'])); ?></li>
             <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPost']['id']), array('escape' => false)); ?></li>
@@ -83,7 +83,7 @@
             <li><?php echo $html->link("Comments ({$this->data['WildPost']['wild_comment_count']})", array('action' => 'comments', $this->data['WildPost']['id'])); ?></li>
         </ul>
     </li>
-    <li class="sidebar-box post-info">
+    <li class="sidebar-box post-info main_sidebar">
         <?php echo $this->element('../wild_posts/_post_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

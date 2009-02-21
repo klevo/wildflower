@@ -66,84 +66,62 @@ $.jlm.addComponent('tinyMce', {
 	},
 	
 	insertImage: function(editor) {
-	    // Append img browser
-	    var browserEl = $('#image-browser');
-	    var doBindAndLoad = false;
-	    if (browserEl.size() == 0) {
-	        doBindAndLoad = true;
-	        browserEl = $($.jlm.element('image_browser')).hide();
-	    } 
-	    
-	    $('#sidebar > ul').prepend(browserEl);
-	    
-	    if (browserEl.css('display') == 'none') {
-            browserEl.slideDown(600);
-	    } else {
-	        // Already open, close
-	        browserEl.slideUp(200);
-	        return false;
-	    }
-	    
-	    if (!doBindAndLoad) {
-	        return false;
-	    }
-	    
-	    // Load images
 	    // @TODO: I want to do something like this:
 	    // $.jlm.url({ plugin: 'wildflower', controller: 'wild_assets', action: 'wf_insert_image' });
 	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_image';
 	    
-	    $.get(url, function(imagesHtml) {
-	        areImagesLoaded = true;
-	        var imagesHtmlEl = $(imagesHtml).hide();
-            $('h4:first', browserEl).after(imagesHtml);
-            imagesHtmlEl.fadeIn('normal');
+	    $.get(url, function(html) {
+	        var imageSidebarEl = $(html);
+	        $('.main_sidebar').hide();
+	        
+	        $('#sidebar > ul').append(imageSidebarEl);
             
             // Bind selecting
-            $('.file-list > li').click(function() {
+            $('.file-list > li', imageSidebarEl).click(function() {
                 $('#image-browser .selected').removeClass('selected');
                 $(this).addClass('selected');
             });
-		});
-	    
-	    // Bind insert button
-		$('button', browserEl).click(function() {
-			var imgName = $('.selected img', browserEl).attr('alt');
-			
-			if (typeof(imgName) == 'undefined') {
-			    return false;
-			}
             
-            var width, height;
-            // if (isNaN(width = $('#ImageResizeX', browserEl).val())) {
-            //     width = 0;
-            // }
-            // if (isNaN(height = $('#ImageResizeY', browserEl).val())) {
-            //     height = 0;
-            // }
-            
-            // Original size
-            imgNameEscaped = escape(imgName);
-            var imgUrl = 'uploads/' + imgNameEscaped; // @TODO get 'uploads' from config
-			
-            // Thumbnail
-            if ($('#ImageSize', browserEl).val() == 'thumbnail') {
-                imgUrl = $.params.base + '/wildflower/thumbnail/' + imgNameEscaped + '/120/120/1';
-            }
-			
-			// Image HTML
-			var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
-			
-			editor.execCommand('mceInsertContent', 0, imgHtml);
-			
-			return false;
+            // Bind insert button
+    		$('#insert_image', imageSidebarEl).click(function() {
+    			var imgName = $('.selected img', imageSidebarEl).attr('alt');
+
+    			if (typeof(imgName) == 'undefined') {
+    			    return false;
+    			}
+
+                var width, height;
+                // if (isNaN(width = $('#ImageResizeX', imageSidebarEl).val())) {
+                //     width = 0;
+                // }
+                // if (isNaN(height = $('#ImageResizeY', imageSidebarEl).val())) {
+                //     height = 0;
+                // }
+
+                // Original size
+                imgNameEscaped = escape(imgName);
+                var imgUrl = $.jlm.base + '/uploads/' + imgNameEscaped; // @TODO get 'uploads' from config
+
+                // Thumbnail
+                if ($('#ImageSize', imageSidebarEl).val() == 'thumbnail') {
+                    imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/120/120/1';
+                }
+
+    			// Image HTML
+    			var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
+
+    			editor.execCommand('mceInsertContent', 0, imgHtml);
+
+    			return false;
+    		});
+
+    		// Bind close
+            $('.cancel', imageSidebarEl).click(function() {
+                $('.insert_image_sidebar').remove();
+                $('.main_sidebar').show();
+                return false;
+            });
 		});
-		
-		// Bind close
-        $('.cancel', browserEl).click(function() {
-            browserEl.slideUp(200);
-            return false;
-        });
 	    
 	    return false;
 	},
