@@ -11,11 +11,9 @@
     <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/' . Configure::read('Wildflower.blogIndex') . '/rss'); ?>" />
     
-    <?php 
-	    echo $html->css(array(
-	        'wildflower/main'
-	    ));
-    ?>
+    <base href="<?php echo FULL_BASE_URL . $this->webroot; ?>" />
+    
+    <?php echo $html->css(array('wildflower/main')); ?>
         
     <script type="text/javascript">
         BASE = '<?php echo $this->base ?>';

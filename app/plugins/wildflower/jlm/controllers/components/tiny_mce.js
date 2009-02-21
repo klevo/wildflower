@@ -43,10 +43,10 @@ $.jlm.addComponent('tinyMce', {
             width: '100%',
 
             // URLs
-            relative_urls: true,
-            remove_script_host: true,
+            relative_urls: false,
+            remove_script_host: false,
             document_base_url: fullBaseUrl,
-            convert_urls: true,
+            convert_urls: false,
             
             content_css: stylesheetUrl,
             
