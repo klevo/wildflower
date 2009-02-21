@@ -1,11 +1,12 @@
 <div id="name-new-post" class="new-dialog">
-    <h2 class="section"><l18n>Name your new post</l18n></h2>
+    <h2 class="section"><l18n>Create a new post</l18n></h2>
     
     <form action="${action}" method="post">
-        <fieldset style="display:none">
+        <fieldset style="display:none;">
             <input type="hidden" name="_method" value="POST" />
         </fieldset>
         <div class="input">
+            <label for="WildPostTitle">Post Title</label>
             <input id="WildPostTitle" type="text" size="60" name="data[WildPost][title]" maxlength="256" />
         </div>
         <div class="submit wf-form-button">

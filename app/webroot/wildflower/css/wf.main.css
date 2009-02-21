@@ -823,6 +823,12 @@ select {
     }
     
     #image-browser .selected {
+        background-color: #0033CC;
+        color: #fff;
+    }
+    
+    #image-browser .selected a {
+        color: #fff;
     }
     
     #image-browser .sidebar-box {
@@ -830,6 +836,25 @@ select {
         padding: 0 !important;
         border: none;
     }
+    
+.sidebar-box h5 {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 1em 0;
+}
+
+#resize_image {
+    padding: 10px;
+    background-color: #ebebeb;
+}
+
+.sidebar-box .paginator {
+    font-size: 11px;
+}
+
+.sidebar-box button {
+    font-size: 12px;
+}
     
     
 /* Reorder list */

@@ -38,7 +38,7 @@
     </div>
     
     <span class="cleaner"></span>
-    <button id="insert_image">Insert</button>
+    <button id="insert_image">Insert selected image</button>
     <span class="cleaner"></span>
 </li>
 
