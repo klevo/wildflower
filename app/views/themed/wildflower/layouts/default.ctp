@@ -26,9 +26,14 @@
         // Do not show for previews
         if ($isLogged and $this->params['action'] != 'wf_preview') {
             $c = str_replace('wild_', '', $this->params['controller']);
+            if (isset($page['WildPage']['id'])) {
+                $id = $page['WildPage']['id'];
+            } else if (isset($post['WildPost']['id'])) {
+                $id = $post['WildPost']['id'];
+            }
             $editCurrentLink = '/' 
                 . Configure::read('Wildflower.prefix') 
-                . '/' . $c . '/edit/' . $page['WildPage']['id'];
+                . '/' . $c . '/edit/' . $id;
             
             echo 
             '<div id="admin-bar">',
