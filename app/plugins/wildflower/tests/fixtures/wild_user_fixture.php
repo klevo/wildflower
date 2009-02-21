@@ -1,7 +1,6 @@
 <?php 
 class WildUserFixture extends CakeTestFixture {
     public $name = 'WildUser';
-    public $table = 'users';
     public $import = 'Wildflower.WildUser';
     public $records = array(
         array('id' => 1, 
