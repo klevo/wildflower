@@ -58,7 +58,7 @@ class WildAssetsController extends WildflowerAppController {
         
         $this->WildAsset->save();
         
-        $this->redirect(array('action' => 'index'));
+        $this->redirect($this->referer(Configure::read('Wildflower.prefix') . '/assets'));
 	}
 
 	/**
