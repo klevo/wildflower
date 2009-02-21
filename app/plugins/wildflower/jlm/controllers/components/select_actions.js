@@ -30,7 +30,7 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index, wild
          return true;
      }
 
-     $('input[@type=checkbox]', handledFormEl).click(selectionChanged);
+     $('input[type=checkbox]', handledFormEl).click(selectionChanged);
      
      // Bind main actions
      $('.select-actions > a', handledFormEl).click(function() {
@@ -42,12 +42,12 @@ $.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index, wild
      });
      
      // Bind select All/None
-     $('a[@href=#SelectAll]', handledFormEl).click(function() {
+     $('a[href=#SelectAll]', handledFormEl).click(function() {
          $('input:checkbox', handledFormEl).attr('checked', 'true').parent().parent('li').addClass('selected');
          return false;
      });
      
-     $('a[@href=#SelectNone]', handledFormEl).click(function() {
+     $('a[href=#SelectNone]', handledFormEl).click(function() {
          selectActionsEl.slideUp(100);
          $('input:checkbox', handledFormEl).removeAttr('checked').parent().parent('li').removeClass('selected');
          return false;

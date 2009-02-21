@@ -7,8 +7,11 @@
     options.
 */
 
+#contet {
+}
+
 #content-pad {
-    padding-top: 1px;
+    padding-top: 20px;
 }
 
 .sidebar-menu,
