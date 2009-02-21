@@ -64,7 +64,7 @@ img {
     }
 
 #header {
-    background: #406d95;
+    background: #275e9d;
     overflow: hidden;
     color: #eee;
 }
@@ -110,12 +110,12 @@ img {
     #nav a {
         display: block;
         height: 12px;
-        margin: 0 3px 0 0;
+        margin: 0 2px 0 0;
         padding: 4px 9px 9px 9px;
-        background-color: #7f7f7f;
+        background-color: #3b3b3b;
         color: #fff;
         text-decoration: none;
-        -moz-border-radius: 3px 3px 0 0;
+        -moz-border-radius: 4px 4px 0 0;
         -webkit-border-top-left-radius: 3px;
         -webkit-border-top-right-radius: 3px;
         border-radius: 3px 3px 0 0;
