@@ -20,8 +20,8 @@ class WildPageTestCase extends CakeTestCase {
     	unset($this->Page);
     }
     
-    function testGetSelectBoxData() {
-        $result = $this->Page->getSelectBoxData(2);
+    function testGetListThreadedWithSkipId() {
+        $result = $this->Page->getListThreaded(2);
         $expected = array(
             '1' => 'Article 1',
             '3' => 'Krátka správa');
