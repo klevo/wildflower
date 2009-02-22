@@ -28,8 +28,8 @@ class WildPageTestCase extends CakeTestCase {
         $this->assertEqual($result, $expected);
     }
     
-    function testGetSelectBoxDataNoArg() {
-        $result = $this->Page->getSelectBoxData();
+    function testGetListThreaded() {
+        $result = $this->Page->getListThreaded();
         $expected = array(
             '1' => 'Article 1',
             '2' => 'Simple',
