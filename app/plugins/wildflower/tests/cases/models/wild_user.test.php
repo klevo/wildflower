@@ -24,15 +24,15 @@ class WildUserTestCase extends CakeTestCase {
     }
     
     function testValidSave() {
+        App::import('Security');
     	$data[$this->User->name] = array('name' => 'Pajtas', 'login' => 'pajtas',
     	   'email' => 'pajtas@klevo.sk', 
-    	   'password' => 'hgfgha', 'confirm_password' => 'hgfgha');
+    	   'password' => Security::hash('hgfgha', null, true), 'confirm_password' => 'hgfgha');
         $this->User->create($data);
         $result = $this->User->save();
         
         unset($result[$this->User->name]['created'], $result[$this->User->name]['updated']);
-        $data[$this->User->name]['password'] = sha1($data[$this->User->name]['password']);
-        
+
         $this->assertEqual($data, $result);
     }
     
