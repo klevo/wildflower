@@ -3,6 +3,8 @@ class WildUserTestCase extends CakeTestCase {
     public $fixtures = array(
         'plugin.wildflower.wild_user',
         'plugin.wildflower.wild_page',
+        'plugin.wildflower.wild_revision',
+        'plugin.wildflower.wild_post',
     );
     private $User;
     
@@ -12,6 +14,10 @@ class WildUserTestCase extends CakeTestCase {
     
     function endTest() {
     	unset($this->User);
+    }
+    
+    function testUseDbConfig() {
+        $this->assertEqual($this->User->useDbConfig, 'test_suite');
     }
     
     function testValidSave() {
