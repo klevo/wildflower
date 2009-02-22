@@ -59,31 +59,33 @@ class WildUserTestCase extends CakeTestCase {
         $this->assertFalse($result);
     }
     
-    function testSuccefulAuthenticate() {
-    	$result = $this->User->authenticate('klevo', 'article123');
-    	$this->assertTrue(!empty($result));
-    	
-    	$result = $this->User->authenticate('admin', 'čýáíľššýíáč');
-    	$this->assertTrue(!empty($result));
-    }
+    // @TODO add Auth tests
     
-    function testUnsuccefulAuthenticate() {
-    	$result = $this->User->authenticate('klevo_', 'article123');
-    	$this->assertTrue(empty($result));
-    	
-        $result = $this->User->authenticate('admin', ' čýáíľššýíáč');
-        $this->assertTrue(empty($result));
-    }
-    
-    function testSaveAndAuthenticate() {
-    	// Create a new user
-    	$data[$this->User->name] = array('name' => 'Uriah Heep', 'login' => 'uriah',
-           'email' => 'uriah@heep.tk', 
-           'password' => 'never2late', 'confirm_password' => 'never2late');
-        $result = $this->User->save($data);
-        
-    	// Try to authenticate
-    	$result = $this->User->authenticate('uriah', 'never2late');
-        $this->assertTrue(!empty($result));
-    }
+    // function testSuccefulAuthenticate() {
+    //  $result = $this->User->authenticate('klevo', 'article123');
+    //  $this->assertTrue(!empty($result));
+    //  
+    //  $result = $this->User->authenticate('admin', 'čýáíľššýíáč');
+    //  $this->assertTrue(!empty($result));
+    // }
+    // 
+    // function testUnsuccefulAuthenticate() {
+    //  $result = $this->User->authenticate('klevo_', 'article123');
+    //  $this->assertTrue(empty($result));
+    //  
+    //     $result = $this->User->authenticate('admin', ' čýáíľššýíáč');
+    //     $this->assertTrue(empty($result));
+    // }
+    // 
+    // function testSaveAndAuthenticate() {
+    //  // Create a new user
+    //  $data[$this->User->name] = array('name' => 'Uriah Heep', 'login' => 'uriah',
+    //        'email' => 'uriah@heep.tk', 
+    //        'password' => 'never2late', 'confirm_password' => 'never2late');
+    //     $result = $this->User->save($data);
+    //     
+    //  // Try to authenticate
+    //  $result = $this->User->authenticate('uriah', 'never2late');
+    //     $this->assertTrue(!empty($result));
+    // }
 }
