@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: dbo_source.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Core', array('Set', 'String'));
@@ -508,7 +508,7 @@ class DboSource extends DataSource {
 		if (strlen($sql) > 200 && !$this->fullDebug && Configure::read() > 1) {
 			$sql = substr($sql, 0, 200) . '[...]';
 		}
-		if ($error && Configure::read() > 0) {
+		if (Configure::read() > 0) {
 			$out = null;
 			if ($error) {
 				trigger_error("<span style = \"color:Red;text-align:left\"><b>SQL Error:</b> {$this->error}</span>", E_USER_WARNING);
@@ -1390,7 +1390,8 @@ class DboSource extends DataSource {
  * @access protected
  */
 	function _prepareUpdateFields(&$model, $fields, $quoteValues = true, $alias = false) {
-		$quotedAlias = $this->startQuote . $model->alias . $this->startQuote;
+		$quotedAlias = $this->startQuote . $model->alias . $this->endQuote;
+
 		foreach ($fields as $field => $value) {
 			if ($alias && strpos($field, '.') === false) {
 				$quoted = $model->escapeField($field);
@@ -1404,19 +1405,20 @@ class DboSource extends DataSource {
 
 			if ($value === null) {
 				$updates[] = $quoted . ' = NULL';
-			} else {
-				$update = $quoted . ' = ';
-				if ($quoteValues) {
-					$update .= $this->value($value, $model->getColumnType($field), false);
-				} elseif (!$alias) {
-					$update .= str_replace($quotedAlias . '.', '', str_replace(
-						$model->alias . '.', '', $value
-					));
-				} else {
-					$update .= $value;
-				}
-				$updates[] =  $update;
+				continue;
 			}
+			$update = $quoted . ' = ';
+
+			if ($quoteValues) {
+				$update .= $this->value($value, $model->getColumnType($field), false);
+			} elseif (!$alias) {
+				$update .= str_replace($quotedAlias . '.', '', str_replace(
+					$model->alias . '.', '', $value
+				));
+			} else {
+				$update .= $value;
+			}
+			$updates[] =  $update;
 		}
 		return $updates;
 	}
@@ -1674,7 +1676,11 @@ class DboSource extends DataSource {
 					$dot = strpos($fields[$i], '.');
 
 					if ($dot === false) {
-						$fields[$i] = $this->name($alias . '.' . $fields[$i]);
+						$prefix = !(
+							strpos($fields[$i], ' ') !== false ||
+							strpos($fields[$i], '(') !== false
+						);
+						$fields[$i] = $this->name(($prefix ? '' : '') . $alias . '.' . $fields[$i]);
 					} else {
 						$value = array();
 						$comma = strpos($fields[$i], ',');
@@ -1824,8 +1830,9 @@ class DboSource extends DataSource {
 						$count = count($value);
 						if ($count === 1) {
 							$data = $this->name($key) . ' = (';
-						} else
+						} else {
 							$data = $this->name($key) . ' IN (';
+						}
 						if ($quoteValues || strpos($value[0], '-!') !== 0) {
 							if (is_object($model)) {
 								$columnType = $model->getColumnType($key);
@@ -2004,17 +2011,12 @@ class DboSource extends DataSource {
 		}
 
 		if (is_array($keys)) {
-			foreach ($keys as $key => $val) {
-				if (is_numeric($key) && empty($val)) {
-					unset($keys[$key]);
-				}
-			}
+			$keys = array_filter($keys);
 		}
 
 		if (empty($keys) || (is_array($keys) && count($keys) && isset($keys[0]) && empty($keys[0]))) {
 			return '';
 		}
-		$flag = (isset($keys[0]) && $keys[0] == '(Model.field > 100) DESC');
 
 		if (is_array($keys)) {
 			$keys = (Set::countDim($keys) > 1) ? array_map(array(&$this, 'order'), $keys) : $keys;
@@ -2034,9 +2036,11 @@ class DboSource extends DataSource {
 					} else {
 						$dir = '';
 					}
-					Configure::write('flag', $flag);
-					$key = trim($this->name(trim($key)) . ' ' . trim($dir));
-					Configure::write('flag', false);
+					$key = trim($key);
+					if (!preg_match('/\s/', $key)) {
+						$key = $this->name($key);
+					}
+					$key .= ' ' . trim($dir);
 				}
 				$order[] = $this->order($key . $value);
 			}

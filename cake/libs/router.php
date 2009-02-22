@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: router.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Parses the request URL into controller, action, and parameters.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -740,7 +740,10 @@ class Router extends Object {
  *                        or an array specifying any of the following: 'controller', 'action',
  *                        and/or 'plugin', in addition to named arguments (keyed array elements),
  *                        and standard URL arguments (indexed array elements)
- * @param boolean $full If true, the full base URL will be prepended to the result
+ * @param mixed $options If (bool)true, the full base URL will be prepended to the result. 
+ *                       If an array accepts the following keys
+ *                           escape - used when making urls embedded in html escapes query string '&'
+ *                           full - if true the full base URL will be prepended.
  * @return string  Full translated URL with base path.
  * @access public
  * @static
@@ -748,7 +751,13 @@ class Router extends Object {
 	function url($url = null, $full = false) {
 		$_this =& Router::getInstance();
 		$defaults = $params = array('plugin' => null, 'controller' => null, 'action' => 'index');
-
+		
+		if (is_bool($full)) {
+			$escape = false;
+		} else {
+			extract(array_merge(array('escape' => false, 'full' => false), $full));
+		}
+		
 		if (!empty($_this->__params)) {
 			if (isset($this) && !isset($this->params['requested'])) {
 				$params = $_this->__params[0];
@@ -919,7 +928,7 @@ class Router extends Object {
 			$output = substr($output, 0, -1);
 		}
 
-		return $output . $extension . $_this->queryString($q) . $frag;
+		return $output . $extension . $_this->queryString($q, array(), $escape) . $frag;
 	}
 /**
  * Maps a URL array onto a route and returns the string result, or false if no match
@@ -1140,14 +1149,19 @@ class Router extends Object {
  * Generates a well-formed querystring from $q
  *
  * @param mixed $q Query string
- * @param array $extra Extra querystring parameters
+ * @param array $extra Extra querystring parameters.
+ * @param bool $escape Whether or not to use escaped &
  * @return array
  * @access public
  * @static
  */
-	function queryString($q, $extra = array()) {
+	function queryString($q, $extra = array(), $escape = false) {
 		if (empty($q) && empty($extra)) {
 			return null;
+		}
+		$join = '&';
+		if ($escape === true) {
+			$join = '&amp;';
 		}
 		$out = '';
 
@@ -1157,7 +1171,7 @@ class Router extends Object {
 			$out = $q;
 			$q = $extra;
 		}
-		$out .= http_build_query($q, null, '&');
+		$out .= http_build_query($q, null, $join);
 		if (isset($out[0]) && $out[0] != '?') {
 			$out = '?' . $out;
 		}
@@ -1179,7 +1193,7 @@ class Router extends Object {
 		$paths = Router::getPaths();
 
 		if (!empty($paths['base']) && stristr($url, $paths['base'])) {
-			$url = str_replace($paths['base'], '', $url);
+			$url = preg_replace('/' . preg_quote($paths['base'], '/') . '/', '', $url, 1);
 		}
 		$url = '/' . $url;
 

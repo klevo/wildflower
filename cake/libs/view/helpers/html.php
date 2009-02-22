@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: html.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Html Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.9.1
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -231,12 +231,12 @@ class HtmlHelper extends AppHelper {
 
 		if (isset($attributes['link'])) {
 			if (isset($attributes['rel']) && $attributes['rel'] === 'icon') {
-				$out = sprintf($this->tags['metalink'], $attributes['link'], $this->_parseAttributes($attributes, array('link')));
+				$out = sprintf($this->tags['metalink'], $attributes['link'], $this->_parseAttributes($attributes, array('link'), ' ', ' '));
 				$attributes['rel'] = 'shortcut icon';
 			} else {
 				$attributes['link'] = $this->url($attributes['link'], true);
 			}
-			$out .= sprintf($this->tags['metalink'], $attributes['link'], $this->_parseAttributes($attributes, array('link')));
+			$out .= sprintf($this->tags['metalink'], $attributes['link'], $this->_parseAttributes($attributes, array('link'), ' ', ' '));
 		} else {
 			$out = sprintf($this->tags['meta'], $this->_parseAttributes($attributes, array('type')));
 		}
@@ -348,15 +348,15 @@ class HtmlHelper extends AppHelper {
 				}
 			}
 
-			if (Configure::read('Asset.filter.css')) {
-				$path = str_replace(CSS_URL, 'ccss/', $path);
-			}
-
 			$path = $this->webroot($path);
-			$url = $path;
 
+			$url = $path;
 			if (strpos($path, '?') === false && ((Configure::read('Asset.timestamp') === true && Configure::read() > 0) || Configure::read('Asset.timestamp') === 'force')) {
 				$url .= '?' . @filemtime(WWW_ROOT . str_replace('/', DS, $path));
+			}
+
+			if (Configure::read('Asset.filter.css')) {
+				$url = str_replace(CSS_URL, 'ccss/', $url);
 			}
 		}
 
@@ -432,11 +432,9 @@ class HtmlHelper extends AppHelper {
 	function image($path, $options = array()) {
 		if (is_array($path)) {
 			$path = $this->url($path);
-		} elseif ($path{0} === '/') {
+		} elseif ($path[0] === '/') {
 			$path = $this->webroot($path);
-		} elseif (strpos($path, '://') !== false) {
-			$path = $path;
-		} else {
+		} elseif (strpos($path, '://') === false) {
 			if (Configure::read('Asset.timestamp') == true && Configure::read() > 0) {
 				$path .= '?' . @filemtime(str_replace('/', DS, WWW_ROOT . IMAGES_URL . $path));
 			}

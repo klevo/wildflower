@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: auth.php 8004 2009-01-16 20:15:21Z gwoo $ */
 
 /**
  * Authentication component
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -63,7 +63,7 @@ class AuthComponent extends Object {
  * 'controller' will validate against Controller::isAuthorized()
  * 'actions' will validate Controller::action against an AclComponent::check()
  * 'crud' will validate mapActions against an AclComponent::check()
- * array('model'=> 'name'); will validate mapActions against model $name::isAuthorize(user, controller, mapAction)
+ * array('model'=> 'name'); will validate mapActions against model $name::isAuthorized(user, controller, mapAction)
  * 'object' will validate Controller::action against object::isAuthorized(user, controller, action)
  *
  * @var mixed
@@ -264,7 +264,8 @@ class AuthComponent extends Object {
 	function startup(&$controller) {
 		$isErrorOrTests = (
 			strtolower($controller->name) == 'cakeerror' ||
-			(strtolower($controller->name) == 'tests' && Configure::read() > 0)
+			(strtolower($controller->name) == 'tests' && Configure::read() > 0) ||
+			!in_array($controller->params['action'], $controller->methods)
 		);
 		if ($isErrorOrTests) {
 			return true;
@@ -276,30 +277,14 @@ class AuthComponent extends Object {
 		$this->data = $controller->data = $this->hashPasswords($controller->data);
 		$url = '';
 
-		if (is_array($this->loginAction)) {
-			$params = $controller->params;
-			$keys = array('pass', 'named', 'controller', 'action', 'plugin');
-			$url = array();
-
-			foreach ($keys as $key) {
-				if (!empty($params[$key])) {
-					if (is_array($params[$key])) {
-						foreach ($params[$key] as $name => $value) {
-							$url[$name] = $value;
-						}
-					} else {
-						$url[$key] = $params[$key];
-					}
-				}
-			}
-		} elseif (isset($controller->params['url']['url'])) {
+		if (isset($controller->params['url']['url'])) {
 			$url = $controller->params['url']['url'];
 		}
 		$url = Router::normalize($url);
 		$loginAction = Router::normalize($this->loginAction);
 		$isAllowed = (
 			$this->allowedActions == array('*') ||
-			in_array($controller->action, $this->allowedActions)
+			in_array($controller->params['action'], $this->allowedActions)
 		);
 
 		if ($loginAction != $url && $isAllowed) {
@@ -313,23 +298,29 @@ class AuthComponent extends Object {
 				}
 				return false;
 			}
-			$username = $controller->data[$this->userModel][$this->fields['username']];
-			$password = $controller->data[$this->userModel][$this->fields['password']];
 
-			$data = array(
-				$this->userModel . '.' . $this->fields['username'] => $username,
-				$this->userModel . '.' . $this->fields['password'] => $password
-			);
+			$isValid = !empty($controller->data[$this->userModel][$this->fields['username']]) &&
+				!empty($controller->data[$this->userModel][$this->fields['password']]);
 
-			if ($this->login($data)) {
-				if ($this->autoRedirect) {
-					$controller->redirect($this->redirect(), null, true);
+			if ($isValid) {
+				$username = $controller->data[$this->userModel][$this->fields['username']];
+				$password = $controller->data[$this->userModel][$this->fields['password']];
+
+				$data = array(
+					$this->userModel . '.' . $this->fields['username'] => $username,
+					$this->userModel . '.' . $this->fields['password'] => $password
+				);
+
+				if ($this->login($data)) {
+					if ($this->autoRedirect) {
+						$controller->redirect($this->redirect(), null, true);
+					}
+					return true;
 				}
-				return true;
-			} else {
-				$this->Session->setFlash($this->loginError, 'default', array(), 'auth');
-				$controller->data[$this->userModel][$this->fields['password']] = null;
 			}
+
+			$this->Session->setFlash($this->loginError, 'default', array(), 'auth');
+			$controller->data[$this->userModel][$this->fields['password']] = null;
 			return false;
 		} else {
 			if (!$this->user()) {
@@ -438,7 +429,7 @@ class AuthComponent extends Object {
  * 'actions' will validate Controller::action against an AclComponent::check()
  * 'crud' will validate mapActions against an AclComponent::check()
  * 		array('model'=> 'name'); will validate mapActions against model
- * 		$name::isAuthorize(user, controller, mapAction)
+ * 		$name::isAuthorized(user, controller, mapAction)
  * 'object' will validate Controller::action against
  * 		object::isAuthorized(user, controller, action)
  *
@@ -673,9 +664,9 @@ class AuthComponent extends Object {
  */
 	function redirect($url = null) {
 		if (!is_null($url)) {
-			return $this->Session->write('Auth.redirect', $url);
-		}
-		if ($this->Session->check('Auth.redirect')) {
+			$redir = $url;
+			$this->Session->write('Auth.redirect', $redir);
+		} elseif ($this->Session->check('Auth.redirect')) {
 			$redir = $this->Session->read('Auth.redirect');
 			$this->Session->delete('Auth.redirect');
 
@@ -810,7 +801,7 @@ class AuthComponent extends Object {
 			if (empty($data) || empty($data[$this->userModel])) {
 				return null;
 			}
-		} elseif (!empty($user)) {
+		} elseif (!empty($user) && is_string($user)) {
 			$model =& $this->getModel();
 			$data = $model->find(array_merge(array($model->escapeField() => $user), $conditions));
 

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: view.php 7961 2008-12-25 23:21:36Z gwoo $ */
 /**
  * Methods for displaying presentation data in the view.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 7961 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2008-12-25 15:21:36 -0800 (Thu, 25 Dec 2008) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -664,7 +664,9 @@ class View extends Object {
 			@include ($___viewFn);
 		}
 
-		$this->_triggerHelpers('afterRender');
+		if ($loadHelpers === true) {
+			$this->_triggerHelpers('afterRender');
+		}
 
 		$out = ob_get_clean();
 		$caching = (

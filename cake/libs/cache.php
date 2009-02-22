@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: cache.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Caching for CakePHP.
  *
@@ -18,9 +18,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4933
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -213,8 +213,7 @@ class Cache extends Object {
 	function gc() {
 		$_this =& Cache::getInstance();
 		$config = $_this->config();
-		extract($config);
-		$_this->_Engine[$engine]->gc();
+		$_this->_Engine[$config['engine']]->gc();
 	}
 /**
  * Write data for key into cache

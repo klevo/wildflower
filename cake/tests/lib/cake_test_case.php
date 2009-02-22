@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: cake_test_case.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.tests.libs
  * @since         CakePHP(tm) v 1.2.0.4667
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 if (!class_exists('dispatcher')) {
@@ -460,7 +460,7 @@ class CakeTestCase extends UnitTestCase {
 /**
  * Takes an array $expected and generates a regex from it to match the provided $string. Samples for $expected:
  *
- * Checks for an input tag with a name attribute (contains any value) and an id attribute that contains 'my-input':
+ * Checks for an input tag with a name attribute (contains any non-empty value) and an id attribute that contains 'my-input':
  * 	array('input' => array('name', 'id' => 'my-input'))
  *
  * Checks for two p elements with some text in them:
@@ -686,7 +686,7 @@ class CakeTestCase extends UnitTestCase {
 			if (strpos($fixture, 'core.') === 0) {
 				$fixture = substr($fixture, strlen('core.'));
 				foreach (Configure::corePaths('cake') as $key => $path) {
-					$fixturePaths[] = $path . DS . 'tests' . DS . 'fixtures';
+					$fixturePaths[] = $path . 'tests' . DS . 'fixtures';
 				}
 			} elseif (strpos($fixture, 'app.') === 0) {
 				$fixture = substr($fixture, strlen('app.'));

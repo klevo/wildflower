@@ -1,5 +1,4 @@
 <?php
-App::import('Sanitize');
 /**
  * WildUser model
  * 

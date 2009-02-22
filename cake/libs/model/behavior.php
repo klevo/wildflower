@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: behavior.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Model behaviors base class.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model
  * @since         CakePHP(tm) v 1.2.0.0
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -279,11 +279,14 @@ class BehaviorCollection extends Object {
 				$this->{$name} =& new $class;
 			}
 		} elseif (isset($this->{$name}->settings) && isset($this->{$name}->settings[$this->modelName])) {
-			if ($config !== null && $config !== false) {
+			if (!empty($config)) {
 				$config = array_merge($this->{$name}->settings[$this->modelName], $config);
 			} else {
 				$config = array();
 			}
+		}
+		if (empty($config)) {
+			$config = array();
 		}
 		$this->{$name}->setup(ClassRegistry::getObject($this->modelName), $config);
 

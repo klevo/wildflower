@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: dbo_postgres.php 7945 2008-12-19 02:16:01Z gwoo $ */
 
 /**
  * PostgreSQL layer for DBO.
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.9.1.114
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 7945 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -382,7 +382,10 @@ class DboPostgres extends DboSource {
  * @return string SQL field
  */
 	function name($data) {
-		return parent::name(str_replace('"__"', '__', $data));
+		if (is_string($data)) {
+			$data = str_replace('"__"', '__', $data);
+		}
+		return parent::name($data);
 	}
 /**
  * Generates the fields list of an SQL query.
@@ -422,6 +425,157 @@ class DboPostgres extends DboSource {
 			}
 		}
 		return $fields;
+	}
+/**
+ * Returns an array of the indexes in given datasource name.
+ *
+ * @param string $model Name of model to inspect
+ * @return array Fields in table. Keys are column and unique
+ */
+	function index($model) {
+		$index = array();
+		$table = $this->fullTableName($model, false);
+		if ($table) {
+			$indexes = $this->query("SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true) as statement, c2.reltablespace
+			FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+			WHERE c.oid  = ( 
+				SELECT c.oid 
+				FROM pg_catalog.pg_class c LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace 
+				WHERE c.relname ~ '^(" . $table . ")$' 
+					AND pg_catalog.pg_table_is_visible(c.oid) 
+					AND n.nspname ~ '^(" . $this->config['schema'] . ")$'
+			) 
+			AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+			ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname", false);
+			foreach ($indexes as $i => $info) {
+				$key = array_pop($info);
+				if ($key['indisprimary']) {
+					$key['relname'] = 'PRIMARY';
+				}
+				$col = array();
+				preg_match('/\(([^\)]+)\)/', $key['statement'], $indexColumns);
+				$parsedColumn = $indexColumns[1];
+				if (strpos($indexColumns[1], ',') !== false) {
+					$parsedColumn = explode(', ', $indexColumns[1]);
+				}
+				$index[$key['relname']]['unique'] = $key['indisunique'];
+				$index[$key['relname']]['column'] = $parsedColumn;
+			}
+		}
+		return $index;
+	}
+/**
+ * Alter the Schema of a table.
+ *
+ * @param array $compare Results of CakeSchema::compare()
+ * @param string $table name of the table
+ * @access public
+ * @return array
+ */
+	function alterSchema($compare, $table = null) {
+		if (!is_array($compare)) {
+			return false;
+		}
+		$out = '';
+		$colList = array();
+		foreach ($compare as $curTable => $types) {
+			$indexes = array();
+			if (!$table || $table == $curTable) {
+				$out .= 'ALTER TABLE ' . $this->fullTableName($curTable) . " \n";
+				foreach ($types as $type => $column) {
+					if (isset($column['indexes'])) {
+						$indexes[$type] = $column['indexes'];
+						unset($column['indexes']);
+					}
+					switch ($type) {
+						case 'add':
+							foreach ($column as $field => $col) {
+								$col['name'] = $field;
+								$alter = 'ADD COLUMN '.$this->buildColumn($col);
+								if (isset($col['after'])) {
+									$alter .= ' AFTER '. $this->name($col['after']);
+								}
+								$colList[] = $alter;
+							}
+						break;
+						case 'drop':
+							foreach ($column as $field => $col) {
+								$col['name'] = $field;
+								$colList[] = 'DROP COLUMN '.$this->name($field);
+							}
+						break;
+						case 'change':
+							foreach ($column as $field => $col) {
+								if (!isset($col['name'])) {
+									$col['name'] = $field;
+								}
+								$fieldName = $this->name($field);
+								$colList[] = 'ALTER COLUMN '. $fieldName .' TYPE ' . str_replace($fieldName, '', $this->buildColumn($col));
+							}
+						break;
+					}
+				}
+				if (isset($indexes['drop']['PRIMARY'])) {
+					$colList[] = 'DROP CONSTRAINT ' . $curTable . '_pkey';
+				}
+				if (isset($indexes['add']['PRIMARY'])) {
+					$cols = $indexes['add']['PRIMARY']['column'];
+					if (is_array($cols)) {
+						$cols = implode(', ', $cols);
+					}
+					$colList[] = 'ADD PRIMARY KEY (' . $cols . ')';
+				}
+				
+				if (!empty($colList)) {
+					$out .= "\t" . join(",\n\t", $colList) . ";\n\n";
+				} else {
+					$out = '';
+				}
+				$out .= join(";\n\t", $this->_alterIndexes($curTable, $indexes)) . ";";
+			}
+		}
+		return $out;
+	}
+/**
+ * Generate PostgreSQL index alteration statements for a table.
+ *
+ * @param string $table Table to alter indexes for
+ * @param array $new Indexes to add and drop
+ * @return array Index alteration statements
+ */	
+	function _alterIndexes($table, $indexes) {
+		$alter = array();
+		if (isset($indexes['drop'])) {
+			foreach($indexes['drop'] as $name => $value) {
+				$out = 'DROP ';
+				if ($name == 'PRIMARY') {
+					continue;
+				} else {
+					$out .= 'INDEX ' . $name;
+				}
+				$alter[] = $out;
+			}
+		}
+		if (isset($indexes['add'])) {
+			foreach ($indexes['add'] as $name => $value) {
+				$out = 'CREATE ';
+				if ($name == 'PRIMARY') {
+					continue;
+				} else {
+					if (!empty($value['unique'])) {
+						$out .= 'UNIQUE ';
+					}
+					$out .= 'INDEX ';
+				}
+				if (is_array($value['column'])) {
+					$out .= $name . ' ON ' . $table . ' (' . join(', ', array_map(array(&$this, 'name'), $value['column'])) . ')';
+				} else {
+					$out .= $name . ' ON ' . $table . ' (' . $this->name($value['column']) . ')';
+				}
+				$alter[] = $out;
+			}
+		}
+		return $alter;
 	}
 /**
  * Returns a limit statement in the correct format for the particular database.

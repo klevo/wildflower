@@ -489,5 +489,34 @@ class WildflowerAppController extends AppController {
         $string = preg_replace(array_keys($map), array_values($map), $string);
         return low($string);
     }
+    
+    function wf_get_fields() {
+        if (Configure::read('debug') < 1) {
+            return;
+        }
+
+        $output = '';
+        foreach ($this->{$this->modelClass}->schema() as $name => $column) {
+            $output .= "'$name' => array(";
+            
+            // Fields
+            foreach ($column as $field => $value) {
+                if (is_null($value) or $value === '') {
+                    continue;
+                }
+                $output .= "'$field' => ";
+                $value = str_replace("'", "\'", $value);
+                if (!is_numeric($value)) {
+                    $value = "'$value'";
+                }
+                $output .= $value . ', ';
+            }
+            
+            $output .= "),\n";
+        }
+        
+        pr($output);
+        die();
+    }
 	
 }

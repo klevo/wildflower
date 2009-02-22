@@ -1,4 +1,4 @@
-# $Id$
+# $Id: i18n.sql 7945 2008-12-19 02:16:01Z gwoo $
 #
 # Copyright 2005-2008,	Cake Software Foundation, Inc.
 #

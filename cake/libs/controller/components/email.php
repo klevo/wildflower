@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: email.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 1.2.0.3467
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -257,17 +257,25 @@ class EmailComponent extends Object{
  */
 	var $__smtpConnection = null;
 /**
+ * Initialize component
+ *
+ * @param object $controller Instantiating controller
+ * @access public
+ */
+	function initialize(&$controller, $settings = array()) {
+		$this->Controller =& $controller;
+		if (Configure::read('App.encoding') !== null) {
+			$this->charset = Configure::read('App.encoding');
+		}
+		$this->_set($settings);
+	}
+/**
  * Startup component
  *
  * @param object $controller Instantiating controller
  * @access public
  */
-	function startup(&$controller) {
-		$this->Controller =& $controller;
-		if (Configure::read('App.encoding') !== null) {
-			$this->charset = Configure::read('App.encoding');
-		}
-	}
+	function startup(&$controller) {}
 /**
  * Send an email using the specified content, template and layout
  *

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id$ */
+/* SVN FILE: $Id: set.php 8004 2009-01-16 20:15:21Z gwoo $ */
 /**
  * Library of array functions for Cake.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
+ * @version       $Revision: 8004 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -406,7 +406,7 @@ class Set extends Object {
 					if (count($context['trace']) == 1) {
 						$context['trace'][] = $context['key'];
 					}
-					$parent = join('/', $context['trace']).'/.';
+					$parent = join('/', $context['trace']) . '/.';
 					$context['item'] = Set::extract($parent, $data);
 					$context['key'] = array_pop($context['trace']);
 					if (isset($context['trace'][1]) && $context['trace'][1] > 0) {
@@ -434,10 +434,29 @@ class Set extends Object {
 							$items = array($items);
 						}
 					}
-					foreach ($items as $item) {
+
+					foreach ($items as $key => $item) {
+						$ctext = array($context['key']);
+						if (!is_numeric($key)) {
+							$ctext[] = $token;
+							$token = array_shift($tokens);
+							if (isset($items[$token])) {
+								$ctext[] = $token;
+								$item = $items[$token];
+								$matches[] = array(
+									'trace' => array_merge($context['trace'], $ctext),
+									'key' => $key,
+									'item' => $item,
+								);
+								break;
+							}
+						} else {
+							$key = $token;
+						}
+
 						$matches[] = array(
-							'trace' => array_merge($context['trace'], array($context['key'])),
-							'key' => $token,
+							'trace' => array_merge($context['trace'], $ctext),
+							'key' => $key,
 							'item' => $item,
 						);
 					}
@@ -455,7 +474,7 @@ class Set extends Object {
 					$filtered = array();
 					$length = count($matches);
 					foreach ($matches as $i => $match) {
-						if (Set::matches(array($condition), $match['item'], $i+1, $length)) {
+						if (Set::matches(array($condition), $match['item'], $i + 1, $length)) {
 							$filtered[] = $match;
 						}
 					}
@@ -1067,7 +1086,8 @@ class Set extends Object {
 	function sort($data, $path, $dir) {
 		$result = Set::__flatten(Set::extract($data, $path));
 		list($keys, $values) = array(Set::extract($result, '{n}.id'), Set::extract($result, '{n}.value'));
-
+		
+		$dir = strtolower($dir);
 		if ($dir === 'asc') {
 			$dir = SORT_ASC;
 		} elseif ($dir === 'desc') {

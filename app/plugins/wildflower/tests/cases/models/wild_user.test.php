@@ -1,7 +1,5 @@
 <?php 
-App::import('Model', 'Wildflower.WildUser');
-
-class UserTestCase extends CakeTestCase {
+class WildUserTestCase extends CakeTestCase {
     public $fixtures = array(
         'plugin.wildflower.wild_user',
         'plugin.wildflower.wild_page',
