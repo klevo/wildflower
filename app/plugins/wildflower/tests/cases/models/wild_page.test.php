@@ -1,21 +1,13 @@
 <?php 
-// Revision mockup class
-class WildRevision {
-    public $name = '';
-    function find() {
-        return array();
-    }
-    function save($data) {
-        return $data;
-    }
-}
-
-App::import('Model', 'Wildflower.WildPage');
-
 class WildPageTestCase extends CakeTestCase {
     public $fixtures = array(
         'plugin.wildflower.wild_page',
         'plugin.wildflower.wild_user',
+        'plugin.wildflower.wild_revision',
+        'plugin.wildflower.wild_post',
+        'plugin.wildflower.wild_comment',
+        'plugin.wildflower.wild_category',
+        'plugin.wildflower.categories_post',
     );
     private $Page;
     
