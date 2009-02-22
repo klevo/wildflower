@@ -1,4 +1,6 @@
-<?php 
+<?php
+require_once(APP . 'plugins' . DS . 'wildflower' . DS . 'config' . DS . 'routes.php');
+
 class WildPageTestCase extends CakeTestCase {
     public $fixtures = array(
         'plugin.wildflower.wild_page',
@@ -8,6 +10,7 @@ class WildPageTestCase extends CakeTestCase {
         'plugin.wildflower.wild_comment',
         'plugin.wildflower.wild_category',
         'plugin.wildflower.categories_post',
+        'plugin.wildflower.wild_setting',
     );
     private $Page;
     
@@ -18,6 +21,11 @@ class WildPageTestCase extends CakeTestCase {
     
     function endTest() {
     	unset($this->Page);
+    }
+    
+    function testUseDbConfig() {
+        $this->assertEqual($this->Page->useDbConfig, 'test_suite');
+        $this->assertEqual($this->Page->WildUser->useDbConfig, 'test_suite');
     }
     
     function testGetListThreadedWithSkipId() {
