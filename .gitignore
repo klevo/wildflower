@@ -1,18 +1,19 @@
-
-app/tmp/cache/cake_*
-app/tmp/cache/wf_previews/*.json
-app/tmp/cache/wf_root_pages
-
 # Cake caches
-app/tmp/cache/views/*.php
+app/tmp/cache/cake_*
 app/tmp/cache/models/cake_*
 app/tmp/cache/persistent/cake_*
+app/tmp/cache/views/*.php
 
 # Cake logs
 app/tmp/logs/*.log
 
 # Wildflower caches
+app/tmp/cache/wf_previews/*.json
+app/tmp/cache/wf_root_pages
 app/plugins/wildflower/tmp/cache/wf_thumbnails/*.jpg
 
 # Wildflower uploaded files
 app/webroot/uploads/*
+
+# Ruckusing log file
+vendors/ruckusing/logs/development.log
