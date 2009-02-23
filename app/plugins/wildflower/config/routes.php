@@ -74,6 +74,10 @@ class WildflowerRootPagesCache {
         } else {
             $rootPages = self::update();
         };
+        
+        if (!is_array($rootPages)) {
+            $rootPages = self::update();
+        }
 
         foreach ($rootPages as $page) {
             // Root page
