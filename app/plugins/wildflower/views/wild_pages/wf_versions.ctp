@@ -42,5 +42,5 @@
         <h4>Viewing version history of a page</h4>
         <?php echo $html->link($this->data['WildPage']['title'], array('action' => 'edit', $this->data['WildPage']['id']), array('class' => 'edited-item-link')); ?>
     </li>
-    <li>Go to all pages</li>
+    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
 <?php $partialLayout->blockEnd(); ?>

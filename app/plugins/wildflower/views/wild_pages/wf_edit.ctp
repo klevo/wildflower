@@ -6,20 +6,17 @@
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
 ?>
 
+<h2 class="section"><?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?></h2>
+
 <div id="title-content">
     <?php
         echo
-        $form->input('title', array(
-            'between' => '<br />',
-            'tabindex' => '1',
-            'label' => __('Page title', true),
-            'div' => array('class' => 'input title-input'))),
         $form->input('content', array(
             'type' => 'textarea',
             'tabindex' => '2',
             'class' => 'tinymce',
             'rows' => '25',
-            'label' => __('Body', true),
+            'label' => false,
             'div' => array('class' => 'input editor'))),
         '<div>',
         $form->hidden('id'),
@@ -57,4 +54,5 @@
     <li class="sidebar-box post-info main_sidebar">
         <?php echo $this->element('../wild_pages/_page_info'); ?>
     </li>
+    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
 <?php $partialLayout->blockEnd(); ?>

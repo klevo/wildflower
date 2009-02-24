@@ -378,6 +378,7 @@ class WildPagesController extends WildflowerAppController {
         $revisions = $this->WildPage->getRevisions($id);
         
         $this->set(compact('parentPageOptions', 'revisions'));
+        $this->pageTitle = 'Version of page ' . $this->data[$this->modelClass]['title'];
     }
     
     /**
