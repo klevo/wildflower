@@ -1,0 +1,7 @@
+Feb 24 07:37:57 [info] SELECT version FROM schema_info
+Feb 24 07:38:11 [info] SELECT version FROM schema_info
+Feb 24 07:38:11 [info] UPDATE schema_info SET version = 15
+Feb 24 07:38:16 [info] SELECT version FROM schema_info
+Feb 24 07:38:16 [info] SHOW COLUMNS FROM `settings` LIKE 'type'
+Feb 24 07:38:16 [info] ALTER TABLE `settings` CHANGE `type` `type` varchar(255)
+Feb 24 07:38:16 [info] UPDATE schema_info SET version = 16

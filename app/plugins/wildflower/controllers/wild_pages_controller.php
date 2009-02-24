@@ -365,6 +365,22 @@ class WildPagesController extends WildflowerAppController {
     }
     
     /**
+     * View a page
+     * 
+     * Handles redirect if the correct url for page is not entered.
+     */
+    function wf_versions($id = null) {
+        $this->WildPage->contain('WildUser');
+        $this->data = $this->WildPage->findById($id);
+        
+        if (empty($this->data)) return $this->cakeError('object_not_found');
+        
+        $revisions = $this->WildPage->getRevisions($id);
+        
+        $this->set(compact('parentPageOptions', 'revisions'));
+    }
+    
+    /**
      * Renders a normal page view or home view
      *
      * @param string $slug
