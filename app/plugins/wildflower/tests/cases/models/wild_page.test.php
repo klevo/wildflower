@@ -9,7 +9,7 @@ class WildPageTestCase extends CakeTestCase {
         'plugin.wildflower.wild_post',
         'plugin.wildflower.wild_comment',
         'plugin.wildflower.wild_category',
-        'plugin.wildflower.categories_post',
+        'plugin.wildflower.wild_category_wild_post',
         'plugin.wildflower.wild_setting',
     );
     private $Page;
