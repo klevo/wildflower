@@ -6,27 +6,26 @@
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
 ?>
 
-<h2 class="section"><?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?></h2>
+<h2 class="section title_as_heading"><?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?></h2>
+<div class="section rename_title_section"><?php echo $form->input('title', array('between' => '<br />', 'label' => 'Page title', 'div' => array('class' => 'title_input'))), $form->submit('Rename'); ?></div>
 
-<div id="title-content">
-    <?php
-        echo
-        $form->input('content', array(
-            'type' => 'textarea',
-            'tabindex' => '2',
-            'class' => 'tinymce',
-            'rows' => '25',
-            'label' => false,
-            'div' => array('class' => 'input editor'))),
-        '<div>',
-        $form->hidden('id'),
-        $form->hidden('draft'),
-        '</div>';
-    ?>
-    
-    <div id="edit-buttons">
-        <?php echo $this->element('wf_edit_buttons'); ?>
-    </div>
+<?php
+    echo
+    $form->input('content', array(
+        'type' => 'textarea',
+        'tabindex' => '2',
+        'class' => 'tinymce',
+        'rows' => '25',
+        'label' => false,
+        'div' => array('class' => 'input editor'))),
+    '<div>',
+    $form->hidden('id'),
+    $form->hidden('draft'),
+    '</div>';
+?>
+
+<div id="edit-buttons">
+    <?php echo $this->element('wf_edit_buttons'); ?>
 </div>
 
 <?php 
