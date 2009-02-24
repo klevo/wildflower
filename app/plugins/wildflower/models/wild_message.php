@@ -15,6 +15,4 @@ class WildMessage extends WildflowerAppModel {
 		'content' => VALID_NOT_EMPTY
 	);
 	
-	public $useTable = 'messages';
-
 }

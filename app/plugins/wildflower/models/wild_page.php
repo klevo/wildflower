@@ -24,7 +24,6 @@ class WildPage extends WildflowerAppModel {
 	   '0' => 'Published',
 	   '1' => 'Draft'
 	);
-	public $useTable = 'pages';
 	
 	function afterSave($arg) {
 	    parent::afterSave($arg);

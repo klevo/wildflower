@@ -1,10 +1,6 @@
 <?php
 class WildSetting extends WildflowerAppModel {
 	
-	public $validate = array(
-	);
-	public $useTable = 'settings';
-	
     /**
      * @depracated This is not used right now
      *

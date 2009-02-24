@@ -86,8 +86,8 @@ function die_with_error($str) {
 function get_template($klass) {
 $template = <<<TPL
 <?php 
-class $klass extends Ruckusing_BaseMigration {\n\n\tpublic function up() {\n\n\t}
-\n\tpublic function down() {\n\n\t}
+class $klass extends Ruckusing_BaseMigration {\n\n\tfunction up() {\n\n\t}
+\n\tfunction down() {\n\n\t}
 }
 TPL;
 return $template;

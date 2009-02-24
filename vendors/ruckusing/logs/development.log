@@ -5,3 +5,63 @@ Feb 24 07:38:16 [info] SELECT version FROM schema_info
 Feb 24 07:38:16 [info] SHOW COLUMNS FROM `settings` LIKE 'type'
 Feb 24 07:38:16 [info] ALTER TABLE `settings` CHANGE `type` `type` varchar(255)
 Feb 24 07:38:16 [info] UPDATE schema_info SET version = 16
+Feb 24 07:45:48 [info] SELECT version FROM schema_info
+Feb 24 07:45:48 [info] RENAME TABLE messages TO wild_messages
+Feb 24 07:45:48 [info] RENAME TABLE pages TO wild_pages
+Feb 24 07:45:48 [info] RENAME TABLE settings TO wild_settings
+Feb 24 07:45:48 [info] RENAME TABLE uploads TO wild_assets
+Feb 24 07:45:48 [info] UPDATE schema_info SET version = 17
+Feb 24 07:45:54 [info] SELECT version FROM schema_info
+Feb 24 07:45:54 [info] RENAME TABLE wild_messages TO messages
+Feb 24 07:45:54 [info] RENAME TABLE wild_pages TO pages
+Feb 24 07:45:54 [info] RENAME TABLE wild_settings TO settings
+Feb 24 07:45:54 [info] RENAME TABLE wild_assets TO uploads
+Feb 24 07:45:54 [info] UPDATE schema_info SET version = 16
+Feb 24 07:45:57 [info] SELECT version FROM schema_info
+Feb 24 07:45:57 [info] RENAME TABLE messages TO wild_messages
+Feb 24 07:45:57 [info] RENAME TABLE pages TO wild_pages
+Feb 24 07:45:57 [info] RENAME TABLE settings TO wild_settings
+Feb 24 07:45:57 [info] RENAME TABLE uploads TO wild_assets
+Feb 24 07:45:57 [info] UPDATE schema_info SET version = 17
+Feb 24 07:48:40 [info] SELECT version FROM schema_info
+Feb 24 07:48:40 [info] RENAME TABLE wild_messages TO messages
+Feb 24 07:48:40 [info] RENAME TABLE wild_pages TO pages
+Feb 24 07:48:40 [info] RENAME TABLE wild_settings TO settings
+Feb 24 07:48:40 [info] RENAME TABLE wild_assets TO uploads
+Feb 24 07:48:40 [info] UPDATE schema_info SET version = 16
+Feb 24 07:51:05 [info] SELECT version FROM schema_info
+Feb 24 07:51:05 [info] RENAME TABLE messages TO wild_messages
+Feb 24 07:51:05 [info] RENAME TABLE pages TO wild_pages
+Feb 24 07:51:05 [info] RENAME TABLE settings TO wild_settings
+Feb 24 07:51:05 [info] RENAME TABLE categories TO wild_categories
+Feb 24 07:51:05 [info] RENAME TABLE uploads TO wild_assets
+Feb 24 07:51:05 [info] RENAME TABLE categories_posts TO wild_categories_wild_posts
+Feb 24 07:51:05 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'category_id'
+Feb 24 07:51:05 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `category_id` `wild_category_id` int(11)
+Feb 24 07:51:05 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'post_id'
+Feb 24 07:51:05 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `post_id` `wild_post_id` int(11)
+Feb 24 07:51:05 [info] UPDATE schema_info SET version = 17
+Feb 24 07:51:07 [info] SELECT version FROM schema_info
+Feb 24 07:51:07 [info] RENAME TABLE wild_messages TO messages
+Feb 24 07:51:07 [info] RENAME TABLE wild_pages TO pages
+Feb 24 07:51:07 [info] RENAME TABLE wild_settings TO settings
+Feb 24 07:51:07 [info] RENAME TABLE wild_categories TO categories
+Feb 24 07:51:07 [info] RENAME TABLE wild_assets TO uploads
+Feb 24 07:51:07 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'wild_category_id'
+Feb 24 07:51:07 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `wild_category_id` `category_id` int(11)
+Feb 24 07:51:07 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'wild_post_id'
+Feb 24 07:51:07 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `wild_post_id` `post_id` int(11)
+Feb 24 07:51:07 [info] RENAME TABLE wild_categories_wild_posts TO categories_posts
+Feb 24 07:51:07 [info] UPDATE schema_info SET version = 16
+Feb 24 07:51:08 [info] SELECT version FROM schema_info
+Feb 24 07:51:08 [info] RENAME TABLE messages TO wild_messages
+Feb 24 07:51:08 [info] RENAME TABLE pages TO wild_pages
+Feb 24 07:51:08 [info] RENAME TABLE settings TO wild_settings
+Feb 24 07:51:08 [info] RENAME TABLE categories TO wild_categories
+Feb 24 07:51:08 [info] RENAME TABLE uploads TO wild_assets
+Feb 24 07:51:08 [info] RENAME TABLE categories_posts TO wild_categories_wild_posts
+Feb 24 07:51:08 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'category_id'
+Feb 24 07:51:08 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `category_id` `wild_category_id` int(11)
+Feb 24 07:51:08 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'post_id'
+Feb 24 07:51:08 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `post_id` `wild_post_id` int(11)
+Feb 24 07:51:08 [info] UPDATE schema_info SET version = 17

@@ -1,8 +1,6 @@
 <?php
 class WildAsset extends WildflowerAppModel {
     
-	public $useTable = 'uploads';
-	
     public $validate = array(
         'file' => array(
             'rule' => array('isFileArray'),

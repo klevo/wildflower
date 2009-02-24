@@ -1,7 +1,6 @@
 <?php 
 class WildCategoryFixture extends CakeTestFixture {
     public $name = 'WildCategory';
-    public $table = 'categories';
     public $import = 'Wildflower.WildCategory';
     public $records = array(
         array('id' => 1, 'parent_id' => null, 'lft' => 1, 'rght' => 2, 'slug' => 'cakephp', 'title' => 'CakePHP', 'description' => ''),

@@ -1,8 +1,6 @@
 <?php
 class WildCategory extends WildflowerAppModel {
 
-    public $useTable = 'categories';
-
     public $actsAs = array(
         'Tree', 
         'Wildflower.Slug' => array('label' => 'title')
@@ -13,9 +11,6 @@ class WildCategory extends WildflowerAppModel {
     public $hasAndBelongsToMany = array(
         'WildPost' => array(
             'className' => 'Wildflower.WildPost',
-            'joinTable' => 'categories_posts',
-            'foreignKey' => 'category_id',
-            'associationForeignKey' => 'post_id',
         )
     );
 

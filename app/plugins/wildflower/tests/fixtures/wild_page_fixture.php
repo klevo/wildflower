@@ -1,7 +1,6 @@
 <?php 
 class WildPageFixture extends CakeTestFixture {
     public $name = 'WildPage';
-    public $table = 'pages';
     public $import = 'Wildflower.WildPage';
     // ID 1 is home page
     public $records = array(

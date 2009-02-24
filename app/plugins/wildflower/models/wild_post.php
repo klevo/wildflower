@@ -16,9 +16,6 @@ class WildPost extends WildflowerAppModel {
 	public $hasAndBelongsToMany = array(
 	   'WildCategory' => array(
 	       'className' => 'Wildflower.WildCategory',
-	       'joinTable' => 'categories_posts',
-	       'foreignKey' => 'post_id',
-	       'associationForeignKey' => 'category_id'
 	   )
 	);
 	
