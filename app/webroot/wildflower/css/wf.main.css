@@ -287,22 +287,25 @@ select {
 .title_input {
     padding: 0;
     margin: -4px 10px 0 0;
-    float: left;
 }
     
     .title_input input {
-        font-size: 18px;
-        width: 450px;
+        font-size: 16px;
+        width: 100%;
     }
 
 .rename_title_section {
     overflow: hidden;
     display: none;
     background: #ddd;
+    margin: 0;
+    padding: 15px;
+    border: 1px solid #eee;
 }
 
     .rename_title_section .submit {
-        padding: 18px 0 0;
+        padding: 18px 10px 0 0;
+        float: left;
     }
 
 .rename_title {
@@ -315,7 +318,10 @@ select {
     color: #fff;
 }
 
-.editor {
+.rename_cancel {
+    font-size: 12px;
+    padding: 20px 20px 0;
+    display: block;
 }
 
     

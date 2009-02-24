@@ -6,8 +6,20 @@
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
 ?>
 
-<h2 class="section title_as_heading"><?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?></h2>
-<div class="section rename_title_section"><?php echo $form->input('title', array('between' => '<br />', 'label' => 'Page title', 'div' => array('class' => 'title_input'))), $form->submit('Rename'); ?></div>
+<h2 class="section title_as_heading">
+    <?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?>
+</h2>
+
+<div class="section rename_title_section">
+    <?php echo 
+        $form->input('title', array('between' => '<br />', 'label' => 'Page title', 'div' => array('class' => 'title_input'))), 
+        $form->submit('Rename'),
+        '<span class="rename_cancel">',
+        ' or ',
+        $html->link('Keep current title', '#CacelRename', array('class' => 'cancel')),
+        '</span>';
+    ?>
+</div>
 
 <?php
     echo
