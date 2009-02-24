@@ -1,6 +1,13 @@
 $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages.wf_index, wild_pages.wf_edit', function() {
     
     $('#sidebar .add').click(function() {
+        // if ($('.new-dialog').size() > 0) {
+        //     return false;
+        // }
+        // Hide sidebar contet
+        var sidebarContent = $('#sidebar ul');
+        sidebarContent.hide();
+        
         var buttonEl = $(this);
         var formAction = buttonEl.attr('href');
         
@@ -33,6 +40,7 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
             dialogEl.remove();
             hiddenContentEls.show();
             contentEl.height('auto');
+            sidebarContent.show();
             return false;
         });
         

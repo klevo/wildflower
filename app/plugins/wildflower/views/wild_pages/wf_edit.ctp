@@ -52,7 +52,7 @@
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="main_sidebar">
         <?php echo $html->link(
-            '<span>Write a new page</span>', 
+            '<span>Create a new page</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)); ?>
     </li>

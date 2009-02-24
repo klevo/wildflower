@@ -24,7 +24,7 @@
     </li>
     <li>
         <?php echo $html->link(
-            '<span>' . __('Write a new page', true) . '</span>', 
+            '<span>' . __('Create a new page', true) . '</span>', 
             array('action' => 'wf_create'),
             array('class' => 'add', 'escape' => false)) ?>
     </li>

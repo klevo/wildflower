@@ -14,6 +14,6 @@
     
         echo $html->link($data['WildPage']['title'], array('action' => 'edit', $data['WildPage']['id']), array('title' => 'Edit this page.')); 
     ?>
-    <span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => 'permalink', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
+    <span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => '', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
     <span class="cleaner"></span>
 </div>

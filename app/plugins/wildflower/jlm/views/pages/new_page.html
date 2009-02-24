@@ -1,11 +1,12 @@
 <div id="name-new-page" class="new-dialog">
-    <h2 class="section"><l18n>Name your new page</l18n></h2>
+    <h2 class="section"><l18n>Create a new page</l18n></h2>
     
     <form action="${action}" method="post">
         <fieldset style="display:none">
             <input type="hidden" name="_method" value="POST" />
         </fieldset>
-        <div class="input">
+        <div class="input title_input">
+            <label for="NewWildPageTitle">Page title</label>
             <input id="NewWildPageTitle" type="text" size="60" name="data[WildPage][title]" maxlength="256" />
         </div>
         
