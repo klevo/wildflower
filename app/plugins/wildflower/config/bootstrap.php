@@ -26,13 +26,18 @@ function hsc($string) {
 	return htmlspecialchars($string, ENT_QUOTES, Configure::read('App.encoding'));
 }
 
-App::import ('Vendor', 'FirePHP', array('file' => 'FirePHP.class.php'));
 /**
  * FirePHP debug
  *
  * @param mixed Variables to output to FireBug console
  */
+if (Configure::read('debug') < 1) {
+    App::import ('Vendor', 'FirePHP', array('file' => 'FirePHP.class.php'));
+} 
 function fb() {
+    if (Configure::read('debug') < 1) {
+        return true;
+    }
     $instance = FirePHP::getInstance(true);
     $args = func_get_args();
     return call_user_func_array(array($instance,'fb'),$args);

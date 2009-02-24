@@ -64,19 +64,19 @@ img {
     }
 
 #header {
-    background: #275e9d;
+    background: #274f79;
     overflow: hidden;
     color: #eee;
 }
 
     #header a {
-        color: #fff;
+        color: #feffc2;
     }
     
     #header a:hover,
     #footer a:hover {
         background-color: transparent;
-        color: yellow;
+        color: #feffc2;
     }
 
 #header-wrap {
@@ -86,12 +86,11 @@ img {
 #site-title {
     font-size: 20px;
     font-weight: normal;
-    padding: 18px 10px;
+    padding: 22px 10px;
     margin: 0;
 }
 
     #site-title a {
-        color: #fff;
         text-decoration: none;
     }
     
@@ -220,7 +219,7 @@ h2 {
     margin: -20px -25px 14px;
     padding: 15px 25px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 17px;
     background: #eef5fb url(img/page_top.png) left bottom repeat-x;
 }
@@ -300,7 +299,6 @@ select {
     overflow: hidden;
     display: none;
     background: #ddd;
-    border: 2px solid #959595;
 }
 
     .rename_title_section .submit {
@@ -318,7 +316,6 @@ select {
 }
 
 .editor {
-    margin: -22px -25px 0;
 }
 
     

@@ -16,7 +16,7 @@
         'tabindex' => '2',
         'class' => 'tinymce',
         'rows' => '25',
-        'label' => false,
+        'label' => 'Page content',
         'div' => array('class' => 'input editor'))),
     '<div>',
     $form->hidden('id'),
