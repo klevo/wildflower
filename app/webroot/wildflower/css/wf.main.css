@@ -54,7 +54,7 @@ img {
 
 #footer {
     margin: 0;
-    padding: 0 30px 14px;
+    padding: 0 40px 14px;
     font-size: 10px;
 }
 
@@ -143,6 +143,7 @@ img {
     float: left;
     width: 70%;
     position: relative;
+    left: 10px;
     margin: 12px 0 8px 0;
     background: #fff;
 }
