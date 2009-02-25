@@ -33,9 +33,17 @@
             } else if (isset($post['WildPost']['id'])) {
                 $id = $post['WildPost']['id'];
             }
-            $editCurrentLink = '/' 
-                . Configure::read('Wildflower.prefix') 
-                . '/' . $c . '/edit/' . $id;
+            
+            if (isset($id)) {
+                $editCurrentLink = '/' 
+                    . Configure::read('Wildflower.prefix') 
+                    . '/' . $c . '/edit/' . $id;
+            } else {
+                $editCurrentLink = '/' 
+                    . Configure::read('Wildflower.prefix') 
+                    . '/' . $c;
+            }
+
             
             echo 
             '<div id="admin_bar">',
