@@ -66,17 +66,16 @@ img {
 #header {
     background: #274f79;
     overflow: hidden;
-    color: #eee;
+    color: #feffc2;
 }
 
     #header a {
         color: #feffc2;
     }
     
-    #header a:hover,
-    #footer a:hover {
-        background-color: transparent;
-        color: #feffc2;
+    #header a:hover {
+        background-color: #d0e4f8;
+        color: #000;
     }
 
 #header-wrap {
@@ -128,15 +127,20 @@ img {
         }
         
     #nav a:hover {
-        color: #1d1d1d;
-        background-color: #e2e2e2;
+        color: #fff;
+        background-color: #777777;
     }
 
 #login-info {
-    float: right;
-    position: relative;
-    top: -30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
+
+    #login-info a {
+        display: inline-block;
+        padding: 6px;
+    }
 
 #content {
     float: left;
@@ -153,6 +157,15 @@ img {
 
 #co_bottom_shadow {
     background: url(img/wrap_bottom_shadow.png) left bottom repeat-x;
+}
+
+#co_top_shadow {
+    background: url(img/wrap_top_shadow.png) left top repeat-x;
+}
+
+#co_top_right_corner {
+    background: url(img/wrap_top_right_corner.png) right top no-repeat;
+    padding-top: 13px;
 }
 
 #co_right_bottom_corner {
@@ -218,8 +231,8 @@ h2 {
 .section {
     margin: -20px -25px 14px;
     padding: 15px 25px;
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 17px;
     background: #eef5fb url(img/page_top.png) left bottom repeat-x;
 }
