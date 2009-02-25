@@ -22,9 +22,11 @@
 <body>
     
     <?php
+        // @TODO Refactor to a Helper
+        
         // Admin bar
         // Do not show for previews
-        if ($isLogged and $this->params['action'] != 'wf_preview') {
+        if (($isLogged or Configure::read('debug') > 0) and $this->params['action'] != 'wf_preview') {
             $c = str_replace('wild_', '', $this->params['controller']);
             if (isset($page['WildPage']['id'])) {
                 $id = $page['WildPage']['id'];
@@ -36,9 +38,8 @@
                 . '/' . $c . '/edit/' . $id;
             
             echo 
-            '<div id="admin-bar">',
+            '<div id="admin_bar">',
                 $html->link('Site admin', '/' . Configure::read('Wildflower.prefix')),
-                ' &bull; ',
                 $html->link('Edit current page', $editCurrentLink),
              '</div>';
         }

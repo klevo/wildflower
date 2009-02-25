@@ -3,7 +3,7 @@
 	$form->create('Page', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
 ?>
 
-<h2 class="section">Site Pages</h2>
+<h2 class="section">Pages</h2>
 
 <?php
     echo 
