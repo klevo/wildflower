@@ -331,6 +331,10 @@ select {
     display: block;
 }
 
+.editor {
+    margin-top: -10px !important;
+}
+
     
 /* Messages & errors */
 
