@@ -18,12 +18,12 @@ $.jlm.addComponent('tinyMce', {
                 tinyMCE.execCommand("mceAddControl", true, $.jlm.components.tinyMce.editorId);
             });
         }
-	},
-	
-	getConfig: function() {
-	    var stylesheetUrl = $.jlm.base + '/css/tiny_mce.css';
+ },
+ 
+ getConfig: function() {
+     var stylesheetUrl = $.jlm.base + '/css/tiny_mce.css';
         var fullBaseUrl = window.location.protocol + "//" + window.location.host + '/';
-	    return {
+     return {
             mode: "none",
             theme: "advanced",
             // @TODO cleanup unneeded plugins
@@ -32,14 +32,14 @@ $.jlm.addComponent('tinyMce', {
 
             // Theme options
             theme_advanced_buttons1: "undo,redo,|,bold,italic,strikethrough,|,formatselect,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,wfinsertimage,|,charmap,code,fullscreen",
-    		theme_advanced_buttons2: "",
-    		theme_advanced_buttons3: "",
+         theme_advanced_buttons2: "",
+         theme_advanced_buttons3: "",
             theme_advanced_toolbar_location: "top",
             theme_advanced_toolbar_align: "left",
             theme_advanced_statusbar_location: "none",
             theme_advanced_resizing: false,
             theme_advanced_resize_horizontal: false,
-    		theme_advanced_path: false,
+         theme_advanced_path: false,
             width: '100%',
 
             // URLs
@@ -52,29 +52,29 @@ $.jlm.addComponent('tinyMce', {
             
             init_instance_callback: $.jlm.components.tinyMce.onReady
         };
-	},
-	
-	focus: function() {
-	    $.jlm.components.tinyMce.focusOnReady = true;
-	},
-	
-	onReady: function(ed) {
-	    $.jlm.components.tinyMce.editorInstance = ed;
-	    if ($.jlm.components.tinyMce.focusOnReady) {
-	        ed.focus();
-	    }
-	},
-	
-	insertImage: function(editor) {
-	    // @TODO: I want to do something like this:
-	    // $.jlm.url({ plugin: 'wildflower', controller: 'wild_assets', action: 'wf_insert_image' });
-	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_image';
-	    
-	    $.get(url, function(html) {
-	        var imageSidebarEl = $(html);
-	        $('.main_sidebar').hide();
-	        
-	        $('#sidebar > ul').append(imageSidebarEl);
+ },
+ 
+ focus: function() {
+     $.jlm.components.tinyMce.focusOnReady = true;
+ },
+ 
+ onReady: function(ed) {
+     $.jlm.components.tinyMce.editorInstance = ed;
+     if ($.jlm.components.tinyMce.focusOnReady) {
+         ed.focus();
+     }
+ },
+ 
+ insertImage: function(editor) {
+     // @TODO: I want to do something like this:
+     // $.jlm.url({ plugin: 'wildflower', controller: 'wild_assets', action: 'wf_insert_image' });
+     var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_image';
+     
+     $.get(url, function(html) {
+         var imageSidebarEl = $(html);
+         $('.main_sidebar').hide();
+         
+         $('#sidebar > ul').append(imageSidebarEl);
             
             // Bind selecting
             $('.file-list > li', imageSidebarEl).click(function() {
@@ -83,12 +83,12 @@ $.jlm.addComponent('tinyMce', {
             });
             
             // Bind insert button
-    		$('#insert_image', imageSidebarEl).click(function() {
-    			var imgName = $('.selected img', imageSidebarEl).attr('alt');
+         $('#insert_image', imageSidebarEl).click(function() {
+             var imgName = $('.selected img', imageSidebarEl).attr('alt');
 
-    			if (typeof(imgName) == 'undefined' || trim(imgName) == '') {
-    			    return false;
-    			}
+             if (typeof(imgName) == 'undefined' || trim(imgName) == '') {
+                 return false;
+             }
 
                 // Original size
                 imgNameEscaped = escape(imgName);
@@ -105,37 +105,37 @@ $.jlm.addComponent('tinyMce', {
                     imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
                 }
 
-    			// Image HTML
-    			var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
+             // Image HTML
+             var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
 
-    			editor.execCommand('mceInsertContent', 0, imgHtml);
+             editor.execCommand('mceInsertContent', 0, imgHtml);
 
-    			return false;
-    		});
+             return false;
+         });
 
-    		// Bind close
+         // Bind close
             $('.cancel', imageSidebarEl).click(function() {
                 $('.insert_image_sidebar').remove();
                 $('.main_sidebar').show();
                 return false;
             });
-		});
-	    
-	    return false;
-	},
-	
-	resizeToFillScreen: function(textareaEl) {
-	    var otherContentHeight = $('body').height() - textareaEl.height();
-	    var bumper = 20;
-	    var result = $(window).height() - otherContentHeight - bumper; 
-	    
-		textareaEl.height(result);
-		return result;
-	},
-	
-	closeDialog: function() {
-		$.jlm.components.tinyMce.dialogEl.remove();
-	},
+     });
+     
+     return false;
+ },
+ 
+ resizeToFillScreen: function(textareaEl) {
+     var otherContentHeight = $('body').height() - textareaEl.height();
+     var bumper = 20;
+     var result = $(window).height() - otherContentHeight - bumper; 
+     
+     textareaEl.height(result);
+     return result;
+ },
+ 
+ closeDialog: function() {
+     $.jlm.components.tinyMce.dialogEl.remove();
+ },
     
     insertLink: function() {
         log('INSERT LINK');

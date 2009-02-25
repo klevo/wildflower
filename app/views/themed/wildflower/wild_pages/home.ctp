@@ -7,7 +7,7 @@
 ?>
 <div class="page">
     <div class="entry">
-       <?php echo $page['WildPage']['content']; ?>
+        <?php echo $textile->format($page['WildPage']['content']); ?>
     </div>
     
     <?php echo $this->element('edit_this', array('id' => $page['WildPage']['id'])) ?>

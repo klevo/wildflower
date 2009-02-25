@@ -5,7 +5,7 @@ class TextileHelper extends AppHelper {
     
     function format($string) {
         $textile = new Textile();
-        return $textile->TextileRestricted($string);
+        return $textile->TextileThis($string);
     }
     
 }
