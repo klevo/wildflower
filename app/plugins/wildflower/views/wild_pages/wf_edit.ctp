@@ -3,32 +3,17 @@
     $session->flash();
     
     echo 
-    $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
+    $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form'));
 ?>
-
-<h2 class="section title_as_heading">
-    <?php echo hsc($this->data['WildPage']['title']); ?> <?php echo $html->link('Rename', '#Rename', array('class' => 'rename_title')); ?>
-</h2>
-
-<div class="section rename_title_section">
-    <?php echo 
-        $form->input('title', array('between' => '<br />', 'label' => 'Page title', 'div' => array('class' => 'title_input'))), 
-        $form->submit('Rename'),
-        '<span class="rename_cancel">',
-        ' or ',
-        $html->link('Keep current title', '#CacelRename', array('class' => 'cancel')),
-        '</span>';
-    ?>
-</div>
 
 <?php
     echo
+    $form->input('title', array('between' => '', 'label' => 'Page title')), 
     $form->input('content', array(
         'type' => 'textarea',
-        'tabindex' => '2',
-        'class' => 'tinymce',
-        'rows' => '25',
-        'label' => 'Page content',
+        'rows' => 25,
+        'cols' => 60,
+        'label' => 'Body',
         'div' => array('class' => 'input editor'))),
     '<div>',
     $form->hidden('id'),
@@ -48,6 +33,8 @@
 	
 	$form->end();
 ?>
+
+<span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="main_sidebar">

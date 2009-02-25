@@ -147,7 +147,7 @@ img {
     width: 70%;
     position: relative;
     left: 10px;
-    margin: 12px 0 8px 0;
+    margin: 0;
     background: #fff;
 }
 
@@ -175,8 +175,7 @@ img {
 }
 
 #content-pad {
-    padding: 20px 25px 35px;
-    min-height: 300px;
+    padding: 20px 25px 20px;
 }
 
 .cleaner {
@@ -285,8 +284,32 @@ select {
     padding: 14px 0 0 90px;
 }
 
-    .editor-form label {
-        font-size: 12px;
+    .editor_form * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .editor_form label {
+        font-size: 11px;
+        height: 15px;
+        text-transform: uppercase !important;
+        color: #777777;
+        display: block;
+    }
+    
+    .editor_form .input input {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 2px;
+        margin: 0 0 10px 0;
+        width: 98.5%;
+    }
+    
+    .editor_form textarea {
+        font: 14px/18px Monaco, "Lucida Console", "Consolas", courier;
+        padding: 5px;
+        width: 98%;
+        margin-bottom: 10px;
     }
     
 .mceEditor {
@@ -349,10 +372,6 @@ select {
     font-size: 12px;
     padding: 20px 20px 0;
     display: block;
-}
-
-.editor {
-    margin-top: -10px !important;
 }
 
     

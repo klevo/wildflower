@@ -8,7 +8,9 @@
 */
 
 #content-pad {
-    padding-top: 1px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid red;
 }
 
 .sidebar-menu,
@@ -23,3 +25,9 @@
     .list-of-posts li {
         height: 1%;
     }
+
+#sidebar li {
+    padding-bottom: 0 !important;
+    margin-bottom: 0;
+    border: 1px solid red;
+}
