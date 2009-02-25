@@ -81,6 +81,7 @@
 <?php else: ?>
 <div id="editor_mode_header">
     <?php echo $html->link('Go back', array('action' => 'index')); ?>
+    <?php if (isset($publishedLink)) echo $publishedLink; ?>
 </div>
 <?php endif; ?>
 

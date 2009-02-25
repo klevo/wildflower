@@ -1,5 +1,6 @@
 <?php 
     $partialLayout->switchToEditorMode();
+    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']));
     $session->flash();
     
     echo 
