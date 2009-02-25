@@ -1,5 +1,5 @@
 <?php 
-    $partialLayout->setLayoutVar('isFullEdit', true);
+    $partialLayout->switchToEditorMode();
     $session->flash();
     
     echo 
@@ -37,20 +37,7 @@
 <span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="main_sidebar">
-        <?php echo $html->link(
-            '<span>Create a new page</span>', 
-            array('action' => 'wf_create'),
-            array('class' => 'add', 'escape' => false)); ?>
+    <li>
+        <h4>Text formating</h4>
     </li>
-    <li class="main_sidebar">
-        <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
-            <li><?php echo $html->link('Browse older versions', array('action' => 'versions', $this->data['WildPage']['id'])); ?></li>
-        </ul>
-    </li>
-    <li class="sidebar-box post-info main_sidebar">
-        <?php echo $this->element('../wild_pages/_page_info'); ?>
-    </li>
-    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
 <?php $partialLayout->blockEnd(); ?>

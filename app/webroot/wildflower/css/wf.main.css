@@ -63,17 +63,30 @@ img {
         text-decoration: none;
     }
 
-#header {
+#header,
+#editor_mode_header {
     background: #1b3b53;
     overflow: hidden;
     color: #feffc2;
+}
+
+#editor_mode_header {
+    padding: 0 40px;
+}
+
+#editor_mode_header a {
+    display: block;
+    float: left;
+    padding: 6px;
+    color: #fff;
 }
 
     #header a {
         color: #feffc2;
     }
     
-    #header a:hover {
+    #header a:hover,
+    #editor_mode_header a:hover {
         background-color: #d0e4f8;
         color: #000;
     }

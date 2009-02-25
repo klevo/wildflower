@@ -51,7 +51,8 @@
     
 </head>
 <body>
-    
+
+<?php if (!isset($editorMode)): ?>    
 <div id="admin_bar">
     <?php echo $html->link('View homepage', '/'); ?>
 </div>
@@ -77,6 +78,11 @@
         ?>
     </div>
 </div>
+<?php else: ?>
+<div id="editor_mode_header">
+    <?php echo $html->link('Go back', array('action' => 'index')); ?>
+</div>
+<?php endif; ?>
 
 <div id="wrap">
     <div id="content">

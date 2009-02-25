@@ -48,6 +48,11 @@ class PartialLayoutHelper extends WildflowerAppHelper {
         $view->viewVars[$name] = $value;
     }
     
+    function switchToEditorMode() {
+        $view = ClassRegistry::getObject('view');
+        $view->viewVars['editorMode'] = true;
+    }
+    
     /**
      * Output a variable only if it exists. If it does not exist you may optionally pass
      * in a second parameter to use as a default value.
