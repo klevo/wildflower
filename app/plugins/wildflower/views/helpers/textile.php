@@ -1,22 +1,21 @@
 <?php
-App::import('Vendor', 'classTextile', array('file' => 'classTextile.php'));
-
 class TextileHelper extends AppHelper {
     
     function format($string) {
+        App::import('Vendor', 'classTextile', array('file' => 'classTextile.php'));
         $textile = new Textile();
         return $textile->TextileThis($string);
     }
     
+    function htmlToTextile($text) {
+        return self::detextile($text);
+    }
     
     // The following functions are used to detextile html, a process
     // still in development.
     // By Tim Koschützki
-
     // Based on code from http://www.aquarionics.com
-
-    
-        function detextile($text) {
+    function detextile($text) {
 
         $text = preg_replace("/<br \/>\s*/","\n",$text);
 
