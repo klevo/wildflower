@@ -65,3 +65,8 @@ Feb 24 07:51:08 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `category
 Feb 24 07:51:08 [info] SHOW COLUMNS FROM `wild_categories_wild_posts` LIKE 'post_id'
 Feb 24 07:51:08 [info] ALTER TABLE `wild_categories_wild_posts` CHANGE `post_id` `wild_post_id` int(11)
 Feb 24 07:51:08 [info] UPDATE schema_info SET version = 17
+Feb 26 10:30:13 [info] SELECT version FROM schema_info
+Feb 26 10:30:19 [info] SELECT version FROM schema_info
+Feb 26 10:30:19 [info] UPDATE schema_info SET version = 18
+Feb 26 10:30:25 [info] SELECT version FROM schema_info
+Feb 26 10:30:25 [info] UPDATE schema_info SET version = 17
