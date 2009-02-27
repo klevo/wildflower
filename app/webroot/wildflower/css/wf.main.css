@@ -1112,3 +1112,26 @@ select {
 .texy_table td * {
     margin: 0;
 }
+
+#page_inserts {
+    margin: -20px -25px 16px; 
+    padding: 0 20px; 
+    list-style: none;
+    overflow: hidden;
+    background: #eef5fb url(img/page_top.png) left bottom repeat-x;
+}
+
+#page_inserts li {
+    float: left;
+    display: block;
+}
+
+#page_inserts a,
+#page_inserts span {
+    display: block;
+    padding: 8px 5px;
+}
+
+    #page_inserts a {
+        font-weight: bold;
+    }

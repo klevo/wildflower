@@ -7,6 +7,12 @@
     $form->create('WildPage', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form'));
 ?>
 
+<ul id="page_inserts">
+    <li><span>Insert into page: </span></li>
+    <li><a href="#InsertLink">Link</a></li>
+    <li><a href="#InsertImage">Image or file</a></li>
+</ul>
+
 <?php
     echo
     $form->input('title', array('between' => '', 'label' => 'Page title')), 
