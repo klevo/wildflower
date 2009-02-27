@@ -1095,3 +1095,20 @@ select {
         font-size: 20px;
         font-weight: bold;
     }
+    
+.texy_table {
+    border-collapse: collapse;
+}    
+    
+.texy_table td {
+    padding: 6px 8px;
+    border: 1px solid #eee;
+}
+
+.texy_table tr > td:first-child {
+    background-color: #eee;
+}
+
+.texy_table td * {
+    margin: 0;
+}
