@@ -79,10 +79,10 @@
     </div>
 </div>
 <?php else: ?>
-<div id="editor_mode_header">
-    <?php echo $html->link('Go back', array('action' => 'index')); ?>
-    <?php if (isset($publishedLink)) echo $publishedLink; ?>
-</div>
+<ul id="editor_mode_header">
+    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
+    <li><small>(Published at: <?php if (isset($publishedLink)) echo $publishedLink; ?>)</small></li>
+</ul>
 <?php endif; ?>
 
 <div id="wrap">

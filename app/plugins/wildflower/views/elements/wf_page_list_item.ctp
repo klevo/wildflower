@@ -12,7 +12,7 @@
             echo '<small class="draft-status">(', __('Draft', true), ')</small> ';
         }
     
-        echo $html->link($data['WildPage']['title'], array('action' => 'edit', $data['WildPage']['id']), array('title' => 'Edit this page.')); 
+        echo $html->link($data['WildPage']['title'], array('action' => 'view', $data['WildPage']['id']), array('title' => 'Edit this page.')); 
     ?>
     <span class="row-actions"><?php echo $html->link('View', $data['WildPage']['url'], array('class' => '', 'rel' => 'permalink', 'title' => 'View this page.')) ?></span>
     <span class="cleaner"></span>
