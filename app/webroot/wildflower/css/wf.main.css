@@ -249,6 +249,7 @@ img {
     color: red !important;
     background-image: url(img/button_on_white.png);
     padding: 0;
+    height: 35px;
 }
 
     .button span {

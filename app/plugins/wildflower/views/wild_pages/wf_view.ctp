@@ -2,7 +2,7 @@
     $partialLayout->switchToEditorMode();
     $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']));
 
-    echo $html->link('<span>' . __('Edit', true) . '</span>', array('action' => 'edit', $page['WildPage']['id']), array('class' => 'button', 'escape' => false)); 
+    echo $html->link('<span>' . __('Edit this page', true) . '</span>', array('action' => 'edit', $page['WildPage']['id']), array('class' => 'button', 'escape' => false)); 
 ?>
 <span class="cleaner"></span>
 <hr />
