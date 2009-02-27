@@ -13,6 +13,7 @@ class WildPagesController extends WildflowerAppController {
         'limit' => 25,
         'order' => array('WildPage.lft' => 'asc')
     );
+    public $pageTitle = 'Pages';
     
     /**
      * A static about Wildflower page
@@ -96,6 +97,11 @@ class WildPagesController extends WildflowerAppController {
         $this->_setParentSelectBox($page[$this->modelClass]['id']);
     }
     
+    function wf_view($id = null) {
+        $page = $this->WildPage->findById($id);
+        $this->set(compact('page'));
+    }
+    
     function wf_options($id = null) {
         $this->WildPage->contain('WildUser');
         $this->data = $this->WildPage->findById($id);
@@ -137,7 +143,7 @@ class WildPagesController extends WildflowerAppController {
             return $this->render('wf_update');
         }
         
-        $this->redirect(array('action' => 'wf_edit', $this->data[$this->modelClass]['id']));
+        $this->redirect(array('action' => 'view', $this->data[$this->modelClass]['id']));
     }
     
     /**

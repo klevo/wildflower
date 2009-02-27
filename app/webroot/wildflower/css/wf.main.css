@@ -1057,4 +1057,17 @@ select {
         background-color: transparent;
     }
     
-    
+#page_preview {
+    width: 100%;
+    min-height: 500px;
+}
+
+.entry {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+    .entry h2 {
+        font-size: 20px;
+        font-weight: bold;
+    }
