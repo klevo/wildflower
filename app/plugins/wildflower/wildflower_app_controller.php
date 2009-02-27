@@ -6,7 +6,7 @@ class WildflowerAppController extends AppController {
 
 	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Wildflower.Seo');
 	public $currentUserId;
-	public $helpers = array('Html', 'Wildflower.Htmla', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation', 'Wildflower.PartialLayout', 'Wildflower.Textile');
+	public $helpers = array('Html', 'Wildflower.Htmla', 'Form', 'Javascript', 'Wildflower.Wild', 'Wildflower.Navigation', 'Wildflower.PartialLayout', 'Wildflower.Textile', 'Wildflower.Texy');
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;

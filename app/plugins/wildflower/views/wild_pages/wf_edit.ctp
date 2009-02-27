@@ -54,11 +54,4 @@
         
         <a href="#MoreFormating">More formatting options</a>
     </li>
-    
-    <li class="main_sidebar">
-        <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
-            <li><?php echo $html->link('Browse older versions', array('action' => 'versions', $this->data['WildPage']['id'])); ?></li>
-        </ul>
-    </li>
 <?php $partialLayout->blockEnd(); ?>
