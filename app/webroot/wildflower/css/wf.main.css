@@ -1142,12 +1142,15 @@ select {
         border-bottom: 1px solid #7a7a7a;
     }
     
-    .versions li {
-        padding: 2px 0;
+    .versions a {
+        padding: 2px 4px;
         font-size: 11px;
+        display: block;
+        width: 120px;
     }
     
     .versions .current {
         color: #000;
         text-decoration: none;
+        background: #f0f0d2;
     }
