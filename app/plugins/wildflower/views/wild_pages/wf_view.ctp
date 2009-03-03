@@ -19,8 +19,10 @@
         <h4>Versions</h4>
         <ul>
         <?php
+            $attr = array();
+            //if (isset($this->params['rev']))
             foreach ($revisions as $version) {
-                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), array('action' => 'view', 'rev' => $version['WildRevision']['id'], $this->data['WildPage']['id'])), '</li>';
+                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), $here . "/rev:{$version['WildRevision']['id']}", $attr), '</li>';
             }
         ?>
         </ul>
