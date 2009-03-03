@@ -1141,3 +1141,13 @@ select {
         margin: 0 0 10px 0;
         border-bottom: 1px solid #7a7a7a;
     }
+    
+    .versions li {
+        padding: 2px 0;
+        font-size: 11px;
+    }
+    
+    .versions .current {
+        color: #000;
+        text-decoration: none;
+    }

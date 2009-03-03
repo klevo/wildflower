@@ -25,6 +25,7 @@
                     $attr['class'] = 'current';
                 }
                 echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/view/{$page['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
+                $attr['class'] = '';
             }
         ?>
         </ul>
