@@ -1135,3 +1135,9 @@ select {
     #page_inserts a {
         font-weight: bold;
     }
+    
+    .versions h4 {
+        font-size: 12px;
+        margin: 0 0 10px 0;
+        border-bottom: 1px solid #7a7a7a;
+    }
