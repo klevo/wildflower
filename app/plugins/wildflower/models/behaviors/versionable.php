@@ -49,6 +49,7 @@ class VersionableBehavior extends ModelBehavior {
     
     function getRevision($model, $nodeId, $versionNumber) {
         $revision = $this->getRevisionData($model, $nodeId, $versionNumber);
+        //var_dump($revision);
         $revContent = $revision['WildRevision']['content'];
         $revData = json_decode($revContent, true);
         

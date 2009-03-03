@@ -22,7 +22,7 @@
             $attr = array();
             //if (isset($this->params['rev']))
             foreach ($revisions as $version) {
-                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), $here . "/rev:{$version['WildRevision']['id']}", $attr), '</li>';
+                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/view/{$page['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
             }
         ?>
         </ul>
@@ -31,7 +31,7 @@
     
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
+            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $page['WildPage']['id']), array('escape' => false)); ?></li>
         </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>

@@ -28,6 +28,7 @@ class WildPagesController extends WildflowerAppController {
      */
     function wf_create() {
         $this->data[$this->modelClass]['draft'] = 1;
+        $this->data[$this->modelClass]['content'] = '';
         $this->WildPage->create($this->data);
         $this->WildPage->save();
         $this->redirect(array('action' => 'edit', $this->WildPage->id));
@@ -98,7 +99,14 @@ class WildPagesController extends WildflowerAppController {
     }
     
     function wf_view($id = null) {
-        $page = $this->WildPage->findById($id);
+        // If viewing a revision, merge with revision content
+        
+        if (isset($this->params['named']['rev'])) {
+            $page = $this->WildPage->getRevision($id, $this->params['named']['rev']);
+            //var_dump($page);
+        } else {
+            $page = $this->WildPage->findById($id);
+        }
         $revisions = $this->WildPage->getRevisions($id);
         $this->set(compact('page', 'revisions'));
     }
