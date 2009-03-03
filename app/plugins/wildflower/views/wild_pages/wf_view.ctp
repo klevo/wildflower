@@ -8,7 +8,7 @@
 <hr />
 
 <div class="entry">
-    <h2><?php echo hsc($page['WildPage']['title']); ?></h2>
+    <h1><?php echo hsc($page['WildPage']['title']); ?></h1>
     <?php echo $texy->process($page['WildPage']['content']); ?>
 </div>
 
@@ -17,7 +17,13 @@
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li>
         <h4>Versions</h4>
-
+        <ul>
+        <?php
+            foreach ($revisions as $version) {
+                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), array('action' => 'view', 'rev' => $version['WildRevision']['id'], $this->data['WildPage']['id'])), '</li>';
+            }
+        ?>
+        </ul>
     </li>
     
     

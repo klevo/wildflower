@@ -99,7 +99,8 @@ class WildPagesController extends WildflowerAppController {
     
     function wf_view($id = null) {
         $page = $this->WildPage->findById($id);
-        $this->set(compact('page'));
+        $revisions = $this->WildPage->getRevisions($id);
+        $this->set(compact('page', 'revisions'));
     }
     
     function wf_options($id = null) {
