@@ -24,11 +24,19 @@
         'cols' => 60,
         'label' => 'Body',
         'div' => array('class' => 'input editor'))),
+    $form->input('sidebar_content', array(
+        'type' => 'textarea',
+        'rows' => 25,
+        'cols' => 60,
+        'label' => 'Sidebar',
+        'div' => array('class' => 'input sidebar_editor'))),
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
     '</div>';
 ?>
+
+<p><a href="#ShowSidebarEditor">Show sidebar editor</a></p>
 
 <div id="edit-buttons">
     <?php echo $this->element('wf_edit_buttons'); ?>

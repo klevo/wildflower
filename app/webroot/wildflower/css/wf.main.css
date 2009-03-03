@@ -1155,3 +1155,14 @@ select {
         text-decoration: none;
         background: #f0f0d2;
     }
+    
+#edit-buttons {
+    overflow: hidden;
+    margin-top: 1em;
+    background: #eee;
+    padding: 4px;
+}
+
+.sidebar_editor {
+    display: none;
+}

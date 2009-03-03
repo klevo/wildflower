@@ -36,6 +36,6 @@
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="sidebar-box">
         <h4>Editing options for page...</h4>
-        <?php echo $html->link($this->data['WildPage']['title'], array('action' => 'edit', $this->data['WildPage']['id']), array('class' => 'edited-item-link')); ?>
+        <?php echo $html->link($this->data['WildPage']['title'], array('action' => 'view', $this->data['WildPage']['id']), array('class' => 'edited-item-link')); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

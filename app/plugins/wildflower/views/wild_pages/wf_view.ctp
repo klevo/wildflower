@@ -17,6 +17,14 @@
     <?php echo $texy->process($page['WildPage']['content']); ?>
 </div>
 
+<?php if (!empty($page['WildPage']['sidebar_content'])): ?>
+<div id="sidebar_content">
+    <?php echo $texy->process($page['WildPage']['sidebar_content']); ?>
+</div>
+<?php endif; ?>
+    
+</div>
+
 <hr />
 
 <?php $partialLayout->blockStart('sidebar'); ?>
@@ -35,7 +43,6 @@
         ?>
         </ul>
     </li>
-    
     
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
