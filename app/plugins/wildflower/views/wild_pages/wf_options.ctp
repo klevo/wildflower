@@ -1,4 +1,7 @@
-<?php 
+<?php
+    $partialLayout->switchToEditorMode();
+    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']));
+ 
     echo 
     $form->create('WildPage', array('url' => $html->url(array('action' => 'update', 'base' => false)), 'class' => 'horizontal-form')),
     '<div>',
@@ -21,7 +24,7 @@
     <div class="submit save-section">
         <input type="submit" value="<?php __('Save options'); ?>" />
     </div>
-    <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel and go back to page edit', true), array('action' => 'edit', $this->data['WildPage']['id'])); ?></div>
+    <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'edit', $this->data['WildPage']['id'])); ?></div>
 </div>
 
 <?php 
