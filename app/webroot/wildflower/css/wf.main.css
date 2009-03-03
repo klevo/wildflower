@@ -1089,6 +1089,8 @@ select {
 .entry {
     font-size: 13px;
     line-height: 18px;
+    float: left;
+    width: 65%;
 }
 
     .entry h2 {
@@ -1165,4 +1167,11 @@ select {
 
 .sidebar_editor {
     display: none;
+}
+
+#sidebar_content {
+    background: #eee;
+    padding: 10px;
+    float: right;
+    width: 30%;
 }

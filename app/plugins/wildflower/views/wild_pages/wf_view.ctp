@@ -23,7 +23,7 @@
 </div>
 <?php endif; ?>
     
-</div>
+<span class="cleaner"></span>
 
 <hr />
 
