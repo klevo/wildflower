@@ -1,9 +1,14 @@
 <?php 
     $partialLayout->switchToEditorMode();
     $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']));
-
-    echo $html->link('<span>' . __('Edit this page', true) . '</span>', array('action' => 'edit', $page['WildPage']['id']), array('class' => 'button', 'escape' => false)); 
+    
+    $editUrl = Router::url(array('action' => 'edit', $page['WildPage']['id']));
+    if (isset($this->params['named']['rev'])) {
+        $editUrl .= "/rev:{$this->params['named']['rev']}";
+    }
 ?>
+
+<a href="<?php echo hsc($editUrl); ?>" class="button"><span><?php echo hsc(__('Edit this page', true)); ?></span></a>
 <span class="cleaner"></span>
 <hr />
 

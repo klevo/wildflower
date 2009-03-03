@@ -44,7 +44,7 @@
 <span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li>
+    <li class="texy_syntax">
         <h4>Text formatting</h4>
         <p>Use simple words or codes to format the text.</p>
         <p>You can insert HTML code (like a YouTube video) right into the editor.</p>
