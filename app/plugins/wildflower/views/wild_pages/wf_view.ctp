@@ -15,13 +15,15 @@
 <hr />
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li>
+    <li class="versions">
         <h4>Versions</h4>
         <ul>
         <?php
             $attr = array();
-            //if (isset($this->params['rev']))
             foreach ($revisions as $version) {
+                if (isset($this->params['named']['rev']) and $this->params['named']['rev'] == $version['WildRevision']['revision_number']) {
+                    $attr['class'] = 'current';
+                }
                 echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/view/{$page['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
             }
         ?>
