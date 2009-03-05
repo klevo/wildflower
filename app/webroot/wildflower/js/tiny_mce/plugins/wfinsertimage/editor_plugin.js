@@ -19,7 +19,7 @@
 	            onclick : function() {
 	                 $.jlm.components.tinyMce.insertWidget(ed);
 	            },
-	            'class' : 'mceIcon'
+	            'image' : $.jlm.base + '/wildflower/img/cog.png'
 	        });
 		}
 		
