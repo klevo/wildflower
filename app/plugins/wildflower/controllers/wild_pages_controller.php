@@ -82,9 +82,8 @@ class WildPagesController extends WildflowerAppController {
         $this->pageTitle = $page[$this->modelClass]['title'];
 
         $newParentPageOptions = $this->WildPage->getListThreaded();
-        $this->set(compact('isRevision', 'newParentPageOptions'));
-        
-        //$this->_setParentSelectBox($page[$this->modelClass]['id']);
+        $revisions = $this->WildPage->getRevisions($id, 10);
+        $this->set(compact('isRevision', 'newParentPageOptions', 'revisions'));
     }
     
     function wf_view($id = null) {

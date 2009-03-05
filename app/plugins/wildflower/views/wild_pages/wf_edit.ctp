@@ -37,8 +37,6 @@
     '</div>';
 ?>
 
-<p><a href="#ShowSidebarEditor">Show sidebar editor</a></p>
-
 <div id="edit-buttons">
     <?php echo $this->element('wf_edit_buttons'); ?>
 </div>
@@ -55,21 +53,25 @@
 <span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="texy_syntax">
-        <h4>Text formatting</h4>
-        <p>Use simple words or codes to format the text.</p>
-        <p>You can insert HTML code (like a YouTube video) right into the editor.</p>
-        <table class="texy_table">
-            <thead>
-                <tr><th>You type</th><th>Result</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><code>*emphasis*</code></td><td><?php echo $texy->process('*emphasis*'); ?></td></tr>
-                <tr><td><code>**bold words**</code></td><td><?php echo $texy->process('**bold words**'); ?></td></tr>
-                <tr><td><code>Heading<br />=======</code></td><td><?php echo $texy->process("Heading\n======="); ?></td></tr>
-            </tbody>
-        </table>
-        
-        <p><a href="#MoreFormating">More formatting options</a></p>
+    <li class="versions">
+        <h4>Versions</h4>
+        <ul>
+        <?php
+            $attr = array();
+            foreach ($revisions as $version) {
+                if (isset($this->params['named']['rev']) and $this->params['named']['rev'] == $version['WildRevision']['revision_number']) {
+                    $attr['class'] = 'current';
+                }
+                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/edit/{$this->data['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
+                $attr['class'] = '';
+            }
+        ?>
+        </ul>
+    </li>
+    
+    <li class="main_sidebar">
+        <ul class="sidebar-menu-alt edit-sections-menu">
+            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
+        </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>
