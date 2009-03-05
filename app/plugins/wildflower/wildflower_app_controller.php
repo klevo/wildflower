@@ -1,5 +1,5 @@
 <?php
-uses('Sanitize');
+App::import('Sanitize');
 App::import('Core', 'l10n');
 
 class WildflowerAppController extends AppController {
