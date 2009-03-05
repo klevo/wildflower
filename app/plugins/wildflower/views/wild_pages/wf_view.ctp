@@ -14,7 +14,7 @@
 
 <div class="entry">
     <h1><?php echo hsc($page['WildPage']['title']); ?></h1>
-    <?php echo $texy->process($page['WildPage']['content']); ?>
+    <?php echo $page['WildPage']['content']; ?>
 </div>
 
 <?php if (!empty($page['WildPage']['sidebar_content'])): ?>

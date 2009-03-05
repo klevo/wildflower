@@ -2,6 +2,6 @@
 
 $.jlm.bind('app_controller.beforeFilter', function () {
     
-    //$.jlm.components.tinyMce.startup();
+    $.jlm.components.tinyMce.startup();
     
 });
