@@ -144,8 +144,24 @@ $.jlm.addComponent('tinyMce', {
 		$.jlm.components.tinyMce.dialogEl.remove();
 	},
 	
-	insertWidget: function() {
+	insertWidget: function(editor) {
+	    // Close if open
+	    var alreadyOpenEl = $('.insert_widget_sidebar');
+	    if (alreadyOpenEl.size() > 0) {
+	        alreadyOpenEl.remove();
+	        $('.main_sidebar').show();
+	        return false;
+	    }
 	    
+	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_widget';
+	    
+	    $.get(url, function(html) {
+	        var widgetSidebarEl = $(html);
+	        $('.main_sidebar').hide();
+	        $('#sidebar > ul').append(widgetSidebarEl);
+		});
+	    
+	    return false;
 	},
     
     insertLink: function() {
