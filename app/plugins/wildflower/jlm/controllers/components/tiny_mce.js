@@ -31,7 +31,7 @@ $.jlm.addComponent('tinyMce', {
             doctype: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
 
             // Theme options
-            theme_advanced_buttons1: "undo,redo,|,bold,italic,strikethrough,|,formatselect,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,wfinsertimage,|,charmap,code,fullscreen",
+            theme_advanced_buttons1: "undo,redo,|,bold,italic,strikethrough,|,formatselect,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,wfinsertimage,wfinsertwidget,|,charmap,code,fullscreen",
     		theme_advanced_buttons2: "",
     		theme_advanced_buttons3: "",
             theme_advanced_toolbar_location: "top",
@@ -66,6 +66,13 @@ $.jlm.addComponent('tinyMce', {
 	},
 	
 	insertImage: function(editor) {
+	    // Close if open
+	    if ($('.insert_image_sidebar').size() > 0) {
+	        $('.insert_image_sidebar').remove();
+	        $('.main_sidebar').show();
+	        return false;
+	    }
+	    
 	    // @TODO: I want to do something like this:
 	    // $.jlm.url({ plugin: 'wildflower', controller: 'wild_assets', action: 'wf_insert_image' });
 	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_image';
@@ -135,6 +142,10 @@ $.jlm.addComponent('tinyMce', {
 	
 	closeDialog: function() {
 		$.jlm.components.tinyMce.dialogEl.remove();
+	},
+	
+	insertWidget: function() {
+	    
 	},
     
     insertLink: function() {

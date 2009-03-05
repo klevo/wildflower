@@ -42,9 +42,11 @@
     <span class="cleaner"></span>
 </li>
 
+<!-- 
 <li class="sidebar-box insert_image_sidebar">
     <?php echo $this->element('../wild_assets/_upload_file_box'); ?>
 </li>
+-->
 
 <li class="insert_image_sidebar">
     <a class="cancel" href="Close">Close insert image sidebar</a>

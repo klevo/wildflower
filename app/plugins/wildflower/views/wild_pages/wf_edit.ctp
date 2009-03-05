@@ -53,7 +53,7 @@
 <span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="versions">
+    <li class="versions main_sidebar">
         <h4>Versions</h4>
         <ul>
         <?php
