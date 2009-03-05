@@ -72,7 +72,7 @@ class WildPagesController extends WildflowerAppController {
      * @param int $id Page ID
      */
     function wf_edit($id = null) {
-        if ($isRevision = isset($this->params['named']['rev'])) {
+        if (isset($this->params['named']['rev'])) {
             $page = $this->WildPage->getRevision($id, $this->params['named']['rev']);
         } else {
             $page = $this->WildPage->findById($id);
@@ -83,7 +83,7 @@ class WildPagesController extends WildflowerAppController {
 
         $newParentPageOptions = $this->WildPage->getListThreaded();
         $revisions = $this->WildPage->getRevisions($id, 10);
-        $this->set(compact('isRevision', 'newParentPageOptions', 'revisions'));
+        $this->set(compact('newParentPageOptions', 'revisions'));
     }
     
     function wf_view($id = null) {
