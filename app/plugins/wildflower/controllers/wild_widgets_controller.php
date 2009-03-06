@@ -19,7 +19,7 @@ class WildWidgetsController extends WildflowerAppController {
         
     }
     
-    function slider_config($id) {
+    function wf_slider_config($id) {
         if (!empty($this->data)) {
             $config = json_encode($this->data);
             $this->WildWidget->id = intval($id);

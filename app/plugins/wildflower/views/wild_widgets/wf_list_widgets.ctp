@@ -3,6 +3,6 @@
     <p>Widgets are small elements providing various functionality. You can insert them into any page or post.</p>
 
     <ul class="widget_list">
-        <li><a href="#InsertSlider" rel="slider">Slider</a></li>
+        <li><a href="#InsertSlider" rel="wf_widget_slider">Slider</a></li>
     </ul>
 </li>
