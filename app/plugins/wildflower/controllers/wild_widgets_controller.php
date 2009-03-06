@@ -20,14 +20,17 @@ class WildWidgetsController extends WildflowerAppController {
     }
     
     function wf_slider_config($id) {
-        if (!empty($this->data)) {
-            $config = json_encode($this->data);
-            $this->WildWidget->id = intval($id);
-            $this->WildWidget->saveField('config', $config);
-        }
-        
         $widget = $this->WildWidget->findById($id);
         $this->data = json_decode($widget['WildWidget']['config'], true);
+        $this->data['WildWidget']['id'] = intval($id);
+    }
+    
+    function wf_update() {
+        if (!empty($this->data)) {
+            $config = json_encode($this->data);
+            $this->WildWidget->id = intval($this->data['WildWidget']['id']);
+            $this->WildWidget->saveField('config', $config);
+        }
     }
     
 }
