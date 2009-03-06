@@ -92,6 +92,9 @@ class WildPagesController extends WildflowerAppController {
         } else {
             $page = $this->WildPage->findById($id);
         }
+        
+        // @TODO Process Widgets
+        
         $revisions = $this->WildPage->getRevisions($id, 10);
         $this->set(compact('page', 'revisions'));
     }

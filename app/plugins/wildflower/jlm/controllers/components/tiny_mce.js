@@ -153,12 +153,24 @@ $.jlm.addComponent('tinyMce', {
 	        return false;
 	    }
 	    
-	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/insert_widget';
+	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/list_widgets';
 	    
 	    $.get(url, function(html) {
 	        var widgetSidebarEl = $(html);
 	        $('.main_sidebar').hide();
 	        $('#sidebar > ul').append(widgetSidebarEl);
+	        
+	        // Bind insert
+	        $('.widget_list a').click(function() {
+	            var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/insert_widget';
+	            var widgetId = $(this).attr('rel');
+	            $.getJSON(url, function(json) {
+	                var instanceId = json.id;
+    	            var widgetHtml = '<div id ="' + widgetId + '" class="wf_widget">' + instanceId + '</div>';
+    	            editor.execCommand('mceInsertContent', 0, widgetHtml);
+	            });
+	            return false;
+	        });
 		});
 	    
 	    return false;
