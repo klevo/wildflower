@@ -70,3 +70,33 @@ Feb 26 10:30:19 [info] SELECT version FROM schema_info
 Feb 26 10:30:19 [info] UPDATE schema_info SET version = 18
 Feb 26 10:30:25 [info] SELECT version FROM schema_info
 Feb 26 10:30:25 [info] UPDATE schema_info SET version = 17
+Mar 06 10:48:25 [info] SELECT version FROM schema_info
+Mar 06 10:48:29 [info] SELECT version FROM schema_info
+Mar 06 10:48:29 [info] UPDATE schema_info SET version = 18
+Mar 06 10:48:29 [info] CREATE TABLE `wild_widgets` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`config` varchar(255)
+) ;
+Mar 06 10:48:29 [info] UPDATE schema_info SET version = 19
+Mar 06 10:48:41 [info] SELECT version FROM schema_info
+Mar 06 10:48:41 [info] DROP TABLE `wild_widgets`
+Mar 06 10:48:41 [info] UPDATE schema_info SET version = 19
+Mar 06 10:48:41 [info] UPDATE schema_info SET version = 17
+Mar 06 10:48:45 [info] SELECT version FROM schema_info
+Mar 06 10:48:45 [info] UPDATE schema_info SET version = 18
+Mar 06 10:48:45 [info] CREATE TABLE `wild_widgets` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`config` varchar(255)
+) ;
+Mar 06 10:48:45 [info] UPDATE schema_info SET version = 19
+Mar 06 10:49:16 [info] SELECT version FROM schema_info
+Mar 06 10:49:16 [info] DROP TABLE `wild_widgets`
+Mar 06 10:49:16 [info] UPDATE schema_info SET version = 19
+Mar 06 10:49:16 [info] UPDATE schema_info SET version = 17
+Mar 06 10:49:23 [info] SELECT version FROM schema_info
+Mar 06 10:49:23 [info] UPDATE schema_info SET version = 18
+Mar 06 10:49:23 [info] CREATE TABLE `wild_widgets` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`config` text
+) ;
+Mar 06 10:49:23 [info] UPDATE schema_info SET version = 19
