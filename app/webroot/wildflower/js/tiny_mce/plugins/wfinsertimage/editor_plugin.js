@@ -21,6 +21,11 @@
 	            },
 	            'image' : $.jlm.base + '/wildflower/img/cog.png'
 	        });
+	        
+	        ed.onDblClick.add(function(ed, e) {
+                $.jlm.components.widgets.edit(e.target);
+            });
+    
 		}
 		
 	});
