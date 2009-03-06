@@ -153,7 +153,7 @@ $.jlm.addComponent('tinyMce', {
 	        return false;
 	    }
 	    
-	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_widget';
+	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/insert_widget';
 	    
 	    $.get(url, function(html) {
 	        var widgetSidebarEl = $(html);
