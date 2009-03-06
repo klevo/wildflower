@@ -1,6 +1,8 @@
 $.jlm.addComponent('widgets', {
     
     edit: function(e) {
+        var t = this;
+        
         // First make sure this is a widget el
         var jEl = $(e);
         if (!jEl.hasClass('wf_widget')) {
@@ -8,13 +10,13 @@ $.jlm.addComponent('widgets', {
         }
         
         // Hide sidebar contet
-        var sidebarContent = $('#sidebar ul');
-        sidebarContent.hide();
+        t.sidebarContent = $('#sidebar ul');
+        t.sidebarContent.hide();
         
         // Hide main content
-        var contentPadEl = $('#content-pad');
-        var mainContent = contentPadEl.children();
-        mainContent.hide();
+        t.contentPadEl = $('#content-pad');
+        t.mainContent = t.contentPadEl.children();
+        t.mainContent.hide();
         
         // Load the widget config action
         var widgetName = jEl.attr('id');
@@ -23,8 +25,24 @@ $.jlm.addComponent('widgets', {
         
         $.get(url, function(html) {
             var configEl = $(html);
-            contentPadEl.append(configEl);
+            t.contentPadEl.append(configEl);
+            
+            // Bind AJAX save
+            function successCallback() {
+                t.closeEdit();
+                return false;
+            }
+            $('#edit_widget_form').ajaxForm({ success: successCallback });
+            
+            // Bind cancel button
+            $('a[href=#CancelWidgetEdit]').click(successCallback);
         });
+	},
+	
+	closeEdit: function() {
+	    this.contentPadEl.children(':visible').remove();
+	    this.sidebarContent.show();
+	    this.mainContent.show();
 	}
 	
 });
