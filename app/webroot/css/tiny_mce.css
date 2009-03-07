@@ -3,12 +3,3 @@ body {
 	padding: 0 6px;
 }
 
-
-/* Widgets */
-
-.wf_widget {
-    background: url(../wildflower/css/img/slider.png) 0 0 no-repeat;
-    padding: 0;
-    height: 117px;
-}
-

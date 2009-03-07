@@ -166,7 +166,8 @@ $.jlm.addComponent('tinyMce', {
 	            var widgetId = $(this).attr('rel');
 	            $.getJSON(url, function(json) {
 	                var instanceId = json.id;
-    	            var widgetHtml = '<p id="' + widgetId + '" class="wf_widget">' + instanceId + '</p>';
+	                var src = $.jlm.base + '/wildflower/css/img/slider.png';
+    	            var widgetHtml = '<img id="' + widgetId + '" class="wf_widget wf_widget_id_' + instanceId + '" src="' + src + '" />';
     	            editor.execCommand('mceInsertContent', 0, widgetHtml);
 	            });
 	            return false;

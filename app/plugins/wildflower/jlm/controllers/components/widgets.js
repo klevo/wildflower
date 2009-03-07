@@ -21,7 +21,8 @@ $.jlm.addComponent('widgets', {
         // Load the widget config action
         var widgetName = jEl.attr('id');
         widgetName = widgetName.replace('wf_widget_', '');
-        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/' + widgetName + '_config/' + jEl.text();
+        var widgetId = jEl.attr('class').replace('wf_widget wf_widget_id_', '');
+        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/' + widgetName + '_config/' + widgetId;
         
         $.get(url, function(html) {
             var configEl = $(html);
