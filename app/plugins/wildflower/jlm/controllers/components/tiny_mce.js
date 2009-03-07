@@ -166,7 +166,7 @@ $.jlm.addComponent('tinyMce', {
 	            var widgetId = $(this).attr('rel');
 	            $.getJSON(url, function(json) {
 	                var instanceId = json.id;
-    	            var widgetHtml = '<div id="' + widgetId + '" class="wf_widget">' + instanceId + '</div>';
+    	            var widgetHtml = '<p id="' + widgetId + '" class="wf_widget">' + instanceId + '</p>';
     	            editor.execCommand('mceInsertContent', 0, widgetHtml);
 	            });
 	            return false;
