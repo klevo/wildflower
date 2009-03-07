@@ -1175,3 +1175,28 @@ select {
     float: right;
     width: 30%;
 }
+
+
+/* Widgets */
+
+    #edit_widget_form .submit {
+        float: left;
+        margin-right: 5px;
+    }
+    
+.slider_block {
+    overflow: hidden;
+}
+
+    .slider_block .input {
+        float: left;
+        margin-right: 10px;
+    }
+    
+    .slider_block label {
+        margin-right: 5px;
+    }
+    
+    .slider_block input {
+        font-size: 14px;
+    }
