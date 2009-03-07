@@ -45,7 +45,12 @@ $.jlm.addComponent('widgets', {
 	
 	addNewCell: function() {
 	    var newBlockEl = $('.slider_block:first').clone();
-	    $('input', newBlockEl).val('');
+	    var index = $('.slider_block').size();
+	    $('input:first', newBlockEl).val('').attr('name', 'data[WildWidget][' + index + '][label]');
+	    $('input:last', newBlockEl).val('').attr('name', 'data[WildWidget][' + index + '][url]');
+        // newBlockEl = '<div class="slider_block">' + newBlockEl.html() + '</div>';
+        
+        // newBlockEl = newBlockEl.replace('0', index.toString());
 	    $('.slider_block:last').after(newBlockEl);
 	},
 	
