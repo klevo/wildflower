@@ -7,8 +7,8 @@ body {
 /* Widgets */
 
 .wf_widget {
-    background: #eee;
-    padding: 20px;
-    border: 1px solid #ddd;
+    background: url(../wildflower/css/img/slider.png) 0 0 no-repeat;
+    padding: 0;
+    height: 117px;
 }
 
