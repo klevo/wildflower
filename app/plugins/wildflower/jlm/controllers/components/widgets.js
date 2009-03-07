@@ -37,7 +37,16 @@ $.jlm.addComponent('widgets', {
             
             // Bind cancel button
             $('a[href=#CancelWidgetEdit]').click(successCallback);
+            
+            // Add new
+            $('a[href=#AddNewCell]').click(t.addNewCell);
         });
+	},
+	
+	addNewCell: function() {
+	    var newBlockEl = $('.slider_block:first').clone();
+	    $('input', newBlockEl).val('');
+	    $('.slider_block:last').after(newBlockEl);
 	},
 	
 	closeEdit: function() {

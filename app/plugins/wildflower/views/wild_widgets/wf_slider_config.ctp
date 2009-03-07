@@ -19,7 +19,7 @@
         }
     }
     
-    echo '<p>', $html->link('Add new item', '#AddNewItem'), '</p>';
+    echo '<p>', $html->link('Add new cell', '#AddNewCell'), '</p>';
 
     echo $form->hidden('id');
     echo $form->end(__('Save', true));
