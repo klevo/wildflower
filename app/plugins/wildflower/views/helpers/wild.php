@@ -212,6 +212,7 @@ class WildHelper extends WildflowerAppHelper {
             $widgetClass = $widget->class;
             $instanceId = intval(r('wf_widget wf_widget_id_', '', $widgetClass));
             $data = $Widget->findById($instanceId);
+            $data = json_decode($data['WildWidget']['config'], true);
             $replaceWith = $view->element('widgets/' . $widgetId, array('data' => $data));
             // Replace the widget placeholder with real stuff
             $html = r($widget->outertext, $replaceWith, $html);
