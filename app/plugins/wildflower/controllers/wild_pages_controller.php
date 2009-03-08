@@ -111,6 +111,15 @@ class WildPagesController extends WildflowerAppController {
         $this->set(compact('parentPageOptions'));
     }
     
+    function wf_sidebar($id = null) {
+        $this->WildPage->contain('WildUser');
+        $this->data = $this->WildPage->findById($id);
+        
+        if (empty($this->data)) return $this->cakeError('object_not_found');
+        
+        $this->pageTitle = $this->data[$this->modelClass]['title'];
+    }
+    
     function wf_update() {
         $this->data[$this->modelClass]['wild_user_id'] = $this->getLoggedInUserId();
         

@@ -50,7 +50,7 @@
     </script>
     
 </head>
-<body>
+<body<?php if (isset($editorMode)) echo ' class="editor_mode"'; ?>>
 
 <?php if (!isset($editorMode)): ?>    
 <div id="admin_bar">

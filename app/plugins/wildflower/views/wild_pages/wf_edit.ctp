@@ -25,12 +25,6 @@
         'cols' => 60,
         'label' => 'Body',
         'div' => array('class' => 'input editor'))),
-    $form->input('sidebar_content', array(
-        'type' => 'textarea',
-        'rows' => 25,
-        'cols' => 60,
-        'label' => 'Sidebar',
-        'div' => array('class' => 'input sidebar_editor'))),
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
@@ -72,6 +66,7 @@
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
             <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
+            <li><?php echo $html->link('Sidebar', array('action' => 'sidebar', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
         </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>

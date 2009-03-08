@@ -47,7 +47,7 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         // Create link
         // TODO - first submit data by AJAX, on success redirect
         $('.submit input', dialogEl).click(function() {
-            $(this).attr('disabled', 'disabled').attr('value', '<l18n>Saving...</l18n>');
+            //$(this).attr('disabled', 'disabled').attr('value', '<l18n>Saving...</l18n>');
             return true;
         });
         

@@ -23,7 +23,7 @@ $.jlm.addComponent('widgets', {
         var widgetId = jEl.attr('class').replace('wf_widget wf_widget_id_', '');
         var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/config/' + widgetName + '/' + widgetId;
         
-        $.get(url, function(html) {
+        $.post(url, function(html) {
             var configEl = $(html);
             t.contentPadEl.append(configEl);
             
@@ -35,10 +35,10 @@ $.jlm.addComponent('widgets', {
             $('#edit_widget_form').ajaxForm({ success: successCallback });
             
             // Bind cancel button
-            $('a[href=#CancelWidgetEdit]').click(successCallback);
+            $('#CancelWidgetEdit').click(successCallback);
             
             // Add new
-            $('a[href=#AddNewCell]').click(t.addNewCell);
+            //$('a[href=#AddNewCell]').click(t.addNewCell);
         });
 	},
 	
@@ -57,6 +57,7 @@ $.jlm.addComponent('widgets', {
         this.contentPadEl.children(':visible').remove();
         this.sidebarContent.show();
         this.mainContent.show();
+        $.jlm.components.tinyMce.resizeToFillScreen($('.tinymce'));
 	}
 	
 });

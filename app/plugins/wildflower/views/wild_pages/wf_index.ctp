@@ -1,9 +1,9 @@
+<h2 class="section">Pages</h2>
+
 <?php
 	echo 
 	$form->create('Page', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
 ?>
-
-<h2 class="section">Pages</h2>
 
 <?php
     echo 
