@@ -3,6 +3,8 @@
     <p>Widgets are small elements providing various functionality. You can insert them into any page or post.</p>
 
     <ul class="widget_list">
-        <li><a href="#InsertSlider" rel="wf_widget_slider">Slider</a></li>
+        <?php foreach ($widgets as $widget): ?>
+            <li><a href="#Insert<?php echo hsc($widget['href']); ?>" rel="<?php echo hsc($widget['id']); ?>"><?php echo hsc($widget['name']); ?></a></li>
+        <?php endforeach; ?>
     </ul>
 </li>
