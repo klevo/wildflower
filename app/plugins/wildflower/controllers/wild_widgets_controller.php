@@ -19,10 +19,11 @@ class WildWidgetsController extends WildflowerAppController {
         
     }
     
-    function wf_slider_config($id) {
+    function wf_config($name, $id) {
         $widget = $this->WildWidget->findById($id);
         $this->data = json_decode($widget['WildWidget']['config'], true);
         $this->data['WildWidget']['id'] = intval($id);
+        $this->render("/elements/widgets/{$name}_config");
     }
     
     function wf_update() {
