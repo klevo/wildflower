@@ -31,13 +31,11 @@ function hsc($string) {
  *
  * @param mixed Variables to output to FireBug console
  */
-if (Configure::read('debug') < 1) {
-    App::import ('Vendor', 'FirePHP', array('file' => 'FirePHP.class.php'));
-} 
 function fb() {
     if (Configure::read('debug') < 1) {
         return true;
     }
+    App::import ('Vendor', 'FirePHP', array('file' => 'FirePHP.class.php'));
     $instance = FirePHP::getInstance(true);
     $args = func_get_args();
     return call_user_func_array(array($instance,'fb'),$args);

@@ -3,18 +3,20 @@
 <?php
     echo $form->create('WildWidget', array('url' => '/' . Configure::read('Wildflower.prefix') . '/widgets/update', 'id' => 'edit_widget_form'));
     
-    if (!isset($this->data['WildWidget']['item']) or empty($this->data['WildWidget']['item'])) {
+    if (!isset($this->data['WildWidget']['items']) or empty($this->data['WildWidget']['items'])) {
         echo '<div class="slider_block">';
         echo '<h3>Cell 1</h3>';
-        echo $form->input("WildWidget.0.label", array('type' => 'text', 'label' => 'Label'));
-        echo $form->input("WildWidget.0.url", array('type' => 'text', 'label' => 'URL'));
+        echo $form->input("WildWidget.items.0.label", array('type' => 'text', 'label' => 'Label'));
+        echo $form->input("WildWidget.items.0.url", array('type' => 'text', 'label' => 'URL'));
         echo '</div>';
     } else {
-        foreach ($this->data['WildWidget']['item'] as $i => $item) {
+        foreach ($this->data['WildWidget']['items'] as $i => $item) {
+            if ($i == 'id') {
+            }
             echo '<div class="slider_block">';
             echo '<h3>Cell ', $i + 1, '</h3>';
-            echo $form->input("WildWidget.label.$i", array('type' => 'text', 'label' => 'Label'));
-            echo $form->input("WildWidget.url.$i", array('type' => 'text', 'label' => 'URL'));
+            echo $form->input("WildWidget.items.$i.label", array('type' => 'text', 'label' => 'Label'));
+            echo $form->input("WildWidget.items.$i.url", array('type' => 'text', 'label' => 'URL'));
             echo '</div>';
         }
     }

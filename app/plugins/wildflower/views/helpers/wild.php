@@ -1,5 +1,6 @@
 <?php
 require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
+App::import('Vendor', 'SimpleHtmlDom', array('file' => 'simple_html_dom.php'));
 
 class WildHelper extends WildflowerAppHelper {
 	
@@ -199,22 +200,12 @@ class WildHelper extends WildflowerAppHelper {
         return WildflowerHelper::slug(low($label), '-');
     }
     
-    function renderPage($content) {
-        $content = json_decode($content);
-        
-        $output = '';
-        foreach($content as $element) {
-            switch($element->type) {
-                case 'content':
-                    if($element->image != '') {
-                        $output .= '<div class="image-' . $element->align . '"><img src="' . $this->Html->url('/wildflower/thumbnail_by_id/' . $element->image . '/320/1000/0') . '" /></div>';
-                    }
-                    $output .= $this->Textile->format($element->text);
-                    $output .= '<div class="clear"></div>';
-                    break;
-            }
-        }
-        return $output;
+    function processWidgets($html) {
+        // Find the widget element
+        $selector = '.wf_widget';
+        $dom = str_get_html($html);
+        $widget = $dom->find($selector);
+        var_dump($widget);
     }
 
 }

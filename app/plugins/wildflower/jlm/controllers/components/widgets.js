@@ -46,8 +46,8 @@ $.jlm.addComponent('widgets', {
 	addNewCell: function() {
 	    var newBlockEl = $('.slider_block:first').clone();
 	    var index = $('.slider_block').size();
-	    $('input:first', newBlockEl).val('').attr('name', 'data[WildWidget][' + index + '][label]');
-	    $('input:last', newBlockEl).val('').attr('name', 'data[WildWidget][' + index + '][url]');
+	    $('input:first', newBlockEl).val('').attr('name', 'data[WildWidget][items][' + index + '][label]');
+	    $('input:last', newBlockEl).val('').attr('name', 'data[WildWidget][items][' + index + '][url]');
         // newBlockEl = '<div class="slider_block">' + newBlockEl.html() + '</div>';
         
         // newBlockEl = newBlockEl.replace('0', index.toString());
@@ -55,9 +55,9 @@ $.jlm.addComponent('widgets', {
 	},
 	
 	closeEdit: function() {
-	    this.contentPadEl.children(':visible').remove();
-	    this.sidebarContent.show();
-	    this.mainContent.show();
+        this.contentPadEl.children(':visible').remove();
+        this.sidebarContent.show();
+        this.mainContent.show();
 	}
 	
 });
