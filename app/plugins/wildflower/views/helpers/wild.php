@@ -204,8 +204,20 @@ class WildHelper extends WildflowerAppHelper {
         // Find the widget element
         $selector = '.wf_widget';
         $dom = str_get_html($html);
-        $widget = $dom->find($selector);
-        var_dump($widget);
+        $widgets = $dom->find($selector);
+        $Widget = ClassRegistry::init('WildWidget');
+        $view = ClassRegistry::getObject('view');
+        foreach ($widgets as $widget) {
+            $widgetId = $widget->id;
+            $widgetClass = $widget->class;
+            $instanceId = intval(r('wf_widget wf_widget_id_', '', $widgetClass));
+            $data = $Widget->findById($instanceId);
+            $replaceWith = $view->element('widgets/' . $widgetId, array('data' => $data));
+            // Replace the widget placeholder with real stuff
+            $html = r($widget->outertext, $replaceWith, $html);
+        }
+        
+        return $html;
     }
 
 }
