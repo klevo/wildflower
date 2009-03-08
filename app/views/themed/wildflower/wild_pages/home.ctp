@@ -7,7 +7,7 @@
 ?>
 <div class="page">
     <div class="entry">
-        <?php echo $texy->process($page['WildPage']['content']); ?>
+        <?php echo $wild->processWidgets($page['WildPage']['content']); ?>
     </div>
     
     <?php echo $this->element('edit_this', array('id' => $page['WildPage']['id'])) ?>
