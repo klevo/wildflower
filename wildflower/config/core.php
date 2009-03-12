@@ -11,7 +11,7 @@
 define('CHILD_PAGES_PLEASE', 'CHILD_PAGES_PLEASE');
 
 /** Wildflower cache path */
-define('WILDFLOWER_CACHE', WILDFLOWER_PLUGIN . DS . 'tmp' . DS . 'cache');
+define('WILDFLOWER_CACHE', WILDFLOWER_DIR . DS . 'tmp' . DS . 'cache');
 
 /** Wildflower config. Access like Configure::read('Wildflower.settingName'); */
 Configure::write(array('Wildflower' => array(

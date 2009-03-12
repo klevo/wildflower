@@ -28,7 +28,7 @@
     <![endif]-->
     
     <!-- JQuery Light MVC -->
-    <script type="text/javascript" src="<?php echo $html->url(array('controller' => 'wild_assets', 'action' => 'jlm', 'plugin' => 'wildflower')); ?>"></script>
+    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Wildflower.prefix') . '/assets/jlm'); ?>"></script>
     <script type="text/javascript">
     //<![CDATA[
         $.jlm.config({

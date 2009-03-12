@@ -12,7 +12,7 @@ class JlmPackagerComponent {
 	private $_initializedViews = array();
 	
 	function startup() {
-		$this->wfJlmDir = WILDFLOWER_PLUGIN . DS . 'jlm';
+		$this->wfJlmDir = WILDFLOWER_DIR . DS . 'jlm';
 		if (!is_dir($this->wfJlmDir)) trigger_error('/wildflower/jlm directory does not exist!');
 		
 		$this->appJlmDir = APP . 'jlm';
