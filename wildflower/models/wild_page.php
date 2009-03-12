@@ -3,15 +3,11 @@ class WildPage extends AppModel {
 
 	public $actsAs = array(
 	   'Containable',
-	   'Wildflower.Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'), 
+	   'Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'), 
 	   'Tree',
-	   'Wildflower.Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
+	   'Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
     );
-    public $belongsTo = array(
-		'WildUser' => array(
-			'className' => 'Wildflower.WildUser'
-		)
-	);
+    public $belongsTo = array('WildUser');
 	public $validate = array(
 	   'title' => array(
 	       'rule' => array('maxLength', 255), 
