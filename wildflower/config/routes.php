@@ -27,6 +27,18 @@ foreach ($wfControllers as $shortcut) {
 	);
 }
 
+foreach ($myWfAdminControllers as $controller) {
+	Router::connect(
+		"/$prefix/$controller", 
+		array('controller' => $controller, 'action' => 'index', 'prefix' => 'wf')
+	);
+	
+	Router::connect(
+		"/$prefix/$controller/:action/*", 
+		array('controller' => $controller, 'prefix' => 'wf')
+	);
+}
+
 // Dashboard
 Router::connect("/$prefix", array('controller' => 'wild_dashboards', 'action' => 'index', 'prefix' => 'wf'));
 Router::connect("/$prefix/dashboards/search", array('controller' => 'wild_dashboards', 'action' => 'search', 'prefix' => 'wf'));

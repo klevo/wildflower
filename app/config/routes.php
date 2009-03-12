@@ -26,6 +26,9 @@
  * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
+ 
+// Define your controller that should be accesible from Wildflower admin. /wf-prefix/my-controller => MyController::wf_index()
+$myWfAdminControllers = array('examples');
 
 require_once(WILDFLOWER_DIR . DS . 'config' . DS . 'routes.php');
 
