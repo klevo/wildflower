@@ -1,5 +1,5 @@
 <?php
-class WildPost extends WildflowerAppModel {
+class WildPost extends AppModel {
     
 	public $actsAs = array(
 	   'Containable',

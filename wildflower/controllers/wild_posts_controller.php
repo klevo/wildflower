@@ -1,5 +1,5 @@
 <?php
-class WildPostsController extends WildflowerAppController {
+class WildPostsController extends AppController {
 	public $helpers = array('Cache', 'Wildflower.List', 'Rss', 'Wildflower.Textile', 'Wildflower.Category', 'Wildflower.Tree', 'Time');
 	/** Pagination options for the wf_index action **/
     public $paginate = array(

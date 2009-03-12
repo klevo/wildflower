@@ -1,8 +1,7 @@
 <?php
-require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
 App::import('Vendor', 'SimpleHtmlDom', array('file' => 'simple_html_dom.php'));
 
-class WildHelper extends WildflowerAppHelper {
+class WildHelper extends AppHelper {
 	
 	public $helpers = array('Html', 'Textile');
 	private $_isFirstChild = true;

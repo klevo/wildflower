@@ -1,9 +1,9 @@
 <?php
-Router::connect('/', array('controller' => 'wild_pages', 'action' => 'view', 'plugin' => 'wildflower'));
+Router::connect('/', array('controller' => 'wild_pages', 'action' => 'view'));
 
-Router::connect('/comments/create', array('controller' => 'wild_comments', 'action' => 'create', 'plugin' => 'wildflower'));
+Router::connect('/comments/create', array('controller' => 'wild_comments', 'action' => 'create'));
 
-Router::connect('/search', array('controller' => 'wild_dashboards', 'action' => 'search', 'plugin' => 'wildflower'));
+Router::connect('/search', array('controller' => 'wild_dashboards', 'action' => 'search'));
 
 $prefix = Configure::read('Wildflower.prefix');
 $admin = Configure::read('Routing.admin');
@@ -18,40 +18,40 @@ $wfControllers = array('pages', 'posts', 'dashboards', 'users', 'categories', 'c
 foreach ($wfControllers as $shortcut) {
 	Router::connect(
 		"/$prefix/$shortcut", 
-		array('plugin' => 'wildflower', 'controller' => "wild_$shortcut", 'action' => 'index', 'prefix' => 'wf')
+		array('controller' => "wild_$shortcut", 'action' => 'index', 'prefix' => 'wf')
 	);
 	
 	Router::connect(
 		"/$prefix/$shortcut/:action/*", 
-		array('plugin' => 'wildflower', 'controller' => "wild_$shortcut", 'prefix' => 'wf')
+		array('controller' => "wild_$shortcut", 'prefix' => 'wf')
 	);
 }
 
 // Dashboard
-Router::connect("/$prefix", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'index', 'prefix' => 'wf'));
-Router::connect("/$prefix/dashboards/search", array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search', 'prefix' => 'wf'));
+Router::connect("/$prefix", array('controller' => 'wild_dashboards', 'action' => 'index', 'prefix' => 'wf'));
+Router::connect("/$prefix/dashboards/search", array('controller' => 'wild_dashboards', 'action' => 'search', 'prefix' => 'wf'));
 
 // Login screen
-Router::connect("/$prefix/login", array('controller' => 'wild_users', 'action' => 'login', 'plugin' => 'wildflower'));
+Router::connect("/$prefix/login", array('controller' => 'wild_users', 'action' => 'login'));
 
 // Contact form
-Router::connect('/contact', array('controller' => 'wild_messages', 'action' => 'index', 'plugin' => 'wildflower'));
-Router::connect('/contact/create', array('controller' => 'wild_messages', 'action' => 'create', 'plugin' => 'wildflower'));
+Router::connect('/contact', array('controller' => 'wild_messages', 'action' => 'index'));
+Router::connect('/contact/create', array('controller' => 'wild_messages', 'action' => 'create'));
 
 // RSS
-Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed', 'plugin' => 'wildflower'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed'));
 
 // Ultra sexy short SEO friendly post URLs in form of http://my-domain/p/40-char-uuid
-Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', array('controller' => 'wild_posts', 'action' => 'view', 'plugin' => 'wildflower'));
-Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index', 'plugin' => 'wildflower'));
-Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('controller' => 'wild_posts', 'action' => 'rss', 'plugin' => 'wildflower'));
+Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', array('controller' => 'wild_posts', 'action' => 'view'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('controller' => 'wild_posts', 'action' => 'rss'));
 
 // Image thumbnails
-Router::connect('/wildflower/thumbnail/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail'));
-Router::connect('/wildflower/thumbnail_by_id/*', array('plugin' => 'wildflower', 'controller' => 'wild_assets', 'action' => 'thumbnail_by_id'));
+Router::connect('/wildflower/thumbnail/*', array('controller' => 'wild_assets', 'action' => 'thumbnail'));
+Router::connect('/wildflower/thumbnail_by_id/*', array('controller' => 'wild_assets', 'action' => 'thumbnail_by_id'));
 
 // Site search (pages & posts)
-Router::connect('/wildflower/search', array('plugin' => 'wildflower', 'controller' => 'wild_dashboards', 'action' => 'search'));
+Router::connect('/wildflower/search', array('controller' => 'wild_dashboards', 'action' => 'search'));
 
 WildflowerRootPagesCache::connect();
 
@@ -83,19 +83,19 @@ class WildflowerRootPagesCache {
             // Root page
             Router::connect(
         		$page['WildPage']['url'], 
-        		array('plugin' => 'wildflower', 'controller' => "wild_pages", 'action' => 'view', 'id' => $page['WildPage']['id'])
+        		array('controller' => "wild_pages", 'action' => 'view', 'id' => $page['WildPage']['id'])
         	);
         	// It's children
         	$children = $page['WildPage']['url'] . '/*';
             Router::connect(
                 $children, 
-                array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'view')
+                array('controller' => 'wild_pages', 'action' => 'view')
             );
         }
     }
     
     static function update() {
-        return Router::requestAction(array('plugin' => 'wildflower', 'controller' => 'wild_pages', 'action' => 'update_root_cache'), array('return' => 1));
+        return Router::requestAction(array('controller' => 'wild_pages', 'action' => 'update_root_cache'), array('return' => 1));
     }
     
     static function write($rootPages = array()) {

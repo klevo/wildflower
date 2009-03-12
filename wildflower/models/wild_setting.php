@@ -1,5 +1,5 @@
 <?php
-class WildSetting extends WildflowerAppModel {
+class WildSetting extends AppModel {
 	
     /**
      * @depracated This is not used right now

@@ -13,7 +13,7 @@ define('WILDFLOWER_PLUGIN', APP . 'plugins' . DS . 'wildflower');
 define('SETTINGS_CACHE_FILE', TMP . 'settings' . DS . 'cache'); // @depracated
 
 // Wildflower MVC paths
-define('WILDFLOWER_DIR', ROOT . DS . 'wildflower');
+define('WILDFLOWER_DIR', APP . '..' . DS . 'wildflower');
 
 $modelPaths = array(WILDFLOWER_DIR . DS . 'models' . DS);
 $viewPaths = array(WILDFLOWER_DIR . DS . 'views' . DS);

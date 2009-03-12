@@ -1,5 +1,5 @@
 <?php
-class WildUtilitiesController extends WildflowerAppController {
+class WildUtilitiesController extends AppController {
     
     public $components = array('Security');
     public $uses = array('Wildflower.WildPost', 'Wildflower.WildUtility');

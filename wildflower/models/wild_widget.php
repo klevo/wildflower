@@ -1,4 +1,4 @@
 <?php
-class WildWidget extends WildflowerAppModel {
+class WildWidget extends AppModel {
 
 }

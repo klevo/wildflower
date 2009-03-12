@@ -5,7 +5,7 @@ uses('Sanitize');
  *
  * Pages are the heart of every CMS.
  */
-class WildPagesController extends WildflowerAppController {
+class WildPagesController extends AppController {
 	
 	public $components = array('RequestHandler', 'Seo');
 	public $helpers = array('Cache', 'Form', 'Html', 'Text', 'Time', 'Wildflower.List', 'Wildflower.Tree');

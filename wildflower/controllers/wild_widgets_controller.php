@@ -1,5 +1,5 @@
 <?php
-class WildWidgetsController extends WildflowerAppController {
+class WildWidgetsController extends AppController {
     
     public $signatures = array(
         array('html' => '<div id="slider" class="wf_widget"></div>', 'action' => 'slider'),

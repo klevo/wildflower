@@ -1,7 +1,5 @@
 <?php
-require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
-
-class ListHelper extends WildflowerAppHelper {
+class ListHelper extends AppHelper {
 	
 	public $helpers = array('Html');
 	private $_defaultSettings = array(

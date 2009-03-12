@@ -1,5 +1,5 @@
 <?php
-class WildAsset extends WildflowerAppModel {
+class WildAsset extends AppModel {
     
     public $validate = array(
         'file' => array(

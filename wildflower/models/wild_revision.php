@@ -1,4 +1,4 @@
 <?php
-class WildRevision extends WildflowerAppModel {
+class WildRevision extends AppModel {
 
 }

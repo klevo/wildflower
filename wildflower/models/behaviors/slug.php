@@ -1,6 +1,4 @@
 <?php 
-require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
-
 /**
  * Slug behavior to a model
  * 
@@ -104,7 +102,7 @@ class SlugBehavior extends ModelBehavior {
      * @return string   Slug for given string.
      */
     private function _getSlug($string, $settings) {
-    	return WildflowerAppHelper::slug($string, $settings['separator']);
+    	return AppHelper::slug($string, $settings['separator']);
     }
 
 }

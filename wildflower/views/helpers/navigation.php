@@ -1,10 +1,9 @@
 <?php
-require_once(WILDFLOWER_PLUGIN . DS . 'wildflower_app_helper.php');
 /**
  * Navigation Helper
  * 
  */
-class NavigationHelper extends WildflowerAppHelper {
+class NavigationHelper extends AppHelper {
     
     public $helpers = array('Html');
     private $_defaultOptions = array(
@@ -102,7 +101,7 @@ class NavigationHelper extends WildflowerAppHelper {
             
             $liAttr = '';
             
-            $slug = WildflowerAppHelper::slug(low($name));
+            $slug = AppHelper::slug(low($name));
             $cssClasses = array();
             if (!empty($settings['id'])) {
                 $cssClasses[] = "{$settings['id']}-$slug";

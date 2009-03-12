@@ -1,5 +1,5 @@
 <?php
-class WildPage extends WildflowerAppModel {
+class WildPage extends AppModel {
 
 	public $actsAs = array(
 	   'Containable',

@@ -1,7 +1,7 @@
 <?php
 //uses('Sanitize');
 
-class WildCategoriesController extends WildflowerAppController {
+class WildCategoriesController extends AppController {
 
 	public $helpers = array('Wildflower.List', 'Wildflower.Tree');
 	public $components = array('Wildflower.Seo');

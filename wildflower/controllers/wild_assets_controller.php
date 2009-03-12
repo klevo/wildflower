@@ -1,5 +1,5 @@
 <?php
-class WildAssetsController extends WildflowerAppController {
+class WildAssetsController extends AppController {
 	
 	public $helpers = array('Cache');
 	public $components = array('RequestHandler', 'Wildflower.JlmPackager');

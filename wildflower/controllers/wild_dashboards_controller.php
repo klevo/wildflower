@@ -1,5 +1,5 @@
 <?php
-class WildDashboardsController extends WildflowerAppController {
+class WildDashboardsController extends AppController {
 	
 	public $helpers = array('Wildflower.List', 'Time', 'Text');
 	public $uses = array('Wildflower.WildComment', 'Wildflower.WildMessage', 'WildFlower.WildPage');

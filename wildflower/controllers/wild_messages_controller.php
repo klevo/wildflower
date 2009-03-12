@@ -1,5 +1,5 @@
 <?php
-class WildMessagesController extends WildflowerAppController {
+class WildMessagesController extends AppController {
 
 	public $components = array('Email', 'RequestHandler');
 	public $helpers = array('Text', 'Time', 'Wildflower.List');

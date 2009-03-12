@@ -1,5 +1,5 @@
 <?php
-class WildCategory extends WildflowerAppModel {
+class WildCategory extends AppModel {
 
     public $actsAs = array(
         'Tree', 

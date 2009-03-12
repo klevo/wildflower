@@ -1,5 +1,5 @@
 <?php
-class WildComment extends WildflowerAppModel {
+class WildComment extends AppModel {
     
     public $actsAs = array('Containable');
 	public $belongsTo = array(

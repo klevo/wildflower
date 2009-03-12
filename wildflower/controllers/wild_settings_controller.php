@@ -1,5 +1,5 @@
 <?php
-class WildSettingsController extends WildflowerAppController {
+class WildSettingsController extends AppController {
 
 	public $uses = array('Wildflower.WildPage', 'Wildflower.WildSetting');
 	

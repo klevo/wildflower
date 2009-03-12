@@ -27,7 +27,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-require_once(WILDFLOWER_PLUGIN . DS . 'config' . DS . 'routes.php');
+require_once(WILDFLOWER_DIR . DS . 'config' . DS . 'routes.php');
 
 // Continue with your app routes here
 // ...

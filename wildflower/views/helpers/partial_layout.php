@@ -6,7 +6,7 @@
  * @author Robert Conner <rtconner>
  * @link http://bakery.cakephp.org/articles/view/anything_for_layout-making-html-from-the-view-available-to-the-layout
  */
-class PartialLayoutHelper extends WildflowerAppHelper {
+class PartialLayoutHelper extends AppHelper {
     
     protected $__blockName = null;
     

@@ -3,7 +3,7 @@
  * An example of extending Wildflower plugin controller
  *
  */
-class WildflowerAppControllerCallback extends WildflowerCallback {
+class AppControllerCallback extends WildflowerCallback {
     
     function beforeFilter() {
         echo "This is a Wildflower callback!";

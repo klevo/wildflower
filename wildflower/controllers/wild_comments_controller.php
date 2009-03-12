@@ -1,5 +1,5 @@
 <?php
-class WildCommentsController extends WildflowerAppController {
+class WildCommentsController extends AppController {
     public $helpers = array('Time', 'Wildflower.List');
     public $paginate = array(
         'limit' => 8,

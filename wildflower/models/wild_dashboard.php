@@ -1,5 +1,5 @@
 <?php
-class WildDashboard extends WildflowerAppModel {
+class WildDashboard extends AppModel {
 
     public $useTable = false;
     

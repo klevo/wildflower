@@ -6,7 +6,7 @@ App::import('Vendor', 'phpThumb/phpthumb.class');
  * Files management
  * 
  */
-class WildUploadsController extends WildflowerAppController {
+class WildUploadsController extends AppController {
 
 	public $helpers = array('Html', 'Form');
 	public $components = array('RequestHandler');
