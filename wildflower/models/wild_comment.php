@@ -4,7 +4,7 @@ class WildComment extends AppModel {
     public $actsAs = array('Containable');
 	public $belongsTo = array(
 	    'WildPost' => array(
-	        'className' => 'Wildflower.WildPost',
+	        'className' => 'WildPost',
 	        'foreignKey' => 'wild_post_id',
 	        'counterCache' => true
 	    )

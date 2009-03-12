@@ -10,8 +10,8 @@
 class WildUser extends AppModel {
 	
 	public $hasMany = array(
-	    'Wildflower.WildPage',
-	    'Wildflower.WildPost',
+	    'WildPage',
+	    'WildPost',
 	);
 
     public $validate = array(

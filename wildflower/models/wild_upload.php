@@ -8,14 +8,6 @@ class Upload extends AppModel {
             'message' => 'Select a file to upload'
         )
 	);
-	public $hasAndBelongsToMany = array(
-        'Tag' => array(
-            'className' => 'Tag',
-            'joinTable' => 'tags_uploads',
-            'foreignKey' => 'tag_id',
-            'associationForeignKey' => 'upload_id',
-            'uniq' => true)
-	);
 	
 	function delete($id = null) {
 	    $upload = $this->findById($id);

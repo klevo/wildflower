@@ -1,7 +1,7 @@
 <?php
 class WildSettingsController extends AppController {
 
-	public $uses = array('Wildflower.WildPage', 'Wildflower.WildSetting');
+	public $uses = array('WildPage', 'WildSetting');
 	
 	function beforeFilter() {
 	    parent::beforeFilter();

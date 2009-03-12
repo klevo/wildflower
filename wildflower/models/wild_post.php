@@ -3,30 +3,18 @@ class WildPost extends AppModel {
     
 	public $actsAs = array(
 	   'Containable',
-	   'Wildflower.Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'),
-	   'Wildflower.Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
+	   'Slug' => array('separator' => '-', 'overwrite' => false, 'label' => 'title'),
+	   'Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
 	);
-	
-	public $belongsTo = array(
-	   'WildUser' => array(
-	       'className' => 'Wildflower.WildUser'
-	   )
-	);
-	
-	public $hasAndBelongsToMany = array(
-	   'WildCategory' => array(
-	       'className' => 'Wildflower.WildCategory',
-	   )
-	);
-	
+	public $belongsTo = array('WildUser');
+	public $hasAndBelongsToMany = array('WildCategory');
 	public $hasMany = array(
 	   'WildComment' => array(
-	       'className' => 'Wildflower.WildComment',
+	       'className' => 'WildComment',
 	       'conditions' => 'WildComment.spam = 0',
 	       'order' => 'WildComment.created ASC'
 	   )
 	);
-	
 	public static $statusOptions = array(
        '0' => 'Published',
        '1' => 'Draft'
