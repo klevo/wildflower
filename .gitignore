@@ -10,7 +10,7 @@ app/tmp/logs/*.log
 # Wildflower caches
 app/tmp/cache/wf_previews/*.json
 app/tmp/cache/wf_root_pages
-app/plugins/wildflower/tmp/cache/wf_thumbnails/*.jpg
+wildflower/tmp/cache/wf_thumbnails/*.jpg
 
 # Wildflower uploaded files
 app/webroot/uploads/*
