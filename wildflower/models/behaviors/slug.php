@@ -1,4 +1,5 @@
 <?php 
+require_once APP . 'app_helper.php';
 /**
  * Slug behavior to a model
  * 

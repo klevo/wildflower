@@ -1,16 +1,16 @@
 <?php 
 class WildPostTestCase extends CakeTestCase {
     public $fixtures = array(
-        'plugin.wildflower.wild_post', 
-        'plugin.wildflower.wild_user',  
-        'plugin.wildflower.category_test', 
-        'plugin.wildflower.categories_post_test', 
-        'plugin.wildflower.comment_test',
+        'wild_post', 
+        'wild_user',  
+        'category_test', 
+        'categories_post_test', 
+        'comment_test',
     );
     private $WildPost;
     
     function startTest() {
-        $this->WildPost = ClassRegistry::init('Wildflower.WildPost');
+        $this->WildPost = ClassRegistry::init('WildPost');
         $this->WildPost->Behaviors->detach('Versionable');
         $this->assertTrue($this->WildPost);
     }

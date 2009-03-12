@@ -1,7 +1,7 @@
 <?php 
 class WildCommentFixture extends CakeTestFixture {
     public $name = 'WildComment';
-    public $import = 'Wildflower.WildComment';
+    public $import = 'WildComment';
     public $records = array(
         array(
 	        'id' => 1,

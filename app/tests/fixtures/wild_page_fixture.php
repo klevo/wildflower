@@ -1,7 +1,7 @@
 <?php 
 class WildPageFixture extends CakeTestFixture {
     public $name = 'WildPage';
-    public $import = 'Wildflower.WildPage';
+    public $import = 'WildPage';
     // ID 1 is home page
     public $records = array(
         array('id' => 1, 'parent_id' => null, 'lft' => 1, 'rght' => 2, 'level' => 0, 'slug' => 'article-1', 'url' => '/', 'title' => 'Article 1', 'content' => 'First Article Body', 'description_meta_tag' => 'Some description tag', 'keywords_meta_tag' => '', 'draft' => 0, 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31', 'wild_user_id' => 1),

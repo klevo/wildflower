@@ -1,19 +1,17 @@
 <?php 
-App::import('Model', 'Wildflower.WildComment');
+App::import('Model', 'WildComment');
 
 class WildCommentTestCase extends CakeTestCase {
-    // I spend 2 hours figuring out the plugin.wildflower.model convention.
-    // Without writing it like this your fixtures won't load.
     public $fixtures = array(
-        'plugin.wildflower.wild_comment', 
-        'plugin.wildflower.wild_user',
-        'plugin.wildflower.wild_category',
-        'plugin.wildflower.categories_post',
+        'wild_comment', 
+        'wild_user',
+        'wild_category',
+        'categories_post',
     );
     private $WildComment;
     
     function startTest() {
-        $this->WildComment = ClassRegistry::init('Wildflower.WildComment');
+        $this->WildComment = ClassRegistry::init('WildComment');
     }
     
     function endTest() {

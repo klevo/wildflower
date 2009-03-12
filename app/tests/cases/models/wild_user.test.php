@@ -1,18 +1,18 @@
 <?php 
 class WildUserTestCase extends CakeTestCase {
     public $fixtures = array(
-        'plugin.wildflower.wild_user',
-        'plugin.wildflower.wild_page',
-        'plugin.wildflower.wild_revision',
-        'plugin.wildflower.wild_post',
-        'plugin.wildflower.wild_comment',
-        'plugin.wildflower.wild_category',
-        'plugin.wildflower.wild_category_wild_post',
+        'wild_user',
+        'wild_page',
+        'wild_revision',
+        'wild_post',
+        'wild_comment',
+        'wild_category',
+        'wild_category_wild_post',
     );
     private $User;
     
     function startTest() {
-    	$this->User = ClassRegistry::init('Wildflower.WildUser');
+    	$this->User = ClassRegistry::init('WildUser');
     }
     
     function endTest() {

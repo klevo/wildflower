@@ -1,22 +1,22 @@
 <?php
-require_once(APP . 'plugins' . DS . 'wildflower' . DS . 'config' . DS . 'routes.php');
+require_once(APP . 'config' . DS . 'routes.php');
 
 class WildPageTestCase extends CakeTestCase {
     public $fixtures = array(
-        'plugin.wildflower.wild_page',
-        'plugin.wildflower.wild_user',
-        'plugin.wildflower.wild_revision',
-        'plugin.wildflower.wild_post',
-        'plugin.wildflower.wild_comment',
-        'plugin.wildflower.wild_category',
-        'plugin.wildflower.wild_category_wild_post',
-        'plugin.wildflower.wild_setting',
+        'wild_page',
+        'wild_user',
+        'wild_revision',
+        'wild_post',
+        'wild_comment',
+        'wild_category',
+        'wild_category_wild_post',
+        'wild_setting',
     );
     private $Page;
     
     function startTest() {
         Configure::write('AppSettings.home_page_id', 1);
-    	$this->Page = ClassRegistry::init('Wildflower.WildPage');
+    	$this->Page = ClassRegistry::init('WildPage');
     }
     
     function endTest() {

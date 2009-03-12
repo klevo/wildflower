@@ -1,5 +1,5 @@
 <?php
-App::import('Model', 'Wildflower.WildRevision');
+App::import('Model', 'WildRevision');
 
 /**
  * Versionable behavior
@@ -30,7 +30,7 @@ class VersionableBehavior extends ModelBehavior {
 			// @TODO add all model fields automaticaly
 		}
 		
-		$this->Revision = ClassRegistry::init('Wildflower.WildRevision');
+		$this->Revision = ClassRegistry::init('WildRevision');
 		$this->_model = $model;
 		$this->_type = low($this->_model->name);
         $this->_versionedFields = $versionedFields;
