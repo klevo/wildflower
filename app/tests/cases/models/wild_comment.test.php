@@ -1,12 +1,13 @@
 <?php 
-App::import('Model', 'WildComment');
-
 class WildCommentTestCase extends CakeTestCase {
     public $fixtures = array(
         'wild_comment', 
+        'wild_post',
+        'wild_page',
+        'wild_revision',
         'wild_user',
         'wild_category',
-        'categories_post',
+        'wild_category_wild_post',
     );
     private $WildComment;
     

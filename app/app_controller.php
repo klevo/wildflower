@@ -55,7 +55,7 @@ class AppController extends Controller {
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
         
-		$this->_assertDatabaseConnection();
+		//$this->_assertDatabaseConnection();
 
 		$this->_configureSite();
         
@@ -279,10 +279,10 @@ class AppController extends Controller {
     function beforeRender() {
         parent::beforeRender();
         
-        // @TODO: Hmmmm?
-        if (!$this->_isDatabaseConnected) {
-            return;
-        }
+        // // @TODO: Hmmmm?
+        // if (!$this->_isDatabaseConnected) {
+        //     return;
+        // }
 
         $this->Seo->title();
         
