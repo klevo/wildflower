@@ -2,11 +2,11 @@
 class WildAsset extends AppModel {
     
     public $validate = array(
-        'file' => array(
-            'rule' => array('isFileArray'),
-            'required' => true,
-            'message' => 'Select a file to upload'
-        )
+        // 'file' => array(
+        //     'rule' => array('isFileArray'),
+        //     'required' => true,
+        //     'message' => 'Select a file to upload'
+        // )
 	);
 	
 	function delete($id) {
