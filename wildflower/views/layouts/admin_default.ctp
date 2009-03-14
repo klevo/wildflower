@@ -53,13 +53,9 @@
 <body<?php if (isset($editorMode)) echo ' class="editor_mode"'; ?>>
 
 <?php if (!isset($editorMode)): ?>    
-<div id="admin_bar">
-    <?php echo $html->link('View homepage', '/'); ?>
-</div>
-
 <div id="header">
     <div id="header-wrap">
-        <h1 id="site-title"><?php echo hsc($siteName); ?></h1>
+        <h1 id="site-title"><?php echo $html->link($siteName, '/', array('title' => __('View homepage', true))); ?></h1>
         
         <div id="login-info">
             <?php echo $htmla->link(__('Settings', true), array('controller' => 'wild_settings')); ?> | 
