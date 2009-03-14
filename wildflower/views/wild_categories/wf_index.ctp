@@ -1,6 +1,6 @@
 <h2 class="section">Categories</h2>
 
-<?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category-list reorder-list', 'element' => '../wild_categories/_edit_tree_item')); ?>
+<?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category_list', 'element' => '../wild_categories/_edit_tree_item')); ?>
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>
