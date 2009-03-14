@@ -106,14 +106,17 @@ img {
 }
 
 #site-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: normal;
-    padding: 22px 10px;
     margin: 0;
+    letter-spacing: 0.5px;
 }
 
     #site-title a {
         text-decoration: none;
+        padding: 20px 10px;
+        display: block;
+        float: left;
     }
     
 #nav {
@@ -121,7 +124,8 @@ img {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-size: 13px;
+    font-size: 12px;
+    clear: both;
 }
 
     #nav li {
