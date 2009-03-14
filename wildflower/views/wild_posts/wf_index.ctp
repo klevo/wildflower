@@ -42,7 +42,7 @@
             ?>
             </div>
             <div class="post-comments"><?php echo $html->link($post['WildPost']['wild_comment_count'], array('action' => 'comments', $post['WildPost']['id']), array('title' => __('Manage this post\'s comments.', true)))?></div>
-            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => 'permalink', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
+            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => '', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <span class="cleaner"></span>
         </li>
     <?php endforeach; ?>
