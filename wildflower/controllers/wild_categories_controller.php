@@ -3,8 +3,8 @@
 
 class WildCategoriesController extends AppController {
 
-	public $helpers = array('Wildflower.List', 'Wildflower.Tree');
-	public $components = array('Wildflower.Seo');
+	public $helpers = array('Tree');
+	public $pageTitle = 'Categories';
 
 	public $paginate = array(
         'limit' => 3,
@@ -16,9 +16,15 @@ class WildCategoriesController extends AppController {
      * 
      */
     function wf_index() {
+        if (!empty($this->data)) {
+            if ($this->WildCategory->save($this->data)) {
+                return $this->redirect(array('action' => 'index'));
+            }
+        }
+        
 		$categoriesForTree = $this->WildCategory->find('all', array('order' => 'lft ASC', 'recursive' => -1));
-        $this->set(compact('categoriesForTree'));
-        $this->pageTitle = 'Blog Categories';
+		$categoriesForSelect = $this->WildCategory->find('list', array('fields' => array('id', 'title')));
+        $this->set(compact('categoriesForTree', 'categoriesForSelect'));
     }
     
     /**
@@ -27,11 +33,6 @@ class WildCategoriesController extends AppController {
      * Returns the updated category list as JSON.
      */
     function wf_create() {
-		if (empty($this->data[$this->modelClass]['parent_id'])) {
-    		// Make sure parent_id will be NULL
-    		unset($this->data[$this->modelClass]['parent_id']);
-    	}
-    	
     	$postId = intval($this->data[$this->modelClass]['wild_post_id']);
     	unset($this->data[$this->modelClass]['wild_post_id']);
     	
