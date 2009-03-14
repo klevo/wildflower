@@ -1,10 +1,5 @@
-<?php
-echo $navigation->create(array(
-        'All categories' => array('action' => 'index')
-    ), array('id' => 'sub-nav', 'class' => 'always-current'));
-?>
+<h2 class="section"><?php echo __('Category:', true); ?> <?php echo hsc($this->data['WildCategory']['title']); ?></h2>
 
-<h3>Editing a category</h3>
 <?php
     echo 
     $form->create('WildCategory', array('url' => $html->url(array('action' => $this->params['action'], $this->params['pass'][0], 'base' => false)))),
@@ -15,6 +10,7 @@ echo $navigation->create(array(
     echo 
     $form->input('description', array('between' => '<br />', 'type' => 'textbox', 'cols' => '48', 'rows' => '6')),
     $form->hidden('id'),
-    $wild->submit('Save'),
-    $form->end();
+    $form->end('Save changes');
 ?>
+
+<p class="cancel-edit"><?php echo $html->link(__('Cancel', true), array('action' => 'index')); ?></p>
