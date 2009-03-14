@@ -1230,3 +1230,46 @@ select {
 #gohome {
     margin: 0;
 }
+
+
+/* Category list */
+
+.category_list {
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+    .category_list ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .category_list li {
+        margin: 0;
+        padding: 0 0 0 20px;
+    }
+    
+    .category_list > li {
+        padding-left: 0;
+    }
+    
+.action_delete {
+    display: block;
+    background: transparent url(img/cross.png) 0 0 no-repeat;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    bottom: -1px;
+}
+
+    .action_delete span {
+        display: none;
+    }
+    
+    .action_delete:hover {
+        background-color: transparent;
+    }
