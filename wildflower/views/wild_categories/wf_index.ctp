@@ -1,7 +1,10 @@
-<h2 class="section">Categories</h2>
+<h2 class="section"><?php echo __('Categories', true); ?></h2>
 
-<?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category_list', 'element' => '../wild_categories/_edit_tree_item')); ?>
-
+<?php if (empty($categoriesForTree)): ?>
+    <p><?php echo __('No categories yet.', true); ?></p>
+<?php else: ?>
+    <?php echo $tree->generate($categoriesForTree, array('model' => 'WildCategory', 'class' => 'category_list', 'element' => '../wild_categories/_edit_tree_item')); ?>
+<?php endif; ?>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li id="add-category-box" class="sidebar-box">

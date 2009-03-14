@@ -49,6 +49,12 @@ class WildCategoriesController extends AppController {
     	}
     }
     
+    // @TODO make POST only
+    function wf_delete($id) {
+        $this->WildCategory->delete(intval($id));
+        $this->redirect(array('action' => 'index'));
+    }
+    
     /**
      * View a category and it's posts
      *
