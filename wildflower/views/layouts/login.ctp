@@ -1,39 +1,38 @@
 <?php echo $html->doctype('xhtml-strict') ?>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <?php echo $html->charset(); ?>
-    
-    <title><?php echo $title_for_layout; ?></title>
-    
-    <meta name="description" content="" />
-    
-    <link rel="icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    
-    <?php echo $html->css('login'); ?>
+	
+	<title><?php echo $title_for_layout; ?></title>
+	
+	<meta name="description" content="" />
+	
+    <link rel="shortcut icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
+	
+	<?php 
+        echo
+        // Load your CSS files here
+        $html->css(array(
+            '/wildflower/css/wf.main',
+        )),
+        // TinyMCE 
+        // @TODO load only on pages with editor?
+        $javascript->link('/wildflower/js/tiny_mce/tiny_mce');
+    ?>
+     
+    <!--[if lte IE 7]>
+    <?php
+        // CSS file for Microsoft Internet Explorer 7 and lower
+        echo $html->css('/wildflower/css/wf.ie7');
+    ?>
+    <![endif]-->
     
 </head>
 <body>
 
-<div id="wrap">
-
-    <div id="header">
-        <h1 id="site-title">
-            <?php echo $html->link($siteName, '/', array('title' => 'View site home page')) ?>
-        </h1>
-    </div>
-    
-    <div id="login">
+    <div id="login_box">
         <?php echo $content_for_layout; ?>
     </div>
     
-    <div id="push"></div>
-</div>
-    
-<p id="footer">
-    <?php echo $html->link('Powered by Wildflower', array('controller' => 'pages', 'action' => 'about')) ?> &bull; 
-    <?php echo $html->link('Icons by DryIcons', 'http://dryicons.com') ?>
-</p>
-
 </body>
 </html>

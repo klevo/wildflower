@@ -791,7 +791,8 @@ select {
     .cancel-edit a:hover,
     a.cancel,
     a.cancel:hover,
-    .rename_title {
+    .rename_title,
+    #authMessage {
         color: #d80019;
         background-color: transparent;
     }
@@ -1200,3 +1201,32 @@ select {
     .slider_block input {
         font-size: 14px;
     }
+    
+
+/* Login screen */
+
+#login_box {
+    width: 300px;
+    padding: 15px;
+    border: 4px solid #c9c9c9;
+    margin: 100px auto 0;
+    background: #fff;
+}
+
+    #login_box h1 {
+        margin: 0 0 15px 0;
+        font-size: 22px;
+    }
+    
+        #login_box .input input {
+            font-size: 18px;
+            padding: 3px;
+        }
+        
+        #login_box .submit {
+            margin: 10px 0;
+        }
+        
+#gohome {
+    margin: 0;
+}
