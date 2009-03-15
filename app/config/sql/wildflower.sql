@@ -173,7 +173,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_categories` WRITE;
 /*!40000 ALTER TABLE `wild_categories` DISABLE KEYS */;
-INSERT INTO `wild_categories` VALUES (58,57,10,11,'sci-fi','Sci-fi',NULL),(59,57,12,15,'love-poetry','Love poetry',NULL),(60,59,13,14,'extreme-pornography','Extreme pornography',NULL),(54,53,2,3,'action','Action',NULL),(55,53,4,5,'drama','Drama',''),(56,NULL,7,8,'cooking','Cooking',NULL),(57,NULL,9,16,'books','Books',NULL),(53,NULL,1,6,'movies','Movies',NULL);
+INSERT INTO `wild_categories` VALUES (58,57,10,11,'sci-fi','Sci-fi',NULL),(59,57,12,13,'love-poetry','Love poetry',NULL),(54,53,2,3,'action','Action',NULL),(55,53,4,5,'drama','Drama',''),(56,NULL,7,8,'cooking','Cooking',NULL),(57,NULL,9,14,'books','Books',NULL),(53,NULL,1,6,'movies','Movies',NULL);
 /*!40000 ALTER TABLE `wild_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-03-14 19:35:32
+-- Dump completed on 2009-03-15 11:16:18

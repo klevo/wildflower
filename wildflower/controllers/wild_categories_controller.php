@@ -51,6 +51,9 @@ class WildCategoriesController extends AppController {
     
     // @TODO make POST only
     function wf_delete($id) {
+        if ($this->_isFixed($id)) {
+            return $this->_renderNoEdit($id);
+        }
         $this->WildCategory->delete(intval($id));
         $this->redirect(array('action' => 'index'));
     }
@@ -72,6 +75,10 @@ class WildCategoriesController extends AppController {
      * @param int $id
      */
     function wf_edit($id = null) {
+        if ($this->_isFixed($id)) {
+            return $this->_renderNoEdit($id);
+        }
+        
     	if (!empty($this->data)) {
     	    if ($this->WildCategory->save($this->data['WildCategory'])) {
         	    return $this->redirect(array('action' => 'edit', $id));
@@ -84,8 +91,7 @@ class WildCategoriesController extends AppController {
     	
 		$parentCategories = $this->WildCategory->generatetreelist(null, null, null, '-');
         $this->set(compact('parentCategories'));
-    	
-    	$this->pageTitle = $this->data[$this->modelClass]['title'];
+        $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
     function view($slug = null) {
@@ -97,6 +103,22 @@ class WildCategoriesController extends AppController {
         $this->params['current'] = array('type' => 'category', 'slug' => $category['WildCategory']['slug']);
         
         $this->Seo->title($category['WildCategory']['title']);
+    }
+    
+    private function _isFixed($id) {
+        $fixedCategories = Configure::read('App.fixedWildCategories');
+        if (!is_array($fixedCategories)) $fixedCategories = array();
+        $id = intval($id);
+        if (in_array($id, $fixedCategories)) {
+            return true;
+        }
+        return false;
+    }
+    
+    private function _renderNoEdit($id) {
+        $this->data = $this->WildCategory->findById($id);
+        $this->pageTitle = $this->data[$this->modelClass]['title'];
+        return $this->render('no_edit');
     }
     
 }
