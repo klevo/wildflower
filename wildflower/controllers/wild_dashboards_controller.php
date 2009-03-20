@@ -52,7 +52,7 @@ class WildDashboardsController extends AppController {
             $this->set('results', $results);
 
             if ($this->RequestHandler->isAjax()) {
-                $this->render('/elements/search_results');
+                $this->render('/elements/wf_search_results');
             }
         }
     }
