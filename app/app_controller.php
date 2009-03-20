@@ -321,7 +321,7 @@ class AppController extends Controller {
     }
 	
 	function wf_create_preview() {
-        $cacheDir = Configure::read('Wildflower.previewCache');
+        $cacheDir = Configure::read('Wildflower.previewCache') . DS;
         
         // Create a unique file name
         $fileName = time();
@@ -401,7 +401,7 @@ class AppController extends Controller {
       * @return array
       */
      protected function __readPreviewCache($fileName) {
-         $previewCachePath = Configure::read('Wildflower.previewCache') . $fileName . '.json';
+         $previewCachePath = Configure::read('Wildflower.previewCache') . DS . $fileName . '.json';
          if (!file_exists($previewCachePath)) {
              return trigger_error("Cache file $previewCachePath does not exist!");
          }
