@@ -2,7 +2,7 @@
 class WildDashboardsController extends AppController {
 	
 	public $helpers = array('Wildflower.List', 'Time', 'Text');
-	public $uses = array('Wildflower.WildComment', 'Wildflower.WildMessage', 'WildFlower.WildPage');
+	public $uses = array('WildComment', 'WildMessage', 'WildPage', 'WildPost');
 	public $pageTitle = 'Dashboard';
 	
 	function wf_index() {
@@ -18,9 +18,10 @@ class WildDashboardsController extends AppController {
      * @param string $query Search term, encoded by Javascript's encodeURI()
      */
     function wf_search($query = '') {
+        fb($query);
         $query = urldecode($query);
-        $postResults = ClassRegistry::init('WildPost')->search($query);
-        $pageResults = ClassRegistry::init('WildPage')->search($query);
+        $postResults = $this->WildPost->search($query);
+        $pageResults = $this->WildPage->search($query);
         $results = am($postResults, $pageResults);
         $this->set('results', $results);
     }
