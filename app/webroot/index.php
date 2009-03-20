@@ -87,8 +87,13 @@
 		$Dispatcher = new Dispatcher();
 		$Dispatcher->dispatch($url);
 	}
-	// @klevo Commented out because of some AJAX calls, for JSON content for example, don't like this.
+	// Wildflower: Commented out because of some AJAX calls. JSON content for example, does not like this.
     // if (Configure::read() > 0) {
     //  echo "<!-- " . round(getMicrotime() - $TIME_START, 4) . "s -->";
     // }
+    
+    // Wildflower: Memory usage. Use for debugging - note AJAX does not like this
+    // Typical WF memory usage is 10 MB
+    // $memoryUsageMb = memory_get_usage() / 1024 / 1024;
+    // echo "<!-- $memoryUsageMb MB -->";
 ?>

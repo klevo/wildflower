@@ -86,14 +86,14 @@
 	           ' ', 
 	           $html->link('Wildflower', '/'),
 	           '. ',
-	           $this->element('admin_link') ?></p>
+	           $this->element('admin_link'); ?></p>
 	        
-	        <?php echo $this->element('debug_notice') ?>
+	        <?php echo $this->element('debug_notice'); ?>
 	    </div>
         
     </div>
     
-    <?php echo $this->element('google_analytics') ?>
+    <?php echo $this->element('google_analytics'); ?>
     
 </body>
 </html>
