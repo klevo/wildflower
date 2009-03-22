@@ -72,6 +72,7 @@
                 __('Posts', true) => array('controller' => 'wild_posts'),
                 __('Categories', true) => array('controller' => 'wild_categories'),
                 __('Files', true) => array('controller' => 'wild_assets'),
+                __('Comments', true) => array('controller' => 'wild_comments'),
             ), array('id' => 'nav'));
         ?>
     </div>
