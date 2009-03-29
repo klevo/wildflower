@@ -79,19 +79,6 @@ class WildPost extends AppModel {
         return $this->query("UPDATE {$this->useTable} SET draft = 0 WHERE id = $id");
     }
     
-    function regenerateUuids() {
-        $posts = $this->find('all', array(
-            'conditions' => "uuid IS NULL OR uuid = ''",
-            'fields' => array('id'),
-            'recursive' => -1,
-        ));
-        
-        foreach ($posts as $post) {
-            $this->create($post);
-            $this->saveField('uuid', sha1(String::uuid()));
-        }
-    }
-    
 	/**
      * Search title and content fields
      *

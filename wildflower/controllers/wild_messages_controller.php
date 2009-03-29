@@ -34,6 +34,9 @@ class WildMessagesController extends AppController {
         		$this->Email->from = $this->data[$this->modelClass]['email'];
         		$this->Email->replyTo = $this->data[$this->modelClass]['email'];
         		$this->Email->subject = Configure::read('AppSettings.site_name') . ' contact form';
+        		if (isset($this->data['WildMessage']['idea'])) {
+        		    $this->Email->subject = Configure::read('AppSettings.site_name') . ' IDEAS form';
+        		}
         		$this->Email->sendAs = 'text';
         		$this->Email->template = 'contact_form';
 

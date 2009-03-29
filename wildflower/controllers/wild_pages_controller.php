@@ -1,5 +1,5 @@
 <?php
-App::import('Sanitize');
+uses('Sanitize');
 /**
  * Pages Controller
  *
@@ -8,7 +8,11 @@ App::import('Sanitize');
 class WildPagesController extends AppController {
 	
 	public $components = array('RequestHandler', 'Seo');
-	public $helpers = array('Cache', 'Text', 'Time', 'List', 'Tree');
+	public $helpers = array('Cache', 'Form', 'Html', 'Text', 'Time', 'Wildflower.List', 'Wildflower.Tree');
+    public $paginate = array(
+        'limit' => 25,
+        'order' => array('WildPage.lft' => 'asc')
+    );
     public $pageTitle = 'Pages';
     
     /**
@@ -40,6 +44,26 @@ class WildPagesController extends AppController {
     function wf_diff($pageId, $revisionId) {
         $pageDiff = $this->WildPage->revisionDiff($pageId, $revisionId);
         $this->set('revisionDiff', $pageDiff);
+    }
+    
+    /**
+     * @TODO not done yet
+     *
+     * Discard any unsaved changes to a page
+     *
+     * @param int $id
+     */
+    function wf_discardChanges($id = null, $actionAfter = null) {
+        $previewCachePath = TMP . 'preview' . DS . "page_{$id}_preview.txt";
+        if (file_exists($previewCachePath)) {
+            unlink($previewCachePath);
+        }
+        
+        if ($actionAfter) {
+            $this->redirect(array('action' => $actionAfter));
+        } else {
+            $this->redirect(array('action' => 'edit', $id));
+        }
     }
     
     /**
@@ -383,11 +407,9 @@ class WildPagesController extends AppController {
         }
         $render = $template;
         
-        if (isset($this->theme)) {
-            $possibleThemeFile = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . $slug . '.ctp';
-            if (file_exists($possibleThemeFile)) {
-                $render = $possibleThemeFile;
-            }
+        $possibleThemeFile = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . $slug . '.ctp';
+        if (file_exists($possibleThemeFile)) {
+            $render = $possibleThemeFile;
         }
         
         return $this->render($render);

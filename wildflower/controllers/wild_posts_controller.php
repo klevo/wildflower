@@ -6,17 +6,6 @@ class WildPostsController extends AppController {
         'limit' => 10,
         'order' => array('WildPost.created' => 'desc'),
     );
-    
-    function wf_add() {
-        if (!empty($this->data)) {
-            $this->data[$this->modelClass]['draft'] = 1;
-            $this->data[$this->modelClass]['uuid'] = sha1(String::uuid());
-            if ($this->WildPost->save($this->data)) {
-                $this->Session->setFlash('You\'ve written a new post.');
-                $this->redirect(array('action' => 'wf_edit', $this->WildPost->id));
-            }
-        }
-    }
 
     /**
      * Create a post and redirect to it's edit screen
@@ -32,8 +21,7 @@ class WildPostsController extends AppController {
         
         $defaultParams = array(
             'draft' => 1,
-            'uuid' => $uuid,
-            'slug' => $uuid,
+            'uuid' => $uuid
         );
         $this->data[$this->modelClass] = am($this->data[$this->modelClass], $defaultParams);
         $this->{$this->modelClass}->create($this->data);
@@ -255,8 +243,8 @@ class WildPostsController extends AppController {
             $this->cacheAction = 60 * 60 * 24 * 3; // Cache for 3 days
         }
 
-        $uuid = Sanitize::paranoid($this->params['uuid']);
-        $post = $this->WildPost->findByUuidAndDraft($uuid, 0);
+        $slug = $this->params['slug'];
+        $post = $this->WildPost->findBySlugAndDraft($slug, 0);
 
 		if (empty($post)) {
 			return $this->do404();

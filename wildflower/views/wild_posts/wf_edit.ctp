@@ -1,21 +1,20 @@
 <?php 
+    $partialLayout->switchToEditorMode();
+    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug'], '/' . Configure::read('Wildflower.blogIndex') . '/' . $this->data['WildPost']['slug']));
     $session->flash();
     
     echo 
-    $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor-form'));
+    $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form'));
 ?>
 
 <div id="title-content">
     <?php
         echo
         $form->input('title', array(
-            'between' => '<br />',
-            'tabindex' => '1',
             'label' => __('Post title', true),
-            'div' => array('class' => 'input title-input'))),
+            'div' => array('class' => 'input'))),
         $form->input('content', array(
             'type' => 'textarea',
-            'tabindex' => '2',
             'class' => 'tinymce',
             'rows' => '25',
             'label' => __('Body', true),
@@ -67,9 +66,6 @@
 
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="main_sidebar">
-        <?php echo $this->element('../wild_posts/_sidebar_search'); ?>
-    </li>
-    <li class="main_sidebar">
         <?php echo $html->link(
             '<span>Write a new post</span>', 
             array('action' => 'wf_create'),
@@ -82,8 +78,5 @@
             <li><?php echo $html->link('Browse older versions', '#Revisions', array('rel' => 'post-revisions')); ?></li>
             <li><?php echo $html->link("Comments ({$this->data['WildPost']['wild_comment_count']})", array('action' => 'comments', $this->data['WildPost']['id'])); ?></li>
         </ul>
-    </li>
-    <li class="sidebar-box post-info main_sidebar">
-        <?php echo $this->element('../wild_posts/_post_info'); ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

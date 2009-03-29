@@ -1,4 +1,6 @@
 <?php
+//uses('Sanitize');
+
 class WildCategoriesController extends AppController {
 
 	public $helpers = array('Tree');

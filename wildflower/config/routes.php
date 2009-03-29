@@ -54,7 +54,7 @@ Router::connect('/contact/create', array('controller' => 'wild_messages', 'actio
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/feed', array('controller' => 'wild_posts', 'action' => 'feed'));
 
 // Ultra sexy short SEO friendly post URLs in form of http://my-domain/p/40-char-uuid
-Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:uuid', array('controller' => 'wild_posts', 'action' => 'view'));
+Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:slug', array('controller' => 'wild_posts', 'action' => 'view'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('controller' => 'wild_posts', 'action' => 'rss'));
 
