@@ -89,6 +89,23 @@ class WildPage extends AppModel {
             'order' => 'lft ASC',
         ));
     }
+    
+    function findChildrenBySlug($slug) {
+        $pageId = $this->field('id', array('slug' => $slug));
+        if ($pageId === false) {
+            return false;
+        }
+        $pages = $this->children($pageId, true);
+        // Filter out drafts
+        function noDrafts($page) {
+            if ($page['WildPage']['draft'] == 1) {
+                return false;
+            }
+            return true;
+        }
+        $pages = array_filter($pages, 'noDrafts');
+        return $pages;
+    }
 
     function beforeValidate() {
         if (isset($this->data[$this->name]['parent_id']) && !is_numeric($this->data[$this->name]['parent_id'])) {

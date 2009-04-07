@@ -17,7 +17,11 @@ class WildWidgetsController extends AppController {
     
     function wf_list_widgets() {
         // Scan plugin and theme element dirs for widgets
-        $themeWidgets = $this->_parseWidgetFileList(scandir(APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets'));
+        $widgetsPath = APP . 'views' . DS . 'elements' . DS . 'widgets';
+        if (isset($this->theme) and is_dir(APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets')) {
+            $widgetsPath = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets';
+        }
+        $themeWidgets = $this->_parseWidgetFileList(scandir($widgetsPath));
         $wfWidgets = $this->_parseWidgetFileList(scandir(WILDFLOWER_DIR . DS . 'views' . DS . 'elements' . DS . 'widgets'));
 		$widgets = am($wfWidgets, $themeWidgets);
 		$this->set(compact('widgets'));

@@ -17,7 +17,7 @@ class CategoryHelper extends AppHelper {
     function getList($categories = array(), $type = 'inline') {
     	$catList = array();
 	    foreach ($categories as $cat) {
-	        $catList[] = $this->Html->link($cat['title'], "/tag/$cat[slug]");
+	        $catList[] = $this->Html->link($cat['title'], "/c/$cat[slug]");
 	    }
 	    return join(', ', $catList);
     }

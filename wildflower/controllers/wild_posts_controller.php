@@ -1,6 +1,15 @@
 <?php
 class WildPostsController extends AppController {
-	public $helpers = array('Cache', 'Wildflower.List', 'Rss', 'Wildflower.Textile', 'Wildflower.Category', 'Wildflower.Tree', 'Time');
+	public $helpers = array(
+	    'Cache', 
+	    'List', 
+	    'Rss', 
+	    'Textile', 
+	    'Category', 
+	    'Tree', 
+	    'Time',
+	);
+	
 	/** Pagination options for the wf_index action **/
     public $paginate = array(
         'limit' => 10,
@@ -133,6 +142,10 @@ class WildPostsController extends AppController {
         }
         unset($this->data['__save']);
         
+        if (isset($this->data[$this->modelClass]['slug'])) {
+            $this->data[$this->modelClass]['slug'] = AppHelper::slug($this->data[$this->modelClass]['slug']);
+        }
+        
         $this->WildPost->create($this->data);
         
         if (!$this->WildPost->exists()) return $this->cakeError('object_not_found');
@@ -172,29 +185,29 @@ class WildPostsController extends AppController {
         $this->params['Wildflower']['view']['isPosts'] = true;
     }
     
-    /**
-     * Display posts from a certain category
-     *
-     */
-    function category() {
-    	$slug = WildflowerHelper::slug($this->params['slug']);
-    	
-    	$this->WildPost->Category->Behaviors->attach('Containable');
-        $this->WildPost->Category->contain("Post.id");
-        $category = $this->WildPost->Category->findBySlug($slug);
-
-        $ids = array();
-        foreach ($category[$this->modelClass] as $post) {
-            $ids[] = $post['id'];
-        }
-        
-        $in = implode(', ', $ids);
-        $scope = "Post.id IN ($in)";
-    	$posts = $this->paginate($this->modelClass, $scope);
-    	
-    	$this->set(array('posts' => $posts, 'postsCategory' => $category));
-    }
-    
+    // /**
+    //  * Display posts from a certain category
+    //  *
+    //  */
+    // function category() {
+    //  $slug = WildflowerHelper::slug($this->params['slug']);
+    //  
+    //  $this->WildPost->Category->Behaviors->attach('Containable');
+    //     $this->WildPost->Category->contain("Post.id");
+    //     $category = $this->WildPost->Category->findBySlug($slug);
+    // 
+    //     $ids = array();
+    //     foreach ($category[$this->modelClass] as $post) {
+    //         $ids[] = $post['id'];
+    //     }
+    //     
+    //     $in = implode(', ', $ids);
+    //     $scope = "Post.id IN ($in)";
+    //  $posts = $this->paginate($this->modelClass, $scope);
+    //  
+    //  $this->set(array('posts' => $posts, 'postsCategory' => $category));
+    // }
+    // 
     /**
      * RSS feed for posts
      *
@@ -214,21 +227,72 @@ class WildPostsController extends AppController {
      * 
      */
     function index() {
-    	$this->cacheAction = true;
-    	
-    	$this->pageTitle = 'Blog';
-    	
+        $this->cacheAction = true;
+        
+        $this->pageTitle = 'Blog';
+        
         $this->paginate = array(
-	        'limit' => 5,
-	        'order' => array('WildPost.created' => 'desc'),
-			'conditions' => 'WildPost.draft = 0'
-	    );
-	    $posts = $this->paginate($this->modelClass);
-	    
+            'limit' => 10,
+            'order' => array('WildPost.created' => 'desc'),
+            'conditions' => 'WildPost.draft = 0'
+        );
+        $posts = $this->paginate($this->modelClass);
+        
         if (isset($this->params['requested'])) {
             return $posts;
         }
-        $this->set('posts', $posts);
+        
+        $sidebarCategories = $this->WildPost->WildCategory->find('all', array(
+            'order' => 'lft ASC', 
+            'recursive' => -1, 
+            'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
+        ));
+        
+        $this->set(compact('posts', 'sidebarCategories'));
+    }
+    
+    /**
+     * View posts from one category
+     * 
+     */
+    function category() {
+        //$this->cacheAction = true;
+        
+        $this->pageTitle = 'Blog';
+        
+        $this->WildPost->WildCategory->recursive = -1;
+        $category = $this->WildPost->WildCategory->findBySlug($this->params['slug']);
+        $posts = $this->WildPost->WildCategoriesWildPost->find('all', array(
+            'conditions' => array(
+                'wild_category_id' => $category['WildCategory']['id'],
+            )
+        ));
+        $postsIds = Set::extract($posts, '{n}.WildCategoriesWildPost.wild_post_id');
+        
+        $this->paginate = array(
+            'limit' => 10,
+            'order' => array(
+                'WildPost.created' => 'desc'
+            ),
+            'conditions' => array(
+                'WildPost.draft' => 0,
+                'WildPost.id' => $postsIds,
+            ),
+        );
+        $posts = $this->paginate($this->modelClass);
+        
+        if (isset($this->params['requested'])) {
+            return $posts;
+        }
+        
+        $sidebarCategories = $this->WildPost->WildCategory->find('all', array(
+            'order' => 'lft ASC', 
+            'recursive' => -1, 
+            'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
+        ));
+        
+        $this->set(compact('posts', 'sidebarCategories'));
+        $this->render('index');
     }
     
     /**
@@ -257,9 +321,16 @@ class WildPostsController extends AppController {
             return $post;
         }
         
+        $sidebarCategories = $this->WildPost->WildCategory->find('all', array(
+            'order' => 'lft ASC', 
+            'recursive' => -1, 
+            'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
+        ));
+        
         $this->set(array(
             'post' => $post,
-            'descriptionMetaTag' => $post[$this->modelClass]['description_meta_tag']
+            'descriptionMetaTag' => $post[$this->modelClass]['description_meta_tag'],
+            'sidebarCategories' => $sidebarCategories
         ));
     }
     

@@ -71,12 +71,6 @@ class WildMessagesController extends AppController {
         }
         
         $this->populateContactPage();
-        
-        $themeTemplate = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . 'contact.ctp';
-        if (file_exists($themeTemplate)) {
-            return $this->render(null, null, $themeTemplate);
-        }
-        
         $this->render('contact');
     }
     

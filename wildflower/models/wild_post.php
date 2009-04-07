@@ -7,7 +7,11 @@ class WildPost extends AppModel {
 	   'Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
 	);
 	public $belongsTo = array('WildUser');
-	public $hasAndBelongsToMany = array('WildCategory');
+	public $hasAndBelongsToMany = array(
+	    'WildCategory' => array(
+	        'with' => 'WildCategoriesWildPost'
+	    )
+	);
 	public $hasMany = array(
 	   'WildComment' => array(
 	       'className' => 'WildComment',
@@ -26,8 +30,8 @@ class WildPost extends AppModel {
      * @param string $uuid
      * @return string
      */
-    static function getUrl($uuid) {
-        $url = '/' . Configure::read('Wildflower.postsParent') . '/' . $uuid;
+    static function getUrl($slug) {
+        $url = '/' . Configure::read('Wildflower.postsParent') . '/' . $slug;
         return $url;
     }
 

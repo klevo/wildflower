@@ -407,9 +407,16 @@ class WildPagesController extends AppController {
         }
         $render = $template;
         
-        $possibleThemeFile = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . $slug . '.ctp';
-        if (file_exists($possibleThemeFile)) {
-            $render = $possibleThemeFile;
+        if (isset($this->theme)) {
+            $possibleThemeFile = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'wild_pages' . DS . $slug . '.ctp';
+            if (file_exists($possibleThemeFile)) {
+                $render = $possibleThemeFile;
+            }
+        } else {
+            $possibleThemeFile = APP . 'views' . DS . 'wild_pages' . DS . $slug . '.ctp';
+            if (file_exists($possibleThemeFile)) {
+                $render = $possibleThemeFile;
+            }
         }
         
         return $this->render($render);

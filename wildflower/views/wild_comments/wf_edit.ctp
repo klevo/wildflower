@@ -5,7 +5,7 @@
     $navigation->create(array(
 		'View' => $postUrl . "#comment-{$this->data['WildComment']['id']}",
 		'Delete' => array('action' => 'wf_delete', $this->data['WildComment']['id']),
-        'Approved' => array('action' => 'index'),
+        'Approved' => array('action' => 'wf_index'),
         'Spam' => array('action' => 'wf_spam'),
     ), array('id' => 'sub-nav'));
     

@@ -222,5 +222,19 @@ class WildHelper extends AppHelper {
         }
         return $html;
     }
+    
+    function subPageNav() {
+        $html = '<ul>';
+        $pageSlug = end(array_filter(explode('/', $this->params['url']['url'])));
+        $pages = ClassRegistry::init('WildPage')->findChildrenBySlug($pageSlug);
+        if (empty($pages)) {
+            return '';
+        }
+        foreach ($pages as $page) {
+            $html .= '<li>' . $this->Html->link($page['WildPage']['title'], $page['WildPage']['url']) . '</li>';
+        }
+        $html .= '</ul>';
+        return $html;
+    }
 
 }

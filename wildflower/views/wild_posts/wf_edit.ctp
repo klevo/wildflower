@@ -1,6 +1,6 @@
 <?php 
     $partialLayout->switchToEditorMode();
-    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug'], '/' . Configure::read('Wildflower.blogIndex') . '/' . $this->data['WildPost']['slug']));
+    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug'], '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug']));
     $session->flash();
     
     echo 

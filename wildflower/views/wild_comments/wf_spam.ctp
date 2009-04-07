@@ -1,6 +1,6 @@
 <?php echo $navigation->create(array(
         'Delete' => '#Delete',
-        'Approved' => array('action' => 'index'),
+        'Approved' => array('action' => 'wf_index'),
         'Spam' => array('action' => 'wf_spam'),
     ), array('id' => 'list-toolbar')) ?>
 
