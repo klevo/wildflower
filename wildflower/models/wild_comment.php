@@ -58,7 +58,7 @@ class WildComment extends AppModel {
      * Use Akismet to check comment data for spam
      *
      * @param array $data
-     * @return array Data with spam field set
+     * @return bool
      */
     function isSpam(&$data) {
         $apiKey = Configure::read('Wildflower.settings.wordpress_api_key');

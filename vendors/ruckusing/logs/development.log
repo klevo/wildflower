@@ -100,3 +100,13 @@ Mar 06 10:49:23 [info] CREATE TABLE `wild_widgets` (
 `config` text
 ) ;
 Mar 06 10:49:23 [info] UPDATE schema_info SET version = 19
+Apr 07 11:48:38 [info] SELECT version FROM schema_info
+Apr 07 11:48:42 [info] SELECT version FROM schema_info
+Apr 07 11:48:42 [info] ALTER TABLE wild_messages ADD `spam` int(11)
+Apr 07 11:48:42 [info] UPDATE schema_info SET version = 20
+Apr 07 11:48:46 [info] SELECT version FROM schema_info
+Apr 07 11:48:46 [info] ALTER TABLE `wild_messages` DROP COLUMN `spam`
+Apr 07 11:48:46 [info] UPDATE schema_info SET version = 19
+Apr 07 11:48:47 [info] SELECT version FROM schema_info
+Apr 07 11:48:47 [info] ALTER TABLE wild_messages ADD `spam` int(11)
+Apr 07 11:48:47 [info] UPDATE schema_info SET version = 20
