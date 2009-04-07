@@ -236,5 +236,19 @@ class WildHelper extends AppHelper {
         $html .= '</ul>';
         return $html;
     }
+    
+    function postsFromCategory($slug) {
+        $WildCategory = ClassRegistry::init('WildCategory');
+        $WildCategory->contain(array(
+            'WildPost' => array(
+                'conditions' => array(
+                    'draft' => 0
+                )
+            )
+        ));
+        $category = $WildCategory->findBySlug($slug);
+        $posts = $category['WildPost'];
+        return $posts;
+    }
 
 }
