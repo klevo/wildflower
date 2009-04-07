@@ -33,86 +33,8 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `schema_info` WRITE;
 /*!40000 ALTER TABLE `schema_info` DISABLE KEYS */;
-INSERT INTO `schema_info` VALUES (19);
+INSERT INTO `schema_info` VALUES (20);
 /*!40000 ALTER TABLE `schema_info` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sitemaps`
---
-
-DROP TABLE IF EXISTS `sitemaps`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `sitemaps` (
-  `id` int(11) NOT NULL auto_increment,
-  `lft` int(11) NOT NULL,
-  `rght` int(11) NOT NULL,
-  `parent_id` int(11) default NULL,
-  `loc` varchar(255) collate utf8_unicode_ci NOT NULL,
-  `lastmod` datetime default NULL,
-  `changefreq` enum('always','hourly','daily','weekly','monthly','yearly','never') collate utf8_unicode_ci default NULL,
-  `priority` float default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `lft` (`lft`,`rght`,`parent_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Google Sitemap protocol compatible sitemap';
-SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `sitemaps`
---
-
-LOCK TABLES `sitemaps` WRITE;
-/*!40000 ALTER TABLE `sitemaps` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sitemaps` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tags`
---
-
-DROP TABLE IF EXISTS `tags`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `tags` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(255) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `tags`
---
-
-LOCK TABLES `tags` WRITE;
-/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tags_uploads`
---
-
-DROP TABLE IF EXISTS `tags_uploads`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `tags_uploads` (
-  `upload_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  KEY `tag_id` (`tag_id`),
-  KEY `upload_id` (`upload_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `tags_uploads`
---
-
-LOCK TABLES `tags_uploads` WRITE;
-/*!40000 ALTER TABLE `tags_uploads` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tags_uploads` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -131,7 +53,7 @@ CREATE TABLE `wild_assets` (
   `updated` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `mime` (`mime`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -140,7 +62,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_assets` WRITE;
 /*!40000 ALTER TABLE `wild_assets` DISABLE KEYS */;
-INSERT INTO `wild_assets` VALUES (11,'The_Arrival___Mod_ii_by_alyn.jpg','The_Arrival___Mod_ii_by_alyn','image/jpeg','2009-03-12 19:13:02','2009-03-12 19:13:02');
+INSERT INTO `wild_assets` VALUES (13,'As_petals_go_by___by_turtle_rn.jpg','As_petals_go_by___by_turtle_rn','image/jpeg','2009-03-30 11:31:28','2009-03-30 11:31:28');
 /*!40000 ALTER TABLE `wild_assets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +142,7 @@ CREATE TABLE `wild_comments` (
   PRIMARY KEY  (`id`),
   KEY `post_id` (`wild_post_id`),
   KEY `spam` (`spam`)
-) ENGINE=MyISAM AUTO_INCREMENT=150 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -229,7 +151,6 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_comments` WRITE;
 /*!40000 ALTER TABLE `wild_comments` DISABLE KEYS */;
-INSERT INTO `wild_comments` VALUES (26,1493,'klevo','klevo@klevo.sk','http://klevo.sk','Lorem.',0,'2008-12-05 12:44:55','2008-12-05 12:44:55'),(24,1469,'John Rambo','rambo@klevo.sk','','\'With selected\' control working on posts::wf_index',0,'2008-11-08 23:07:40','2008-11-08 23:07:40'),(25,1469,'Tomáš','tomas@tomas.com','http://google.com','Hello.',0,'2008-11-08 23:12:36','2008-11-08 23:12:36'),(21,32,'klevo','klevo@klevo.sk','http://klevo.sk','aloha',0,'2008-10-25 09:37:04','2008-10-25 09:37:04'),(22,32,'klevo','klevo@klevo.sk','http://klevo.sk','aloha',0,'2008-10-25 09:37:53','2008-10-25 09:37:53'),(23,28,'Mr Pruser','pruser@klevo.sk','','To nemyslis vazne, kradnut clanky od SimpleTestu!?',0,'2008-10-25 09:48:36','2008-10-25 09:48:36'),(28,46,'MoneyMaker','info@klevo.sk','','Let\'s say you have a model called \"ImageAlbum\" and a model called \"Image\", you would add an INT-field to the \"image_album\" table and name it \"image_count\". Or if your names are more complex, here is another example: With \"BlogEntry\" and \"BlogEntryComment\", the name of the field would be \"blog_entry_comment_count\" and needs to be added to \"blog_entries\".',0,'2009-01-05 20:45:10','2009-01-05 20:45:10'),(29,46,'klevo','info@klevo.sk','','You\'re right MoneyMaker.',0,'2009-01-05 20:45:27','2009-01-05 20:45:27'),(30,19,'Tester','A@a.com','http://a.com','tester is testing.',0,'2009-01-05 21:06:32','2009-01-05 21:06:32'),(31,46,'John Rambo','A@a.com','','sasa',0,'2009-01-14 22:16:53','2009-01-14 22:16:53'),(32,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(33,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(34,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(35,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(36,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(37,46,'','',NULL,'',0,'2009-02-10 00:07:32','2009-02-10 00:07:32'),(38,46,'','',NULL,'',0,'2009-02-10 00:07:34','2009-02-10 00:07:34'),(39,46,'','',NULL,'',0,'2009-02-10 00:07:34','2009-02-10 00:07:34'),(40,46,'','',NULL,'',0,'2009-02-10 00:07:35','2009-02-10 00:07:35'),(41,46,'','',NULL,'',0,'2009-02-10 00:07:36','2009-02-10 00:07:36'),(42,46,'','',NULL,'',0,'2009-02-10 00:07:37','2009-02-10 00:07:37'),(43,46,'','',NULL,'',0,'2009-02-10 00:07:37','2009-02-10 00:07:37'),(44,46,'','',NULL,'',0,'2009-02-10 00:07:38','2009-02-10 00:07:38'),(45,46,'','',NULL,'',0,'2009-02-10 00:07:39','2009-02-10 00:07:39'),(46,46,'','',NULL,'',0,'2009-02-10 00:07:40','2009-02-10 00:07:40'),(47,46,'','',NULL,'',0,'2009-02-10 00:07:40','2009-02-10 00:07:40'),(48,46,'','',NULL,'',0,'2009-02-10 00:07:41','2009-02-10 00:07:41'),(49,46,'','',NULL,'',0,'2009-02-10 00:07:42','2009-02-10 00:07:42'),(50,46,'','',NULL,'',0,'2009-02-10 00:07:43','2009-02-10 00:07:43'),(51,46,'','',NULL,'',0,'2009-02-10 00:07:44','2009-02-10 00:07:44'),(52,46,'','',NULL,'',0,'2009-02-10 00:07:45','2009-02-10 00:07:45'),(53,46,'','',NULL,'',0,'2009-02-10 00:07:45','2009-02-10 00:07:45'),(54,46,'','',NULL,'',0,'2009-02-10 00:07:46','2009-02-10 00:07:46'),(55,46,'','',NULL,'',0,'2009-02-10 00:07:47','2009-02-10 00:07:47'),(56,46,'','',NULL,'',0,'2009-02-10 00:07:48','2009-02-10 00:07:48'),(57,46,'','',NULL,'',0,'2009-02-10 00:07:48','2009-02-10 00:07:48'),(58,46,'','',NULL,'',0,'2009-02-10 00:07:49','2009-02-10 00:07:49'),(59,46,'','',NULL,'',0,'2009-02-10 00:07:50','2009-02-10 00:07:50'),(60,46,'','',NULL,'',0,'2009-02-10 00:07:51','2009-02-10 00:07:51'),(61,46,'','',NULL,'',0,'2009-02-10 00:07:52','2009-02-10 00:07:52'),(62,46,'','',NULL,'',0,'2009-02-10 00:07:53','2009-02-10 00:07:53'),(63,46,'','',NULL,'',0,'2009-02-10 00:07:54','2009-02-10 00:07:54'),(64,46,'','',NULL,'',0,'2009-02-10 00:07:55','2009-02-10 00:07:55'),(65,46,'','',NULL,'',0,'2009-02-10 00:07:56','2009-02-10 00:07:56'),(66,46,'1 UNI/**/ON SELECT ALL FROM WHERE','',NULL,'',0,'2009-02-10 00:07:59','2009-02-10 00:07:59'),(67,46,'1\' OR \'1\'=\'1','',NULL,'',0,'2009-02-10 00:07:59','2009-02-10 00:07:59'),(68,46,'1 UNION ALL SELECT 1,2,3,4,5,6,name FROM sysObjects WHERE xtype = \'U\' --','',NULL,'',0,'2009-02-10 00:08:00','2009-02-10 00:08:00'),(69,46,'1 AND ASCII(LOWER(SUBSTRING((SELECT TOP 1 name FROM sysobjects WHERE xtype=\'U\'), 1, 1))) > 116','',NULL,'',0,'2009-02-10 00:08:01','2009-02-10 00:08:01'),(70,46,'\' OR username IS NOT NULL OR username = \'','',NULL,'',0,'2009-02-10 00:08:02','2009-02-10 00:08:02'),(71,46,'1\' AND non_existant_table = \'1','',NULL,'',0,'2009-02-10 00:08:02','2009-02-10 00:08:02'),(72,46,'1\'1','',NULL,'',0,'2009-02-10 00:08:03','2009-02-10 00:08:03'),(73,46,'\'; DESC users; --','',NULL,'',0,'2009-02-10 00:08:04','2009-02-10 00:08:04'),(74,46,'1 AND USER_NAME() = \'dbo\'','',NULL,'',0,'2009-02-10 00:08:05','2009-02-10 00:08:05'),(75,46,'1\' AND 1=(SELECT COUNT(*) FROM tablenames); --','',NULL,'',0,'2009-02-10 00:08:05','2009-02-10 00:08:05'),(76,46,'1 AND 1=1','',NULL,'',0,'2009-02-10 00:08:06','2009-02-10 00:08:06'),(77,46,'1 EXEC XP_','',NULL,'',0,'2009-02-10 00:08:07','2009-02-10 00:08:07'),(78,46,'1\'1','',NULL,'',0,'2009-02-10 00:08:08','2009-02-10 00:08:08'),(79,46,'1\' OR \'1\'=\'1','',NULL,'',0,'2009-02-10 00:08:09','2009-02-10 00:08:09'),(80,46,'1 OR 1=1','',NULL,'',0,'2009-02-10 00:08:10','2009-02-10 00:08:10'),(81,46,'','','','',0,'2009-02-10 00:08:21','2009-02-10 00:08:21'),(82,46,'','','','',0,'2009-02-10 00:08:22','2009-02-10 00:08:22'),(83,46,'','',NULL,'1\' OR \'1\'=\'1',0,'2009-02-10 00:08:30','2009-02-10 00:08:30'),(84,46,'','',NULL,'1 UNI/**/ON SELECT ALL FROM WHERE',0,'2009-02-10 00:08:30','2009-02-10 00:08:30'),(85,46,'','',NULL,'1 UNION ALL SELECT 1,2,3,4,5,6,name FROM sysObjects WHERE xtype = \'U\' --',0,'2009-02-10 00:08:30','2009-02-10 00:08:30'),(86,46,'','',NULL,'1 AND ASCII(LOWER(SUBSTRING((SELECT TOP 1 name FROM sysobjects WHERE xtype=\'U\'), 1, 1))) > 116',0,'2009-02-10 00:08:30','2009-02-10 00:08:30'),(87,46,'','',NULL,'\' OR username IS NOT NULL OR username = \'',0,'2009-02-10 00:08:31','2009-02-10 00:08:31'),(88,46,'','',NULL,'1\' AND non_existant_table = \'1',0,'2009-02-10 00:08:31','2009-02-10 00:08:31'),(89,46,'','',NULL,'1\'1',0,'2009-02-10 00:08:32','2009-02-10 00:08:32'),(90,46,'','',NULL,'\'; DESC users; --',0,'2009-02-10 00:08:33','2009-02-10 00:08:33'),(91,46,'','',NULL,'1 AND USER_NAME() = \'dbo\'',0,'2009-02-10 00:08:35','2009-02-10 00:08:35'),(92,46,'','',NULL,'1\' AND 1=(SELECT COUNT(*) FROM tablenames); --',0,'2009-02-10 00:08:36','2009-02-10 00:08:36'),(93,46,'','',NULL,'1 AND 1=1',0,'2009-02-10 00:08:37','2009-02-10 00:08:37'),(94,46,'','',NULL,'1 EXEC XP_',0,'2009-02-10 00:08:38','2009-02-10 00:08:38'),(95,46,'','',NULL,'1\'1',0,'2009-02-10 00:08:39','2009-02-10 00:08:39'),(96,46,'','',NULL,'1\' OR \'1\'=\'1',0,'2009-02-10 00:08:41','2009-02-10 00:08:41'),(97,46,'','',NULL,'1 OR 1=1',0,'2009-02-10 00:08:42','2009-02-10 00:08:42'),(98,NULL,'','',NULL,'',0,'2009-02-10 00:08:43','2009-02-10 00:08:43'),(99,NULL,'','',NULL,'',0,'2009-02-10 00:08:44','2009-02-10 00:08:44'),(100,1,'','',NULL,'',0,'2009-02-10 00:08:45','2009-02-10 00:08:45'),(101,1,'','',NULL,'',0,'2009-02-10 00:08:46','2009-02-10 00:08:46'),(102,1,'','',NULL,'',0,'2009-02-10 00:08:47','2009-02-10 00:08:47'),(103,1,'','',NULL,'',0,'2009-02-10 00:08:48','2009-02-10 00:08:48'),(104,0,'','',NULL,'',0,'2009-02-10 00:08:49','2009-02-10 00:08:49'),(105,1,'','',NULL,'',0,'2009-02-10 00:08:50','2009-02-10 00:08:50'),(106,1,'','',NULL,'',0,'2009-02-10 00:08:51','2009-02-10 00:08:51'),(107,0,'','',NULL,'',0,'2009-02-10 00:08:52','2009-02-10 00:08:52'),(108,1,'','',NULL,'',0,'2009-02-10 00:08:53','2009-02-10 00:08:53'),(109,1,'','',NULL,'',0,'2009-02-10 00:08:54','2009-02-10 00:08:54'),(110,1,'','',NULL,'',0,'2009-02-10 00:08:55','2009-02-10 00:08:55'),(111,1,'','',NULL,'',0,'2009-02-10 00:08:56','2009-02-10 00:08:56'),(112,1,'','',NULL,'',0,'2009-02-10 00:08:57','2009-02-10 00:08:57'),(113,1,'','',NULL,'',0,'2009-02-10 00:08:58','2009-02-10 00:08:58'),(114,1,'','',NULL,'',0,'2009-02-10 00:08:58','2009-02-10 00:08:58'),(115,46,'','',NULL,'',0,'2009-02-10 00:09:00','2009-02-10 00:09:00'),(116,46,'','',NULL,'',0,'2009-02-10 00:09:01','2009-02-10 00:09:01'),(117,46,'','',NULL,'',0,'2009-02-10 00:09:01','2009-02-10 00:09:01'),(118,46,'','',NULL,'',0,'2009-02-10 00:09:03','2009-02-10 00:09:03'),(119,46,'','',NULL,'',0,'2009-02-10 00:09:03','2009-02-10 00:09:03'),(120,46,'','',NULL,'',0,'2009-02-10 00:09:04','2009-02-10 00:09:04'),(121,46,'','',NULL,'',0,'2009-02-10 00:09:06','2009-02-10 00:09:06'),(122,46,'','',NULL,'',0,'2009-02-10 00:09:07','2009-02-10 00:09:07'),(123,46,'','',NULL,'',0,'2009-02-10 00:09:07','2009-02-10 00:09:07'),(124,46,'','',NULL,'',0,'2009-02-10 00:09:07','2009-02-10 00:09:07'),(125,46,'','',NULL,'',0,'2009-02-10 00:09:09','2009-02-10 00:09:09'),(126,46,'','',NULL,'',0,'2009-02-10 00:09:10','2009-02-10 00:09:10'),(127,46,'','',NULL,'',0,'2009-02-10 00:09:10','2009-02-10 00:09:10'),(128,46,'','',NULL,'',0,'2009-02-10 00:09:12','2009-02-10 00:09:12'),(129,46,'','',NULL,'',0,'2009-02-10 00:09:12','2009-02-10 00:09:12'),(130,46,'','',NULL,'',0,'2009-02-10 00:09:12','2009-02-10 00:09:12'),(131,46,'','',NULL,'',0,'2009-02-10 00:09:12','2009-02-10 00:09:12'),(132,46,'','',NULL,'',0,'2009-02-10 00:09:14','2009-02-10 00:09:14'),(133,46,'','',NULL,'',0,'2009-02-10 00:09:14','2009-02-10 00:09:14'),(134,46,'','',NULL,'',0,'2009-02-10 00:09:15','2009-02-10 00:09:15'),(135,46,'','',NULL,'',0,'2009-02-10 00:09:15','2009-02-10 00:09:15'),(136,46,'','',NULL,'',0,'2009-02-10 00:09:15','2009-02-10 00:09:15'),(137,46,'','',NULL,'',0,'2009-02-10 00:09:15','2009-02-10 00:09:15'),(138,46,'','',NULL,'',0,'2009-02-10 00:09:16','2009-02-10 00:09:16'),(139,46,'','',NULL,'',0,'2009-02-10 00:09:16','2009-02-10 00:09:16'),(140,46,'','',NULL,'',0,'2009-02-10 00:09:18','2009-02-10 00:09:18'),(141,46,'','',NULL,'',0,'2009-02-10 00:09:18','2009-02-10 00:09:18'),(142,46,'','',NULL,'',0,'2009-02-10 00:09:19','2009-02-10 00:09:19'),(143,46,'','',NULL,'',0,'2009-02-10 00:09:19','2009-02-10 00:09:19'),(144,46,'','',NULL,'',0,'2009-02-10 00:09:21','2009-02-10 00:09:21'),(145,46,'','',NULL,'',0,'2009-02-10 00:09:21','2009-02-10 00:09:21'),(146,46,'','',NULL,'',0,'2009-02-10 00:09:22','2009-02-10 00:09:22'),(147,46,'','',NULL,'',0,'2009-02-10 00:09:23','2009-02-10 00:09:23'),(148,46,'','',NULL,'',0,'2009-02-10 00:09:24','2009-02-10 00:09:24'),(149,51,'MrRio','m@m.com','','heloo... tst',0,'2009-02-14 09:42:27','2009-02-14 09:42:27');
 /*!40000 ALTER TABLE `wild_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,8 +170,9 @@ CREATE TABLE `wild_messages` (
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `subject` varchar(255) collate utf8_unicode_ci default NULL,
+  `spam` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all contact form communication';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores all contact form communication';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -259,7 +181,6 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_messages` WRITE;
 /*!40000 ALTER TABLE `wild_messages` DISABLE KEYS */;
-INSERT INTO `wild_messages` VALUES (3,'pajtas','pajtas@klevo.sk','432423523','Let\'s say we have an application that writes a number of files to disk and that it is appropriate to report write errors to the user. We don\'t want to add code for this all over the different parts of our application, so this is a great case for using a new error type.','2008-09-21 10:29:02','2008-09-21 10:29:05','CakePHP error handling'),(4,'klevo','klevoo@gmail.com','','test test test','2009-02-09 14:20:44','2009-02-09 14:20:44',NULL);
 /*!40000 ALTER TABLE `wild_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +260,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_posts` WRITE;
 /*!40000 ALTER TABLE `wild_posts` DISABLE KEYS */;
-INSERT INTO `wild_posts` VALUES (17,'03b93a21ef134f1bbf0bcc2b722e77162a4e5ba2','A Draft','<p>ghjjhhjghgj</p>\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',1,'',NULL,'2008-12-26 13:23:00','2008-12-27 20:30:27',0,'03b93a21ef134f1bbf0bcc2b722e77162a4e5ba2',0),(51,'473f9e9900a31813b4b81ba55576a1c1e9ec0f69','@todo: Link insert','<p><img src=\"/wildflower/wildflower/thumbnail/hl2_wallpapers_136_1600.jpg/200/200/1\" alt=\"hl2_wallpapers_136_1600.jpg\" /></p>',1,NULL,NULL,'2009-01-20 08:32:29','2009-02-21 19:51:23',0,'473f9e9900a31813b4b81ba55576a1c1e9ec0f69',0),(52,'dc4e90a89961a6842cce822d49b9474ef9498929','@todo: Image links when moving app from subfolder','',1,NULL,NULL,'2009-01-20 11:10:46','2009-02-10 17:55:40',0,'dc4e90a89961a6842cce822d49b9474ef9498929',0),(19,'cb2f3c95dd46bc213d1e334831ed2bd37e46d460','@todo: Investigate Auth cookie expire time','<p>123 saddsa</p>',1,'',NULL,'2008-12-27 00:30:00','2009-01-05 21:05:24',0,'cb2f3c95dd46bc213d1e334831ed2bd37e46d460',1),(21,'2d78f7e8e4b9e67c6e45d639221b243c7834300f','@todo: Try search with 10 000 posts','<p>gfdgdfg</p>',1,'',NULL,'2008-12-27 00:37:00','2008-12-27 21:33:45',1,'2d78f7e8e4b9e67c6e45d639221b243c7834300f',0),(22,'11aa5157d9ac4382aed48088ceb544e98b2b388b','@todo: Add Unpublish link to post-info','<p>dsadsa dsada</p>',1,'Make this a draft.',NULL,'2008-12-27 13:41:00','2008-12-27 20:34:33',0,'11aa5157d9ac4382aed48088ceb544e98b2b388b',0),(28,'28dae759c16ad2aa0e1c86aa516bdf7b727d2e39','Lots of Javascript','<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /></p>\n<p>&nbsp;</p>\n<p><img src=\"/wildflower/uploads/Good_Vibrations-1440x900.jpg\" alt=\"Good_Vibrations-1440x900.jpg\" /></p>',1,NULL,NULL,'2008-12-28 10:53:55','2009-01-01 23:00:35',0,'28dae759c16ad2aa0e1c86aa516bdf7b727d2e39',0),(49,'a0852fcf0b322d9f45a2525b5751f2a81d202cb4','@todo Proper HTML editor',NULL,NULL,NULL,NULL,'2009-01-20 08:31:41','2009-01-20 08:31:41',0,'a0852fcf0b322d9f45a2525b5751f2a81d202cb4',0),(36,'xyz','A new post','<p>yeah</p>\n<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',1,'',NULL,'2008-12-29 10:30:00','2009-01-01 20:15:20',0,'6e65b0cf1bea8642054d213c8b1b67f72ea71a12',0),(55,'187c0c40e8c91526ee18ddfb6329a74182278171','@todo: JS redirect after create new in IE no worki\'',NULL,NULL,NULL,NULL,'2009-02-25 07:54:28','2009-02-25 07:54:28',0,'187c0c40e8c91526ee18ddfb6329a74182278171',0),(46,'12ed7420ef6aaea52d6313f7c3a79d0ea4cb5c50','About Cake\'s counter cache','<p>This function helps you cache the count of related data. Instead of counting the records manually via find(\'count\'), the model itself tracks any addition/deleting towards the associated $hasMany model and increases/decreases a dedicated integer field within the parent model table.</p>\n<p>The name of the field <a href=\"why\">consists</a> of the singular model name followed by a underscore and the word \"count\".</p>\n<p><img src=\"/wildflower/wildflower/thumbnail/hl2_wallpapers_136_1600.jpg/234/234/1\" alt=\"hl2_wallpapers_136_1600.jpg\" /><img src=\"/wildflower/wildflower/thumbnail/Genesis.jpg/100/100/1\" alt=\"Genesis.jpg\" /><img src=\"/wildflower/wildflower/thumbnail/Progeny_v3_by_ralasterphecy.jpg/300/300/1\" alt=\"Progeny_v3_by_ralasterphecy.jpg\" /></p>\n<p><img src=\"/wildflower/wildflower/thumbnail/Outer_Docks_by_aiRaGe.jpg/600/600/1\" alt=\"Outer_Docks_by_aiRaGe.jpg\" /></p>\n<p>Let\'s say you have a model called \"ImageAlbum\" and a model called \"Image\", you would add an INT-field to the \"image_album\" table and name it \"image_count\". Or if your names are more complex, here is another example: With \"BlogEntry\" and \"BlogEntryComment\", the name of the field would be \"blog_entry_comment_count\" and needs to be added to \"blog_entries\".</p>\n<p>Once you have added the counter field you are good to activate this functionality by adding the \"counterCache\" key to the \"$belongsTo\" association array and set the value to \"true\".</p>',1,NULL,NULL,'2009-01-05 20:37:40','2009-02-23 09:20:58',0,'12ed7420ef6aaea52d6313f7c3a79d0ea4cb5c50',0),(54,'ef9ff178fa4b7ede2a5eaabcd39c2c181330792d','@todo: Save image resize in a cookie','<p>fdsfsdf</p>',1,'',NULL,'2009-01-21 19:31:00','2009-02-24 07:58:13',0,'ef9ff178fa4b7ede2a5eaabcd39c2c181330792d',0),(56,'bffbf398f870fcb6fda604deaae1205b4ba22f01','@todo: Paging on Blog has wf prefix',NULL,1,NULL,NULL,'2009-02-25 17:20:47','2009-03-12 15:32:59',0,'bffbf398f870fcb6fda604deaae1205b4ba22f01',0);
+INSERT INTO `wild_posts` VALUES (17,'03b93a21ef134f1bbf0bcc2b722e77162a4e5ba2','A Draft','<p>ghjjhhjghgj</p>\n<p><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',1,'',NULL,'2008-12-26 13:23:00','2008-12-27 20:30:27',0,'03b93a21ef134f1bbf0bcc2b722e77162a4e5ba2',0),(51,'473f9e9900a31813b4b81ba55576a1c1e9ec0f69','@todo: Link insert','<p><img src=\"/wildflower/wildflower/thumbnail/hl2_wallpapers_136_1600.jpg/200/200/1\" alt=\"hl2_wallpapers_136_1600.jpg\" /></p>',1,NULL,NULL,'2009-01-20 08:32:29','2009-02-21 19:51:23',0,'473f9e9900a31813b4b81ba55576a1c1e9ec0f69',0),(52,'dc4e90a89961a6842cce822d49b9474ef9498929','@todo: Image links when moving app from subfolder','',1,NULL,NULL,'2009-01-20 11:10:46','2009-02-10 17:55:40',0,'dc4e90a89961a6842cce822d49b9474ef9498929',0),(19,'cb2f3c95dd46bc213d1e334831ed2bd37e46d460','@todo: Investigate Auth cookie expire time','<p>123 saddsa</p>',1,'',NULL,'2008-12-27 00:30:00','2009-01-05 21:05:24',0,'cb2f3c95dd46bc213d1e334831ed2bd37e46d460',0),(21,'2d78f7e8e4b9e67c6e45d639221b243c7834300f','@todo: Try search with 10 000 posts','<p>gfdgdfg</p>',1,'',NULL,'2008-12-27 00:37:00','2008-12-27 21:33:45',1,'2d78f7e8e4b9e67c6e45d639221b243c7834300f',0),(22,'11aa5157d9ac4382aed48088ceb544e98b2b388b','@todo: Add Unpublish link to post-info','<p>dsadsa dsada</p>',1,'Make this a draft.',NULL,'2008-12-27 13:41:00','2008-12-27 20:34:33',0,'11aa5157d9ac4382aed48088ceb544e98b2b388b',0),(28,'28dae759c16ad2aa0e1c86aa516bdf7b727d2e39','Lots of Javascript','<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /></p>\n<p>&nbsp;</p>\n<p><img src=\"/wildflower/uploads/Good_Vibrations-1440x900.jpg\" alt=\"Good_Vibrations-1440x900.jpg\" /></p>',1,NULL,NULL,'2008-12-28 10:53:55','2009-01-01 23:00:35',0,'28dae759c16ad2aa0e1c86aa516bdf7b727d2e39',0),(49,'a0852fcf0b322d9f45a2525b5751f2a81d202cb4','@todo Proper HTML editor',NULL,NULL,NULL,NULL,'2009-01-20 08:31:41','2009-01-20 08:31:41',0,'a0852fcf0b322d9f45a2525b5751f2a81d202cb4',0),(36,'xyz','A new post','<p>yeah</p>\n<p><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/company-image.jpg\" alt=\"company-image.jpg\" /><img src=\"/wildflower/uploads/Pixel_tennis_by_iTop_edition.gif\" alt=\"Pixel_tennis_by_iTop_edition.gif\" /></p>',1,'',NULL,'2008-12-29 10:30:00','2009-01-01 20:15:20',0,'6e65b0cf1bea8642054d213c8b1b67f72ea71a12',0),(55,'187c0c40e8c91526ee18ddfb6329a74182278171','@todo: JS redirect after create new in IE no worki\'',NULL,NULL,NULL,NULL,'2009-02-25 07:54:28','2009-02-25 07:54:28',0,'187c0c40e8c91526ee18ddfb6329a74182278171',0),(46,'12ed7420ef6aaea52d6313f7c3a79d0ea4cb5c50','About Cake\'s counter cache','<p>This function helps you cache the count of related data. Instead of counting the records manually via find(\'count\'), the model itself tracks any addition/deleting towards the associated $hasMany model and increases/decreases a dedicated integer field within the parent model table.</p>\n<p>The name of the field <a href=\"why\">consists</a> of the singular model name followed by a underscore and the word \"count\".</p>\n<p><img src=\"/wildflower/wildflower/thumbnail/hl2_wallpapers_136_1600.jpg/234/234/1\" alt=\"hl2_wallpapers_136_1600.jpg\" /><img src=\"/wildflower/wildflower/thumbnail/Genesis.jpg/100/100/1\" alt=\"Genesis.jpg\" /><img src=\"/wildflower/wildflower/thumbnail/Progeny_v3_by_ralasterphecy.jpg/300/300/1\" alt=\"Progeny_v3_by_ralasterphecy.jpg\" /></p>\n<p><img src=\"/wildflower/wildflower/thumbnail/Outer_Docks_by_aiRaGe.jpg/600/600/1\" alt=\"Outer_Docks_by_aiRaGe.jpg\" /></p>\n<p>Let\'s say you have a model called \"ImageAlbum\" and a model called \"Image\", you would add an INT-field to the \"image_album\" table and name it \"image_count\". Or if your names are more complex, here is another example: With \"BlogEntry\" and \"BlogEntryComment\", the name of the field would be \"blog_entry_comment_count\" and needs to be added to \"blog_entries\".</p>\n<p>Once you have added the counter field you are good to activate this functionality by adding the \"counterCache\" key to the \"$belongsTo\" association array and set the value to \"true\".</p>',1,NULL,NULL,'2009-01-05 20:37:40','2009-02-23 09:20:58',0,'12ed7420ef6aaea52d6313f7c3a79d0ea4cb5c50',0),(54,'ef9ff178fa4b7ede2a5eaabcd39c2c181330792d','@todo: Save image resize in a cookie','<p>fdsfsdf</p>',1,'',NULL,'2009-01-21 19:31:00','2009-02-24 07:58:13',0,'ef9ff178fa4b7ede2a5eaabcd39c2c181330792d',0),(56,'bffbf398f870fcb6fda604deaae1205b4ba22f01','@todo: Paging on Blog has wf prefix',NULL,1,NULL,NULL,'2009-02-25 17:20:47','2009-03-12 15:32:59',0,'bffbf398f870fcb6fda604deaae1205b4ba22f01',0);
 /*!40000 ALTER TABLE `wild_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +349,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_users` WRITE;
 /*!40000 ALTER TABLE `wild_users` DISABLE KEYS */;
-INSERT INTO `wild_users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','f73752c9a0eea063f00917ddfd22905b668d7e0c','2008-07-11 14:24:43','2009-03-14 12:22:11'),(16,'tester','2d51d7ac7023036f536ecdfe6a3d10f2b050636d','t@t.com','tester',NULL,'2009-03-12 15:32:21','2009-03-12 15:32:21');
+INSERT INTO `wild_users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','f3a36639844033efb911ca7c6393a67bd27f17f8','2008-07-11 14:24:43','2009-04-07 10:56:50'),(16,'tester','2d51d7ac7023036f536ecdfe6a3d10f2b050636d','t@t.com','tester',NULL,'2009-03-12 15:32:21','2009-03-12 15:32:21');
 /*!40000 ALTER TABLE `wild_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-03-15 11:16:18
+-- Dump completed on 2009-04-07 10:10:48
