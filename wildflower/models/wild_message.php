@@ -14,6 +14,25 @@ class WildMessage extends AppModel {
 		),
 		'content' => VALID_NOT_EMPTY
 	);
+	/** @var bool Do a spam check before each save? **/
+	public $spamCheck = false;
+	
+	function beforeSave() {
+	    parent::beforeSave();
+	    
+	    $this->data[$this->name]['spam'] = 0;
+
+	    if ($this->spamCheck) {
+	        // Reset spamCheck for another save
+            $this->spamCheck = false;
+            
+	        if ($this->isSpam($this->data)) {
+	            $this->data[$this->name]['spam'] = 1;
+	        }
+	    }
+	    
+	    return true;
+	}
 	
 	/**
      * Use Akismet to check the message data for spam
@@ -29,13 +48,13 @@ class WildMessage extends AppModel {
         
         try {
             App::import('Vendor', 'akismet');
-            $siteUrl = FULL_BASE_URL . $this->base;
+            $siteUrl = Configure::read('Wildflower.fullSiteUrl');
             $akismet = new Akismet($siteUrl, $apiKey);
             $akismet->setCommentAuthor($data[$this->name]['name']);
             $akismet->setCommentAuthorEmail($data[$this->name]['email']);
-            $akismet->setCommentAuthorURL($data[$this->name]['url']);
+            $akismet->setCommentAuthorURL('');
             $akismet->setCommentContent($data[$this->name]['content']);
-            $akismet->setPermalink($data['WildPost']['permalink']);
+            $akismet->setPermalink(Configure::read('Wildflower.fullCurrentUrl'));
             
             if ($akismet->isCommentSpam()) {
                 return true;

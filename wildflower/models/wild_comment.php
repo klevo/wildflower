@@ -9,8 +9,8 @@ class WildComment extends AppModel {
 	        'counterCache' => true
 	    )
 	);
-	/** @var bool Do a spam check before save? **/
-	public $spamCheck = true;
+	/** @var bool Do a spam check before each save? **/
+	public $spamCheck = false;
 	public $validate = array(
 		'name' => VALID_NOT_EMPTY,
 		'email' => array('rule' => 'email', 'message' => 'Please enter a valid email address'),
@@ -68,7 +68,7 @@ class WildComment extends AppModel {
         
         try {
             App::import('Vendor', 'akismet');
-            $siteUrl = FULL_BASE_URL . $this->base;
+            $siteUrl = Configure::read('Wildflower.fullSiteUrl');
             $akismet = new Akismet($siteUrl, $apiKey);
             $akismet->setCommentAuthor($data[$this->name]['name']);
             $akismet->setCommentAuthorEmail($data[$this->name]['email']);

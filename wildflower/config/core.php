@@ -30,5 +30,5 @@ Configure::write(array('Wildflower' => array(
     'blogIndex' => 'blog',
     // Disabling the root page cache may be useful in debugging 
     // (the cache file won't be created, page routes load from the database)
-    'disableRootPageCache' => false,
+    'disableRootPageCache' => false
 )));

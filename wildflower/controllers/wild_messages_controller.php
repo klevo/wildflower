@@ -2,15 +2,18 @@
 class WildMessagesController extends AppController {
 
 	public $components = array('Email', 'RequestHandler');
-	public $helpers = array('Text', 'Time', 'Wildflower.List');
-	public $uses = array('Wildflower.WildMessage', 'Wildflower.WildPage');
+	public $helpers = array('Text', 'Time', 'List');
+	public $uses = array('WildMessage', 'WildPage');
 	public $paginate = array(
         'order' => 'created DESC',
-        'limit' => 25
+        'limit' => 25,
+        'conditions' => array(
+            'spam' => 0
+        )
 	);
 	
 	function wf_index() {
-	    $this->pageTitle = 'Messages';
+	    $this->pageTitle = 'Messages from contact form';
 	    $messages = $this->paginate('WildMessage');
 	    $this->set(compact('messages'));
 	}
@@ -20,35 +23,28 @@ class WildMessagesController extends AppController {
 	    $this->pageTitle = $message['WildMessage']['subject'];
 	    $this->set(compact('message'));
 	}
-	
-	function beforeRender() {
-		parent::beforeRender();
-		$this->params['current']['body_class'] = 'contact-page';
-	}
-    
+
     function index() {
         if (!empty($this->data)) {
+            $this->WildMessage->spamCheck = true;
             if ($this->WildMessage->save($this->data)) {
-        		// @TODO: Akismet validation in model
-        		$this->Email->to = Configure::read('AppSettings.contact_email');
+                // Send email to site owner
+        		$this->Email->to = Configure::read('Wildflower.settings.contact_email');
         		$this->Email->from = $this->data[$this->modelClass]['email'];
         		$this->Email->replyTo = $this->data[$this->modelClass]['email'];
-        		$this->Email->subject = Configure::read('AppSettings.site_name') . ' contact form';
-        		if (isset($this->data['WildMessage']['idea'])) {
-        		    $this->Email->subject = Configure::read('AppSettings.site_name') . ' IDEAS form';
-        		}
+        		$this->Email->subject = Configure::read('Wildflower.settings.site_name') . ' contact form';
         		$this->Email->sendAs = 'text';
         		$this->Email->template = 'contact_form';
 
         		$this->set('message', $this->data[$this->modelClass]['content']);
         		$this->set('phone', isset($this->data[$this->modelClass]['phone']) ? $this->data[$this->modelClass]['phone'] : '');
 
-        		$this->Email->delivery = Configure::read('AppSettings.email_delivery');
+        		$this->Email->delivery = Configure::read('Wildflower.settings.email_delivery');
         		if ($this->Email->delivery == 'smtp') {
             		$this->Email->smtpOptions = array(
-                        'username' => Configure::read('AppSettings.smtp_username'),
-                        'password' => Configure::read('AppSettings.smtp_password'),
-                        'host' => Configure::read('AppSettings.smtp_server'),
+                        'username' => Configure::read('Wildflower.settings.smtp_username'),
+                        'password' => Configure::read('Wildflower.settings.smtp_password'),
+                        'host' => Configure::read('Wildflower.settings.smtp_server'),
             		    'port' => 25, // @TODO add port to settings
             		    'timeout' => 30
             		);

@@ -362,8 +362,10 @@ class AppController extends Controller {
 	 */
 	private function _configureSite() {
 		$settings = ClassRegistry::init('WildSetting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
+        Configure::write('AppSettings', $settings); // @depracated Use namespace below
         Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
+        Configure::write('Wildflower.fullSiteUrl', FULL_BASE_URL . $this->base);
+        Configure::write('Wildflower.fullCurrentUrl', FULL_BASE_URL . $this->here);
 	}
 
     /**
