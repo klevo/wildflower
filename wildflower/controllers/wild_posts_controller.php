@@ -301,13 +301,20 @@ class WildPostsController extends AppController {
      * @param string $slug
      */
     function view() {
-        $this->acceptComment();
+        $this->_acceptComment();
         
 		if (Configure::read('AppSettings.cache') == 'on') {
             $this->cacheAction = 60 * 60 * 24 * 3; // Cache for 3 days
         }
 
         $slug = $this->params['slug'];
+        $this->WildPost->contain(array(
+            'WildUser', 
+            'WildCategory',
+            'WildComment' => array(
+                'conditions' => array('spam' => 0),
+            ),
+        ));
         $post = $this->WildPost->findBySlugAndDraft($slug, 0);
 
 		if (empty($post)) {
@@ -339,9 +346,9 @@ class WildPostsController extends AppController {
      *
      * @return void
      */
-    function acceptComment() {
-        if (empty($this->data)) return;
-
+    private function _acceptComment() {
+        if (empty($this->data)) return; // Else we would have a redirect loop
+        
         $this->WildPost->WildComment->spamCheck = true;
         if ($this->WildPost->WildComment->save($this->data)) {
             $this->Session->setFlash('Comment succesfuly added.');
