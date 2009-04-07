@@ -2,6 +2,7 @@
 class WildCategory extends AppModel {
 
     public $actsAs = array(
+        'Containable',
         'Tree', 
         'Slug' => array('label' => 'title')
     );
