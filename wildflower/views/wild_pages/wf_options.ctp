@@ -1,7 +1,4 @@
 <?php
-    $partialLayout->switchToEditorMode();
-    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $this->data['WildPage']['url'], $this->data['WildPage']['url']));
- 
     echo 
     $form->create('WildPage', array('url' => $html->url(array('action' => 'update', 'base' => false)), 'class' => 'horizontal-form')),
     '<div>',
