@@ -16,6 +16,7 @@
     
 <div class="submit" id="save-draft">
     <input type="submit" value="<?php __('Save as the newest version'); ?>" />
+    <?php echo $html->link('View this post', '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug'], array('class' => 'editor_view_link')); ?>
 </div>
 
 <?php endif; ?>

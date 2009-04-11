@@ -373,9 +373,9 @@ select {
     }
     
     .editor_form .input input {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
-        padding: 2px;
+        padding: 3px;
         margin: 0 0 10px 0;
         width: 98.5%;
     }
@@ -1231,6 +1231,13 @@ select {
     margin-top: 1em;
     background: #eee;
     padding: 8px;
+    position: relative;
+}
+
+.editor_view_link {
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }
 
 .sidebar_editor {
