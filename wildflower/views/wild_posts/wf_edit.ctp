@@ -18,7 +18,7 @@
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
-    $form->hidden('WildCategory.WildCategory', array('value' => 58)),
+    $form->hidden('WildCategory.WildCategory'),
     '</div>';
 ?>
     

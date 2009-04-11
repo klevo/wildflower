@@ -64,3 +64,12 @@ $.jlm.bind('wild_posts.wf_categorize', function() {
     bindDeleteLinks();
     
 });
+
+$.jlm.bind('wild_posts.wf_edit', function() {
+    // Update post form on category select
+    $('#category_id').change(function() {
+        var id = $(this).val();
+        $('#WildCategoryWildCategory').val(id);
+    });
+    
+});
