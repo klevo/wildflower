@@ -1,8 +1,8 @@
-<h2 class="section">Pages</h2>
+<h2 class="section"><?php __('Pages'); ?></h2>
 
 <?php
 	echo 
-	$form->create('Page', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
+	$form->create('WildPage', array('action' => 'wf_mass_update'));
 ?>
 
 <?php

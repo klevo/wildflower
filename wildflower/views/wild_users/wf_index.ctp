@@ -1,6 +1,6 @@
 <?php
 	echo 
-	$form->create('User', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false))));
+    $form->create('WildUser', array('action' => 'mass_update'));
 ?>
 
 <h2 class="section"><?php __('User Accounts'); ?></h2>

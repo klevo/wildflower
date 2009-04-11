@@ -39,16 +39,23 @@ class WildPostsController extends AppController {
     }
     
     /**
-     * View particular post's comments
+     * Manage post's comments
      * 
      */
-    function wf_comments($id = null) {
+    function wf_comments($id = null, $status = null) {
+        $spam = ($status == 'spam') ? 1 : 0;
+        $approved = ($status == 'unapproved') ? 0 : 1;
+        if ($spam) {
+            // Spam comments should show no matter of approval status
+            $approved = array(0, 1);
+        }
+        
         $this->data = $this->{$this->modelClass}->find('first', array(
             'conditions' => array('WildPost.id' => $id),
             'contain' => array(
                 'WildComment' => array(
                     'order' => 'WildComment.created DESC',
-                    'conditions' => array('WildComment.spam' => 0)
+                    'conditions' => array(compact('spam', 'approved'))
                 ),
                 'WildUser'
             )
@@ -312,7 +319,7 @@ class WildPostsController extends AppController {
             'WildUser', 
             'WildCategory',
             'WildComment' => array(
-                'conditions' => array('spam' => 0),
+                'conditions' => array('spam' => 0, 'approved' => 1),
             ),
         ));
         $post = $this->WildPost->findBySlugAndDraft($slug, 0);

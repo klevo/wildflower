@@ -4,7 +4,8 @@
     <p>No files uploaded yet.</p>
 <?php else: ?>
     
-    <?php echo $form->create('Asset', array('url' => $html->url(array('action' => 'mass_update', 'base' => false)))); ?>
+    <?php echo $form->create('WildAsset', array('action' => 'mass_update')); ?>
+    
     <?php echo $this->element('wf_select_actions'); ?>
     
     <ul class="file-list list">

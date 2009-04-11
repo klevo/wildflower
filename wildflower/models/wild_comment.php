@@ -21,7 +21,9 @@ class WildComment extends AppModel {
 	function beforeSave() {
 	    parent::beforeSave();
 	    
-	    $this->data[$this->name]['spam'] = 0;
+	    if (!isset($this->data[$this->name]['spam'])) {
+	        $this->data[$this->name]['spam'] = 0;
+	    }
 	    
 	    if ($this->spamCheck) {
 	        // Reset spamCheck for another save
@@ -85,7 +87,15 @@ class WildComment extends AppModel {
         
         return false;
     }
-    
+
+    function approve() {
+        return $this->saveField('approved', 1);
+    } 
+        
+    function unapprove() {
+        return $this->saveField('approved', 0);
+    } 
+       
     /**
      * Mark current comment as spam
      *

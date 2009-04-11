@@ -1,6 +1,6 @@
 <?php
 	echo 
-	$form->create('Post', array('url' => $html->url(array('action' => 'wf_mass_update', 'base' => false)))),
+	$form->create('WildPost', array('action' => 'mass_update')),
 	$form->input('show', array(
 	    'type' => 'select',
 	    'options' => array(
@@ -42,7 +42,7 @@
             ?>
             </div>
             <div class="post-comments"><?php echo $html->link($post['WildPost']['wild_comment_count'], array('action' => 'comments', $post['WildPost']['id']), array('title' => __('Manage this post\'s comments.', true)))?></div>
-            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['uuid']), array('class' => '', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
+            <span class="row-actions"><?php echo $html->link('View', WildPost::getUrl($post['WildPost']['slug']), array('class' => '', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <span class="cleaner"></span>
         </li>
     <?php endforeach; ?>

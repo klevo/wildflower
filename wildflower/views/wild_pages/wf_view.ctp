@@ -1,7 +1,4 @@
 <?php 
-    $partialLayout->switchToEditorMode();
-    $partialLayout->setLayoutVar('publishedLink', $html->link(FULL_BASE_URL . $this->base . $page['WildPage']['url'], $page['WildPage']['url']));
-    
     $editUrl = Router::url(array('action' => 'edit', $page['WildPage']['id']));
     if (isset($this->params['named']['rev'])) {
         $editUrl .= "/rev:{$this->params['named']['rev']}";

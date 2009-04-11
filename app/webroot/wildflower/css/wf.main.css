@@ -140,10 +140,6 @@ img {
         background-color: #446076;
         color: #fff;
         text-decoration: none;
-        -moz-border-radius: 4px 4px 0 0;
-        -webkit-border-top-left-radius: 3px;
-        -webkit-border-top-right-radius: 3px;
-        border-radius: 3px 3px 0 0;
     }
     
         #nav .current a,
@@ -276,6 +272,43 @@ h2 {
     line-height: 17px;
     background: #eef5fb url(img/page_top.png) left bottom repeat-x;
 }
+
+    .section h2 {
+        font-size: 14px;
+        margin: 0;
+        font-weight: bold;
+        line-height: 17px;
+    }
+    
+    .section ul {
+        list-style: none;
+        margin: 15px 0 -15px -8px;
+        padding: 0;
+        overflow: hidden;
+        font-size: 12px;
+        font-weight: normal;
+    }
+    
+    .section li {
+        margin: 0 3px 0 0;
+        padding: 0;
+        background: #eee;
+        float: left;
+    }
+    
+        .section li a {
+            display: block;
+            padding: 2px 8px;
+            text-decoration: none;
+        }        
+        
+        .section li a.current {
+            display: block;
+            padding: 2px 8px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+        }
 
 #full-edit-back-link {
     margin: 2px 0;
@@ -1276,4 +1309,31 @@ select {
     
     .action_delete:hover {
         background-color: transparent;
+    }
+    
+    
+/* Settings */
+
+#setting-approve_comments label {
+    width: auto;
+    display: inline;
+}
+
+#setting-approve_comments input {
+    float: left;
+}
+
+
+/* Comments */
+
+.comments_list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .comments_list li {
+        margin: 0;
+        padding: 10px 0 1px;
+        border-bottom: 3px solid #ddd;
     }

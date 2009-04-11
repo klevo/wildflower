@@ -1,4 +1,16 @@
 <?php
+/**
+ * Wildflower AppController
+ *
+ * If you have a custom AppController in your application, you need to merge 
+ * the functionality with this. It's essential for Wildflower's functionality.
+ *
+ * WF AppController does:
+ * - authentificate users
+ * - set WF Configure settings
+ * - load necessary Helpers and Components
+ * - provides some generic controller actions
+ */
 App::import('Sanitize');
 App::import('Core', 'l10n');
 
@@ -6,10 +18,23 @@ class AppController extends Controller {
 
 	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Seo');
 	public $currentUserId;
-	public $helpers = array('Html', 'Wildflower.Htmla', 'Form', 'Javascript', 'Wild', 'Navigation', 'PartialLayout', 'Textile');
+	public $helpers = array(
+	    'Html', 
+	    'Htmla', 
+	    'Form', 
+	    'Javascript', 
+	    'Wild', 
+	    'Navigation', 
+	    'PartialLayout', 
+	    'Textile', 
+	    'Tree', 
+	    'Text',
+	    'Time'
+	);
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
+    
     public $view = 'Theme';
     public $theme = 'wildflower';
 	
@@ -131,26 +156,39 @@ class AppController extends Controller {
      */
     function wf_mass_update() {
         if (isset($this->data['__action'])) {
-            foreach ($this->data['id'] as $id => $checked) {
+            foreach ($this->data[$this->modelClass]['id'] as $id => $checked) {
                 if (intval($checked) === 1) {
+                    $this->{$this->modelClass}->id = intval($id);
                     switch ($this->data['__action']) {
                         case 'delete':
-                            // Delete with comments
                             $this->{$this->modelClass}->delete($id);
                             break;
                         case 'publish':
                             $this->{$this->modelClass}->publish($id);
                             break;
-                        case 'draft':
+                        case 'unpublish':
                             $this->{$this->modelClass}->draft($id);
+                            break;
+                        case 'approve':
+                            $this->{$this->modelClass}->approve($id);
+                            break;
+                        case 'unapprove':
+                            $this->{$this->modelClass}->unapprove($id);
+                            break;                        
+                        case 'spam':
+                            $this->{$this->modelClass}->spam($id);
+                            break;                        
+                        case 'unspam':
+                            $this->{$this->modelClass}->unspam($id);
                             break;
                     }
                 }
             }
+            unset($this->{$this->modelClass}->id);
         }
         
-    	$link = am($this->params['named'], array('action' => 'wf_index'));
-        return $this->redirect($link);
+    	$redirect = am($this->params['named'], array('action' => 'wf_index'));
+        $this->redirect($this->referer($redirect));
     }
     
     /**
@@ -362,10 +400,8 @@ class AppController extends Controller {
 	 */
 	private function _configureSite() {
 		$settings = ClassRegistry::init('WildSetting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @depracated Use namespace below
+        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
         Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
-        Configure::write('Wildflower.fullSiteUrl', FULL_BASE_URL . $this->base);
-        Configure::write('Wildflower.fullCurrentUrl', FULL_BASE_URL . $this->here);
 	}
 
     /**

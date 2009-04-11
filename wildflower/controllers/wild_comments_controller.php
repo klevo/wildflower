@@ -1,8 +1,8 @@
 <?php
 class WildCommentsController extends AppController {
-    public $helpers = array('Time', 'Wildflower.List');
+    public $helpers = array('Time');
     public $paginate = array(
-        'limit' => 8,
+        'limit' => 20,
         'order' => array(
             'WildComment.created' => 'desc'
         )
@@ -14,16 +14,6 @@ class WildCommentsController extends AppController {
             return;
         }
         $this->WildComment->delete();
-    }
-    
-    /**
-     * @deprecated 
-     *
-     * @param unknown_type $id
-     */
-    function wf_delete_confirmation($id = null) {
-        $this->WildComment->contain();
-        $this->data = $this->WildComment->findById($id);
     }
     
     function wf_edit($id = null) {
