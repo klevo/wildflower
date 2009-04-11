@@ -6,6 +6,7 @@ Colors
 #000 - Ligter Black - Main type color
 #e2e2e2 - Light Grey - Non-content background 
 #0033CC - Link Blue - Hyperlinks
+#eefaff - Ligh Blue - Sidebar highlight background
 */
 
 html,
@@ -964,8 +965,11 @@ select {
         
 /* Image browser (image insert) */
 
-#image-browser {
-}
+    #image-browser h4 {
+        background: #eefaff;
+        padding: 3px 6px;
+        margin: 0 0 5px;
+    }
 
     #image-browser ul {
         margin: 0;
@@ -974,7 +978,20 @@ select {
     }
     
     #image-browser li {
+        margin: 0;
+        padding: 3px 6px;
     }
+    
+        #image-browser li h3 {
+            font-size: 12px;
+            margin: 15px 0 0;
+        }
+        
+        #image-browser li img {
+            border: 1px solid #4a4a4a;
+            display: block;
+            margin: 0 10px 0 0;
+        }
     
     #image-browser button {
         margin-top: 10px;

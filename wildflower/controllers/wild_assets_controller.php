@@ -95,9 +95,9 @@ class WildAssetsController extends AppController {
 	 *
 	 * @param int $limit Number of images on one page
 	 */
-	function wf_insert_image($limit = 8) {
-		$this->layout = '';
-		$this->paginate['limit'] = intval($limit);
+	function wf_insert_image() {
+		$this->autoLayout = false;
+		$this->paginate['limit'] = 10;
 		$this->paginate['conditions'] = "{$this->modelClass}.mime LIKE 'image%'";
 		$images = $this->paginate($this->modelClass);
 		$this->set('images', $images);
