@@ -1,32 +1,29 @@
 <?php 
-    $session->flash();
-    
-    echo 
-    $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form'));
-?>
+    if ($session->check('Message.flash')) {
+        $session->flash();
+    }
 
-<div id="title-content">
-    <?php
-        echo
-        $form->input('title', array(
-            'label' => __('Post title', true),
-            'div' => array('class' => 'input'))),
-        $form->input('content', array(
-            'type' => 'textarea',
-            'class' => 'tinymce',
-            'rows' => '25',
-            'label' => __('Body', true),
-            'div' => array('class' => 'input editor'))),
-        '<div>',
-        $form->hidden('id'),
-        $form->hidden('draft'),
-        '</div>';
-    ?>
+    echo 
+    $form->create('WildPost', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form')),
+    $form->input('title', array(
+        'label' => __('Post title', true)
+    )),
+    $form->input('content', array(
+        'type' => 'textarea',
+        'class' => 'tinymce',
+        'rows' => '25',
+        'label' => __('Body', true),
+        'div' => array('class' => 'input editor')
+    )),
+    '<div>',
+    $form->hidden('id'),
+    $form->hidden('draft'),
+    '</div>';
+?>
     
-    <div id="edit-buttons">
-        <?php echo $this->element('wf_edit_buttons'); ?>
-    </div>
-</div> 
+<div id="edit-buttons">
+    <?php echo $this->element('wf_edit_buttons'); ?>
+</div>
 
 <div id="post-revisions">
     <h2 class="section">Older versions of this post</h2>
