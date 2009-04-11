@@ -75,20 +75,14 @@ class WildPostsController extends AppController {
     }
 
     /**
-     * Edit page
+     * Edit a post
      * 
-     * @param int $id post ID
+     * @param int $id
      */
     function wf_edit($id = null, $revisionNumber = null) {
-        if (empty($this->data)) {
-            $this->WildPost->contain(array('WildUser', 'WildCategory'));
-            $this->data = $this->WildPost->findById($id);
-            if (empty($this->data)) return $this->cakeError('object_not_found');
-        } else {
-            if ($this->WildPost->save($this->data)) {
-                return $this->redirect(array('action' => 'wf_edit', $this->WildPost->id));
-            }
-        }
+        $this->WildPost->contain(array('WildUser', 'WildCategory'));
+        $this->data = $this->WildPost->findById($id);
+        //var_dump($this->data);
         
         // If viewing a revision, merge with revision content
         if ($revisionNumber) {
@@ -106,10 +100,9 @@ class WildPostsController extends AppController {
         $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
         $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
         
-        // Revisions
-        $revisions = $this->WildPost->getRevisions($id);
+        $categoryId = isset($inCategories[0]) ? $inCategories[0] : null;
         
-        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories', 'revisions'));
+        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories', 'categoryId'));
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
@@ -141,6 +134,7 @@ class WildPostsController extends AppController {
     }
     
     function wf_update() {
+        //fb($this->data);
         $this->data[$this->modelClass]['wild_user_id'] = $this->getLoggedInUserId();
 
         // Publish?
