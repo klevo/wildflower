@@ -1,5 +1,6 @@
 <?php
 Router::connect('/', array('controller' => 'wild_pages', 'action' => 'view'));
+Router::connect('/app/webroot/', array('controller' => 'wild_pages', 'action' => 'view'));
 
 Router::connect('/comments/create', array('controller' => 'wild_comments', 'action' => 'create'));
 
