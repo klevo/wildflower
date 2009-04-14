@@ -335,6 +335,9 @@ class WildPagesController extends AppController {
         
         $this->pageTitle = $page[$this->modelClass]['title'];
         
+        // Decode custom fields
+        $page['WildPage']['custom_fields'] = json_decode($page['WildPage']['custom_fields'], true);
+        
         // View variables
         $this->set(array(
             'page' => $page,
