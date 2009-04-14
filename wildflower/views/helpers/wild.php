@@ -244,7 +244,8 @@ class WildHelper extends AppHelper {
                 'conditions' => array(
                     'draft' => 0
                 )
-            )
+            ),
+            'WildPost.WildUser'
         ));
         $category = $WildCategory->findBySlug($slug);
         $posts = $category['WildPost'];
