@@ -350,17 +350,24 @@ class WildPostsController extends AppController {
     private function _acceptComment() {
         if (empty($this->data)) return; // Else we would have a redirect loop
         
+        if (Configure::read('Wildflower.settings.approve_comments')) {
+            $this->data['WildComment']['approved'] = 0;
+        }
+        
         $this->WildPost->WildComment->spamCheck = true;
         if ($this->WildPost->WildComment->save($this->data)) {
-            $this->Session->setFlash('Comment succesfuly added.');
             $postId = intval($this->data['WildComment']['wild_post_id']);
-            $postSlug = $this->WildPost->field('slug', "id = $postId");
-            $postLink = '/' . Configure::read('Wildflower.blogIndex') . "/$postSlug";
 
             // Clear post cache
             // @TODO find out better method
             // $cacheName = str_replace('-', '_', $postSlug);
             // clearCache($cacheName, 'views', '.php');
+            
+            $message = __('Comment succesfuly posted.', true);
+            if (Configure::read('Wildflower.settings.approve_comments')) {
+                $message = __('Your comment will be posted after it\'s approved by the administrator.', true);
+            }
+            $this->Session->setFlash($message);
 
             $this->redirect($this->data['WildPost']['permalink'] . '#comment-' . $this->WildPost->WildComment->id);
         }

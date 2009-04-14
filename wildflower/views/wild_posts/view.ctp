@@ -33,7 +33,7 @@
         $session->flash();
     }
     
-    $postUrl = WildPost::getUrl($post['WildPost']['uuid']);
+    $postUrl = WildPost::getUrl($post['WildPost']['slug']);
     echo $form->create('WildComment', array('class' => 'comment-form', 'url' => $here, 'id' => 'PostAComment')),
         $form->input('name'),
         $form->input('email'),
