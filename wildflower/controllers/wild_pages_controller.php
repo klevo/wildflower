@@ -378,20 +378,32 @@ class WildPagesController extends AppController {
     }
     
     /**
-     * Edit page custom fields
+     * Edit and save page custom fields
      *
+     * @param int $id Page ID
      */
     function wf_custom_fields($id) {
+        $page = $this->WildPage->findById($id);
+        $customFields = $page[$this->modelClass]['custom_fields'];
+        $customFields = json_decode($customFields, true);
+        
         if (!empty($this->data)) {
             // Upload files
             
-            $customFields = json_encode($this->data[$this->modelClass]);
+            foreach ($customFields as &$field) {
+                foreach ($this->data[$this->modelClass] as $name => $value) {
+                    if ($field['name'] == $name) {
+                        $field['value'] = $value;
+                    }
+                }
+            }
+            $customFields = json_encode($customFields);
+            $this->WildPage->id = intval($id);
+            $this->WildPage->saveField('custom_fields', $customFields);
             return $this->redirect(array('action' => 'custom_fields', $id));
         }
         
-        $this->data = $this->WildPage->findById($id);
-        $customFields = $this->data[$this->modelClass]['custom_fields'];
-        $customFields = json_decode($customFields, true);
+        $this->data = $page;
         $this->set(compact('customFields'));
     }
     
