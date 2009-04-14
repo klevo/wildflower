@@ -9,6 +9,7 @@ class WildPostsController extends AppController {
 	    'Tree', 
 	    'Time',
 	);
+	public $components = array('Email');
 	
 	/** Pagination options for the wf_index action **/
     public $paginate = array(
@@ -362,6 +363,32 @@ class WildPostsController extends AppController {
             // @TODO find out better method
             // $cacheName = str_replace('-', '_', $postSlug);
             // clearCache($cacheName, 'views', '.php');
+            
+            // Email alert
+            // @TODO create a function in app_controller to be used in wild_messages too
+            $this->Email->to = Configure::read('Wildflower.settings.contact_email');
+    		$this->Email->from = $this->data['WildComment']['email'];
+    		$this->Email->replyTo = $this->data['WildComment']['email'];
+    		$this->Email->subject = Configure::read('Wildflower.settings.site_name') . ' - new comment from ' . $this->data['WildComment']['name'];
+    		$this->Email->sendAs = 'text';
+    		$this->Email->template = 'new_comment_notification';
+
+    		$this->set($this->data['WildComment']);
+    		$message = $this->data['WildComment']['content']; // @TODO remove Textile syntax - to plain text
+    		$this->set(compact('postId', 'message'));
+
+    		$this->Email->delivery = Configure::read('Wildflower.settings.email_delivery');
+    		if ($this->Email->delivery == 'smtp') {
+        		$this->Email->smtpOptions = array(
+                    'username' => Configure::read('Wildflower.settings.smtp_username'),
+                    'password' => Configure::read('Wildflower.settings.smtp_password'),
+                    'host' => Configure::read('Wildflower.settings.smtp_server'),
+        		    'port' => 25, // @TODO add port to settings
+        		    'timeout' => 30
+        		);
+    		}
+    		
+    		$this->Email->send();
             
             $message = __('Comment succesfuly posted.', true);
             if (Configure::read('Wildflower.settings.approve_comments')) {
