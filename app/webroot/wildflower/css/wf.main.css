@@ -136,8 +136,8 @@ img {
     #nav a {
         display: block;
         height: 12px;
-        margin: 0 2px 0 0;
-        padding: 4px 9px 9px 9px;
+        margin: 0 3px 0 0;
+        padding: 3px 9px 9px 9px;
         background-color: #446076;
         color: #fff;
         text-decoration: none;
@@ -170,7 +170,6 @@ img {
     float: left;
     width: 70%;
     position: relative;
-    left: 10px;
     margin: 0;
     background: #fff;
 }
