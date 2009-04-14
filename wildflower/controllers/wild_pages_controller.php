@@ -378,6 +378,24 @@ class WildPagesController extends AppController {
     }
     
     /**
+     * Edit page custom fields
+     *
+     */
+    function wf_custom_fields($id) {
+        if (!empty($this->data)) {
+            // Upload files
+            
+            $customFields = json_encode($this->data[$this->modelClass]);
+            return $this->redirect(array('action' => 'custom_fields', $id));
+        }
+        
+        $this->data = $this->WildPage->findById($id);
+        $customFields = $this->data[$this->modelClass]['custom_fields'];
+        $customFields = json_decode($customFields, true);
+        $this->set(compact('customFields'));
+    }
+    
+    /**
      * View a page
      * 
      * Handles redirect if the correct url for page is not entered.

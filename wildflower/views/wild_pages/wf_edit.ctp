@@ -56,6 +56,7 @@
         <ul class="sidebar-menu-alt edit-sections-menu">
             <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
             <li><?php echo $html->link('Sidebar', array('action' => 'sidebar', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
+            <li><?php echo $html->link('Custom fields', array('action' => 'custom_fields', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
         </ul>
     </li>
 <?php $partialLayout->blockEnd(); ?>

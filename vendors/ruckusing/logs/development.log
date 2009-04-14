@@ -219,3 +219,12 @@ Apr 11 09:19:12 [info] INSERT INTO wild_settings (name, value, description, type
 Apr 11 09:19:12 [info] UPDATE schema_info SET version = 21
 Apr 11 09:19:16 [info] SELECT version FROM schema_info
 Apr 11 09:19:21 [info] SELECT version FROM schema_info
+Apr 14 15:29:02 [info] SELECT version FROM schema_info
+Apr 14 15:29:02 [info] ALTER TABLE wild_pages ADD `custom_fields` text
+Apr 14 15:29:03 [info] UPDATE schema_info SET version = 22
+Apr 14 15:29:06 [info] SELECT version FROM schema_info
+Apr 14 15:29:06 [info] ALTER TABLE `wild_pages` DROP COLUMN `custom_fields`
+Apr 14 15:29:06 [info] UPDATE schema_info SET version = 21
+Apr 14 15:29:11 [info] SELECT version FROM schema_info
+Apr 14 15:29:11 [info] ALTER TABLE wild_pages ADD `custom_fields` text
+Apr 14 15:29:11 [info] UPDATE schema_info SET version = 22
