@@ -11,6 +11,9 @@
     } else {
         foreach ($customFields as $field) {
             echo $form->input($field['name'], array('type' => $field['type'], 'value' => $field['value'], 'between' => '<br />'));
+            if ($field['type'] == 'file' and !empty($field['value'])) {
+                echo '<img width="80" height="80" src="', $html->url("/wildflower/thumbnail/{$field['value']}/80/80/1"), '" alt="" />';
+            }
         }
     }
 ?>
