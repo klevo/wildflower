@@ -63,6 +63,11 @@ class WildAsset extends AppModel {
 	 * @param array $fileArray POSTed file array
 	 */
 	static function upload($fileArray) {
+        // @TODO better array check
+	    if (!is_array($fileArray) or empty($fileArray['name'])) {
+	        return '';
+	    }
+	    
 	    $fileName = trim($fileArray['name']);
         $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $fileName;
         

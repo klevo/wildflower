@@ -394,10 +394,12 @@ class WildPagesController extends AppController {
             foreach ($customFields as &$field) {
                 foreach ($this->data[$this->modelClass] as $name => $value) {
                     if ($field['name'] == $name) {
-                        $field['value'] = $value;
+                        if ($field['type'] != 'file') {
+                            $field['value'] = $value;
+                        }
                         
                         // Upload file
-                        if ($field['type'] == 'file') {
+                        if ($field['type'] == 'file' and !empty($value['name'])) {
                             App::import('Model', 'WildAsset');
                             $field['value'] = WildAsset::upload($value);
                         }
