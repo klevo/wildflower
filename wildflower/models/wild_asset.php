@@ -57,6 +57,42 @@ class WildAsset extends AppModel {
 	    return '/' . Configure::read('Wildflower.uploadsDirectoryName') . '/' . $name;
 	}
 	
+	/**
+	 * Upload a file into the uploads dir
+	 *
+	 * @param array $fileArray POSTed file array
+	 */
+	static function upload($fileArray) {
+	    $fileName = trim($fileArray['name']);
+        $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $fileName;
+        
+        // Rename file if already exists
+        $i = 1;
+        while (file_exists($uploadPath)) {
+            // Append a number to the end of the file,
+            // if it alredy has one increase it
+            $newFileName = explode('.', $fileName);
+            $lastChar = mb_strlen($newFileName[0], Configure::read('App.encoding')) - 1;
+            if (is_numeric($newFileName[0][$lastChar]) and $newFileName[0][$lastChar - 1] == '-') {
+                $i = intval($newFileName[0][$lastChar]) + 1;
+                $newFileName[0][$lastChar] = $i;
+            } else {
+                $newFileName[0] = $newFileName[0] . "-$i";
+            }
+            $newFileName = implode('.', $newFileName);
+            $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $newFileName;
+            $fileName = $newFileName;
+        }
+   
+        // Upload file
+        $isUploaded = @move_uploaded_file($fileArray['tmp_name'], $uploadPath);
+        
+        // Make this file writable and readable
+        chmod($uploadPath, 0777);
+        
+        return $fileName;
+	}
+	
     /**
      * Delete one or more files
      *

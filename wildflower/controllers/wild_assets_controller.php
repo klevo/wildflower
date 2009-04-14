@@ -16,6 +16,8 @@ class WildAssetsController extends AppController {
 	        return $this->render('wf_index');
 	    }
 	    
+	    // @TODO replace upload logic with WildAsset::upload()
+	    
 	    // Check if file with the same name does not already exist
 	    $fileName = trim($this->data[$this->modelClass]['file']['name']);
         $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $fileName;
