@@ -27,7 +27,7 @@ class WildDashboard extends AppModel {
             $b = WildDashboard::accessByClassName($b);
             $aTime = strtotime($a['updated']);
             $bTime = strtotime($b['updated']);
-            return $aTime - $bTime;
+            return $bTime - $aTime;
         }
         usort($items, 'cmp');
         

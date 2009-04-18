@@ -22,7 +22,7 @@ $.jlm.component('WriteNew', 'wild_posts.wf_index, wild_posts.wf_edit, wild_pages
         
         var dialogEl = $($.jlm.template(templatePath, { action: formAction, parentPageOptions: parentPageOptions }));
         
-        var contentEl = $('#content-pad');
+        var contentEl = $('#content_pad');
         
         contentEl.append(dialogEl);
         

@@ -10,11 +10,11 @@
 #contet {
 }
 
-#content-pad {
+#content_pad {
     padding-top: 20px;
 }
 
-.editor_mode #content-pad {
+.editor_mode #content_pad {
     padding-top: 1px;
 }
 

@@ -14,7 +14,7 @@ $.jlm.addComponent('widgets', {
         t.sidebarContent.hide();
         
         // Hide main content
-        t.contentPadEl = $('#content-pad');
+        t.contentPadEl = $('#content_pad');
         t.mainContent = t.contentPadEl.children();
         t.mainContent.hide();
         
