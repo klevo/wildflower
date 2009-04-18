@@ -3,7 +3,7 @@ App::import('Vendor', 'SimpleHtmlDom', array('file' => 'simple_html_dom.php'));
 
 class WildHelper extends AppHelper {
 	
-	public $helpers = array('Html', 'Textile');
+	public $helpers = array('Html', 'Textile', 'Htmla');
 	private $_isFirstChild = true;
 	private $itemCssClassPrefix;
 	
@@ -226,12 +226,21 @@ class WildHelper extends AppHelper {
     function subPageNav() {
         $html = '<ul>';
         $pageSlug = end(array_filter(explode('/', $this->params['url']['url'])));
-        $pages = ClassRegistry::init('WildPage')->findChildrenBySlug($pageSlug);
+        $WildPage = ClassRegistry::init('WildPage');
+        $WildPage->recursive = -1;
+        
+        // Get the parent page slug
+        $url = $this->params['url']['url'];
+        $slug = array_shift(explode('/', $url));
+        $pages = $WildPage->findAllBySlugWithChildren($slug);
+
         if (empty($pages)) {
             return '';
         }
+        
+        // Build HTML
         foreach ($pages as $page) {
-            $html .= '<li>' . $this->Html->link($page['WildPage']['title'], $page['WildPage']['url']) . '</li>';
+            $html .= '<li>' . $this->Htmla->link($page['WildPage']['title'], $page['WildPage']['url'], array('strict' => true)) . '</li>';
         }
         $html .= '</ul>';
         return $html;

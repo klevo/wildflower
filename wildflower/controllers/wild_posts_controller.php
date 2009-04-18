@@ -8,12 +8,13 @@ class WildPostsController extends AppController {
 	    'Category', 
 	    'Tree', 
 	    'Time',
+	    'Paginator',
 	);
 	public $components = array('Email');
 	
 	/** Pagination options for the wf_index action **/
     public $paginate = array(
-        'limit' => 10,
+        'limit' => 12,
         'order' => array('WildPost.created' => 'desc'),
     );
 
@@ -164,7 +165,7 @@ class WildPostsController extends AppController {
 		
         if ($this->RequestHandler->isAjax()) {
             $this->WildPost->contain('WildUser');
-            $post = $this->WildPost->findById($this->WildPost->id);
+            $this->data = $post = $this->WildPost->findById($this->WildPost->id); // @TODO clean up
             $this->set(compact('post'));
             return $this->render('wf_update');
         }
@@ -234,7 +235,7 @@ class WildPostsController extends AppController {
         $this->pageTitle = 'Blog';
         
         $this->paginate = array(
-            'limit' => 10,
+            'limit' => 4,
             'order' => array('WildPost.created' => 'desc'),
             'conditions' => 'WildPost.draft = 0'
         );

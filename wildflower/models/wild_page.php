@@ -8,6 +8,7 @@ class WildPage extends AppModel {
 	   'Versionable' => array('title', 'content', 'description_meta_tag', 'keywords_meta_tag')
     );
     public $belongsTo = array('WildUser');
+    public $hasAndBelongsToMany = array('WildSidebar');
 	public $validate = array(
 	   'title' => array(
 	       'rule' => array('maxLength', 255), 
@@ -103,8 +104,29 @@ class WildPage extends AppModel {
             }
             return true;
         }
-        $pages = array_filter($pages, 'noDrafts');
+        $pages = self::filterOutDrafts($pages);
         return $pages;
+    }
+    
+    function findAllBySlugWithChildren($slug) {
+        $page = $this->find('first', array('conditions' => array('slug' => $slug)));
+        if ($page === false) {
+            return false;
+        }
+        $pages = $this->children($page['WildPage']['id'], false);
+        array_unshift($pages, $page);
+        $pages = self::filterOutDrafts($pages);
+        return $pages;
+    }
+    
+    static function filterOutDrafts($pages) {
+        function noDrafts($page) {
+            if ($page['WildPage']['draft'] == 1) {
+                return false;
+            }
+            return true;
+        }
+        return array_filter($pages, 'noDrafts');
     }
 
     function beforeValidate() {

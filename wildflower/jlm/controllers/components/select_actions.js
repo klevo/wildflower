@@ -3,7 +3,7 @@
  *
  * Used on lists with checkboxes. On checking some, action menus pop up.
  */
-$.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index, wild_assets.wf_index, wild_users.wf_index, wild_posts.wf_comments', function() {
+$.jlm.component('SelectActions', 'wild_posts.wf_index, wild_pages.wf_index, wild_assets.wf_index, wild_users.wf_index, wild_posts.wf_comments, wild_sidebars.wf_index', function() {
     
      var selectActionsEl = $('.select-actions');
      var handledFormEl = $('form:first');

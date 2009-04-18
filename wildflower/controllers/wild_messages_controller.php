@@ -27,7 +27,11 @@ class WildMessagesController extends AppController {
     function index() {
         if (!empty($this->data)) {
             $this->WildMessage->spamCheck = true;
-            if ($this->WildMessage->save($this->data)) {
+            if ($message = $this->WildMessage->save($this->data)) {
+                if ($message['WildMessage']['spam'] == 1) {
+                    return $this->redirect('/contact');
+                }
+                
                 // Send email to site owner
         		$this->Email->to = Configure::read('Wildflower.settings.contact_email');
         		$this->Email->from = $this->data[$this->modelClass]['email'];

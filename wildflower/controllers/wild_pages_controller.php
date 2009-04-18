@@ -146,6 +146,7 @@ class WildPagesController extends AppController {
 		$hasUser = $page['WildUser']['id'] ? true : false;
         // JSON response
         if ($this->RequestHandler->isAjax()) {
+            $this->data = $page;
             $this->set(compact('page', 'hasUser'));
             return $this->render('wf_update');
         }
@@ -314,7 +315,7 @@ class WildPagesController extends AppController {
         $this->params['Wildflower']['view']['isHome'] = $this->isHome;
         
         // Find the requested page
-		$this->WildPage->recursive = -1;
+		$this->WildPage->contain('WildSidebar');
         $page = array();
         
         if (isset($this->params['id'])) {

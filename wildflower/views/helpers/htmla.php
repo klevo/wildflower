@@ -12,6 +12,19 @@ class HtmlaHelper extends HtmlHelper {
         $linkUrl = parent::url($url);
         $currentUrl = $this->here;
         
+        // Remove paging from currentUrl
+        // @TODO if another named param goes after paging it do it's thing
+        $pieces = explode('/', $currentUrl);
+        $paging = end($pieces);
+        if (strpos($paging, 'page:') === 0) {
+            array_pop($pieces);
+            $currentUrl = join('/', $pieces);
+        }
+        
+        if (isset($htmlAttributes['strict']) and $htmlAttributes['strict']) {
+            $htmlAttributes['currentOn'] = $url;
+        }
+        
         $currentOverride = false;
         if (isset($htmlAttributes['currentOn']) && !is_null($htmlAttributes['currentOn'])) {
             if ($currentUrl === parent::url($htmlAttributes['currentOn'])) {
