@@ -4,11 +4,26 @@
 
 <?php
     $labels = array(
-        'WildPage' => __('Page', true), 
-        'WildPost' => __('Post', true), 
-        'WildComment' => __('Comment', true), 
-        'WildMessage' => __('Message', true), 
-        'WildAsset' => __('File', true), 
+        'WildPage' => array(
+            'name' => __('Page', true),
+            'link' => '/pages/edit/:id'
+        ), 
+        'WildPost' => array(
+            'name' => __('Post', true),
+            'link' => '/posts/edit/:id'
+        ),
+        'WildComment' => array(
+            'name' => __('Comment', true),
+            'link' => '/comments/edit/:id'
+        ),
+        'WildMessage' => array(
+            'name' => __('Message', true),
+            'link' => '/messages/view/:id'
+        ),
+        'WildAsset' => array(
+            'name' => __('File', true),
+            'link' => '/assets/edit/:id'
+        ),
     );
 ?>
 
@@ -19,8 +34,14 @@
         <tbody>
             <?php foreach ($items as $item): ?>
             <tr>
-                <th><?php echo $labels[$item['class']]; ?></th>
-                <td><?php echo $item['item']['title']; ?></td>
+                <th><?php echo $labels[$item['class']]['name']; ?></th>
+                <td>
+                <?php 
+                    $label = empty($item['item']['title']) ? '<em>untitled</em>' : hsc($item['item']['title']);
+                    $url = '/' . Configure::read('Wildflower.prefix') . '/' . r(':id', $item['item']['id'], $labels[$item['class']]['link']);
+                    echo $html->link($label, $url, array('escape' => false)); 
+                ?>
+                </td>
                 <td><?php echo $time->niceShort($item['item']['updated']); ?></td>
             </tr>
             <?php endforeach; ?>

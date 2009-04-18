@@ -3,11 +3,11 @@ class WildDashboard extends AppModel {
 
     public $useTable = false;
     static public $classNames = array(
-        'WildPage' => array('title', 'updated'), 
-        'WildPost' => array('title', 'updated'), 
-        'WildComment' => array('name', 'updated'), 
-        'WildMessage' => array('name', 'updated'), 
-        'WildAsset' => array('name', 'updated'),
+        'WildPage' => array('id', 'title', 'updated'), 
+        'WildPost' => array('id', 'title', 'updated'), 
+        'WildComment' => array('id', 'name', 'updated'), 
+        'WildMessage' => array('id', 'name', 'updated'), 
+        'WildAsset' => array('id', 'name', 'updated'),
     );
     
     function findRecentHappening() {
