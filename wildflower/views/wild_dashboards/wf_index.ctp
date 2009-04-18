@@ -1,6 +1,6 @@
 <h2 class="section">Welcome to <?php echo $siteName ?> administration</h2>
 
-<p>Dashboard shows a summary of the latest happening on your site.</p>
+<p><?php __('Recently added or changed content:'); ?></p>
 
 <?php
     $labels = array(
@@ -21,6 +21,7 @@
             <tr>
                 <th><?php echo $labels[$item['class']]; ?></th>
                 <td><?php echo $item['item']['title']; ?></td>
+                <td><?php echo $time->niceShort($item['item']['updated']); ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
