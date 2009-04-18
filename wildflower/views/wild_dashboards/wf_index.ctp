@@ -3,12 +3,29 @@
 <p>Dashboard shows a summary of the latest happening on your site.</p>
 
 <?php
-    if (empty($items)) {
-        echo '<p>', __('Nothing happened yet.', true), '</p>';
-    } else {
-        var_dump($items);
-    }
+    $labels = array(
+        'WildPage' => __('Page', true), 
+        'WildPost' => __('Post', true), 
+        'WildComment' => __('Comment', true), 
+        'WildMessage' => __('Message', true), 
+        'WildAsset' => __('File', true), 
+    );
 ?>
+
+<?php if (empty($items)): ?>
+    <p><?php __('Nothing happened yet.'); ?></p>;
+<?php else: ?>
+    <table>
+        <tbody>
+            <?php foreach ($items as $item): ?>
+            <tr>
+                <th><?php echo $labels[$item['class']]; ?></th>
+                <td><?php echo $item['item']['title']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>

@@ -43,6 +43,10 @@ class WildDashboard extends AppModel {
         $names = array_keys(WildDashboard::$classNames);
         foreach ($names as $name) {
             if (isset($array[$name])) {
+                // Unify everything to title
+                if (isset($array[$name]['name'])) {
+                    $array[$name]['title'] = $array[$name]['name'];
+                }
                 return array(
                     'item' => $array[$name],
                     'class' => $name
