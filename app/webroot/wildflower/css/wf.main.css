@@ -1378,3 +1378,45 @@ select {
         padding: 10px 0 1px;
         border-bottom: 3px solid #ddd;
     }
+    
+    
+/* Dashboard */
+
+.recently_changed {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .recently_changed th {
+        text-align: right;
+        width: 65px;
+        background: #3e557f;
+        color: #fff;
+        font-weight: normal;
+        font-size: 11px;
+    }
+    
+    .recently_changed th,
+    .recently_changed td {
+        padding: 3px 6px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .recent_post th {
+        background-color: #2e9329;
+    }
+        
+    .recent_comment th {
+        background-color: #d26624;
+    }
+            
+    .recent_file th {
+        background-color: #515151;
+    }
+    
+    td.recent_date {
+        color: #474747;
+        width: 160px;
+    }
