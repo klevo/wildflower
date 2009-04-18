@@ -228,3 +228,36 @@ Apr 14 15:29:06 [info] UPDATE schema_info SET version = 21
 Apr 14 15:29:11 [info] SELECT version FROM schema_info
 Apr 14 15:29:11 [info] ALTER TABLE wild_pages ADD `custom_fields` text
 Apr 14 15:29:11 [info] UPDATE schema_info SET version = 22
+Apr 18 19:29:08 [info] SELECT version FROM schema_info
+Apr 18 19:29:13 [info] SELECT version FROM schema_info
+Apr 18 19:29:13 [info] CREATE TABLE `wild_sidebars` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`content` text,
+`created` datetime,
+`updated` datetime
+) ;
+Apr 18 19:29:13 [info] CREATE TABLE `wild_pages_wild_sidebars` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`wild_page_id` int(11),
+`wild_sidebar_id` int(11)
+) ;
+Apr 18 19:29:13 [info] UPDATE schema_info SET version = 23
+Apr 18 19:29:21 [info] SELECT version FROM schema_info
+Apr 18 19:29:21 [info] DROP TABLE `wild_sidebars`
+Apr 18 19:29:21 [info] DROP TABLE `wild_pages_wild_sidebars`
+Apr 18 19:29:21 [info] UPDATE schema_info SET version = 22
+Apr 18 19:29:22 [info] SELECT version FROM schema_info
+Apr 18 19:29:22 [info] CREATE TABLE `wild_sidebars` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`content` text,
+`created` datetime,
+`updated` datetime
+) ;
+Apr 18 19:29:22 [info] CREATE TABLE `wild_pages_wild_sidebars` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`wild_page_id` int(11),
+`wild_sidebar_id` int(11)
+) ;
+Apr 18 19:29:22 [info] UPDATE schema_info SET version = 23
