@@ -1415,6 +1415,10 @@ select {
     .recent_file th {
         background-color: #515151;
     }
+                
+    .recent_message th {
+        background-color: #8d2e83;
+    }
     
     td.recent_date {
         color: #474747;
