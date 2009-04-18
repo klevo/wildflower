@@ -2,18 +2,11 @@
 
 <p>Dashboard shows a summary of the latest happening on your site.</p>
 
-<h3>Pages modified recently</h3>
 <?php
-    if (empty($pages)) {
-        echo '<p>No pages yet.</p>';
+    if (empty($items)) {
+        echo '<p>', __('Nothing happened yet.', true), '</p>';
     } else {
-        echo '<ul class="pages-list list">';
-        foreach ($pages as $page) {
-            echo "<li><div class=\"list-item\">",
-                $html->link($page['WildPage']['title'], array('controller' => 'wild_pages', 'action' => 'edit', $page['WildPage']['id'])), 
-                '</div></li>';    
-        }
-        echo '</ul>';
+        var_dump($items);
     }
 ?>
 
