@@ -172,6 +172,7 @@ img {
     position: relative;
     margin: 0;
     background: #fff;
+    margin: 8px 0 0 0;
 }
 
 #co_right_shadow {
@@ -197,7 +198,7 @@ img {
     background: url(img/wrap_shadow_right_bottom_corner.png) right bottom no-repeat;
 }
 
-#content-pad {
+#content_pad {
     padding: 20px 25px 20px;
 }
 

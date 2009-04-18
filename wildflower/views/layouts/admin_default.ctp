@@ -84,15 +84,11 @@
 
 <div id="wrap">
     <div id="content">
-        <div id="co_top_shadow">
-        <div id="co_top_right_corner">
         <div id="co_bottom_shadow">
         <div id="co_right_shadow">
         <div id="co_right_bottom_corner">
-        <div id="content-pad">
+        <div id="content_pad">
             <?php echo $content_for_layout; ?>
-        </div>
-        </div>
         </div>
         </div>
         </div>
