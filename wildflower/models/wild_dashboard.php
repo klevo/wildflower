@@ -25,11 +25,16 @@ class WildDashboard extends AppModel {
         function cmp($a, $b) {
             $a = WildDashboard::accessByClassName($a);
             $b = WildDashboard::accessByClassName($b);
-            $aTime = strtotime($a['updated']);
-            $bTime = strtotime($b['updated']);
+            $aTime = strtotime($a['item']['updated']);
+            $bTime = strtotime($b['item']['updated']);
             return $bTime - $aTime;
         }
         usort($items, 'cmp');
+        
+        // Create an array without diff keys
+        foreach ($items as &$item) {
+            $item = WildDashboard::accessByClassName($item);
+        }
         
         return $items;
     }
@@ -38,7 +43,10 @@ class WildDashboard extends AppModel {
         $names = array_keys(WildDashboard::$classNames);
         foreach ($names as $name) {
             if (isset($array[$name])) {
-                return $array[$name];
+                return array(
+                    'item' => $array[$name],
+                    'class' => $name
+                );
             }
         }
     }
