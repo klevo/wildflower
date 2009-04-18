@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_mysql.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: dbo_mysql.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * MySQL layer for DBO
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -177,7 +177,11 @@ class DboMysqlBase extends DboSource {
 		$table = $this->fullTableName($model);
 		if ($table) {
 			$indexes = $this->query('SHOW INDEX FROM ' . $table);
-			$keys = Set::extract($indexes, '{n}.STATISTICS');
+			if (isset($indexes[0]['STATISTICS'])) {
+				$keys = Set::extract($indexes, '{n}.STATISTICS');
+			} else {
+				$keys = Set::extract($indexes, '{n}.0');
+			}
 			foreach ($keys as $i => $key) {
 				if (!isset($index[$key['Key_name']])) {
 					$col = array();

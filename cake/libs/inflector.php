@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: inflector.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: inflector.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Pluralize and singularize English words.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -167,7 +167,7 @@ class Inflector extends Object {
 			'/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|vir)us$/i' => '\1i',
 			'/us$/' => 'uses',
 			'/(alias)$/i' => '\1es',
-			'/(ax|cri|test)is$/i' => '\1es',
+			'/(ax|cris|test)is$/i' => '\1es',
 			'/s$/' => 's',
 			'/^$/' => '',
 			'/$/' => 's');
@@ -282,6 +282,7 @@ class Inflector extends Object {
 			'/^(ox)en/i' => '\1',
 			'/(alias)(es)*$/i' => '\1',
 			'/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|viri?)i$/i' => '\1us',
+			'/([ftw]ax)es/' => '\1',
 			'/(cris|ax|test)es$/i' => '\1is',
 			'/(shoe)s$/i' => '\1',
 			'/(o)es$/i' => '\1',

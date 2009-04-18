@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: number.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: number.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Number Helper.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -52,21 +52,17 @@ class NumberHelper extends AppHelper {
  * @static
  */
 	function toReadableSize($size) {
-		switch ($size) {
-			case 0:
-				return '0 Bytes';
-			case 1:
-				return '1 Byte';
+		switch (true) {
 			case $size < 1024:
-				return $size . ' Bytes';
+				return sprintf(__n('%d Byte', '%d Bytes', $size, true), $size);
 			case round($size / 1024) < 1024:
-				return $this->precision($size / 1024, 0) . ' KB';
+				return sprintf(__('%d KB', true), $this->precision($size / 1024, 0));
 			case round($size / 1024 / 1024, 2) < 1024:
-				return $this->precision($size / 1024 / 1024, 2) . ' MB';
+				return sprintf(__('%.2f MB', true), $this->precision($size / 1024 / 1024, 2));
 			case round($size / 1024 / 1024 / 1024, 2) < 1024:
-				return $this->precision($size / 1024 / 1024 / 1024, 2) . ' GB';
+				return sprintf(__('%.2f GB', true), $this->precision($size / 1024 / 1024 / 1024, 2));
 			default:
-				return $this->precision($size / 1024 / 1024 / 1024 / 1024, 2) . ' TB';
+				return sprintf(__('%.2f TB', true), $this->precision($size / 1024 / 1024 / 1024 / 1024, 2));
 		}
 	}
 /**
@@ -85,7 +81,7 @@ class NumberHelper extends AppHelper {
  *
  * @param float $number A floating point number
  * @param integer $options if int then places, if string then before, if (,.-) then use it
- * 							or array with places and before keys
+ *   or array with places and before keys
  * @return string formatted number
  * @static
  */
@@ -128,7 +124,7 @@ class NumberHelper extends AppHelper {
  *
  * @param float $number
  * @param string $currency Shortcut to default options. Valid values are 'USD', 'EUR', 'GBP', otherwise
- *               set at least 'before' and 'after' options.
+ *   set at least 'before' and 'after' options.
  * @param array $options
  * @return string Number formatted as a currency.
  */
@@ -172,6 +168,8 @@ class NumberHelper extends AppHelper {
 			$number = $number * $multiply;
 			$options['before'] = null;
 			$options['places'] = null;
+		} elseif (empty($options['before'])) {
+			$options['before'] = null;
 		} else {
 			$options['after'] = null;
 		}

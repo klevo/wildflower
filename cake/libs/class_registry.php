@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: class_registry.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: class_registry.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Class collections.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.9.2
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -72,20 +72,26 @@ class ClassRegistry {
 /**
  * Loads a class, registers the object in the registry and returns instance of the object.
  *
- * @param mixed $class as a string or a single key => value array instance will be created,
- * 	stored in the registry and returned.
- *   Required: array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass');
- *   Model Classes can accept optional array('id' => $id, 'table' => $table, 'ds' => $ds, 'alias' => $alias);
+ * Examples
+ * Simple Use: Get a Post model instance ```ClassRegistry::init('Post');```
+ * 
+ * Exapanded: ```array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass');```
+ * 
+ * Model Classes can accept optional ```array('id' => $id, 'table' => $table, 'ds' => $ds, 'alias' => $alias);```
+ * 
  * When $class is a numeric keyed array, multiple class instances will be stored in the registry,
- *   no instance of the object will be returned
- *   array(
- *  	array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass'),
- *  	array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass'),
- *  	array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass')
- *  );
- *
+ *  no instance of the object will be returned
+ * {{{
+ * array(
+ *		array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass'),
+ *		array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass'),
+ *		array('class' => 'ClassName', 'alias' => 'AliasNameStoredInTheRegistry', 'type' => 'TypeOfClass')
+ * );
+ * }}}
+ * @param mixed $class as a string or a single key => value array instance will be created,
+ *  stored in the registry and returned.
  * @param string $type TypeOfClass
- * @return object intance of ClassName
+ * @return object instance of ClassName
  * @access public
  * @static
  */

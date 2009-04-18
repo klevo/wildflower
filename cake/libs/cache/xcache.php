@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: xcache.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: xcache.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Xcache storage engine for cache.
  *
@@ -18,9 +18,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.cache
  * @since         CakePHP(tm) v 1.2.0.4947
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -107,11 +107,12 @@ class XcacheEngine extends CacheEngine {
  */
 	function clear() {
 		$this->__auth();
-		for ($i = 0, $max = xcache_count(XC_TYPE_VAR); $i < $max; $i++) {
+		$max = xcache_count(XC_TYPE_VAR);
+		for ($i = 0; $i < $max; $i++) {
 			xcache_clear_cache(XC_TYPE_VAR, $i);
 		}
 		$this->__auth(true);
-		return xcache_count(XC_TYPE_VAR) == 0;
+		return true;
 	}
 /**
  * Populates and reverses $_SERVER authentication values

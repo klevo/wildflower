@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: folder.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: folder.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Convenience class for handling directories.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -212,17 +212,18 @@ class Folder extends Object {
  */
 	function _findRecursive($pattern, $sort = false) {
 		list($dirs, $files) = $this->read($sort);
-
 		$found = array();
+
 		foreach ($files as $file) {
 			if (preg_match('/^' . $pattern . '$/i', $file)) {
 				$found[] = Folder::addPathElement($this->path, $file);
 			}
 		}
 		$start = $this->path;
+
 		foreach ($dirs as $dir) {
 			$this->cd(Folder::addPathElement($start, $dir));
-			$found = array_merge($found, $this->findRecursive($pattern));
+			$found = array_merge($found, $this->findRecursive($pattern, $sort));
 		}
 		return $found;
 	}
@@ -526,6 +527,10 @@ class Folder extends Object {
 		if (is_dir($path) === true) {
 			$normalFiles = glob($path . '*');
 			$hiddenFiles = glob($path . '\.?*');
+
+			$normalFiles = $normalFiles ? $normalFiles : array();
+			$hiddenFiles = $hiddenFiles ? $hiddenFiles : array();
+
 			$files = array_merge($normalFiles, $hiddenFiles);
 			if (is_array($files)) {
 				foreach ($files as $file) {

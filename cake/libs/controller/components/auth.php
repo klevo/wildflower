@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: auth.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: auth.php 8120 2009-03-19 20:25:10Z gwoo $ */
 
 /**
  * Authentication component
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -262,14 +262,24 @@ class AuthComponent extends Object {
  * @access public
  */
 	function startup(&$controller) {
+		$methods = array_flip($controller->methods);
 		$isErrorOrTests = (
 			strtolower($controller->name) == 'cakeerror' ||
-			(strtolower($controller->name) == 'tests' && Configure::read() > 0) ||
-			!in_array($controller->params['action'], $controller->methods)
+			(strtolower($controller->name) == 'tests' && Configure::read() > 0)
 		);
 		if ($isErrorOrTests) {
 			return true;
 		}
+
+		$isMissingAction = (
+			$controller->scaffold === false &&
+			!isset($methods[strtolower($controller->params['action'])])
+		);
+
+		if ($isMissingAction) {
+			return true;
+		}
+
 		if (!$this->__setDefaults()) {
 			return false;
 		}
@@ -282,6 +292,7 @@ class AuthComponent extends Object {
 		}
 		$url = Router::normalize($url);
 		$loginAction = Router::normalize($this->loginAction);
+
 		$isAllowed = (
 			$this->allowedActions == array('*') ||
 			in_array($controller->params['action'], $this->allowedActions)

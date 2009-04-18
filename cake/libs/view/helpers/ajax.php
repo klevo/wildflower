@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: ajax.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: ajax.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Helper for AJAX operations.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -42,14 +42,14 @@ class AjaxHelper extends AppHelper {
 /**
  * HtmlHelper instance
  *
- * @var object
+ * @var HtmlHelper
  * @access public
  */
 	var $Html = null;
 /**
  * JavaScriptHelper instance
  *
- * @var object
+ * @var JavaScriptHelper
  * @access public
  */
 	var $Javascript = null;
@@ -303,12 +303,11 @@ class AjaxHelper extends AppHelper {
  * (all elements available in params).  The options for defining callbacks is the same
  * as AjaxHelper::link().
  *
- * @param mixed $params Either a string identifying the form target, or an array of method
- *                      parameters, including:
- *                          - 'params' => Acts as the form target
- *                          - 'type' => 'post' or 'get'
- *                          - 'options' => An array containing all HTML and script options used to
- *                             generate the form tag and Ajax request.
+ * @param mixed $params Either a string identifying the form target, or an array of method parameters, including:
+ *  - 'params' => Acts as the form target
+ *  - 'type' => 'post' or 'get'
+ *  - 'options' => An array containing all HTML and script options used to
+ *  generate the form tag and Ajax request.
  * @param array $type How form data is posted: 'get' or 'post'
  * @param array $options Callback/HTML options
  * @return string JavaScript/HTML code
@@ -902,7 +901,7 @@ class AjaxHelper extends AppHelper {
 				}
 				if (isset($options['bind'])) {
 					$bind = $options['bind'];
-					
+
 					$hasBinding = (
 						(is_array($bind) && in_array($callback, $bind)) ||
 						(is_string($bind) && strpos($bind, $callback) !== false)

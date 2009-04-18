@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: containable.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: containable.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Behavior for binding management.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5669
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -47,18 +47,18 @@ class ContainableBehavior extends ModelBehavior {
  */
 	var $runtime = array();
 /**
- * Initiate behavior for the model using specified settings. Available settings:
+ * Initiate behavior for the model using specified settings.
+ * 
+ * Available settings:
  *
  * - recursive: (boolean, optional) set to true to allow containable to automatically
- * 				determine the recursiveness level needed to fetch specified models,
- * 				and set the model recursiveness to this level. setting it to false
- * 				disables this feature. DEFAULTS TO: true
- *
- * - notices:	(boolean, optional) issues E_NOTICES for bindings referenced in a
- * 				containable call that are not valid. DEFAULTS TO: true
- *
+ *   determine the recursiveness level needed to fetch specified models,
+ *   and set the model recursiveness to this level. setting it to false
+ *   disables this feature. DEFAULTS TO: true
+ * - notices: (boolean, optional) issues E_NOTICES for bindings referenced in a
+ *   containable call that are not valid. DEFAULTS TO: true
  * - autoFields: (boolean, optional) auto-add needed fields to fetch requested
- * 				bindings. DEFAULTS TO: true
+ *   bindings. DEFAULTS TO: true
  *
  * @param object $Model Model using the behavior
  * @param array $settings Settings to override for model.

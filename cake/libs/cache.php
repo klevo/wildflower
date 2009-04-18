@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: cache.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: cache.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Caching for CakePHP.
  *
@@ -18,9 +18,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4933
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -33,7 +33,7 @@ class Cache extends Object {
 /**
  * Cache engine to use
  *
- * @var object
+ * @var CacheEngine
  * @access protected
  */
 	var $_Engine = null;
@@ -142,10 +142,6 @@ class Cache extends Object {
  * @static
  */
 	function engine($name = 'File', $settings = array()) {
-		if (!$name || Configure::read('Cache.disable')) {
-			return false;
-		}
-
 		$cacheClass = $name . 'Engine';
 		$_this =& Cache::getInstance();
 		if (!isset($_this->_Engine[$name])) {
@@ -220,19 +216,17 @@ class Cache extends Object {
  *
  * @param string $key Identifier for the data
  * @param mixed $value Data to be cached - anything except a resource
- * @param mixed $config Optional - string configuration name, a duration for expiration,
- *				or array('config' => 'string configuration name', 'duration' => 'duration for expiration')
+ * @param string $config Optional - string configuration name
  * @return boolean True if the data was successfully cached, false on failure
  * @access public
  * @static
  */
 	function write($key, $value, $config = null) {
 		$_this =& Cache::getInstance();
-		$thisDuration = null;
+
 		if (is_array($config)) {
 			extract($config);
 		} else if ($config && (is_numeric($config) || is_numeric($config[0]) || (isset($config[1]) && is_numeric($config[1])))) {
-			$thisDuration = $config;
 			$config = null;
 		}
 
@@ -257,13 +251,6 @@ class Cache extends Object {
 
 		if (is_resource($value)) {
 			return false;
-		}
-
-		if ($thisDuration !== null) {
-			if (!is_numeric($thisDuration)) {
-				$thisDuration = strtotime($thisDuration) - time();
-			}
-			$duration = $thisDuration;
 		}
 
 		if ($duration < 1) {

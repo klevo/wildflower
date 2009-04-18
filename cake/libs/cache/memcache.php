@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: memcache.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: memcache.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Memcache storage engine for cache
  *
@@ -18,9 +18,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.cache
  * @since         CakePHP(tm) v 1.2.0.4933
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -33,7 +33,7 @@ class MemcacheEngine extends CacheEngine {
 /**
  * Memcache wrapper.
  *
- * @var object
+ * @var Memcache
  * @access private
  */
 	var $__Memcache = null;
@@ -100,8 +100,8 @@ class MemcacheEngine extends CacheEngine {
  */
 	function write($key, &$value, $duration) {
 		$expires = time() + $duration;
-		$this->__Memcache->set($key.'_expires', $expires, $this->settings['compress'], $duration);
-		return $this->__Memcache->set($key, $value, $this->settings['compress'], $duration);
+		$this->__Memcache->set($key.'_expires', $expires, $this->settings['compress'], $expires);
+		return $this->__Memcache->set($key, $value, $this->settings['compress'], $expires);
 	}
 /**
  * Read a key from the cache

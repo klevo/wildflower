@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: configure.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: configure.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.0.0.2363
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -246,19 +246,22 @@ class Configure extends Object {
 /**
  * Used to store a dynamic variable in the Configure instance.
  *
- * Usage
+ * Usage:
+ * {{{
  * Configure::write('One.key1', 'value of the Configure::One[key1]');
  * Configure::write(array('One.key1' => 'value of the Configure::One[key1]'));
  * Configure::write('One', array(
  *     'key1' => 'value of the Configure::One[key1]',
  *     'key2' => 'value of the Configure::One[key2]'
  * );
+ * 
  * Configure::write(array(
  *     'One.key1' => 'value of the Configure::One[key1]',
  *     'One.key2' => 'value of the Configure::One[key2]'
  * ));
+ * }}}
  *
- * @link          http://book.cakephp.org/view/412/write
+ * @link http://book.cakephp.org/view/412/write
  * @param array $config Name of var to write
  * @param mixed $value Value to set for var
  * @return void

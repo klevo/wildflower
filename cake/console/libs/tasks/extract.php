@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: extract.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: extract.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -135,7 +135,7 @@ class ExtractTask extends Shell{
 		} else {
 			$response = '';
 			while ($response == '') {
-				$response = $this->in("What is the full path you would like to extract?\nExample: " . $this->params['root'] . DS . "myapp\n[Q]uit", null, 'Q');
+				$response = $this->in("What is the full path you would like to extract?\nExample: " . $this->params['root'] . DS . "myapp\n[Q]uit", null, $this->params['working']);
 				if (strtoupper($response) === 'Q') {
 					$this->out('Extract Aborted');
 					$this->_stop();
@@ -667,6 +667,9 @@ class ExtractTask extends Shell{
 		}
 		$files = glob("$path*.{php,ctp,thtml,inc,tpl}", GLOB_BRACE);
 		$dirs = glob("$path*", GLOB_ONLYDIR);
+
+		$files = $files ? $files : array();
+		$dirs = $dirs ? $dirs : array();
 
 		foreach ($dirs as $dir) {
 			if (!preg_match("!(^|.+/)(CVS|.svn)$!", $dir)) {

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: translate.php 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id: translate.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP(tm) v 1.2.0.4525
- * @version       $Revision: 7961 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 15:21:36 -0800 (Thu, 25 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -370,6 +370,8 @@ class TranslateBehavior extends ModelBehavior {
 		}
 		if (!empty($model->translateTable) && $model->translateTable !== $this->runtime[$model->alias]['model']->useTable) {
 			$this->runtime[$model->alias]['model']->setSource($model->translateTable);
+		} elseif (empty($model->translateTable) && empty($model->translateModel)) {
+			$this->runtime[$model->alias]['model']->setSource('i18n');
 		}
 		return $this->runtime[$model->alias]['model'];
 	}

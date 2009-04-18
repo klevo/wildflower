@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: set.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: set.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Library of array functions for Cake.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -369,16 +369,16 @@ class Set extends Object {
  * @static
  */
 	function extract($path, $data = null, $options = array()) {
-		if (empty($data) && is_string($path) && $path{0} === '/') {
+		if (is_string($data)) {
+			$tmp = $data;
+			$data = $path;
+			$path = $tmp;
+		}
+		if (strpos($path, '/') === false) {
+			return Set::classicExtract($data, $path);
+		}
+		if (empty($data)) {
 			return array();
-		}
-		if (is_string($data) && $data{0} === '/') {
-			$tmp = $path;
-			$path = $data;
-			$data = $tmp;
-		}
-		if (is_array($path) || empty($data) || is_object($path) || empty($path)) {
-			return Set::classicExtract($path, $data);
 		}
 		if ($path === '/') {
 			return $data;
@@ -388,12 +388,12 @@ class Set extends Object {
 		if (!isset($contexts[0])) {
 			$contexts = array($data);
 		}
-		$tokens = array_slice(preg_split('/(?<!=)\/(?![a-z]*\])/', $path), 1);
+		$tokens = array_slice(preg_split('/(?<!=)\/(?![a-z-]*\])/', $path), 1);
 
 		do {
 			$token = array_shift($tokens);
 			$conditions = false;
-			if (preg_match_all('/\[([^\]]+)\]/', $token, $m)) {
+			if (preg_match_all('/\[([^=]+=\/[^\/]+\/|[^\]]+)\]/', $token, $m)) {
 				$conditions = $m[1];
 				$token = substr($token, 0, strpos($token, '['));
 			}
@@ -411,8 +411,10 @@ class Set extends Object {
 					$context['key'] = array_pop($context['trace']);
 					if (isset($context['trace'][1]) && $context['trace'][1] > 0) {
 						$context['item'] = $context['item'][0];
-					} else {
+					} else if(!empty($context['item'][$key])){
 						$context['item'] = $context['item'][$key];
+					} else {
+						$context['item'] = array_shift($context['item']);
 					}
 					$matches[] = $context;
 					continue;
@@ -449,6 +451,8 @@ class Set extends Object {
 									'item' => $item,
 								);
 								break;
+							} else {
+								array_unshift($tokens, $token);
 							}
 						} else {
 							$key = $token;
@@ -1086,7 +1090,7 @@ class Set extends Object {
 	function sort($data, $path, $dir) {
 		$result = Set::__flatten(Set::extract($data, $path));
 		list($keys, $values) = array(Set::extract($result, '{n}.id'), Set::extract($result, '{n}.value'));
-		
+
 		$dir = strtolower($dir);
 		if ($dir === 'asc') {
 			$dir = SORT_ASC;

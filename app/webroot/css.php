@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: css.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: css.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.app.webroot
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
@@ -95,7 +95,7 @@ if (!class_exists('File')) {
 
 	header("Date: " . date("D, j M Y G:i:s ", $templateModified) . 'GMT');
 	header("Content-Type: text/css");
-	header("Expires: " . gmdate("D, j M Y H:i:s", time() + DAY) . " GMT");
+	header("Expires: " . gmdate("D, d M Y H:i:s", time() + DAY) . " GMT");
 	header("Cache-Control: max-age=86400, must-revalidate"); // HTTP/1.1
 	header("Pragma: cache");        // HTTP/1.0
 	print $output;

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: javascript.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: javascript.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Javascript Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -152,16 +152,19 @@ class JavascriptHelper extends AppHelper {
 /**
  * Returns a JavaScript script tag.
  *
+ * Options:
+ *
+ *  - allowCache: boolean, designates whether this block is cacheable using the
+ * current cache settings.
+ *  - safe: boolean, whether this block should be wrapped in CDATA tags.  Defaults
+ * to helper's object configuration.
+ *  - inline: whether the block should be printed inline, or written
+ * to cached for later output (i.e. $scripts_for_layout).
+ *
  * @param string $script The JavaScript to be wrapped in SCRIPT tags.
  * @param array $options Set of options:
- *             - allowCache: boolean, designates whether this block is cacheable using the
- *               current cache settings.
- *             - safe: boolean, whether this block should be wrapped in CDATA tags.  Defaults
- *               to helper's object configuration.
- *             - inline: whether the block should be printed inline, or written
- *               to cached for later output (i.e. $scripts_for_layout).
  * @return string The full SCRIPT element, with the JavaScript inside it, or null,
- *                if 'inline' is set to false.
+ *   if 'inline' is set to false.
  */
 	function codeBlock($script = null, $options = array()) {
 		if (!empty($options) && !is_array($options)) {
@@ -240,9 +243,9 @@ class JavascriptHelper extends AppHelper {
  * the path will be relative to the base path of your application.  Otherwise, the path will
  * be relative to your JavaScript path, usually webroot/js.
  *
- * @param  mixed  $url String URL to JavaScript file, or an array of URLs.
- * @param  boolean $inline If true, the <script /> tag will be printed inline,
- *                         otherwise it will be printed in the <head />, using $scripts_for_layout
+ * @param mixed $url String URL to JavaScript file, or an array of URLs.
+ * @param boolean $inline If true, the <script /> tag will be printed inline,
+ *   otherwise it will be printed in the <head />, using $scripts_for_layout
  * @see JS_URL
  * @return string
  */
@@ -522,6 +525,13 @@ class JavascriptHelper extends AppHelper {
 		if ($this->useNative) {
 			$rt = json_encode($data);
 		} else {
+			if (is_null($data)) {
+				return 'null';
+			}
+			if (is_bool($data)) {
+				return $data ? 'true' : 'false';
+			}
+
 			if (is_array($data)) {
 				$keys = array_keys($data);
 			}

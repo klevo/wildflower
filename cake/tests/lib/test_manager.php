@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: test_manager.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: test_manager.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.tests.lib
  * @since         CakePHP(tm) v 1.2.0.4433
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 define('CORE_TEST_CASES', TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'cases');
@@ -277,6 +277,8 @@ class TestManager {
 		}
 
 		$files = glob($directory . DS . '*');
+		$files = $files ? $files : array();
+
 		foreach ($files as $file) {
 			if (is_dir($file)) {
 				$fileList = array_merge($fileList, $this->_getRecursiveFileList($file, $fileTestFunction));

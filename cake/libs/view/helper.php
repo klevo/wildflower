@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: helper.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: helper.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Backend for helpers.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -175,7 +175,7 @@ class Helper extends Overloadable {
  * @return string  Full translated URL with base path.
  */
 	function url($url = null, $full = false) {
-		return Router::url($url, array('full' => $full, 'escape' => true));
+		return h(Router::url($url, $full));
 	}
 /**
  * Checks if a file exists when theme is used, if no file is found default location is returned
@@ -567,15 +567,26 @@ class Helper extends Overloadable {
 
 		$result = null;
 
-		if (isset($this->data[$this->model()][$this->field()])) {
-			$result = $this->data[$this->model()][$this->field()];
-		} elseif (isset($this->data[$this->field()]) && is_array($this->data[$this->field()])) {
-			if (ClassRegistry::isKeySet($this->field())) {
-				$model =& ClassRegistry::getObject($this->field());
-				$result = $this->__selectedArray($this->data[$this->field()], $model->primaryKey);
+		$modelName = $this->model();
+		$fieldName = $this->field();
+		$modelID = $this->modelID();
+
+		if (is_null($fieldName)) {
+			$fieldName = $modelName;
+			$modelName = null;
+		}
+
+		if (isset($this->data[$fieldName]) && $modelName === null) {
+			$result = $this->data[$fieldName];
+		} elseif (isset($this->data[$modelName][$fieldName])) {
+			$result = $this->data[$modelName][$fieldName];
+		} elseif (isset($this->data[$fieldName]) && is_array($this->data[$fieldName])) {
+			if (ClassRegistry::isKeySet($fieldName)) {
+				$model =& ClassRegistry::getObject($fieldName);
+				$result = $this->__selectedArray($this->data[$fieldName], $model->primaryKey);
 			}
-		} elseif (isset($this->data[$this->model()][$this->modelID()][$this->field()])) {
-			$result = $this->data[$this->model()][$this->modelID()][$this->field()];
+		} elseif (isset($this->data[$modelName][$modelID][$fieldName])) {
+			$result = $this->data[$modelName][$modelID][$fieldName];
 		}
 
 		if (is_array($result)) {

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: html.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: html.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Html Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.9.1
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -189,7 +189,7 @@ class HtmlHelper extends AppHelper {
 /**
  * Creates a link to an external resource and handles basic meta tags
  *
- * @param  string  $title The title of the external resource
+ * @param  string  $type The title of the external resource
  * @param  mixed   $url   The address of the external resource or string for content attribute
  * @param  array   $attributes Other attributes for the generated tag. If the type attribute is html, rss, atom, or icon, the mime-type is returned.
  * @param  boolean $inline If set to false, the generated tag appears in the head tag of the layout.
@@ -285,9 +285,8 @@ class HtmlHelper extends AppHelper {
 			$escapeTitle = false;
 		}
 
-		if (isset($htmlAttributes['escape'])) {
+		if (isset($htmlAttributes['escape']) && $escapeTitle == true) {
 			$escapeTitle = $htmlAttributes['escape'];
-			unset($htmlAttributes['escape']);
 		}
 
 		if ($escapeTitle === true) {
@@ -380,7 +379,8 @@ class HtmlHelper extends AppHelper {
 /**
  * Builds CSS style data from an array of CSS properties
  *
- * @param array $data
+ * @param array $data Style data array
+ * @param boolean $inline Whether or not the style block should be displayed inline
  * @return string CSS styling data
  */
 	function style($data, $inline = true) {
@@ -426,7 +426,7 @@ class HtmlHelper extends AppHelper {
  * Creates a formatted IMG element.
  *
  * @param string $path Path to the image file, relative to the app/webroot/img/ directory.
- * @param array	$htmlAttributes Array of HTML attributes.
+ * @param array	$options Array of HTML attributes.
  * @return string
  */
 	function image($path, $options = array()) {
@@ -435,7 +435,7 @@ class HtmlHelper extends AppHelper {
 		} elseif ($path[0] === '/') {
 			$path = $this->webroot($path);
 		} elseif (strpos($path, '://') === false) {
-			if (Configure::read('Asset.timestamp') == true && Configure::read() > 0) {
+			if ((Configure::read('Asset.timestamp') == true && Configure::read() > 0) || Configure::read('Asset.timestamp') === 'force') {
 				$path .= '?' . @filemtime(str_replace('/', DS, WWW_ROOT . IMAGES_URL . $path));
 			}
 			$path = $this->webroot(IMAGES_URL . $path);
@@ -531,7 +531,7 @@ class HtmlHelper extends AppHelper {
  *
  * @param string $name Tag name.
  * @param string $text String content that will appear inside the div element.
- *			If null, only a start tag will be printed
+ *   If null, only a start tag will be printed
  * @param array $attributes Additional HTML attributes of the DIV tag
  * @param boolean $escape If true, $text will be HTML-escaped
  * @return string The formatted tag element
@@ -555,7 +555,7 @@ class HtmlHelper extends AppHelper {
  *
  * @param string $class CSS class name of the div element.
  * @param string $text String content that will appear inside the div element.
- *			If null, only a start tag will be printed
+ *   If null, only a start tag will be printed
  * @param array $attributes Additional HTML attributes of the DIV tag
  * @param boolean $escape If true, $text will be HTML-escaped
  * @return string The formatted DIV element

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: controller.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: controller.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Base controller class.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -292,6 +292,32 @@ class Controller extends Object {
  */
 	var $methods = array();
 /**
+ * This controller's primary model class name, the Inflector::classify()'ed version of 
+ * the controller's $name property.
+ *
+ * Example: For a controller named 'Comments', the modelClass would be 'Comment'
+ *
+ * @var string
+ * @access public
+ */
+	var $modelClass = null;
+/**
+ * This controller's model key name, an underscored version of the controller's $modelClass property.
+ *
+ * Example: For a controller named 'ArticleComments', the modelKey would be 'article_comment'
+ *
+ * @var string
+ * @access public
+ */
+	var $modelKey = null;
+/**
+ * Holds any validation errors produced by the last call of the validateErrors() method/
+ *
+ * @var array Validation errors, or false if none
+ * @access public
+ */
+	var $validationErrors = null;
+/**
  * Constructor.
  *
  */
@@ -321,7 +347,6 @@ class Controller extends Object {
 		foreach ($parentMethods as $key => $value) {
 			$parentMethods[$key] = strtolower($value);
 		}
-
 		$this->methods = array_diff($childMethods, $parentMethods);
 		parent::__construct();
 	}
@@ -364,7 +389,7 @@ class Controller extends Object {
 			}
 
 			foreach ($merge as $var) {
-				if (isset($appVars[$var]) && !empty($appVars[$var]) && is_array($this->{$var})) {
+				if (!empty($appVars[$var]) && is_array($this->{$var})) {
 					if ($var === 'components') {
 						$normal = Set::normalize($this->{$var});
 						$app = Set::normalize($appVars[$var]);
@@ -376,7 +401,7 @@ class Controller extends Object {
 			}
 		}
 
-		if ($pluginController) {
+		if ($pluginController && $pluginName != null) {
 			$appVars = get_class_vars($pluginController);
 			$uses = $appVars['uses'];
 			$merge = array('components', 'helpers');
@@ -619,7 +644,7 @@ class Controller extends Object {
  *
  * @param mixed $one A string or an array of data.
  * @param mixed $two Value in case $one is a string (which then works as the key).
- * 				Unused if $one is an associative array, otherwise serves as the values to $one's keys.
+ *   Unused if $one is an associative array, otherwise serves as the values to $one's keys.
  * @return void
  * @access public
  * @link http://book.cakephp.org/view/427/set
@@ -824,7 +849,7 @@ class Controller extends Object {
  * Does not work if the current debug level is higher than 0.
  *
  * @param string $message Message to display to the user
- * @param string $url Relative URL to redirect to after the time expires
+ * @param mixed $url Relative string or array-based URL to redirect to after the time expires
  * @param integer $pause Time to show the message
  * @return void Renders flash layout
  * @access public
@@ -1018,7 +1043,8 @@ class Controller extends Object {
 		$type = 'all';
 
 		if (isset($defaults[0])) {
-			$type = array_shift($defaults);
+			$type = $defaults[0];
+			unset($defaults[0]);
 		}
 		$extra = array_diff_key($defaults, compact(
 			'conditions', 'fields', 'order', 'limit', 'page', 'recursive'
@@ -1043,6 +1069,7 @@ class Controller extends Object {
 		} elseif (intval($page) < 1) {
 			$options['page'] = $page = 1;
 		}
+		$page = $options['page'] = (integer)$page;
 
 		if (method_exists($object, 'paginate')) {
 			$results = $object->paginate($conditions, $fields, $order, $limit, $page, $recursive, $extra);

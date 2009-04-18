@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: http_socket.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: http_socket.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * HTTP Socket connection class.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Core', array('Socket', 'Set', 'Router'));
@@ -66,7 +66,7 @@ class HttpSocket extends CakeSocket {
 			'fragment' => null
 		),
 		'auth' => array(
-			'method' => 'basic',
+			'method' => 'Basic',
 			'user' => null,
 			'pass' => null
 		),
@@ -121,7 +121,7 @@ class HttpSocket extends CakeSocket {
 				'port' => 80
 			),
 			'auth' => array(
-				'method' => 'basic',
+				'method' => 'Basic',
 				'user' => null,
 				'pass' => null
 			),

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: i18n.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: i18n.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4116
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -40,7 +40,7 @@ class I18n extends Object {
 /**
  * Instance of the I10n class for localization
  *
- * @var object
+ * @var I10n
  * @access public
  */
 	var $l10n = null;
@@ -213,31 +213,31 @@ class I18n extends Object {
 		if (strpos($header, "plurals=3")) {
 			if (strpos($header, "100!=11")) {
 				if (strpos($header, "10<=4")) {
-					return $n % 10 === 1 && $n % 100 !== 11 ? 0 : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
+					return $n % 10 == 1 && $n % 100 != 11 ? 0 : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
 				} elseif (strpos($header, "100<10")) {
-					return $n % 10 === 1 && $n % 100 !== 11 ? 0 : ($n % 10 >= 2 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
+					return $n % 10 == 1 && $n % 100 != 11 ? 0 : ($n % 10 >= 2 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
 				}
 				return $n % 10 == 1 && $n % 100 != 11 ? 0 : ($n != 0 ? 1 : 2);
 			} elseif (strpos($header, "n==2")) {
-				return $n === 1 ? 0 : ($n === 2 ? 1 : 2);
+				return $n == 1 ? 0 : ($n == 2 ? 1 : 2);
 			} elseif (strpos($header, "n==0")) {
-				return $n === 1 ? 0 : ($n === 0 || ($n % 100 > 0 && $n % 100 < 20) ? 1 : 2);
+				return $n == 1 ? 0 : ($n == 0 || ($n % 100 > 0 && $n % 100 < 20) ? 1 : 2);
 			} elseif (strpos($header, "n>=2")) {
-				return $n === 1 ? 0 : ($n >= 2 && $n <= 4 ? 1 : 2);
+				return $n == 1 ? 0 : ($n >= 2 && $n <= 4 ? 1 : 2);
 			} elseif (strpos($header, "10>=2")) {
-				return $n === 1 ? 0 : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
+				return $n == 1 ? 0 : ($n % 10 >= 2 && $n % 10 <= 4 && ($n % 100 < 10 || $n % 100 >= 20) ? 1 : 2);
 			}
-			return $n % 10 === 1 ? 0 : ($n % 10 === 2 ? 1 : 2);
+			return $n % 10 == 1 ? 0 : ($n % 10 == 2 ? 1 : 2);
 		} elseif (strpos($header, "plurals=4")) {
 			if (strpos($header, "100==2")) {
-				return $n % 100 === 1 ? 0 : ($n % 100 === 2 ? 1 : ($n % 100 === 3 || $n % 100 === 4 ? 2 : 3));
+				return $n % 100 == 1 ? 0 : ($n % 100 == 2 ? 1 : ($n % 100 == 3 || $n % 100 == 4 ? 2 : 3));
 			} elseif (strpos($header, "n>=3")) {
-				return $n === 1 ? 0 : ($n === 2 ? 1 : ($n == 0 || ($n >= 3 && $n <= 10) ? 2 : 3));
+				return $n == 1 ? 0 : ($n == 2 ? 1 : ($n == 0 || ($n >= 3 && $n <= 10) ? 2 : 3));
 			} elseif (strpos($header, "100>=1")) {
-				return $n === 1 ? 0 : ($n == 0 || ($n % 100 >= 1 && $n % 100 <= 10) ? 1 : ($n % 100 >= 11 && $n % 100 <= 20 ? 2 : 3));
+				return $n == 1 ? 0 : ($n == 0 || ($n % 100 >= 1 && $n % 100 <= 10) ? 1 : ($n % 100 >= 11 && $n % 100 <= 20 ? 2 : 3));
 			}
 		} elseif (strpos($header, "plurals=5")) {
-			return $n === 1 ? 0 : ($n === 2 ? 1 : ($n >= 3 && $n <= 6 ? 2 : ($n >= 7 && $n <= 10 ? 3 : 4)));
+			return $n == 1 ? 0 : ($n == 2 ? 1 : ($n >= 3 && $n <= 6 ? 2 : ($n >= 7 && $n <= 10 ? 3 : 4)));
 		}
 	}
 /**

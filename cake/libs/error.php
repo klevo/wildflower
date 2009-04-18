@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: error.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: error.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Error handler
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.10.5.1732
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Controller', 'App');
@@ -70,7 +70,7 @@ class ErrorHandler extends Object {
 /**
  * Controller instance.
  *
- * @var object
+ * @var Controller
  * @access public
  */
 	var $controller = null;
@@ -151,7 +151,7 @@ class ErrorHandler extends Object {
 		$this->controller->set(array(
 			'code' => '404',
 			'name' => __('Not Found', true),
-			'message' => $url,
+			'message' => h($url),
 			'base' => $this->controller->base
 		));
 		$this->_outputMessage('error404');

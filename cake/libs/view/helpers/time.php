@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: time.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: time.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Time Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -284,12 +284,13 @@ class TimeHelper extends AppHelper {
 /**
  * Returns either a relative date or a formatted date depending
  * on the difference between the current time and given datetime.
- * $datetime should be in a <i>strtotime</i>-parsable format, like MySQL's datetime datatype.
+ * $datetime should be in a <i>strtotime</i> - parsable format, like MySQL's datetime datatype.
  *
  * Options:
- *  'format' => a fall back format if the relative time is longer than the duration specified by end
- *  'end' =>  The end of relative time telling
- *  'userOffset' => Users offset from GMT (in hours)
+ *
+ * - 'format' => a fall back format if the relative time is longer than the duration specified by end
+ * - 'end' => The end of relative time telling
+ * - 'userOffset' => Users offset from GMT (in hours)
  *
  * Relative dates look something like this:
  *	3 weeks, 4 days ago
@@ -464,7 +465,7 @@ class TimeHelper extends AppHelper {
  *
  * @param mixed $dateTime Datetime string (strtotime-compatible) or Unix timestamp
  * @param mixed $options Default format string, if timestamp is used in $dateTime, or an array of options to be passed
- *						 on to timeAgoInWords().
+ *   on to timeAgoInWords().
  * @return string Relative time string.
  * @see		TimeHelper::timeAgoInWords
  */

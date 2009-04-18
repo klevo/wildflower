@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: home.ctp 7961 2008-12-25 23:21:36Z gwoo $ */
+/* SVN FILE: $Id: home.ctp 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  *
  * PHP versions 4 and 5
@@ -16,11 +16,14 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.templates.pages
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7961 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-25 15:21:36 -0800 (Thu, 25 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
+if (Configure::read() == 0):
+	$this->cakeError('error404');
+endif;
 ?>
 <h2><?php echo sprintf(__('Release Notes for CakePHP %s.', true), Configure::version()); ?></h2>
 <a href="https://trac.cakephp.org/wiki/changelog/1.2.x.x"><?php __('Read the changelog'); ?> </a>

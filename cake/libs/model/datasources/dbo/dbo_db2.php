@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_db2.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: dbo_db2.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * IBM DB2 for DBO
  *
@@ -21,9 +21,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -513,8 +513,8 @@ class DboDb2 extends DboSource {
  * do not correspond to a particular model belong under array
  * key 0.
  *
- * 1.  Gets the column headers
- *
+ * 1. Gets the column headers
+ * {{{
  * Post.id
  * Post.title
  *
@@ -529,7 +529,7 @@ class DboDb2 extends DboSource {
  *          [0] => Post
  *          [1] => title
  *      )
- *
+ * }}}
  * @param unknown_type $results
  */
 	function resultSet(&$results, $sql = null) {

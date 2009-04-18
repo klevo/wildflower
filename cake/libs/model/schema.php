@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: schema.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: schema.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Schema database management for CakePHP.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model
  * @since         CakePHP(tm) v 1.2.0.5550
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Model', 'ConnectionManager');
@@ -167,10 +167,12 @@ class CakeSchema extends Object {
 /**
  * Reads database and creates schema tables
  *
+ * Options
+ * 
+ * - 'connection' - the db connection to use
+ * - 'name' - name of the schema
+ * - 'models' - a list of models to use, or false to ignore models
  * @param array $options schema object properties
- *		'connection' - the db connection to use
- *		'name' - name of the schema
- *		'models' - a list of models to use, or false to ignore models
  * @return array Array indexed by name and tables
  * @access public
  */
@@ -329,11 +331,11 @@ class CakeSchema extends Object {
 								$type = $value;
 								$value = array('type'=> $type);
 							}
-							$col = "\t\t\t'{$field}' => array('type' => '" . $value['type'] . "', ";
+							$col = "\t\t'{$field}' => array('type' => '" . $value['type'] . "', ";
 							unset($value['type']);
 							$col .= join(', ',  $this->__values($value));
 						} else {
-							$col = "\t\t\t'indexes' => array(";
+							$col = "\t\t'indexes' => array(";
 							$props = array();
 							foreach ((array)$value as $key => $index) {
 								$props[] = "'{$key}' => array(".join(', ',  $this->__values($index)).")";
@@ -345,7 +347,7 @@ class CakeSchema extends Object {
 					}
 					$out .= join(",\n", $cols);
 				}
-				$out .= "\n\t\t);\n";
+				$out .= "\n\t);\n";
 			}
 		}
 		$out .="}\n";
@@ -353,7 +355,7 @@ class CakeSchema extends Object {
 
 		$File =& new File($path . DS . $file, true);
 		$header = '$Id';
-		$content = "<?php \n/* SVN FILE: $header$ */\n/* ". $name ." schema generated on: " . date('Y-m-d H:m:s') . " : ". time() . "*/\n{$out}?>";
+		$content = "<?php \n/* SVN FILE: {$header}$ */\n/* {$name} schema generated on: " . date('Y-m-d H:m:s') . " : ". time() . "*/\n{$out}?>";
 		$content = $File->prepare($content);
 		if ($File->write($content)) {
 			return $content;

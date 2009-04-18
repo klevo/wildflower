@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: shell.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: shell.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Base class for Shells
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -34,7 +34,7 @@ class Shell extends Object {
 /**
  * An instance of the ShellDispatcher object that loaded this script
  *
- * @var object
+ * @var ShellDispatcher
  * @access public
  */
 	var $Dispatch = null;
@@ -49,7 +49,7 @@ class Shell extends Object {
  * Holds the DATABASE_CONFIG object for the app. Null if database.php could not be found,
  * or the app does not exist.
  *
- * @var object
+ * @var DATABASE_CONFIG
  * @access public
  */
 	var $DbConfig = null;
@@ -471,11 +471,11 @@ class Shell extends Object {
 		if (App::import('vendor', 'simpletest' . DS . 'simpletest')) {
 			return true;
 		}
-		$unitTest = $this->in('Cake test suite not installed.  Do you want to bake unit test files anyway?', array('y','n'), 'y');
+		$unitTest = $this->in('SimpleTest is not installed.  Do you want to bake unit test files anyway?', array('y','n'), 'y');
 		$result = low($unitTest) == 'y' || low($unitTest) == 'yes';
 
 		if ($result) {
-			$this->out("\nYou can download the Cake test suite from http://cakeforge.org/projects/testsuite/", true);
+			$this->out("\nYou can download SimpleTest from http://simpletest.org", true);
 		}
 		return $result;
 	}

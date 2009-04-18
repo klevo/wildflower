@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: session.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: session.php 8120 2009-03-19 20:25:10Z gwoo $ */
 /**
  * Session class for Cake.
  *
@@ -22,9 +22,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v .0.10.0.1222
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8120 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -349,7 +349,9 @@ class CakeSession extends Object {
 		if (empty($var)) {
 			return false;
 		}
-		$this->watchKeys[] = $var;
+		if (!in_array($var, $this->watchKeys, true)) {
+			$this->watchKeys[] = $var;
+		}
 	}
 /**
  * Tells Session to stop watching a given key path
@@ -571,10 +573,8 @@ class CakeSession extends Object {
 				$this->__setError(1, 'Session Highjacking Attempted !!!');
 			}
 		} else {
-			srand ((double)microtime() * 1000000);
 			$this->write('Config.userAgent', $this->_userAgent);
 			$this->write('Config.time', $this->sessionTime);
-			$this->write('Config.rand', mt_rand());
 			$this->write('Config.timeout', 10);
 			$this->valid = true;
 			$this->__setError(1, 'Session is valid');
