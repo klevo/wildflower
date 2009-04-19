@@ -9,41 +9,12 @@
 <span class="cleaner"></span>
 <hr />
 
-<div class="entry">
-    <h1><?php echo hsc($page['WildPage']['title']); ?></h1>
-    <?php echo $page['WildPage']['content']; ?>
-</div>
-
-<?php if (!empty($page['WildPage']['sidebar_content'])): ?>
-<div id="sidebar_content">
-    <?php echo $texy->process($page['WildPage']['sidebar_content']); ?>
-</div>
-<?php endif; ?>
-    
-<span class="cleaner"></span>
+<iframe src="<?php echo $html->url($page['WildPage']['url']); ?>" width="100%" height="700" frameborder="0">
+    <p>Your browser does not support iframes.</p>
+</iframe>
 
 <hr />
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="versions">
-        <h4>Versions</h4>
-        <ul>
-        <?php
-            $attr = array();
-            foreach ($revisions as $version) {
-                if (isset($this->params['named']['rev']) and $this->params['named']['rev'] == $version['WildRevision']['revision_number']) {
-                    $attr['class'] = 'current';
-                }
-                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/view/{$page['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
-                $attr['class'] = '';
-            }
-        ?>
-        </ul>
-    </li>
-    
-    <li class="main_sidebar">
-        <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $page['WildPage']['id']), array('escape' => false)); ?></li>
-        </ul>
-    </li>
+    <li></li>
 <?php $partialLayout->blockEnd(); ?>

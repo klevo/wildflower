@@ -489,7 +489,7 @@ select {
 
     #sidebar > ul > li {
         margin: 0;
-        padding: 8px 14px;
+        padding: 8px 0;
     }
     
     #sidebar > ul > li:last-child {
@@ -1246,13 +1246,6 @@ select {
 
 .sidebar_editor {
     display: none;
-}
-
-#sidebar_content {
-    background: #eee;
-    padding: 10px;
-    float: right;
-    width: 30%;
 }
 
 
