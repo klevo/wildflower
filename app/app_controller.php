@@ -43,7 +43,7 @@ class AppController extends Controller {
 	/**
 	 * Configure and initialize everything Wildflower needs
 	 *
-     * Should be called before all controller action in AppController::beforeFilter().
+     * Should be called before all controller actions in AppController::beforeFilter().
      * 
      * Does 3 things:
      *   1. protect admin area
