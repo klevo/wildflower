@@ -1458,5 +1458,10 @@ select {
     width: 150px;
     text-align: center;
     padding: 2px;
-    
+    margin: 2px 0;
+    cursor: pointer;
 }
+
+    .drop_zone:hover {
+        background-color: #eee;
+    }
