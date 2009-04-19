@@ -18,4 +18,7 @@ app/webroot/uploads/*
 # Ruckusing log file
 vendors/ruckusing/logs/development.log
 
+# HTML webroot cache
+app/webroot/cache/*
+
 .DS_Store
