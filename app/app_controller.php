@@ -40,22 +40,6 @@ class AppController extends Controller {
 	
 	private $_isDatabaseConnected = true;
 	
-	function __construct() {
-		// Autoload APP helpers
-		$appHelpers = scandir(APP . 'views' . DS . 'helpers');
-		foreach ($appHelpers as $i => $fileName) {
-		    if ($fileName[0] == '.' or strpos($fileName, '.php') < 1) {
-		        unset($appHelpers[$i]);
-		        continue;
-		    }
-		    
-	        $fileName = str_replace('.php', '', $fileName);
-	        $appHelpers[$i] = Inflector::camelize($fileName);
-		}
-		$this->helpers = am($this->helpers, $appHelpers);
-		parent::__construct();
-	}
-	
 	/**
      * Called before any controller action
      * 
@@ -86,21 +70,17 @@ class AppController extends Controller {
         
 		// Admin area requires authentification
 		if ($this->isAdminAction()) {
-			// Set admin layout and admin specific view vars
 			$this->layout = 'admin_default';
 		} else {
 			$this->layout = 'default';
 			$this->Auth->allow('*');
 		}
-		$this->isAuthorized = $this->Auth->isAuthorized();
 		
 		// Internationalization
 		$this->L10n = new L10n();
         $this->L10n->get('eng');
         Configure::write('Config.language', 'en');
 
-		// Site settings
-		$this->_siteSettings = Configure::read('AppSettings');
 		// Home page ID
 		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
 
@@ -202,51 +182,6 @@ class AppController extends Controller {
         $this->set('results', $results);
         $this->render('/wild_dashboards/wf_search');
     }
-    
-    /**
-     * Preview a post or a page
-     *
-     * @param string $fileName Cached page/post content file name
-     */
-    function wf_preview($fileName = null) {
-        if (is_null($fileName)) return $this->cakeError('object_not_found');
-        
-    	$this->layout = 'default';
-    	
-        $previewData = $this->__readPreviewCache($fileName);
-        $id = intval($previewData[$this->modelClass]['id']);
-        $item = $this->{$this->modelClass}->findById($id);
-        if (empty($item)) $this->cakeError('object_not_found');
-        
-        if (is_array($previewData) && !empty($previewData)) {
-            unset($previewData[$this->modelClass]['created']);
-            $item[$this->modelClass] = am($item[$this->modelClass], $previewData[$this->modelClass]);
-        }
-        
-        $itemName = 'item';
-        switch ($this->modelClass) {
-            case 'WildPost':
-                $itemName = 'post';
-                break;
-            case 'WildPage':
-                $itemName = 'page';
-                break;
-        }
-        
-        $params = array($itemName => $item);
-        if (isset($item[$this->modelClass]['description_meta_tag'])) {
-            $params['descriptionMetaTag'] = $item[$this->modelClass]['description_meta_tag'];
-        }
-        $this->set($params);
-        
-        $this->pageTitle = $item[$this->modelClass]['title'];
-        
-        if ($this->modelClass = 'WildPost') {
-            return $this->render('view');
-        } else if ($this->modelClass = 'WildPage') {
-            return $this->_chooseTemplate($item[$this->modelClass]['slug']);
-        }
-    }
 	
 	/**
 	 * Make sure the application returns 404 if it's not a requested action
@@ -331,8 +266,8 @@ class AppController extends Controller {
         $params = array(
             'siteName' => Configure::read('AppSettings.site_name'),
             'siteDescription' => Configure::read('AppSettings.description'),
-            'isLogged' => $this->isAuthorized,
-            'isAuthorized' => $this->isAuthorized,
+            'isLogged' => $this->Auth->isAuthorized(),
+            'isAuthorized' => $this->Auth->isAuthorized(),
             'isPage' => false,
             'isPosts' => false,
             'isHome' => $this->isHome,
