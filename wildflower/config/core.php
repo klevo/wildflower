@@ -32,5 +32,6 @@ Configure::write(array('Wildflower' => array(
     // (the cache file won't be created, page routes load from the database)
     'disableRootPageCache' => false,
     // 60000% speed increase with pure HTML caching into the webroot
-    'htmlCache' => true
+    // @TODO expering not implemented yet, so don't use
+    'htmlCache' => false
 )));
