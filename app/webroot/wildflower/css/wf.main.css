@@ -816,8 +816,10 @@ select {
     
 /* Post edit */
 
-#save-preview {
-    display: none; /* Preview does not work yet */
+#close_preview {
+    background: #eee;
+    margin: 10px -25px -20px -25px;
+    padding: 10px 25px;
 }
 
 #save-draft,
@@ -833,7 +835,8 @@ select {
     #save-publish input,
     #save-preview input,
     .save-section input,
-    .wf-form-button input {
+    .wf-form-button input,
+    #close_preview input {
         font-size: 13px;
     }
     
@@ -1417,3 +1420,12 @@ select {
         color: #474747;
         width: 160px;
     }
+    
+    
+/* Preview */
+
+#preview_frame {
+    margin: 0 0 0 -6px;
+    width: 100%;
+    border: 6px solid #fff689;
+}
