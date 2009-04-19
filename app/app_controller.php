@@ -358,6 +358,11 @@ class AppController extends Controller {
         return $this->Auth->user('id');
     }
 	
+	/**
+	 * Create a preview cache file
+	 *
+	 * @return void
+	 */
 	function wf_create_preview() {
         $cacheDir = Configure::read('Wildflower.previewCache') . DS;
         
@@ -369,7 +374,7 @@ class AppController extends Controller {
             $path = $cacheDir . $fileName . '.json';
         }
         
-        // Write data to preview file
+        // Write POST data to preview file
         $data = json_encode($this->data[$this->modelClass]);
         file_put_contents($path, $data);
         

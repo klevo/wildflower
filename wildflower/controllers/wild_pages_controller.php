@@ -87,17 +87,19 @@ class WildPagesController extends AppController {
         $this->set(compact('newParentPageOptions', 'revisions', 'isDraft'));
     }
     
-    function wf_view($id = null) {
+    function wf_preview($id, $previewCacheFileName = null) {
         if (isset($this->params['named']['rev'])) {
             $page = $this->WildPage->getRevision($id, $this->params['named']['rev']);
         } else {
             $page = $this->WildPage->findById($id);
         }
         
-        // @TODO Process Widgets
+        if (!is_null($previewCacheFileName)) {
+            $previewData = $this->__readPreviewCache($previewCacheFileName);
+            $page = am($page, $previewData);
+        }
         
-        $revisions = $this->WildPage->getRevisions($id, 10);
-        $this->set(compact('page', 'revisions'));
+        $this->set(compact('page'));
     }
     
     function wf_options($id = null) {
