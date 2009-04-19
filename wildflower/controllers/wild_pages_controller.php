@@ -8,12 +8,19 @@ uses('Sanitize');
 class WildPagesController extends AppController {
 	
 	public $components = array('RequestHandler', 'Seo');
-	public $helpers = array('Cache', 'Form', 'Html', 'Text', 'Time', 'Wildflower.List', 'Wildflower.Tree');
+	public $helpers = array('Form', 'Html', 'Text', 'Time', 'List', 'Tree');
     public $paginate = array(
         'limit' => 25,
         'order' => array('WildPage.lft' => 'asc')
     );
     public $pageTitle = 'Pages';
+    
+    function beforeFilter() {
+        parent::beforeFilter();
+        if (Configure::read('Wildflower.htmlCache') and $this->params['action'] == 'view') {
+            $this->helpers[] = 'HtmlCache';
+        }
+    }
     
     /**
      * A static about Wildflower page
@@ -301,10 +308,6 @@ class WildPagesController extends AppController {
      * Handles redirect if the correct url for page is not entered.
      */
     function view() {
-        if (Configure::read('AppSettings.cache') == 'on') {
-            $this->cacheAction = 60 * 60 * 24 * 3; // Cache for 3 days
-        }
-        
         // Parse attributes
         $args = func_get_args();
         $corrected = false;

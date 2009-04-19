@@ -272,6 +272,7 @@ class AppController extends Controller {
             'isPosts' => false,
             'isHome' => $this->isHome,
             'homePageId' => $this->homePageId,
+            // Here without base
             'here' => substr($this->here, strlen($this->base) - strlen($this->here)),
         );
         $this->params['Wildflower']['view'] = $params;

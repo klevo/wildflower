@@ -6,6 +6,11 @@
 
    # Maitenance mode: (uncoment following line)
    # RewriteRule    ^(.*)$ app/webroot/offline.html    [L]
+   
+   # HTML cache
+   RewriteCond %{REQUEST_METHOD} ^GET$
+   RewriteCond %{DOCUMENT_ROOT}/wildflower/app/webroot/cache/$1/index.html -f
+   RewriteRule ^(.*)$ app/webroot/cache/$1/index.html [L]
 
    RewriteRule    ^$ app/webroot/    [L]
    RewriteRule    (.*) app/webroot/$1 [L]
