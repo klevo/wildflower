@@ -1434,7 +1434,7 @@ select {
 /* Page reorder */
 
 .page_reorder_list {
-    margin: 0 0 20px;
+    margin: 20px 0;
     padding: 0;
     list-style: none;
     font-size: 13px;
@@ -1442,7 +1442,7 @@ select {
 
     .page_reorder_list ul {
         margin: 0;
-        padding: 0 0 0 20px;
+        padding: 0 0 0 30px;
     }
 
     .page_reorder_list li {
@@ -1460,8 +1460,10 @@ select {
     padding: 2px;
     margin: 2px 0;
     cursor: pointer;
+    display: none;
+    background: #eee;
 }
 
     .drop_zone:hover {
-        background-color: #eee;
+        background-color: #fff;
     }

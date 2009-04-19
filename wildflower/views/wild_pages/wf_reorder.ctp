@@ -1,6 +1,6 @@
 <h2 class="section"><?php __('Reordering pages'); ?></h2>
 
-<p><?php __('Click on a page title to move it.'); ?></p>
+<p><?php __('Click on a page title to move the page elsewhere.'); ?></p>
 
 <?php
     echo 
