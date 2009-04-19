@@ -1429,3 +1429,34 @@ select {
     width: 100%;
     border: 6px solid #fff689;
 }
+
+
+/* Page reorder */
+
+.page_reorder_list {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+}
+
+    .page_reorder_list ul {
+        margin: 0;
+        padding: 0 0 0 20px;
+    }
+
+    .page_reorder_list li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+.drop_zone {
+    border: 1px dashed #ddd;
+    color: #474747;
+    font-size: 11px;
+    width: 150px;
+    text-align: center;
+    padding: 2px;
+    
+}

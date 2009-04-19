@@ -1,9 +1,11 @@
 <h2 class="section"><?php __('Reordering pages'); ?></h2>
 
+<p><?php __('Click on a page title to move it.'); ?></p>
+
 <?php
     echo 
     $form->create('WildPage', array('url' => $here)),
-    $tree->generate($pages, array('class' => 'WildPage', 'element' => '../wild_pages/_reorder_item')),
-    $form->end();
+    $tree->generate($pages, array('class' => 'page_reorder_list', 'element' => '../wild_pages/_reorder_item')),
+    $form->end('Save changes');
 ?>
 
