@@ -135,9 +135,9 @@ img {
     
     #nav a {
         display: block;
-        height: 12px;
+        height: 13px;
         margin: 0 3px 0 0;
-        padding: 3px 8px 9px 8px;
+        padding: 4px 9px 9px 9px;
         background-color: #446076;
         color: #fff;
         text-decoration: none;
