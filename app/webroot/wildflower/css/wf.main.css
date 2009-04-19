@@ -1235,9 +1235,9 @@ select {
     
 #edit-buttons {
     overflow: hidden;
-    margin-top: 1em;
+    margin: 10px -25px -22px;
     background: #eee;
-    padding: 8px;
+    padding: 10px 25px;
     position: relative;
 }
 
