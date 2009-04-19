@@ -113,6 +113,15 @@ class WildPagesController extends AppController {
         $this->set(compact('parentPageOptions'));
     }
     
+    function wf_reorder() {
+        $this->pageTitle = 'Reordering pages';
+        $this->WildPage->recursive = -1;
+        $order = 'lft ASC';
+        $fields = array('id', 'lft', 'rght', 'parent_id', 'title');
+    	$pages = $this->WildPage->find('all', compact('order', 'fields'));
+    	$this->set(compact('pages'));
+    }
+    
     function wf_sidebar($id = null) {
         $this->WildPage->contain('WildUser');
         $this->data = $this->WildPage->findById($id);
