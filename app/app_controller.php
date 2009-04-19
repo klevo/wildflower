@@ -41,34 +41,32 @@ class AppController extends Controller {
 	private $_isDatabaseConnected = true;
 	
 	/**
-     * Called before any controller action
+	 * Configure and initialize everything Wildflower needs
+	 *
+     * Should be called before all controller action in AppController::beforeFilter().
      * 
-     * Do 3 things:
+     * Does 3 things:
      *   1. protect admin area
      *   2. check for user sessions
-     *   3. set site parameters
+     *   3. set site settings, parameters and global view vars
      */
-    function beforeFilter() {
-        parent::beforeFilter();
-
-        // Wilflower callbacks from app/controllers/wildflower_callbacks
-        $this->wildflowerCallback('before');
-        
-        // AuthComponent settings
+	private function _configureWildflower() {
+	    // AuthComponent config
         $this->Auth->userModel = 'WildUser';
         $this->Auth->fields = array('username' => 'login', 'password' => 'password');
         $prefix = Configure::read('Wildflower.prefix');
         $this->Auth->loginAction = "/$prefix/login";
-        $this->Auth->logoutAction = array('plugin' => 'wildflower', 'prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
+        $this->Auth->logoutAction = array('prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
         $this->Auth->autoRedirect = false;
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
+	    
+	    // Site settings
+		$settings = ClassRegistry::init('WildSetting')->getKeyValuePairs();
+        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
+        Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
         
-		//$this->_assertDatabaseConnection();
-
-		$this->_configureSite();
-        
-		// Admin area requires authentification
+        // Admin area requires authentification
 		if ($this->isAdminAction()) {
 			$this->layout = 'admin_default';
 		} else {
@@ -93,10 +91,15 @@ class AppController extends Controller {
 		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
 		    $this->gzipOutput();
 		}
+	}
+	
+    function beforeFilter() {
+        parent::beforeFilter();
+		$this->_configureWildflower();
     }
 
     /**
-     * @TODO legacy code, refacor
+     * @TODO legacy code, refactor!
      *
      * Delete an item
      *
@@ -202,12 +205,9 @@ class AppController extends Controller {
 	    $this->cakeError('xss');
 	}
     
-    function afterFilter() {
-        parent::afterFilter();
-        $this->wildflowerCallback();
-    }
-    
     /**
+     * @TODO Under construction
+     *
      * Launch callbacks if they exist for current controller/method
      *
      * Callback for controllers are stored in <code>app/controllers/wildflower-callbacks/</code>.
@@ -332,17 +332,6 @@ class AppController extends Controller {
         if (isset($this->params[$adminRoute]) && $this->params[$adminRoute] === $wfPrefix) return true;
         return (isset($this->params['prefix']) && $this->params['prefix'] === $wfPrefix);
     }
-
-	/**
-	 * Write all site settings to Configure class as key => value pairs.
-	 * Access them anywhere in the application with Configure::read().
-	 *
-	 */
-	private function _configureSite() {
-		$settings = ClassRegistry::init('WildSetting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
-        Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
-	}
 
     /**
      * Delete old files from preview cache
