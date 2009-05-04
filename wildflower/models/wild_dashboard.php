@@ -14,11 +14,15 @@ class WildDashboard extends AppModel {
         // Get changed or added pages, posts, comments, contact form messages, files
         $limit = 15;
         $recursive = -1;
+        $conditions = null;
         $models = WildDashboard::$classNames;
         $items = array();
         foreach ($models as $model => $fields) {
             $class = ClassRegistry::init($model);
-            $items = array_merge($items, $class->find('all', compact('limit', 'recursive', 'fields')));
+            if (in_array($model, array('WildMessage', 'WildComment'))) {
+                //$conditions = array($model . '.spam' => 0);
+            }
+            $items = array_merge($items, $class->find('all', compact('limit', 'recursive', 'fields', 'conditions')));
         }
         
         // Sort by update time

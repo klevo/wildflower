@@ -11,7 +11,7 @@ $.jlm.addComponent('inplaceEdit', {
             }
             var elHeight = entryEl.height();
             var elWidth = entryEl.width();
-            var commentId = entryEl.parent('li').attr('id').split('-');
+            var commentId = entryEl.parent().parent('li').attr('id').split('-');
             commentId = commentId[1];
 
             var respond = function(json) {
@@ -43,7 +43,7 @@ $.jlm.addComponent('inplaceEdit', {
                 formEl.ajaxForm(afterSave);
             }
 
-            var url = $.jlm.base + '/admin/comments/get_content/' + commentId;
+            var url = $.jlm.base + '/wf/comments/get_content/' + commentId;
             var content = $.post(url, respond, {}, 'json');
             return false;
         };

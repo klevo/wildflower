@@ -3,7 +3,7 @@ Wildflower CMS main stylesheet
  
 Colors
 ======
-#000 - Ligter Black - Main type color
+#000 - Black - Main type color
 #e2e2e2 - Light Grey - Non-content background 
 #0033CC - Link Blue - Hyperlinks
 #eefaff - Ligh Blue - Sidebar highlight background
@@ -632,6 +632,8 @@ select {
     padding: 4px 6px;
     background-color: #fffde0;
     border: 1px solid #fffcbd;
+    border-bottom: 1px dashed #ff9000;
+    border-top: 1px dashed #ff9000;
     display: none; /* JS shows/hide this */
 }
 
@@ -948,8 +950,6 @@ select {
     list-style: none;
     margin: 0;
     padding: 0;
-    position: relative;
-    left: -5px;
     font-size: 14px;
     line-height: 20px;
 }
@@ -1467,3 +1467,30 @@ select {
     .drop_zone:hover {
         background-color: #fff;
     }
+    
+#comments_index li {
+    padding: 10px !important;
+    background: #eee;
+    border: 2px solid #ddd;
+    margin: 10px 0;
+}
+
+.view_comment_post {
+    float: right;
+    line-height: 12px;
+    font-size: 11px;    
+    position: relative;
+    bottom: -2px;
+}
+
+.comment_entry {
+    margin: 0 0 0 30px;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.comment_meta {
+    padding: 0 0 0 30px;
+    font-size: 11px;
+    color: #3b3b3b;
+}

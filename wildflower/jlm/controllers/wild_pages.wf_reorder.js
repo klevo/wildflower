@@ -1,6 +1,16 @@
 $.jlm.bind('wild_pages.wf_reorder', function() {
     
     var movedPage = null;
+    var dropZoneHtml = '<div class="drop_zone"><l18n>drop here</l18n></div>';
+    
+    function appendDropZones() {
+        // Remove any old first
+        $('.drop_zone').remove();
+        
+        $('.page_reorder_list li').prepend(dropZoneHtml)
+        // Append to last
+        // $('.page_reorder_list > li:last-child, .page_reorder_list ul > li:last-child').append('<div class="drop_zone">drop here</div>');
+    }
     
     function showDropZones() {
         $('.drop_zone').show();
@@ -33,7 +43,7 @@ $.jlm.bind('wild_pages.wf_reorder', function() {
         return false;
     }
     
-    $('.page_reorder_list > li:last-child, .page_reorder_list ul > li:last-child').append('<div class="drop_zone">drop here</div>');
+    
    
     $('.page_reorder_list a').click(showDropZones);
     $('.drop_zone').click(movePage);

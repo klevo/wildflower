@@ -44,6 +44,9 @@
                 <?php 
                     $label = empty($item['item']['title']) ? '<em>untitled</em>' : hsc($item['item']['title']);
                     $url = '/' . Configure::read('Wildflower.prefix') . '/' . r(':id', $item['item']['id'], $labels[$item['class']]['link']);
+                    if ($item['class'] == 'WildComment') {
+                        $url = array('controller' => 'wild_comments', 'action' => 'index', '#comment-' . $item['item']['id']);
+                    }
                     echo $html->link($label, $url, array('escape' => false)); 
                 ?>
                 </td>

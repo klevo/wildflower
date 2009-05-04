@@ -4,11 +4,12 @@
         $actions = array('Publish', 'Unpublish', 'Delete');
     }
     $actionsHtml = '';
+    $separator =  ' &nbsp;|&nbsp; ';
     foreach ($actions as $action) {
         $actionsHtml .= $html->link(__($action, true), '#' . Inflector::camelize($action), array('rel' => low(Inflector::camelize($action))));
-        $actionsHtml .= ', ';
+        $actionsHtml .= $separator;
     }
-    $actionsHtml = rtrim($actionsHtml, ', ');
+    $actionsHtml = rtrim($actionsHtml, $separator);
 ?>
 
 <div class="select-actions">
