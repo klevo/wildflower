@@ -9,5 +9,5 @@
 </div>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li></li>
+    <?php echo $this->element('../wild_pages/_page_edit_right_menu'); ?>
 <?php $partialLayout->blockEnd(); ?>

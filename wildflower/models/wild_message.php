@@ -60,7 +60,7 @@ class WildMessage extends AppModel {
                 return true;
             }
         } catch(Exception $e) {
-            trigger_error('Akismet not reachable: ' . $e->message);
+            trigger_error('Akismet not reachable: ' . $e);
         }
         
         return false;

@@ -9,3 +9,6 @@
     $form->end('Save changes');
 ?>
 
+<?php $partialLayout->blockStart('sidebar'); ?>
+    <?php echo $this->element('../wild_pages/_page_edit_right_menu'); ?>
+<?php $partialLayout->blockEnd(); ?>

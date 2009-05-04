@@ -35,27 +35,5 @@
 <span class="cleaner"></span>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="versions main_sidebar">
-        <h4>Versions</h4>
-        <ul>
-        <?php
-            $attr = array();
-            foreach ($revisions as $version) {
-                if (isset($this->params['named']['rev']) and $this->params['named']['rev'] == $version['WildRevision']['revision_number']) {
-                    $attr['class'] = 'current';
-                }
-                echo '<li>', $html->link($time->niceShort($version['WildRevision']['created']), "/{$this->params['prefix']}/pages/edit/{$this->data['WildPage']['id']}/rev:{$version['WildRevision']['revision_number']}", $attr), '</li>';
-                $attr['class'] = '';
-            }
-        ?>
-        </ul>
-    </li>
-    
-    <li class="main_sidebar">
-        
-        <ul class="sidebar-menu-alt edit-sections-menu">
-            <li><?php echo $html->link('Options <small>like status, publish date, etc.</small>', array('action' => 'options', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
-            <li><?php echo $html->link('Custom fields', array('action' => 'custom_fields', $this->data['WildPage']['id']), array('escape' => false)); ?></li>
-        </ul>
-    </li>
+    <?php echo $this->element('../wild_pages/_page_edit_right_menu'); ?>
 <?php $partialLayout->blockEnd(); ?>

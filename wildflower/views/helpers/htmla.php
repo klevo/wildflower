@@ -24,6 +24,7 @@ class HtmlaHelper extends HtmlHelper {
         if (isset($htmlAttributes['strict']) and $htmlAttributes['strict']) {
             $htmlAttributes['currentOn'] = $url;
         }
+        unset($htmlAttributes['strict']);
         
         $currentOverride = false;
         if (isset($htmlAttributes['currentOn']) && !is_null($htmlAttributes['currentOn'])) {

@@ -2,7 +2,7 @@
 
 <?php
     $session->flash();
-    echo $form->create('WildSetting', array('action' => 'update', 'class' => 'horizontal-form'));
+    echo $form->create('WildSetting', array('action' => 'update', 'class' => 'settings_form'));
     
     // echo '<pre>';
     // foreach ($settings as $setting) {
@@ -16,7 +16,7 @@
     //     $out .= "),";
     //     echo $out;
     // }
-    // echo '</pre>';    
+    // echo '</pre>';
     
     foreach ($settings as $setting) {
         $name = "WildSetting.{$setting['WildSetting']['id']}";
@@ -27,6 +27,7 @@
         );
         
         if (!empty($setting['WildSetting']['description'])) {
+            $setting['WildSetting']['description'] = r('the site root', FULL_BASE_URL, $setting['WildSetting']['description']);
             $options['after'] = "<p class=\"setting-desc\">{$setting['WildSetting']['description']}</p>";
         }
         
@@ -61,7 +62,9 @@
     }
     
     echo
+    '<div id="edit-buttons">',
     $form->submit('Save changes', array('div' => array('class' => 'submit save-section'))),
+    '</div>',
     '<div class="cleaner"></div>',
     $form->end();
 ?>

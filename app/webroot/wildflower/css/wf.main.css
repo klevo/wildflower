@@ -158,6 +158,11 @@ img {
         color: #fff;
         background-color: #597d99;
     }
+    
+#nav .nav-site-settings,
+#nav .nav-users {
+    float: right;
+}
 
 #login-info {
     position: absolute;
@@ -1493,4 +1498,51 @@ select {
     padding: 0 0 0 30px;
     font-size: 11px;
     color: #3b3b3b;
+}
+
+.right_menu {
+}
+
+    .right_menu a {
+        display: block;
+        padding: 8px 10px;
+        margin: 0 0 5px 0;
+        position: relative;
+        left: -16px;
+        z-index: 3;
+        -webkit-border-radius: 0 6px 6px 0;    /* for Safari */
+        -moz-border-radius: 0 6px 6px 0;
+    }
+    
+    .right_menu a.current {
+        background: #474747;
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    
+/* Settings form */
+
+.settings_form label,
+.settings_form p {
+    display: block;
+    font-size: 11px;
+    color: #474747;
+    margin: 2px 0;
+}
+
+.settings_form .input input,
+.settings_form .input textarea {
+    font-size: 13px;
+    padding: 4px;
+    font-family: "Lucida Console", sans-serif;
+}
+
+#setting-google_analytics_code textarea {
+    width: 98%;
+    height: 160px;
+}
+
+#setting-wordpress_api_key input {
+    width: 100px;
 }

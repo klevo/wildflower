@@ -22,3 +22,12 @@
     //     $form->input('reply', array('type' => 'textbox')),
     //     $form->end('Send to ' . $message['WildMessage']['email']);
 ?>
+
+<?php $partialLayout->blockStart('sidebar'); ?>
+    <li>
+        <ul class="right_menu">
+            <li><?php echo $htmla->link('Inbox', array('action' => 'index'), array('strict' => true)); ?></li>
+            <li><?php echo $htmla->link('Spam', array('action' => 'spam')); ?></li>
+        </ul>
+    </li>
+<?php $partialLayout->blockEnd(); ?>

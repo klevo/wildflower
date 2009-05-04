@@ -20,11 +20,12 @@
             if (ListHelper::isOdd()) {
                 $attr = ' class="odd"';
             }
+            $revParam = $version['WildRevision']['revision_number'];
             echo 
             "<li$attr>",
             '<div class="list-item">',
             $html->link("{$time->niceShort($version['WildRevision']['created'])}",
-                array('action' => 'wf_edit', $version['WildRevision']['node_id'], $first ? null : $version['WildRevision']['revision_number']), null, null, false),
+                "/wf/pages/edit/{$version['WildRevision']['node_id']}/rev:$revParam"),
             "<small>$first</small>",
             '</div>',
             '</li>';
@@ -38,9 +39,5 @@
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <li class="sidebar-box">
-        <h4>Viewing version history of a page</h4>
-        <?php echo $html->link($this->data['WildPage']['title'], array('action' => 'edit', $this->data['WildPage']['id']), array('class' => 'edited-item-link')); ?>
-    </li>
-    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
+    <?php echo $this->element('../wild_pages/_page_edit_right_menu'); ?>
 <?php $partialLayout->blockEnd(); ?>
