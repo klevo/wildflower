@@ -67,4 +67,20 @@
             $form->end();
         ?>
     </li>
+    <!--
+    <li class="main_sidebar category_sidebar">
+        <h4 class="sidebar_heading">User activity</h4>
+        <ul>
+        <?php foreach ($users as $user): ?>
+            <?php
+                $userText = __(' logged in ', true) . $time->niceShort($user['WildUser']['last_login']);
+                if (empty($user['WildUser']['last_login'])) {
+                    $userText = __(' not seen recently.', true);
+                }
+            ?>
+            <li><?php echo $user['WildUser']['name'], $userText; ?></li>
+        <?php endforeach; ?>
+        </ul>
+    </li>
+-->
 <?php $partialLayout->blockEnd(); ?>

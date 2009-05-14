@@ -6,17 +6,18 @@ $.jlm.bind('wild_pages.wf_reorder', function() {
     function appendDropZones() {
         // Remove any old first
         $('.drop_zone').remove();
-        
-        $('.page_reorder_list li').prepend(dropZoneHtml)
+        $('.page_reorder_list li').prepend(dropZoneHtml);
         // Append to last
-        // $('.page_reorder_list > li:last-child, .page_reorder_list ul > li:last-child').append('<div class="drop_zone">drop here</div>');
+        $('.page_reorder_list > li:last-child, .page_reorder_list ul > li:last-child').append(dropZoneHtml);
+        $('.drop_zone').click(movePage);
     }
     
-    function showDropZones() {
-        $('.drop_zone').show();
+    function startMove() {
         var parentEl = $(this).parent('li');
         movedPage = parentEl.clone();
         parentEl.remove();
+        appendDropZones();
+        // Click on a page title creates a child
         $('.page_reorder_list a').unbind('click').click(createChildren);
         return false;
     }
@@ -26,9 +27,8 @@ $.jlm.bind('wild_pages.wf_reorder', function() {
         parentEl.before(movedPage.hide());
         movedPage.fadeIn('slow');
         movedPage = null;
-        $('.drop_zone').hide();
-        $('.page_reorder_list a').unbind('click').click(showDropZones);
-        $('.drop_zone').click(movePage);
+        $('.drop_zone').remove();
+        $('.page_reorder_list a').unbind('click').click(startMove);
         return false;
     }
     
@@ -36,16 +36,12 @@ $.jlm.bind('wild_pages.wf_reorder', function() {
         var append = $('<ul>' + movedPage.html() + '</ul>');
         $(this).parent('li').append(append);
         movedPage = null;
-        $('.drop_zone').hide();
         append.fadeIn('slow');
-        $('.page_reorder_list a').unbind('click').click(showDropZones);
-        $('.drop_zone').click(movePage);
+        $('.page_reorder_list a').unbind('click').click(startMove);
+        $('.drop_zone').remove();
         return false;
     }
-    
-    
    
-    $('.page_reorder_list a').click(showDropZones);
-    $('.drop_zone').click(movePage);
+    $('.page_reorder_list a').click(startMove);
     
 });

@@ -68,3 +68,7 @@
     '<div class="cleaner"></div>',
     $form->end();
 ?>
+
+<?php $partialLayout->blockStart('sidebar'); ?>
+    <?php echo $this->element('../wild_settings/_right_menu'); ?>
+<?php $partialLayout->blockEnd(); ?>

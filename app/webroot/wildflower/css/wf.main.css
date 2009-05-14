@@ -990,7 +990,8 @@ select {
         
 /* Image browser (image insert) */
 
-    #image-browser h4 {
+    #image-browser h4,
+    .sidebar_heading {
         background: #eefaff;
         padding: 3px 6px;
         margin: 0 0 5px;
@@ -1465,7 +1466,6 @@ select {
     padding: 2px;
     margin: 2px 0;
     cursor: pointer;
-    display: none;
     background: #eee;
 }
 

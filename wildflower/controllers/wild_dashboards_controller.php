@@ -6,7 +6,8 @@ class WildDashboardsController extends AppController {
 	
 	function wf_index() {
         $items = $this->WildDashboard->findRecentHappening();
-		$this->set(compact('items'));
+        $users = ClassRegistry::init('WildUser')->find('all', array('order' => 'last_login ASC'));
+		$this->set(compact('items', 'users'));
 	}
 	
     /**

@@ -35,12 +35,14 @@ class WildUsersController extends AppController {
     function login() {
         $this->layout = 'login';   
         $this->pageTitle = 'Login';
+        $WildUser = ClassRegistry::init('WildUser');
 
+        // Try to authorize user with POSTed data
         if ($user = $this->Auth->user()) {
             if (!empty($this->data) && $this->data['WildUser']['remember']) {
                 // Generate unique cookie token
                 $cookieToken = Security::hash(String::uuid(), null, true);
-                $WildUser = ClassRegistry::init('WildUser');
+                
                 while ($WildUser->findByCookieToken($cookieToken)) {
                     $cookieToken = Security::hash(String::uuid(), null, true);
                 }
@@ -56,21 +58,34 @@ class WildUsersController extends AppController {
                 $this->Cookie->write('Auth.WildUser', $cookie, true, '+2 weeks');
                 unset($this->data['WildUser']['remember']);
             }
+            
+            // Save last login time
+            $WildUser->create($user);
+            $WildUser->saveField('last_login', time());
+            
             $this->redirect($this->Auth->redirect());
         }
 
-        // Try login cookie
+        // Try to authorize user with data from a cookie
         if (empty($this->data)) {
             $cookie = $this->Cookie->read('Auth.WildUser');
             if (!is_null($cookie)) {
-                $this->Auth->fields = array('username' => 'login', 'password' => 'cookie_token');
+                $this->Auth->fields = array(
+                    'username' => 'login', 
+                    'password' => 'cookie_token'
+                );
                 if ($this->Auth->login($cookie)) {
                     //  Clear auth message, just in case we use it.
                     $this->Session->del('Message.auth');
+                    
+                    // Save last login time
+                    $WildUser->create($user);
+                    $WildUser->saveField('last_login', time());
+                    
                     return $this->redirect($this->Auth->redirect());
                 } else { 
                     // Delete invalid Cookie
-                    $this->Cookie->del('Auth.User');
+                    $this->Cookie->del('Auth.WildUser');
                 }
             }
         }
