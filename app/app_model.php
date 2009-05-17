@@ -46,5 +46,22 @@ class AppModel extends Model {
     function invalidate($field, $value = true) {
         return parent::invalidate($field, __($value, true));
     }
+    
+    /**
+     * Delete record(s)
+     *
+     * @param mixed $ids
+     * @return void
+     */
+    function mass_delete($ids) {
+        if (!is_array($ids)) {
+            $ids = array(intval($ids));
+        }
+        foreach ($ids as $id) {
+            $this->{$this->modelClass}->id = $id;
+            $this->{$this->modelClass}->delete();
+        }
+        $this->{$this->modelClass}->id = null;
+    }
 
 }
