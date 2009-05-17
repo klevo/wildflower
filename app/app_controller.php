@@ -138,6 +138,7 @@ class AppController extends Controller {
      * @TODO Could be much faster using custom UPDATE or DELETE queries
      */
     function wf_mass_update() {
+        fb($this->data);
         if (isset($this->data['__action'])) {
             foreach ($this->data[$this->modelClass]['id'] as $id => $checked) {
                 if (intval($checked) === 1) {
