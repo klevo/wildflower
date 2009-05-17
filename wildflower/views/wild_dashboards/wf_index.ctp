@@ -67,7 +67,6 @@
             $form->end();
         ?>
     </li>
-    <!--
     <li class="main_sidebar category_sidebar">
         <h4 class="sidebar_heading">User activity</h4>
         <ul>
@@ -82,5 +81,4 @@
         <?php endforeach; ?>
         </ul>
     </li>
--->
 <?php $partialLayout->blockEnd(); ?>

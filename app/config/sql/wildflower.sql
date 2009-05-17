@@ -33,7 +33,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `schema_info` WRITE;
 /*!40000 ALTER TABLE `schema_info` DISABLE KEYS */;
-INSERT INTO `schema_info` VALUES (23);
+INSERT INTO `schema_info` VALUES (24);
 /*!40000 ALTER TABLE `schema_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,6 +393,7 @@ CREATE TABLE `wild_users` (
   `cookie_token` varchar(255) collate utf8_unicode_ci default NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
+  `last_login` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `cookie` (`cookie_token`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -404,7 +405,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `wild_users` WRITE;
 /*!40000 ALTER TABLE `wild_users` DISABLE KEYS */;
-INSERT INTO `wild_users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','b0b727c28c1757d8f04325ec74ac5f63d9dfd747','2008-07-11 14:24:43','2009-05-16 07:27:44'),(18,'','','',NULL,NULL,'2009-05-15 15:58:50','2009-05-15 15:58:50'),(16,'tester','2d51d7ac7023036f536ecdfe6a3d10f2b050636d','t@t.com','tester',NULL,'2009-03-12 15:32:21','2009-03-12 15:32:21'),(17,'','','',NULL,NULL,'2009-05-14 19:33:58','2009-05-14 19:33:58');
+INSERT INTO `wild_users` VALUES (1,'admin','e569c558b6119c2948d97ff3bffd87423f75c2b1','admin@localhost.sk','Mr Admin','1c19ab7e038e524dc805b993a9344305425b2eef','2008-07-11 14:24:43','2009-05-17 06:36:25',NULL),(18,'','','',NULL,NULL,'2009-05-15 15:58:50','2009-05-15 15:58:50',NULL),(16,'tester','2d51d7ac7023036f536ecdfe6a3d10f2b050636d','t@t.com','tester',NULL,'2009-03-12 15:32:21','2009-03-12 15:32:21',NULL),(17,'','','',NULL,NULL,'2009-05-14 19:33:58','2009-05-14 19:33:58',NULL);
 /*!40000 ALTER TABLE `wild_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-05-17  4:26:34
+-- Dump completed on 2009-05-17  4:40:54

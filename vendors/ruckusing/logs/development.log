@@ -261,3 +261,6 @@ Apr 18 19:29:22 [info] CREATE TABLE `wild_pages_wild_sidebars` (
 `wild_sidebar_id` int(11)
 ) ;
 Apr 18 19:29:22 [info] UPDATE schema_info SET version = 23
+May 17 06:39:34 [info] SELECT version FROM schema_info
+May 17 06:39:34 [info] ALTER TABLE wild_users ADD `last_login` datetime
+May 17 06:39:34 [info] UPDATE schema_info SET version = 24
