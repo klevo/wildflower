@@ -64,11 +64,11 @@ $.jlm.component('SelectActions', '*', function() {
          var msg = 'Do you really want to ' + str_replace('!', '', rel) + ' selected items?';
          var doContinue = confirm(msg);
          if (doContinue) {
-             // @TODO add AJAX submit
              var url = handledFormEl.attr('action');
              
              var formAppend = '<input type="hidden" name="data[__action]" value="' + rel + '" />';
-             handledFormEl.append(formAppend).ajaxSubmit();
+             // @TODO add AJAX submit and UI refresh
+             handledFormEl.append(formAppend).submit();
 
              if ('delete' == rel) {
                  deleteChecked();

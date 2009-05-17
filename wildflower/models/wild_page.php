@@ -249,13 +249,17 @@ class WildPage extends AppModel {
     }
 
     /**
-     * Publish a page (unmark draft status)
+     * Mark a page(s) as published
      *
-     * @param int $id
+     * @param mixed $ids
+     * @return void
      */
-    function publish($id) {
-        $id = intval($id);
-        return $this->query("UPDATE {$this->useTable} SET draft = 0 WHERE id = $id");
+    function publish($ids) {
+        if (!is_array($ids)) {
+            $ids = array(intval($ids));
+        }
+        $ids = join(', ', $ids);
+        $this->query("UPDATE {$this->useTable} SET draft = 0 WHERE id IN ($ids)");
     }
     
 	/**
