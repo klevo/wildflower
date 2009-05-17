@@ -138,37 +138,20 @@ class AppController extends Controller {
      * @TODO Could be much faster using custom UPDATE or DELETE queries
      */
     function wf_mass_update() {
-        fb($this->data);
+        //fb($this->data);exit();
+        $availActions = array('delete', 'publish', 'unpublish', 'approve', 'unapprove', 'spam', 'unspam');
+        // Collect selected item IDs
+        $ids = array();
         if (isset($this->data['__action'])) {
             foreach ($this->data[$this->modelClass]['id'] as $id => $checked) {
                 if (intval($checked) === 1) {
-                    $this->{$this->modelClass}->id = intval($id);
-                    switch ($this->data['__action']) {
-                        case 'delete':
-                            $this->{$this->modelClass}->delete($id);
-                            break;
-                        case 'publish':
-                            $this->{$this->modelClass}->publish($id);
-                            break;
-                        case 'unpublish':
-                            $this->{$this->modelClass}->draft($id);
-                            break;
-                        case 'approve':
-                            $this->{$this->modelClass}->approve($id);
-                            break;
-                        case 'unapprove':
-                            $this->{$this->modelClass}->unapprove($id);
-                            break;                        
-                        case 'spam':
-                            $this->{$this->modelClass}->spam($id);
-                            break;                        
-                        case 'unspam':
-                            $this->{$this->modelClass}->unspam($id);
-                            break;
-                    }
+                    $ids[] = intval($id);
                 }
             }
-            unset($this->{$this->modelClass}->id);
+        }
+        // If the action is recognized execute it
+        if (in_array($this->data['__action'], $availActions, true)) {
+            $result = $this->{$this->modelClass}->{$this->data['__action']}($ids);
         }
         
     	$redirect = am($this->params['named'], array('action' => 'wf_index'));

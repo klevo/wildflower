@@ -143,13 +143,27 @@ class WildPage extends AppModel {
     }
     
     /**
-     * Mark a page as a draft
+     * Mark a page(s) as a draft
      *
-     * @param int $id
+     * @param mixed $ids
+     * @return void
      */
-    function draft($id) {
-        $id = intval($id);
-        return $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id = $id");
+    function draft($ids) {
+        if (!is_array($ids)) {
+            $ids = array(intval($ids));
+        }
+        $ids = join(', ', $ids);
+        $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id IN ($ids)");
+    }
+    
+    /**
+     * Alias for $this->draft()
+     *
+     * @param mixed $ids
+     * @return void
+     */
+    function unpublish($ids) {
+        $this->draft($ids);
     }
     
     function getStatusOptions() {
