@@ -156,7 +156,7 @@ class AppController extends Controller {
         if (in_array($this->data['__action'], $availActions, true)) {
             $result = $this->{$this->modelClass}->{$this->data['__action']}($ids);
         }
-        
+
     	$redirect = am($this->params['named'], array('action' => 'wf_index'));
         $this->redirect($this->referer($redirect));
     }
