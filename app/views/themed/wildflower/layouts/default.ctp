@@ -84,7 +84,7 @@
 	        <p>Powered by <?php 
 	           echo $html->image('wildflower/small-logo.gif', array('alt' => 'Wildflower', 'class' => 'wf-icon')), 
 	           ' ', 
-	           $html->link('Wildflower', '/'),
+	           $html->link('Wildflower', 'http://wf.klevo.sk/'),
 	           '. ',
 	           $this->element('admin_link'); ?></p>
 	        
