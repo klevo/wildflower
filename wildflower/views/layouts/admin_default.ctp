@@ -58,8 +58,6 @@
         <h1 id="site-title"><?php echo $html->link($siteName, '/', array('title' => __('View homepage', true))); ?></h1>
         
         <div id="login-info">
-            <?php echo $htmla->link(__('Settings', true), array('controller' => 'wild_settings')); ?> | 
-            <?php echo $htmla->link(__('Users', true), array('controller' => 'wild_users')); ?> | 
             <?php echo $htmla->link(__('Logout', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
             
         </div>
@@ -74,6 +72,10 @@
                 __('Comments', true) => array('controller' => 'wild_comments'),
                 __('Messages', true) => array('controller' => 'wild_messages'),
                 __('Files', true) => array('controller' => 'wild_assets'),
+                
+                __('Users', true) => array('controller' => 'wild_users'),
+                __('Site Settings', true) => array('controller' => 'wild_settings'),
+                
             ), array('id' => 'nav'));
         ?>
     </div>
