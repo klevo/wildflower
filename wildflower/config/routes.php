@@ -9,9 +9,10 @@ Router::connect('/search', array('controller' => 'wild_dashboards', 'action' => 
 $prefix = Configure::read('Wildflower.prefix');
 $admin = Configure::read('Routing.admin');
 
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('controller' => 'wild_posts', 'action' => 'rss'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'wild_posts', 'action' => 'index'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/*', array('controller' => 'wild_posts', 'action' => 'index'));
-Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/rss', array('controller' => 'wild_posts', 'action' => 'rss'));
+
 
 /**
  * Wildflower admin routes
