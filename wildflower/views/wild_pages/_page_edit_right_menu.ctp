@@ -1,4 +1,4 @@
-<li class="right_menu">
+<li class="right_menu main_sidebar">
     <ul>
         <li><strong><?php echo $htmla->link('All Pages', array('action' => 'index'), array('strict' => true)); ?></strong></li>
         <?php if (isset($this->params['pass'][0])): ?>

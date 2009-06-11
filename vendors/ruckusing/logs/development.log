@@ -212,55 +212,149 @@ Apr 10 16:21:10 [info] SELECT version FROM schema_info
 Apr 10 16:21:10 [info] ALTER TABLE wild_comments ADD `approved` int(11) DEFAULT '1'
 Apr 10 16:21:10 [info] INSERT INTO wild_settings (name, value, description, type, label, `order`) VALUES ('approve_comments', 1, '', 'checkbox', 'Approve each comment before publishing it', 12)
 Apr 10 16:21:10 [info] UPDATE schema_info SET version = 24
-Apr 11 09:19:08 [info] SELECT version FROM schema_info
-Apr 11 09:19:12 [info] SELECT version FROM schema_info
-Apr 11 09:19:12 [info] ALTER TABLE wild_comments ADD `approved` int(11) DEFAULT '1'
-Apr 11 09:19:12 [info] INSERT INTO wild_settings (name, value, description, type, label, `order`) VALUES ('approve_comments', 1, '', 'checkbox', 'Approve each comment before publishing it', 12)
-Apr 11 09:19:12 [info] UPDATE schema_info SET version = 21
-Apr 11 09:19:16 [info] SELECT version FROM schema_info
-Apr 11 09:19:21 [info] SELECT version FROM schema_info
-Apr 14 15:29:02 [info] SELECT version FROM schema_info
-Apr 14 15:29:02 [info] ALTER TABLE wild_pages ADD `custom_fields` text
-Apr 14 15:29:03 [info] UPDATE schema_info SET version = 22
-Apr 14 15:29:06 [info] SELECT version FROM schema_info
-Apr 14 15:29:06 [info] ALTER TABLE `wild_pages` DROP COLUMN `custom_fields`
-Apr 14 15:29:06 [info] UPDATE schema_info SET version = 21
-Apr 14 15:29:11 [info] SELECT version FROM schema_info
-Apr 14 15:29:11 [info] ALTER TABLE wild_pages ADD `custom_fields` text
-Apr 14 15:29:11 [info] UPDATE schema_info SET version = 22
-Apr 18 19:29:08 [info] SELECT version FROM schema_info
-Apr 18 19:29:13 [info] SELECT version FROM schema_info
-Apr 18 19:29:13 [info] CREATE TABLE `wild_sidebars` (
+Apr 14 18:53:40 [info] SELECT version FROM schema_info
+Apr 14 18:53:40 [info] ALTER TABLE wild_pages ADD `custom_fields` text
+Apr 14 18:53:40 [info] UPDATE schema_info SET version = 25
+Apr 15 20:10:11 [info] SELECT version FROM schema_info
+Apr 15 20:10:11 [info] CREATE TABLE `wild_sidebars` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `title` varchar(255),
 `content` text,
 `created` datetime,
 `updated` datetime
 ) ;
-Apr 18 19:29:13 [info] CREATE TABLE `wild_pages_wild_sidebars` (
+Apr 15 20:10:11 [info] CREATE TABLE `wild_pages_wild_sidebars` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `wild_page_id` int(11),
 `wild_sidebar_id` int(11)
 ) ;
-Apr 18 19:29:13 [info] UPDATE schema_info SET version = 23
-Apr 18 19:29:21 [info] SELECT version FROM schema_info
-Apr 18 19:29:21 [info] DROP TABLE `wild_sidebars`
-Apr 18 19:29:21 [info] DROP TABLE `wild_pages_wild_sidebars`
-Apr 18 19:29:21 [info] UPDATE schema_info SET version = 22
-Apr 18 19:29:22 [info] SELECT version FROM schema_info
-Apr 18 19:29:22 [info] CREATE TABLE `wild_sidebars` (
+Apr 15 20:10:11 [info] UPDATE schema_info SET version = 26
+Apr 15 20:10:23 [info] SELECT version FROM schema_info
+Apr 15 20:10:23 [info] DROP TABLE `wild_sidebars`
+Apr 15 20:10:23 [info] DROP TABLE `wild_pages_wild_sidebars`
+Apr 15 20:10:23 [info] UPDATE schema_info SET version = 25
+Apr 15 20:10:25 [info] SELECT version FROM schema_info
+Apr 15 20:10:25 [info] CREATE TABLE `wild_sidebars` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `title` varchar(255),
 `content` text,
 `created` datetime,
 `updated` datetime
 ) ;
-Apr 18 19:29:22 [info] CREATE TABLE `wild_pages_wild_sidebars` (
+Apr 15 20:10:25 [info] CREATE TABLE `wild_pages_wild_sidebars` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `wild_page_id` int(11),
 `wild_sidebar_id` int(11)
 ) ;
-Apr 18 19:29:22 [info] UPDATE schema_info SET version = 23
-May 17 06:39:34 [info] SELECT version FROM schema_info
-May 17 06:39:34 [info] ALTER TABLE wild_users ADD `last_login` datetime
-May 17 06:39:34 [info] UPDATE schema_info SET version = 24
+Apr 15 20:10:25 [info] UPDATE schema_info SET version = 26
+May 04 12:42:59 [info] SELECT version FROM schema_info
+May 04 12:44:47 [info] SELECT version FROM schema_info
+May 04 12:44:47 [info] ALTER TABLE wild_messages ADD `spam` int(11) DEFAULT '0'
+May 04 12:44:47 [info] UPDATE schema_info SET version = 27
+May 04 12:44:52 [info] SELECT version FROM schema_info
+May 04 12:44:52 [info] ALTER TABLE `wild_messages` DROP COLUMN `spam`
+May 04 12:44:52 [info] UPDATE schema_info SET version = 26
+May 04 12:44:53 [info] SELECT version FROM schema_info
+May 04 12:44:53 [info] ALTER TABLE wild_messages ADD `spam` int(11) DEFAULT '0'
+May 04 12:44:53 [info] UPDATE schema_info SET version = 27
+May 07 07:58:38 [info] SELECT version FROM schema_info
+May 07 07:58:38 [info] ALTER TABLE wild_users ADD `last_login` datetime
+May 07 07:58:38 [info] UPDATE schema_info SET version = 28
+May 19 12:00:43 [info] SELECT version FROM schema_info
+May 19 12:06:12 [info] SELECT version FROM schema_info
+May 19 12:06:12 [info] CREATE TABLE `wild_menus` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`slug` varchar(255)
+) ;
+May 19 12:06:13 [info] CREATE TABLE `wild_menu_items` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`label` varchar(255),
+`url` varchar(255)
+) ;
+May 19 12:06:13 [info] UPDATE schema_info SET version = 25
+May 19 12:06:18 [info] SELECT version FROM schema_info
+May 19 12:06:18 [info] DROP TABLE `wild_menu_items`
+May 19 12:06:18 [info] DROP TABLE `wild_menus`
+May 19 12:06:18 [info] UPDATE schema_info SET version = 24
+May 19 12:06:20 [info] SELECT version FROM schema_info
+May 19 12:06:20 [info] CREATE TABLE `wild_menus` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`slug` varchar(255)
+) ;
+May 19 12:06:20 [info] CREATE TABLE `wild_menu_items` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`label` varchar(255),
+`url` varchar(255)
+) ;
+May 19 12:06:20 [info] UPDATE schema_info SET version = 25
+May 28 12:33:01 [info] SELECT version FROM schema_info
+May 28 12:33:34 [info] SELECT version FROM schema_info
+May 28 12:33:41 [info] SELECT version FROM schema_info
+May 28 12:33:41 [info] DROP TABLE `wild_menu_items`
+May 28 12:33:41 [info] DROP TABLE `wild_menus`
+May 28 12:33:41 [info] UPDATE schema_info SET version = 24
+May 28 12:33:46 [info] SELECT version FROM schema_info
+May 28 12:33:46 [info] CREATE TABLE `wild_menus` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`slug` varchar(255)
+) ;
+May 28 12:33:46 [info] CREATE TABLE `wild_menu_items` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`wild_menu_id` int(11),
+`label` varchar(255),
+`url` varchar(255)
+) ;
+May 28 12:33:46 [info] UPDATE schema_info SET version = 25
+May 29 08:50:40 [info] SELECT version FROM schema_info
+May 29 08:50:40 [info] CREATE TABLE `wild_sidebar_bindings` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`model` varchar(255),
+`foreign_id` int(11),
+`wild_sidebar_id` int(11)
+) ;
+May 29 08:50:40 [info] UPDATE schema_info SET version = 26
+May 29 08:50:47 [info] SELECT version FROM schema_info
+May 29 08:50:47 [info] DROP TABLE `wild_sidebar_bindings`
+May 29 08:50:47 [info] UPDATE schema_info SET version = 25
+May 29 08:50:48 [info] SELECT version FROM schema_info
+May 29 08:50:48 [info] CREATE TABLE `wild_sidebar_bindings` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`model` varchar(255),
+`foreign_id` int(11),
+`wild_sidebar_id` int(11)
+) ;
+May 29 08:50:48 [info] UPDATE schema_info SET version = 26
+May 29 09:05:39 [info] SELECT version FROM schema_info
+May 29 09:05:39 [info] DROP TABLE `wild_sidebar_bindings`
+May 29 09:05:39 [info] UPDATE schema_info SET version = 25
+May 29 09:07:01 [info] SELECT version FROM schema_info
+May 29 09:07:01 [info] ALTER TABLE wild_sidebar ADD `on_posts` int(11) DEFAULT '0'
+May 29 09:07:09 [info] SELECT version FROM schema_info
+May 29 09:07:09 [info] ALTER TABLE wild_sidebars ADD `on_posts` int(11) DEFAULT '0'
+May 29 09:07:09 [info] UPDATE schema_info SET version = 26
+May 29 09:07:13 [info] SELECT version FROM schema_info
+May 29 09:07:13 [info] ALTER TABLE `wild_sidebars` DROP COLUMN `on_posts`
+May 29 09:07:13 [info] UPDATE schema_info SET version = 25
+May 29 09:07:15 [info] SELECT version FROM schema_info
+May 29 09:07:15 [info] ALTER TABLE wild_sidebars ADD `on_posts` int(11) DEFAULT '0'
+May 29 09:07:15 [info] UPDATE schema_info SET version = 26
+Jun 11 11:44:27 [info] SELECT version FROM schema_info
+Jun 11 11:44:36 [info] SELECT version FROM schema_info
+Jun 11 11:44:36 [info] CREATE TABLE `wild_menus` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`title` varchar(255),
+`slug` varchar(255)
+) ;
+Jun 11 11:44:36 [info] CREATE TABLE `wild_menu_items` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`wild_menu_id` int(11),
+`label` varchar(255),
+`url` varchar(255),
+`order` int(11)
+) ;
+Jun 11 11:44:36 [info] UPDATE schema_info SET version = 25
+Jun 11 11:44:36 [info] ALTER TABLE wild_sidebars ADD `on_posts` int(11) DEFAULT '0'
+Jun 11 11:44:36 [info] UPDATE schema_info SET version = 26

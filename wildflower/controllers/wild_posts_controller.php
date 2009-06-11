@@ -98,8 +98,18 @@ class WildPostsController extends AppController {
         $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
         $isRevision = !is_null($revisionNumber);
         
-        // Categories
-        $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
+        // Categories for select box
+        $categories = array();
+        if (is_integer(Configure::read('App.blogCategoryId'))) { // @TODO document blogCategoryId
+            $_categories = $this->WildPost->WildCategory->children(Configure::read('App.blogCategoryId'));
+            // Transform to list
+            foreach ($_categories as $cat) {
+                $categories[$cat['WildCategory']['id']] = $cat['WildCategory']['title'];
+            }
+        } else {
+            $categories = $this->WildPost->WildCategory->find('list', array('fields' => array('id', 'title')));
+        }
+        
         $inCategories = Set::extract($this->data['WildCategory'], '{n}.id');
         
         $categoryId = isset($inCategories[0]) ? $inCategories[0] : null;
@@ -251,7 +261,10 @@ class WildPostsController extends AppController {
             'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
         ));
         
-        $this->set(compact('posts', 'sidebarCategories'));
+        // Sidebar for blog
+        $wfPostsSidebar = ClassRegistry::init('WildSidebar')->findBlogSidebar();
+        
+        $this->set(compact('posts', 'sidebarCategories', 'wfPostsSidebar'));
     }
     
     /**
@@ -294,7 +307,10 @@ class WildPostsController extends AppController {
             'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
         ));
         
-        $this->set(compact('posts', 'sidebarCategories'));
+        // Sidebar for blog
+        $wfPostsSidebar = ClassRegistry::init('WildSidebar')->findBlogSidebar();
+        
+        $this->set(compact('posts', 'sidebarCategories', 'wfPostsSidebar'));
         $this->render('index');
     }
     
@@ -337,10 +353,14 @@ class WildPostsController extends AppController {
             'conditions' => array('parent_id' => Configure::read('App.blogCategoryId')),
         ));
         
+        // Sidebar for blog
+        $wfPostsSidebar = ClassRegistry::init('WildSidebar')->findBlogSidebar();
+        
         $this->set(array(
             'post' => $post,
             'descriptionMetaTag' => $post[$this->modelClass]['description_meta_tag'],
-            'sidebarCategories' => $sidebarCategories
+            'sidebarCategories' => $sidebarCategories,
+            'wfPostsSidebar' => $wfPostsSidebar
         ));
     }
     

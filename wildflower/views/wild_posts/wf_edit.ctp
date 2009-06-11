@@ -10,7 +10,7 @@
     )),
     $form->input('content', array(
         'type' => 'textarea',
-        'class' => 'tinymce',
+        'class' => 'tinymce fill_screen',
         'rows' => '25',
         'label' => __('Body', true),
         'div' => array('class' => 'input editor')

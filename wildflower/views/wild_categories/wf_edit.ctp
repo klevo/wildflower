@@ -3,7 +3,8 @@
 <?php
     echo 
     $form->create('WildCategory', array('url' => $html->url(array('action' => $this->params['action'], $this->params['pass'][0], 'base' => false)))),
-    $form->input('title', array('between' => '<br />', 'size' => '50'));
+    $form->input('title', array('between' => '<br />', 'size' => '50')),
+    $form->input('slug', array('between' => '<br />', 'size' => '50'));
 	if (!empty($parentCategories)) {
         echo $form->input('parent_id', array('type' => 'select', 'options' => $parentCategories, 'empty' => '(none)', 'between' => '<br />'));
     }

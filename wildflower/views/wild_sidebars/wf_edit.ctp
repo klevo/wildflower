@@ -11,7 +11,17 @@
     
     $tree->generate($pages, array('model' => 'WildPage', 'class' => 'category-list checkbox-list', 'element' => '../wild_sidebars/_tree_item')),
     
-    $form->end('Save changes');
+    $form->input('on_posts', array('type' => 'checkbox', 'label' => 'Blog & posts'));
+    
+    // Custom associations
+    $models = Configure::read('App.customSidebarAssociations');
+    if (!empty($models)) {
+        foreach ($models as $model) {
+            echo $this->element('../wild_sidebars/_' . Inflector::pluralize(low($model)) .  '_tree');
+        }
+    }
+    
+    echo $form->end('Save changes');
 ?>
 
 <div class="cancel-edit"> <?php __('or'); ?> <?php echo $html->link(__('Cancel', true), array('action' => 'index')); ?></div>

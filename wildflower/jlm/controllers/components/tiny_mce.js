@@ -6,14 +6,15 @@ $.jlm.addComponent('tinyMce', {
         if (typeof(tinyMCE) == 'object') {
             $('textarea.tinymce').each(function() {
                 var textareaEl = $(this);
-                $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
-                
-                $(window).bind('resize', function() {
-                    var height = $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
-                    $('.mceLayout').height(height);
-                    $('.mceLayout iframe').height(height);
-                });
-                
+                if (textareaEl.hasClass('fill_screen')) {
+                    $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
+
+                    $(window).bind('resize', function() {
+                        var height = $.jlm.components.tinyMce.resizeToFillScreen(textareaEl);
+                        $('.mceLayout').height(height);
+                        $('.mceLayout iframe').height(height);
+                    });
+                }
                 $.jlm.components.tinyMce.editorId = textareaEl.attr('id');
                 tinyMCE.execCommand("mceAddControl", true, $.jlm.components.tinyMce.editorId);
             });

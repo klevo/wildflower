@@ -463,9 +463,9 @@ select {
 
 #flashMessage {
     color: #fff;
-    background: #3b8f30;
+    background: #40a65f;
     border: 1px solid #62e350;
-    padding: 5px;
+    padding: 5px 10px;
     margin: 0 0 14px 0;
 }
 
@@ -838,6 +838,10 @@ select {
     margin-right: 6px;
 }
 
+#save-preview {
+    display: none; /* Disabled until preview is functional */
+}
+
     #save-draft input,
     #save-publish input,
     #save-preview input,
@@ -857,10 +861,16 @@ select {
     a.cancel,
     a.cancel:hover,
     .rename_title,
-    #authMessage {
+    #authMessage,
+    .delete {
         color: #d80019;
         background-color: transparent;
     }
+    
+.delete:hover {
+    background-color: #d80019;
+    color: #fff;
+}
     
 #post-categories,
 #post-options,
@@ -1048,6 +1058,11 @@ select {
     padding: 10px;
     background-color: #ebebeb;
 }
+
+    #resize_image h5 {
+        margin: 0 0 1em;
+        font-size: 12px;
+    }
 
 .sidebar-box .paginator {
     font-size: 11px;
@@ -1545,4 +1560,65 @@ select {
 
 #setting-wordpress_api_key input {
     width: 100px;
+}
+
+
+/* Menu editing */
+
+.menu_items {
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .menu_items li {
+        margin: 0 0 4px 0;
+        padding: 4px;
+        background: #eee;
+        overflow: hidden;
+    }
+    
+.menu_item_label,
+.menu_item_url {
+    float: left;
+    padding: 0 10px 0 5px;
+}
+
+    .menu_items label {
+        padding: 0 5px 0 0;
+    }
+    
+    .menu_items .delete {
+        font-size: 11px;
+        position: relative;
+        top: 2px;
+        display: block;
+        float: left;
+    }
+    
+    .add_menu_item_p {
+        text-align: right;
+    }
+    
+.move {
+    background: url(img/move_cursor.png) 0 0 no-repeat;
+    width: 15px;
+    height: 15px;
+    display: block;
+    float: right;
+    margin: 5px 5px 0 0;
+    cursor: move;
+}
+
+.move:hover {
+    background-color: transparent;
+}
+
+    .move span {
+        display: none;
+    }
+    
+.drop_here {
+    height: 30px;
+    background: #fff74c !important;
 }

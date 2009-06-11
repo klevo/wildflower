@@ -91,75 +91,31 @@ class WildHelper extends AppHelper {
         return $default;
     }
     
-    /**
-     * Generate HTML list menu from nodes. Valid values for each node
-     * are a string or a key value pair if you want to override the URL
-     * generation.
-     * 
-     * Use magic value CHILD_PAGES_PLEASE to generate nested lists of 
-     * subpages.
-     *
-     * Exaple:
-     * $cms->menu(array(
-     *      'About us' => CHILD_PAGES_PLEASE, 
-     *      'Our Work', 
-     *      'Read our blogs' => '/blog', 
-     *      'Contact'
-     * )); 
-     * 
-     * @param array $nodes
-     * @return string
-     * 
-     * @TODO: too much DB requests - optimize
-     */
-    function menu($nodes = array(), $cssId = '', $itemCssClassPrefix = '') {
-    	$this->itemCssClassPrefix = $itemCssClassPrefix;
-        $html = '';
-        
-        // Reset first child flag
-        $this->_isFirstChild = true;
-        
-        foreach ($nodes as $nodeKey => $nodeValue) {
-            if ($nodeValue === CHILD_PAGES_PLEASE) {
-                // Append all child pages
-                $slug = $this->_getMenuSlug($nodeKey);
-                $pages = $this->requestAction("/pages/getChildPagesForMenu/$slug");
-                $link = "/$slug";
-                $label = $nodeKey;
-                if (empty($pages)) {
-                    $html .= $this->_createListNode($label, $link);
-                    continue;
-                }
-                $html .= $this->_createListNode($label, $link, $pages);
-            } else if (is_integer($nodeKey) and is_string($nodeValue)) {
-        	    // Only have label, generate URL from it
-        	    $label = $nodeValue;
-        	    $link = $this->_getMenuSlug($label);
-        	    $link = "/$link";
-        	    $html .= $this->_createListNode($label, $link);
-        	} else if (is_string($nodeKey) and is_string($nodeValue)) {
-        	    $label = $nodeKey;
-        	    $html .= $this->_createListNode($label, $nodeValue);
-        	} else if (is_string($nodeKey) and is_array($nodeValue)) {
-        		// Parent link with nested links
-        		if (count($nodeValue) != 2) {
-        			continue;
-        		}
-        		$parentUrl = $nodeValue[0];
-        		$childNodes = $nodeValue[1];
-        		$label = $nodeKey;
-        		$link = $parentUrl;
-        		if ($link === null) {
-                    $link = $this->_getMenuSlug($label);
-        		}
-                //$link = "/$link";
-                $html .= $this->_createListNode($label, $link, $childNodes);
-        	}
-        }
-        
-        $ulAttr = $this->getIdAttr($cssId);
-        
-        return "<ul$ulAttr>$html</ul>\n";
+    function menu($slug, $id = null) {
+    	$items = $this->getMenuItems($slug);
+    	$links = array();
+    	foreach ($items as $item) {
+    	    $label = hsc($item['label']);
+    	    $slug = self::slug($item['label']);
+    	    $classes = array('nav-' . $slug);
+    	    $isCurrent = ($this->here === $this->Html->url($item['url']));
+    	    if ($isCurrent) {
+    	        $classes[] = 'current';
+    	    }
+    	    $links[] = '<li class="' . join(' ', $classes) . '">' . $this->Html->link("<span>$label</span>", $item['url'], array('escape' => false)) . '</li>';
+    	}
+    	$links = join("\n", $links);
+    	if (is_null($id)) {
+    	    $id = "wf_$slug";
+    	}
+    	return "<ul id=\"$id\">\n$links\n</ul>\n";
+    }
+    
+    function getMenuItems($slug) {
+        $WildMenu = ClassRegistry::init('WildMenu');
+        $WildMenu->contain(array('WildMenuItem' => array('order' => 'WildMenuItem.order ASC')));
+        $menu = $WildMenu->findBySlug($slug);
+        return $menu['WildMenuItem'];
     }
     
     function submit($label = 'Save') {
@@ -187,16 +143,6 @@ class WildHelper extends AppHelper {
         
         $liAttr = $this->getClassAttr($liAttr);
         return "<li$liAttr>$node</li>\n";
-    }
-    
-    /**
-     * Create a slug from a label
-     *
-     * @param string $label
-     * @return string
-     */
-    private function _getMenuSlug($label) {
-        return WildflowerHelper::slug(low($label), '-');
     }
     
     function processWidgets($html) {

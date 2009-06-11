@@ -66,7 +66,7 @@
             echo $navigation->create(array(
                 __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
                 __('Pages', true) => array('controller' => 'wild_pages'),
-                __('Sidebars', true) => array('controller' => 'wild_sidebars'),
+                __('Modules', true) => array('controller' => 'wild_sidebars'),
                 __('Posts', true) => array('controller' => 'wild_posts'),
                 __('Categories', true) => array('controller' => 'wild_categories'),
                 __('Comments', true) => array('controller' => 'wild_comments'),

@@ -8,7 +8,7 @@
     $form->input('title', array('between' => '', 'label' => 'Page title')), 
     $form->input('content', array(
         'type' => 'textarea',
-        'class' => 'tinymce',
+        'class' => 'tinymce fill_screen',
         'rows' => 25,
         'cols' => 60,
         'label' => 'Body',
