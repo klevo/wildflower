@@ -151,7 +151,7 @@ class WildUsersController extends AppController {
         if ($this->WildUser->save()) {
             return $this->redirect(array('action' => 'edit', $this->WildUser->id));
         }
-        $this->render('admin_edit');
+        $this->render('wf_edit');
     }
     
     function wf_update_password() {
