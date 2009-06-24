@@ -9,6 +9,8 @@ class Ruckusing_MySQLTableDefinition {
 	private $initialized = false;
 	private $columns = array();
 	private $table_def;
+	private $has_auto_primary_key = false;
+	private $duplicate_primary_key_err = '';
 	
 	function __construct($adapter, $name, $options = array()) {
 		//sanity check
@@ -39,7 +41,14 @@ class Ruckusing_MySQLTableDefinition {
 		}
 		if($pk_name != null) {	
 			$this->primary_key($pk_name);
+			$this->has_auto_primary_key = true;
 		}
+		
+		//setup our error string, probably wont be used :)
+		$this->duplicate_primary_key_err = <<<DUP_ERR
+You specified that the column '%s' should be a primary key. This requires that you also use:\n\n\t'id' => false\n\nin your create table definition (preventing an automatic primary key from being generated.) To specify your own primary key you would need:\n\n\t\$this->create_table('%s', array('id' => false)) {\n\nSee:\n\nhttp://code.google.com/p/ruckusing/wiki/MigrationMethods\n\nfor more information.\n\n
+DUP_ERR;
+		
 	}//__construct
 	
 	public function primary_key($name) {
@@ -70,8 +79,25 @@ class Ruckusing_MySQLTableDefinition {
 		} else {
 			$opt_str = null;			
 		}
-		
-		$close_sql = sprintf(") %s;",$opt_str);
+		//Add any final key information
+		$key_info = null;
+		foreach($this->columns as $column) {
+		  if($column->primary_key != null) {
+		    //We are about to generate invalid SQL as the user has given us options which would
+		    //cause me to automatically generate a primary key but they also just specified their own
+		    //Immediately error out.
+		    if($this->has_auto_primary_key == true) {
+		      throw new Ruckusing_SQLException(sprintf($this->duplicate_primary_key_err, $column->name, $this->name));
+	      }
+		    $key_info = sprintf('PRIMARY KEY (`%s`)', $column->name);
+		    break; //allow only 1 primary key
+	    }
+	  }
+	  $close_sql = '';
+		if(!empty($key_info)) {
+		  $close_sql .= ", " . $key_info . "\n"; 
+	  }
+		$close_sql .= sprintf(") %s;",$opt_str);
 		$create_table_sql = $this->sql . $this->columns_to_str() . "\n" . $close_sql;
 		if($wants_sql) {
 			return $create_table_sql;
@@ -197,7 +223,7 @@ class Ruckusing_ColumnDefinition {
 	private $adapter;
 	public $name;
 	public $type;
-	public $properties;
+	public $properties = array();
 	
 	function __construct($adapter, $name, $type, $options = array()) {
 		$this->adapter = $adapter;
@@ -221,6 +247,7 @@ class Ruckusing_ColumnDefinition {
 				'default' => $this->default,
 				'unsigned' => $this->unsigned
 				);
+				$opts = array_merge($opts, $this->properties);
 			$column_sql .= $this->adapter->add_column_options($opts);						
 		}
 		return $column_sql;

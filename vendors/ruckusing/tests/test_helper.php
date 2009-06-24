@@ -17,6 +17,8 @@ if(!defined('RUCKUSING_MIGRATION_DIR')) {
 }
 
 require RUCKUSING_BASE . '/lib/classes/util/class.Ruckusing_Logger.php';
+require RUCKUSING_BASE . '/lib/classes/Ruckusing_exceptions.php';
+
 
 
 ?>

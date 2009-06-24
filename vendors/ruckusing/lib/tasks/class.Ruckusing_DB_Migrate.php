@@ -72,7 +72,7 @@ class Ruckusing_DB_Migrate implements Ruckusing_iTask {
 	private function get_db_version() {
 		if($this->adapter->table_exists(RUCKUSING_SCHEMA_TBL_NAME) ) {
 			//return 
-			$version = $this->adapter->select_one('SELECT version FROM schema_info');			
+			$version = $this->adapter->select_one(sprintf('SELECT version FROM %s', $this->adapter->qualify_entity(RUCKUSING_SCHEMA_TBL_NAME)));			
 			return (int)$version['version'];
 		} else {
 			throw new Ruckusing_MissingSchemaInfoTableException();
@@ -184,13 +184,13 @@ class Ruckusing_DB_Migrate implements Ruckusing_iTask {
 	private function auto_create_schema_info_table() {
 	  try {
   		echo sprintf("\n\tCreating table: %s", RUCKUSING_SCHEMA_TBL_NAME . "\n\n");
-  		$table=$this->adapter->create_table('schema_info', array('id' => false));
+  		$table=$this->adapter->create_table(RUCKUSING_SCHEMA_TBL_NAME, array('id' => false));
   		$table->column('version', 'integer', array('default' => 0, 'null' => false));
   		$table->finish();
-  		$this->adapter->execute_ddl('INSERT INTO schema_info (version) VALUES (0)');
+  		$this->adapter->execute_ddl(sprintf('INSERT INTO %s (version) VALUES (0)', $this->adapter->qualify_entity(RUCKUSING_SCHEMA_TBL_NAME)));
   		return true;
 		}catch(Exception $e) {
-		  die("\nError auto-creating 'schema_info' table: " . $e->getMessage() . "\n\n");
+		  die("\nError auto-creating '" . RUCKUSING_SCHEMA_TBL_NAME . "' table: " . $e->getMessage() . "\n\n");
 	  }
 	}
 	

@@ -40,7 +40,7 @@ class Ruckusing_FrameworkRunner {
 				mkdir($log_dir);
 			}
 			$log_name = sprintf("%s.log", $this->ENV);
-			$this->logger = &Ruckusing_Logger::instance($log_dir . "/" . $log_name);
+			$this->logger = Ruckusing_Logger::instance($log_dir . "/" . $log_name);
 			
 			//include all adapters
 			$this->load_all_adapters(RUCKUSING_BASE . '/lib/classes/adapters');
@@ -125,7 +125,7 @@ class Ruckusing_FrameworkRunner {
 		Global error handler to process all errors
 		during script execution
 	*/
-	public function scr_error_handler($errno, $errstr, $errfile, $errline) {
+	public static function scr_error_handler($errno, $errstr, $errfile, $errline) {
 		die(sprintf("\n\n(%s:%d) %s\n\n", basename($errfile), $errline, $errstr));
 	}
 
@@ -148,9 +148,8 @@ class Ruckusing_FrameworkRunner {
 	
 	private function verify_db_config() {
 		if( !array_key_exists($this->ENV, $this->db_config)) {
-			throw new Exception(sprintf("Error: '%s' DB is not configured",$this->opt_map[$ENV]));
+			throw new Exception(sprintf("Error: '%s' DB is not configured",$this->ENV));
 		}
-		$env = $this->ENV;
 		$this->active_db_config = $this->db_config[$this->ENV];
 		if(!array_key_exists("type",$this->active_db_config)) {
 			throw new Exception(sprintf("Error: 'type' is not set for '%s' DB",$this->ENV));			

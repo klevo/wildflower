@@ -1,0 +1,5 @@
+CREATE TABLE `ruckusing_ts_schema_tbl_name` (
+  `version` varchar(255) default NULL,
+  UNIQUE KEY `idx_RUCKUSING_TS_SCHEMA_TBL_NAME_version` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

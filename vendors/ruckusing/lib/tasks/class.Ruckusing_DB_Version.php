@@ -26,7 +26,7 @@ class Ruckusing_DB_Version implements Ruckusing_iTask {
 			echo "\tSchema info table does not exist. Do you need to run 'db:setup'?";
 		} else {
 			//it exists, read the version from it
-			$version = $this->adapter->select_one('SELECT version FROM schema_info');
+			$version = $this->adapter->select_one('SELECT version FROM ' . $this->adapter->qualify_entity(RUCKUSING_SCHEMA_TBL_NAME));
 			printf("\tCurrent version: %d", $version['version']);
 		}
 		echo "\n\nFinished: " . date('Y-m-d g:ia T') . "\n\n";		

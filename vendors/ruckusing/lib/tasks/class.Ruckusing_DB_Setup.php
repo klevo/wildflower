@@ -20,7 +20,7 @@ class Ruckusing_DB_Setup implements Ruckusing_iTask {
 	
 	function __construct($adapter) {
 		$this->adapter = $adapter;
-		$this->insert_sql = "INSERT INTO schema_info (version) VALUES (0)";
+		$this->insert_sql = "INSERT INTO " . $this->adapter->qualify_entity(RUCKUSING_SCHEMA_TBL_NAME) . " (version) VALUES (0)";
 	}
 	
 	/* Primary task entry point */
@@ -30,7 +30,7 @@ class Ruckusing_DB_Setup implements Ruckusing_iTask {
 		if( !$this->adapter->table_exists(RUCKUSING_SCHEMA_TBL_NAME) ) {
 			//it doesnt exist, create it
 			echo sprintf("\tCreating table: %s", RUCKUSING_SCHEMA_TBL_NAME);
-			$table=$this->adapter->create_table('schema_info', array('id' => false));
+			$table=$this->adapter->create_table(RUCKUSING_SCHEMA_TBL_NAME, array('id' => false));
 			$table->column('version', 'integer', array('default' => 0, 'null' => false));
 			$table->finish();
 			$this->adapter->execute_ddl($this->insert_sql);

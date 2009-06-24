@@ -1,554 +1,2491 @@
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE users (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`name` varchar(20)
-) Engine=InnoDB;
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] CREATE DATABASE `test_db`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] DROP DATABASE IF EXISTS `test_db`
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] CREATE DATABASE `test_db`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] DROP DATABASE IF EXISTS `test_db`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20) );
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20) );
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20) );
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] ALTER TABLE users ADD `fav_color` varchar(32)
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
-Sep 19 10:01:55  [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
-Sep 19 10:01:55  [info] ALTER TABLE users ADD `age` int(11) unsigned
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'age'
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] ALTER TABLE `users` DROP COLUMN `name`
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
-Sep 19 10:01:55  [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
-Sep 19 10:01:55  [info] CREATE INDEX idx_users_name ON users(name)
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] CREATE UNIQUE INDEX idx_users_age ON users(age)
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] CREATE INDEX index_on_super_title ON users(title)
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Sep 19 10:01:55  [info] CREATE INDEX idx_users_name ON users(name)
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] DROP INDEX `idx_users_name` ON `users`
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Sep 19 10:01:55  [info] CREATE INDEX my_special_index ON users(name)
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] DROP INDEX `my_special_index` ON `users`
-Sep 19 10:01:55  [info] SHOW KEYS FROM `users`
-Sep 19 10:01:55  [info] DROP TABLE `users`
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:55  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:55  [info] SHOW DATABASES
-Sep 19 10:01:59  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:59  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:59  [info] Test run started: 2008-09-19 10:01am PDT
-Sep 19 10:01:59  [info] CREATE TABLE users (
+Nov 05 09:24:48 [info] Test run started: 2008-11-05 9:24am PST
+Nov 05 09:24:48 [info] Test run started: 2008-11-05 9:24am PST
+Nov 05 09:24:48 [info] Test run started: 2008-11-05 9:24am PST
+Nov 05 09:24:48 [info] CREATE TABLE users (
 `first_name` varchar(255),
 `last_name` varchar(32)
 ) Engine=InnoDB;
-Sep 19 10:01:59  [info] SHOW COLUMNS FROM `users` LIKE 'id'
-Sep 19 10:01:59  [info] DROP TABLE `users`
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] CREATE TABLE `users` (
-`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
-`name` varchar(20)
-) Engine=InnoDB;
-Nov 15 10:54:06 [info] DROP TABLE `users`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] CREATE DATABASE `test_db`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] DROP DATABASE IF EXISTS `test_db`
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] CREATE DATABASE `test_db`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] DROP DATABASE IF EXISTS `test_db`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:06 [info] DROP TABLE `users`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:54:06 [info] RENAME TABLE users TO users_new
-Nov 15 10:54:06 [info] DROP TABLE `users_new`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:06 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
-Nov 15 10:54:06 [info] DROP TABLE `users`
-Nov 15 10:54:06 [info] SHOW DATABASES
-Nov 15 10:54:06 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:06 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:06 [info] ALTER TABLE users ADD `fav_color` varchar(32)
-Nov 15 10:54:06 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
-Nov 15 10:54:06 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
-Nov 15 10:54:07 [info] ALTER TABLE users ADD `age` int(11) unsigned
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'age'
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:07 [info] ALTER TABLE `users` DROP COLUMN `name`
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:07 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
-Nov 15 10:54:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
-Nov 15 10:54:07 [info] CREATE INDEX idx_users_name ON `users`(name)
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] CREATE INDEX index_on_super_title ON `users`(title)
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:54:07 [info] CREATE INDEX idx_users_name ON `users`(name)
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] DROP INDEX `idx_users_name` ON `users`
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:54:07 [info] CREATE INDEX my_special_index ON `users`(name)
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] DROP INDEX `my_special_index` ON `users`
-Nov 15 10:54:07 [info] SHOW KEYS FROM `users`
-Nov 15 10:54:07 [info] DROP TABLE `users`
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:07 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:07 [info] SHOW DATABASES
-Nov 15 10:54:17 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:17 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:17 [info] Test run started: 2008-11-15 10:54am PST
-Nov 15 10:54:17 [info] CREATE TABLE `users` (
+Nov 05 09:24:48 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Nov 05 09:24:48 [info] DROP TABLE `users`
+Nov 05 09:28:37 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:37 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:37 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:37 [info] CREATE TABLE `users` (
 `first_name` varchar(255),
 `last_name` varchar(32)
 ) Engine=InnoDB;
-Nov 15 10:54:17 [info] SHOW COLUMNS FROM `users` LIKE 'id'
-Nov 15 10:54:17 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` (
+Nov 05 09:28:37 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Nov 05 09:28:37 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `name` varchar(20)
 ) Engine=InnoDB;
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] CREATE DATABASE `test_db`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] DROP DATABASE IF EXISTS `test_db`
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] CREATE DATABASE `test_db`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] DROP DATABASE IF EXISTS `test_db`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:57:38 [info] RENAME TABLE users TO users_new
-Nov 15 10:57:38 [info] DROP TABLE `users_new`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20) );
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] ALTER TABLE users ADD `fav_color` varchar(32)
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
-Nov 15 10:57:38 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
-Nov 15 10:57:38 [info] ALTER TABLE users ADD `age` int(11) unsigned
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'age'
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] ALTER TABLE `users` DROP COLUMN `name`
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
-Nov 15 10:57:38 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
-Nov 15 10:57:38 [info] CREATE INDEX idx_users_name ON `users`(name)
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] CREATE INDEX index_on_super_title ON `users`(title)
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:57:38 [info] CREATE INDEX idx_users_name ON `users`(name)
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] DROP INDEX `idx_users_name` ON `users`
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Nov 15 10:57:38 [info] CREATE INDEX my_special_index ON `users`(name)
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] DROP INDEX `my_special_index` ON `users`
-Nov 15 10:57:38 [info] SHOW KEYS FROM `users`
-Nov 15 10:57:38 [info] DROP TABLE `users`
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:38 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:38 [info] SHOW DATABASES
-Nov 15 10:57:42 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:42 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:42 [info] Test run started: 2008-11-15 10:57am PST
-Nov 15 10:57:42 [info] CREATE TABLE `users` (
-`first_name` varchar(255),
-`last_name` varchar(32)
-) Engine=InnoDB;
-Nov 15 10:57:42 [info] SHOW COLUMNS FROM `users` LIKE 'id'
-Nov 15 10:57:42 [info] DROP TABLE `users`
-Dec 06 15:53:08 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:27 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:27 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` (
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] CREATE DATABASE `test_db`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] CREATE DATABASE `test_db`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 05 09:28:43 [info] RENAME TABLE users TO users_new
+Nov 05 09:28:43 [info] DROP TABLE `users_new`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Nov 05 09:28:43 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Nov 05 09:28:43 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] ALTER TABLE `users` DROP COLUMN `name`
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Nov 05 09:28:43 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Nov 05 09:28:43 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 05 09:28:43 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] DROP INDEX `idx_users_name` ON `users`
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 05 09:28:43 [info] CREATE INDEX my_special_index ON `users`(name)
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] DROP INDEX `my_special_index` ON `users`
+Nov 05 09:28:43 [info] SHOW KEYS FROM `users`
+Nov 05 09:28:43 [info] DROP TABLE `users`
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 05 09:28:43 [info] Test run started: 2008-11-05 9:28am PST
+Nov 05 09:28:43 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] CREATE TABLE `users` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `name` varchar(20)
 ) Engine=InnoDB;
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] CREATE DATABASE `test_db`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] DROP DATABASE IF EXISTS `test_db`
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] CREATE DATABASE `test_db`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] DROP DATABASE IF EXISTS `test_db`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:53:28 [info] RENAME TABLE users TO users_new
-Dec 06 15:53:28 [info] DROP TABLE `users_new`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] ALTER TABLE users ADD `fav_color` varchar(32)
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
-Dec 06 15:53:28 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
-Dec 06 15:53:28 [info] ALTER TABLE users ADD `age` int(11) unsigned
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'age'
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] ALTER TABLE `users` DROP COLUMN `name`
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
-Dec 06 15:53:28 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
-Dec 06 15:53:28 [info] CREATE INDEX idx_users_name ON `users`(name)
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] CREATE INDEX index_on_super_title ON `users`(title)
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:53:28 [info] CREATE INDEX idx_users_name ON `users`(name)
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] DROP INDEX `idx_users_name` ON `users`
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:53:28 [info] CREATE INDEX my_special_index ON `users`(name)
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] DROP INDEX `my_special_index` ON `users`
-Dec 06 15:53:28 [info] SHOW KEYS FROM `users`
-Dec 06 15:53:28 [info] DROP TABLE `users`
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:53:28 [info] Test run started: 2008-12-06 3:53pm PST
-Dec 06 15:53:28 [info] SHOW DATABASES
-Dec 06 15:54:30 [info] Test run started: 2008-12-06 3:54pm PST
-Dec 06 15:54:30 [info] Test run started: 2008-12-06 3:54pm PST
-Dec 06 15:54:30 [info] Test run started: 2008-12-06 3:54pm PST
-Dec 06 15:54:30 [info] CREATE TABLE `users` (
-`first_name` varchar(255),
-`last_name` varchar(32)
-) Engine=InnoDB;
-Dec 06 15:54:30 [info] SHOW COLUMNS FROM `users` LIKE 'id'
-Dec 06 15:54:30 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` (
+Nov 14 10:35:13 [info] DROP TABLE `users`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] CREATE DATABASE `test_db`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] CREATE DATABASE `test_db`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 14 10:35:13 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:13 [info] DROP TABLE `users`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 14 10:35:13 [info] RENAME TABLE users TO users_new
+Nov 14 10:35:13 [info] DROP TABLE `users_new`
+Nov 14 10:35:13 [info] SHOW DATABASES
+Nov 14 10:35:13 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:13 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 14 10:35:13 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:13 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:13 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Nov 14 10:35:14 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Nov 14 10:35:14 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] ALTER TABLE `users` DROP COLUMN `name`
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Nov 14 10:35:14 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Nov 14 10:35:14 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 14 10:35:14 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] DROP INDEX `idx_users_name` ON `users`
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 14 10:35:14 [info] CREATE INDEX my_special_index ON `users`(name)
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] DROP INDEX `my_special_index` ON `users`
+Nov 14 10:35:14 [info] SHOW KEYS FROM `users`
+Nov 14 10:35:14 [info] DROP TABLE `users`
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] SET NAMES utf8
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 14 10:35:14 [info] Test run started: 2008-11-14 10:35am PST
+Nov 14 10:35:14 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` (
 `id` int(11) UNSIGNED auto_increment PRIMARY KEY,
 `name` varchar(20)
 ) Engine=InnoDB;
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] CREATE DATABASE `test_db`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] DROP DATABASE IF EXISTS `test_db`
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] CREATE DATABASE `test_db`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] DROP DATABASE IF EXISTS `test_db`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:55:19 [info] RENAME TABLE users TO users_new
-Dec 06 15:55:19 [info] DROP TABLE `users_new`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20) );
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] ALTER TABLE users ADD `fav_color` varchar(32)
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
-Dec 06 15:55:19 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
-Dec 06 15:55:19 [info] ALTER TABLE users ADD `age` int(11) unsigned
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'age'
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] ALTER TABLE `users` DROP COLUMN `name`
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
-Dec 06 15:55:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
-Dec 06 15:55:19 [info] CREATE INDEX idx_users_name ON `users`(name)
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] CREATE INDEX index_on_super_title ON `users`(title)
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:55:19 [info] CREATE INDEX idx_users_name ON `users`(name)
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] DROP INDEX `idx_users_name` ON `users`
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
-Dec 06 15:55:19 [info] CREATE INDEX my_special_index ON `users`(name)
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] DROP INDEX `my_special_index` ON `users`
-Dec 06 15:55:19 [info] SHOW KEYS FROM `users`
-Dec 06 15:55:19 [info] DROP TABLE `users`
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:19 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:19 [info] SHOW DATABASES
-Dec 06 15:55:22 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:22 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:22 [info] Test run started: 2008-12-06 3:55pm PST
-Dec 06 15:55:22 [info] CREATE TABLE `users` (
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] CREATE DATABASE `test_db`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] CREATE DATABASE `test_db`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 09:59:56 [info] RENAME TABLE users TO users_new
+Nov 20 09:59:56 [info] DROP TABLE `users_new`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Nov 20 09:59:56 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Nov 20 09:59:56 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] ALTER TABLE `users` DROP COLUMN `name`
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Nov 20 09:59:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Nov 20 09:59:56 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 09:59:56 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:56 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:56 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Nov 20 09:59:56 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:56 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Nov 20 09:59:56 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:56 [info] DROP TABLE `users`
+Nov 20 09:59:56 [info] SHOW DATABASES
+Nov 20 09:59:56 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:56 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 09:59:56 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 09:59:56 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:57 [info] DROP INDEX `idx_users_name` ON `users`
+Nov 20 09:59:57 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:57 [info] DROP TABLE `users`
+Nov 20 09:59:57 [info] SHOW DATABASES
+Nov 20 09:59:57 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:57 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 09:59:57 [info] CREATE INDEX my_special_index ON `users`(name)
+Nov 20 09:59:57 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:57 [info] DROP INDEX `my_special_index` ON `users`
+Nov 20 09:59:57 [info] SHOW KEYS FROM `users`
+Nov 20 09:59:57 [info] DROP TABLE `users`
+Nov 20 09:59:57 [info] SHOW DATABASES
+Nov 20 09:59:57 [info] Test run started: 2008-11-20 9:59am PST
+Nov 20 09:59:57 [info] SHOW DATABASES
+Nov 20 10:00:22 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:22 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:22 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:22 [info] CREATE TABLE `users` (
 `first_name` varchar(255),
 `last_name` varchar(32)
 ) Engine=InnoDB;
-Dec 06 15:55:22 [info] SHOW COLUMNS FROM `users` LIKE 'id'
-Dec 06 15:55:22 [info] DROP TABLE `users`
-Dec 06 15:55:49 [info] Test run started: 2008-12-06 3:55pm PST
+Nov 20 10:00:22 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Nov 20 10:00:22 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] CREATE DATABASE `test_db`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] CREATE DATABASE `test_db`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:00:26 [info] RENAME TABLE users TO users_new
+Nov 20 10:00:26 [info] DROP TABLE `users_new`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Nov 20 10:00:26 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Nov 20 10:00:26 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] ALTER TABLE `users` DROP COLUMN `name`
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Nov 20 10:00:26 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Nov 20 10:00:26 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:00:26 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] DROP INDEX `idx_users_name` ON `users`
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:26 [info] SHOW DATABASES
+Nov 20 10:00:26 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:26 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:00:26 [info] CREATE INDEX my_special_index ON `users`(name)
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] DROP INDEX `my_special_index` ON `users`
+Nov 20 10:00:26 [info] SHOW KEYS FROM `users`
+Nov 20 10:00:26 [info] DROP TABLE `users`
+Nov 20 10:00:27 [info] SHOW DATABASES
+Nov 20 10:00:27 [info] Test run started: 2008-11-20 10:00am PST
+Nov 20 10:00:27 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] CREATE DATABASE `test_db`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] CREATE DATABASE `test_db`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] DROP DATABASE IF EXISTS `test_db`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:17:11 [info] RENAME TABLE users TO users_new
+Nov 20 10:17:11 [info] DROP TABLE `users_new`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20) );
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Nov 20 10:17:11 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Nov 20 10:17:11 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] ALTER TABLE `users` DROP COLUMN `name`
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Nov 20 10:17:11 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Nov 20 10:17:11 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:17:11 [info] CREATE INDEX idx_users_name ON `users`(name)
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] DROP INDEX `idx_users_name` ON `users`
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Nov 20 10:17:11 [info] CREATE INDEX my_special_index ON `users`(name)
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] DROP INDEX `my_special_index` ON `users`
+Nov 20 10:17:11 [info] SHOW KEYS FROM `users`
+Nov 20 10:17:11 [info] DROP TABLE `users`
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:11 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:11 [info] SHOW DATABASES
+Nov 20 10:17:17 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:17 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:17 [info] Test run started: 2008-11-20 10:17am PST
+Nov 20 10:17:17 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Nov 20 10:17:17 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Nov 20 10:17:17 [info] DROP TABLE `users`
+Nov 20 10:55:28 [info] Test run started: 2008-11-20 10:55am PST
+Nov 20 10:56:11 [info] Test run started: 2008-11-20 10:56am PST
+Nov 20 11:00:29 [info] Test run started: 2008-11-20 11:00am PST
+Nov 20 11:01:00 [info] Test run started: 2008-11-20 11:01am PST
+Nov 20 11:01:12 [info] Test run started: 2008-11-20 11:01am PST
+Jan 28 11:54:46 [info] Test run started: 2009-01-28 11:54am PST
+Jan 28 11:54:46 [info] Test run started: 2009-01-28 11:54am PST
+Jan 28 11:54:46 [info] Test run started: 2009-01-28 11:54am PST
+Jan 28 11:54:46 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:54:46 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:54:46 [info] DROP TABLE `users`
+Jan 28 11:54:46 [info] Test run started: 2009-01-28 11:54am PST
+Jan 28 11:54:46 [info] CREATE TABLE `users` (
+`guid` varchar(255)
+, PRIMARY KEY (`guid`)
+) Engine=InnoDB;
+Jan 28 11:54:46 [info] DROP TABLE `users`
+Jan 28 11:55:01 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:01 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:01 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:01 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:55:01 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:55:01 [info] DROP TABLE `users`
+Jan 28 11:55:01 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:01 [info] CREATE TABLE `users` (
+`guid` varchar(255)
+, PRIMARY KEY (`guid`)
+) Engine=InnoDB;
+Jan 28 11:55:01 [info] DROP TABLE `users`
+Jan 28 11:55:40 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:40 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:40 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:40 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:55:40 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:55:40 [info] DROP TABLE `users`
+Jan 28 11:55:40 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:50 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:50 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:50 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:55:50 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:55:50 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:55:50 [info] DROP TABLE `users`
+Jan 28 11:55:50 [info] Test run started: 2009-01-28 11:55am PST
+Jan 28 11:57:42 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:42 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:42 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:42 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:57:42 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:57:42 [info] DROP TABLE `users`
+Jan 28 11:57:42 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:54 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:54 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:54 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:57:54 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:57:54 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:57:54 [info] DROP TABLE `users`
+Jan 28 11:57:54 [info] Test run started: 2009-01-28 11:57am PST
+Jan 28 11:58:04 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:04 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:04 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:04 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:58:04 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:58:04 [info] DROP TABLE `users`
+Jan 28 11:58:04 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:09 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:09 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:09 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:09 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:58:09 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:58:09 [info] DROP TABLE `users`
+Jan 28 11:58:09 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:34 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:34 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:34 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 11:58:34 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 11:58:34 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 11:58:34 [info] DROP TABLE `users`
+Jan 28 11:58:34 [info] Test run started: 2009-01-28 11:58am PST
+Jan 28 12:05:05 [info] Test run started: 2009-01-28 12:05pm PST
+Jan 28 12:05:05 [info] Test run started: 2009-01-28 12:05pm PST
+Jan 28 12:05:05 [info] Test run started: 2009-01-28 12:05pm PST
+Jan 28 12:05:05 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:05:05 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:05:05 [info] DROP TABLE `users`
+Jan 28 12:05:05 [info] Test run started: 2009-01-28 12:05pm PST
+Jan 28 12:06:14 [info] Test run started: 2009-01-28 12:06pm PST
+Jan 28 12:06:14 [info] Test run started: 2009-01-28 12:06pm PST
+Jan 28 12:06:14 [info] Test run started: 2009-01-28 12:06pm PST
+Jan 28 12:06:14 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:06:14 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:06:14 [info] DROP TABLE `users`
+Jan 28 12:06:14 [info] Test run started: 2009-01-28 12:06pm PST
+Jan 28 12:08:11 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:11 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:11 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:11 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:08:11 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:08:11 [info] DROP TABLE `users`
+Jan 28 12:08:11 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:54 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:54 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:54 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:08:54 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:08:54 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:08:54 [info] DROP TABLE `users`
+Jan 28 12:08:54 [info] Test run started: 2009-01-28 12:08pm PST
+Jan 28 12:09:14 [info] Test run started: 2009-01-28 12:09pm PST
+Jan 28 12:09:14 [info] Test run started: 2009-01-28 12:09pm PST
+Jan 28 12:09:14 [info] Test run started: 2009-01-28 12:09pm PST
+Jan 28 12:09:14 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:09:14 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:09:14 [info] DROP TABLE `users`
+Jan 28 12:09:14 [info] Test run started: 2009-01-28 12:09pm PST
+Jan 28 12:10:04 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:04 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:04 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:04 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:10:04 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:10:04 [info] DROP TABLE `users`
+Jan 28 12:10:04 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:11 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:11 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:11 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:11 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:10:11 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:10:11 [info] DROP TABLE `users`
+Jan 28 12:10:11 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:21 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:21 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:21 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:21 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:10:21 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:10:21 [info] DROP TABLE `users`
+Jan 28 12:10:21 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:28 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:28 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:28 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:28 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:10:28 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:10:28 [info] DROP TABLE `users`
+Jan 28 12:10:28 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:41 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:41 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:41 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:10:41 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:10:41 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:10:41 [info] DROP TABLE `users`
+Jan 28 12:10:41 [info] Test run started: 2009-01-28 12:10pm PST
+Jan 28 12:15:41 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:41 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:41 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:41 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:15:41 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:15:41 [info] DROP TABLE `users`
+Jan 28 12:15:41 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:51 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:51 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:51 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:15:51 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:15:51 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:15:51 [info] DROP TABLE `users`
+Jan 28 12:15:51 [info] Test run started: 2009-01-28 12:15pm PST
+Jan 28 12:26:47 [info] Test run started: 2009-01-28 12:26pm PST
+Jan 28 12:26:47 [info] Test run started: 2009-01-28 12:26pm PST
+Jan 28 12:26:47 [info] Test run started: 2009-01-28 12:26pm PST
+Jan 28 12:26:47 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:26:47 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:26:47 [info] DROP TABLE `users`
+Jan 28 12:26:47 [info] Test run started: 2009-01-28 12:26pm PST
+Jan 28 12:27:10 [info] Test run started: 2009-01-28 12:27pm PST
+Jan 28 12:27:10 [info] Test run started: 2009-01-28 12:27pm PST
+Jan 28 12:27:10 [info] Test run started: 2009-01-28 12:27pm PST
+Jan 28 12:27:10 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:27:10 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:27:10 [info] DROP TABLE `users`
+Jan 28 12:27:10 [info] Test run started: 2009-01-28 12:27pm PST
+Jan 28 12:27:10 [info] Test run started: 2009-01-28 12:27pm PST
+Jan 28 12:28:29 [info] Test run started: 2009-01-28 12:28pm PST
+Jan 28 12:28:29 [info] Test run started: 2009-01-28 12:28pm PST
+Jan 28 12:28:29 [info] Test run started: 2009-01-28 12:28pm PST
+Jan 28 12:28:29 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:28:29 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:28:29 [info] DROP TABLE `users`
+Jan 28 12:28:29 [info] Test run started: 2009-01-28 12:28pm PST
+Jan 28 12:29:00 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:00 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:00 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:00 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:29:00 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:29:00 [info] DROP TABLE `users`
+Jan 28 12:29:00 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:09 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:09 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:09 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:09 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:29:09 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:29:09 [info] DROP TABLE `users`
+Jan 28 12:29:09 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:29:09 [info] Test run started: 2009-01-28 12:29pm PST
+Jan 28 12:30:12 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:12 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:12 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:12 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:30:12 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:30:12 [info] DROP TABLE `users`
+Jan 28 12:30:12 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:12 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] CREATE DATABASE `test_db`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] CREATE DATABASE `test_db`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:30:34 [info] RENAME TABLE users TO users_new
+Jan 28 12:30:34 [info] DROP TABLE `users_new`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:30:34 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:30:34 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:30:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Jan 28 12:30:34 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:30:34 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:30:34 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:30:34 [info] SHOW KEYS FROM `users`
+Jan 28 12:30:34 [info] DROP TABLE `users`
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:34 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:34 [info] SHOW DATABASES
+Jan 28 12:30:38 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:38 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:38 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:38 [info] CREATE TABLE `users` (
+`first_name` varchar(255),
+`last_name` varchar(32)
+) Engine=InnoDB;
+Jan 28 12:30:38 [info] SHOW COLUMNS FROM `users` LIKE 'id'
+Jan 28 12:30:38 [info] DROP TABLE `users`
+Jan 28 12:30:38 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:38 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:43 [info] Test run started: 2009-01-28 12:30pm PST
+Jan 28 12:30:43 [info] SHOW CREATE TABLE `ruckusing_ts_schema_tbl_name`
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:34:34 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:34:34 [info] DROP TABLE `users`
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] CREATE DATABASE `test_db`
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] CREATE DATABASE `test_db`
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:34:34 [info] SHOW DATABASES
+Jan 28 12:34:34 [info] Test run started: 2009-01-28 12:34pm PST
+Jan 28 12:36:06 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:06 [info] SHOW DATABASES
+Jan 28 12:36:06 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:06 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] CREATE DATABASE `test_db`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] CREATE DATABASE `test_db`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:36:07 [info] RENAME TABLE users TO users_new
+Jan 28 12:36:07 [info] DROP TABLE `users_new`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:36:07 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:36:07 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:36:07 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Jan 28 12:36:07 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:07 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:07 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:36:07 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:07 [info] DROP TABLE `users`
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:07 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:07 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] CREATE DATABASE `test_db`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] CREATE DATABASE `test_db`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:36:36 [info] RENAME TABLE users TO users_new
+Jan 28 12:36:36 [info] DROP TABLE `users_new`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20) );
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:36:36 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:36:36 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Jan 28 12:36:36 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:36 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:36:36 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:36:36 [info] SHOW KEYS FROM `users`
+Jan 28 12:36:36 [info] DROP TABLE `users`
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:36:36 [info] Test run started: 2009-01-28 12:36pm PST
+Jan 28 12:36:36 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] CREATE DATABASE `test_db`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] CREATE DATABASE `test_db`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:37:49 [info] RENAME TABLE users TO users_new
+Jan 28 12:37:49 [info] DROP TABLE `users_new`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:37:49 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:37:49 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:37:49 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Jan 28 12:37:49 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:37:49 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:37:49 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:37:49 [info] SHOW KEYS FROM `users`
+Jan 28 12:37:49 [info] DROP TABLE `users`
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:37:49 [info] Test run started: 2009-01-28 12:37pm PST
+Jan 28 12:37:49 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:04 [info] RENAME TABLE users TO users_new
+Jan 28 12:38:04 [info] DROP TABLE `users_new`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:38:04 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:38:04 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:38:04 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );
+Jan 28 12:38:04 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:04 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:04 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:38:04 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:04 [info] DROP TABLE `users`
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:04 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:04 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:17 [info] RENAME TABLE users TO users_new
+Jan 28 12:38:17 [info] DROP TABLE `users_new`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:38:17 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:38:17 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:38:17 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:17 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:17 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:17 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:38:17 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:17 [info] DROP TABLE `users`
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:17 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:17 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:30 [info] RENAME TABLE users TO users_new
+Jan 28 12:38:30 [info] DROP TABLE `users_new`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:38:30 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:38:30 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:38:30 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+Jan 28 12:38:30 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:30 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:30 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:38:30 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:30 [info] DROP TABLE `users`
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:30 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:30 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:46 [info] RENAME TABLE users TO users_new
+Jan 28 12:38:46 [info] DROP TABLE `users_new`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:38:46 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:38:46 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:38:46 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+Jan 28 12:38:46 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:46 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] CREATE TABLE `users` ( name varchar(20), age int(3) );
+Jan 28 12:38:46 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:38:46 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:46 [info] DROP TABLE `users`
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:46 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:46 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] CREATE DATABASE `test_db`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:56 [info] RENAME TABLE users TO users_new
+Jan 28 12:38:56 [info] DROP TABLE `users_new`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:38:56 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:38:56 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:38:56 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+Jan 28 12:38:56 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:38:56 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`title` int(20)
+) ;
+Jan 28 12:38:56 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:38:56 [info] SHOW KEYS FROM `users`
+Jan 28 12:38:56 [info] DROP TABLE `users`
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:38:56 [info] Test run started: 2009-01-28 12:38pm PST
+Jan 28 12:38:56 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:39:19 [info] DROP TABLE `users`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] CREATE DATABASE `test_db`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] CREATE DATABASE `test_db`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:19 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:19 [info] DROP TABLE `users`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:19 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:19 [info] RENAME TABLE users TO users_new
+Jan 28 12:39:19 [info] DROP TABLE `users_new`
+Jan 28 12:39:19 [info] SHOW DATABASES
+Jan 28 12:39:19 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:20 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:39:20 [info] DROP TABLE `users`
+Jan 28 12:39:20 [info] SHOW DATABASES
+Jan 28 12:39:20 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:20 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:39:20 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:39:20 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:39:20 [info] DROP TABLE `users`
+Jan 28 12:39:20 [info] SHOW DATABASES
+Jan 28 12:39:20 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:20 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] DROP TABLE `users`
+Jan 28 12:39:20 [info] SHOW DATABASES
+Jan 28 12:39:20 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:20 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:39:20 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:20 [info] DROP TABLE `users`
+Jan 28 12:39:20 [info] SHOW DATABASES
+Jan 28 12:39:20 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:20 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+Jan 28 12:39:20 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:39:20 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:20 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:20 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:39:20 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:20 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:39:20 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:20 [info] DROP TABLE `users`
+Jan 28 12:39:20 [info] SHOW DATABASES
+Jan 28 12:39:21 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:21 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:21 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:39:21 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:21 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:39:21 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:21 [info] DROP TABLE `users`
+Jan 28 12:39:21 [info] SHOW DATABASES
+Jan 28 12:39:21 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:21 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`title` int(20)
+) ;
+Jan 28 12:39:21 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:39:21 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:21 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:39:21 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:21 [info] DROP TABLE `users`
+Jan 28 12:39:21 [info] SHOW DATABASES
+Jan 28 12:39:21 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:21 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] CREATE DATABASE `test_db`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] CREATE DATABASE `test_db`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] DROP DATABASE IF EXISTS `test_db`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:23 [info] RENAME TABLE users TO users_new
+Jan 28 12:39:23 [info] DROP TABLE `users_new`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+Jan 28 12:39:23 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+Jan 28 12:39:23 [info] ALTER TABLE users ADD `age` int(11) unsigned
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] ALTER TABLE `users` DROP COLUMN `name`
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+Jan 28 12:39:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+Jan 28 12:39:23 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] CREATE INDEX index_on_super_title ON `users`(title)
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+Jan 28 12:39:23 [info] CREATE INDEX idx_users_name ON `users`(name)
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] DROP INDEX `idx_users_name` ON `users`
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`title` int(20)
+) ;
+Jan 28 12:39:23 [info] CREATE INDEX my_special_index ON `users`(name)
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] DROP INDEX `my_special_index` ON `users`
+Jan 28 12:39:23 [info] SHOW KEYS FROM `users`
+Jan 28 12:39:23 [info] DROP TABLE `users`
+Jan 28 12:39:23 [info] SHOW DATABASES
+Jan 28 12:39:23 [info] Test run started: 2009-01-28 12:39pm PST
+Jan 28 12:39:23 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+May 26 10:31:22 [info] DROP TABLE `users`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] CREATE DATABASE `test_db`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] DROP DATABASE IF EXISTS `test_db`
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] CREATE DATABASE `test_db`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] DROP DATABASE IF EXISTS `test_db`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:31:22 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:22 [info] DROP TABLE `users`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:31:22 [info] RENAME TABLE users TO users_new
+May 26 10:31:22 [info] DROP TABLE `users_new`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:31:22 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:22 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:22 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+May 26 10:31:22 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+May 26 10:31:22 [info] DROP TABLE `users`
+May 26 10:31:22 [info] SHOW DATABASES
+May 26 10:31:22 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:22 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:31:22 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:22 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+May 26 10:31:23 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+May 26 10:31:23 [info] ALTER TABLE users ADD `age` int(11) unsigned
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+May 26 10:31:23 [info] DROP TABLE `users`
+May 26 10:31:23 [info] SHOW DATABASES
+May 26 10:31:23 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:23 [info] ALTER TABLE `users` DROP COLUMN `name`
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:23 [info] DROP TABLE `users`
+May 26 10:31:23 [info] SHOW DATABASES
+May 26 10:31:23 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:23 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+May 26 10:31:23 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:31:23 [info] DROP TABLE `users`
+May 26 10:31:23 [info] SHOW DATABASES
+May 26 10:31:23 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:23 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+May 26 10:31:24 [info] CREATE INDEX idx_users_name ON `users`(name)
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] CREATE INDEX index_on_super_title ON `users`(title)
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] DROP TABLE `users`
+May 26 10:31:24 [info] SHOW DATABASES
+May 26 10:31:24 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:24 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:31:24 [info] CREATE INDEX idx_users_name ON `users`(name)
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] DROP INDEX `idx_users_name` ON `users`
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] DROP TABLE `users`
+May 26 10:31:24 [info] SHOW DATABASES
+May 26 10:31:24 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:24 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`title` int(20)
+) ;
+May 26 10:31:24 [info] CREATE INDEX my_special_index ON `users`(name)
+May 26 10:31:24 [info] SHOW KEYS FROM `users`
+May 26 10:31:24 [info] DROP INDEX `my_special_index` ON `users`
+May 26 10:31:25 [info] SHOW KEYS FROM `users`
+May 26 10:31:25 [info] DROP TABLE `users`
+May 26 10:31:25 [info] SHOW DATABASES
+May 26 10:31:25 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:25 [info] CREATE TABLE `users` (
+`user_id` int(11) AUTO_INCREMENT
+, PRIMARY KEY (`user_id`)
+) Engine=InnoDB;
+May 26 10:31:25 [info] SHOW COLUMNS FROM `users` LIKE 'user_id'
+May 26 10:31:25 [info] DROP TABLE `users`
+May 26 10:31:25 [info] SHOW DATABASES
+May 26 10:31:25 [info] Test run started: 2009-05-26 10:31am PDT
+May 26 10:31:25 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) Engine=InnoDB;
+May 26 10:36:33 [info] DROP TABLE `users`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] CREATE DATABASE `test_db`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] DROP DATABASE IF EXISTS `test_db`
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] CREATE DATABASE `test_db`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] DROP DATABASE IF EXISTS `test_db`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:36:33 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:33 [info] DROP TABLE `users`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:36:33 [info] RENAME TABLE users TO users_new
+May 26 10:36:33 [info] DROP TABLE `users_new`
+May 26 10:36:33 [info] SHOW DATABASES
+May 26 10:36:33 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:33 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:36:33 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:33 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:33 [info] ALTER TABLE `users` CHANGE `name` `new_name` varchar(20)
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'new_name'
+May 26 10:36:34 [info] DROP TABLE `users`
+May 26 10:36:34 [info] SHOW DATABASES
+May 26 10:36:34 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:34 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20)
+) ;
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:34 [info] ALTER TABLE users ADD `fav_color` varchar(32)
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'fav_color'
+May 26 10:36:34 [info] ALTER TABLE users ADD `latitude` decimal(10, 2)
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'latitude'
+May 26 10:36:34 [info] ALTER TABLE users ADD `age` int(11) unsigned
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'age'
+May 26 10:36:34 [info] DROP TABLE `users`
+May 26 10:36:34 [info] SHOW DATABASES
+May 26 10:36:34 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:34 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:34 [info] ALTER TABLE `users` DROP COLUMN `name`
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:34 [info] DROP TABLE `users`
+May 26 10:36:34 [info] SHOW DATABASES
+May 26 10:36:34 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:34 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:34 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:34 [info] ALTER TABLE `users` CHANGE `name` `name` varchar(128) DEFAULT 'abc'
+May 26 10:36:35 [info] SHOW COLUMNS FROM `users` LIKE 'name'
+May 26 10:36:35 [info] DROP TABLE `users`
+May 26 10:36:35 [info] SHOW DATABASES
+May 26 10:36:35 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:35 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3),
+`title` int(20)
+) ;
+May 26 10:36:35 [info] CREATE INDEX idx_users_name ON `users`(name)
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] CREATE UNIQUE INDEX idx_users_age ON `users`(age)
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] CREATE INDEX index_on_super_title ON `users`(title)
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] DROP TABLE `users`
+May 26 10:36:35 [info] SHOW DATABASES
+May 26 10:36:35 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:35 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`age` int(3)
+) ;
+May 26 10:36:35 [info] CREATE INDEX idx_users_name ON `users`(name)
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] DROP INDEX `idx_users_name` ON `users`
+May 26 10:36:35 [info] SHOW KEYS FROM `users`
+May 26 10:36:35 [info] DROP TABLE `users`
+May 26 10:36:35 [info] SHOW DATABASES
+May 26 10:36:35 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:35 [info] CREATE TABLE `users` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(20),
+`title` int(20)
+) ;
+May 26 10:36:35 [info] CREATE INDEX my_special_index ON `users`(name)
+May 26 10:36:36 [info] SHOW KEYS FROM `users`
+May 26 10:36:36 [info] DROP INDEX `my_special_index` ON `users`
+May 26 10:36:36 [info] SHOW KEYS FROM `users`
+May 26 10:36:36 [info] DROP TABLE `users`
+May 26 10:36:36 [info] SHOW DATABASES
+May 26 10:36:36 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:36 [info] CREATE TABLE `users` (
+`user_id` int(11) AUTO_INCREMENT
+, PRIMARY KEY (`user_id`)
+) Engine=InnoDB;
+May 26 10:36:36 [info] SHOW COLUMNS FROM `users` LIKE 'user_id'
+May 26 10:36:36 [info] DROP TABLE `users`
+May 26 10:36:36 [info] SHOW DATABASES
+May 26 10:36:36 [info] Test run started: 2009-05-26 10:36am PDT
+May 26 10:36:36 [info] SHOW DATABASES

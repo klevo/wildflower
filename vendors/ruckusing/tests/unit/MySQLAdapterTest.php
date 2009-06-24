@@ -54,8 +54,6 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			$this->assertEquals(false, $users);
 			
 			//create it
-			//$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");
-			
 			$t1 = new Ruckusing_MySQLTableDefinition($this->adapter, "users", array('options' => 'Engine=InnoDB') );
 			$t1->column("name", "string", array('limit' => 20));
 			$sql = $t1->finish();
@@ -116,7 +114,9 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_column_info() {			
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->finish();
 	
 			$expected = array();
 			$actual = $this->adapter->column_info("users", "name");
@@ -126,7 +126,11 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 		
 		public function test_rename_table() {
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->finish();
+			
+			
 		  $this->assertEquals(true, $this->adapter->has_table('users') );
 		  $this->assertEquals(false, $this->adapter->has_table('users_new') );
 		  //rename it
@@ -139,7 +143,10 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_rename_column() {			
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->finish();
+			
 
 			$before = $this->adapter->column_info("users", "name");
 			$this->assertEquals('varchar(20)', $before['type'] );			
@@ -155,7 +162,9 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_add_column() {			
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->finish();
 
 			$col = $this->adapter->column_info("users", "name");
 			$this->assertEquals("name", $col['field']);			
@@ -183,8 +192,11 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_remove_column() {			
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20), age int(3) );");	
-
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->column('age', 'integer', array('limit' => 3));
+			$t->finish();
+			
 			//verify it exists
 			$col = $this->adapter->column_info("users", "name");
 			$this->assertEquals("name", $col['field']);			
@@ -200,7 +212,10 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_change_column() {			
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20), age int(3) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->column('age', 'integer', array('limit' => 3));
+			$t->finish();
 
 			//verify its type
 			$col = $this->adapter->column_info("users", "name");
@@ -217,7 +232,12 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 		
 		public function test_add_index() {
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20), age int(3), title varchar(20) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->column('age', 'integer', array('limit' => 3));
+			$t->column('title', 'integer', array('limit' => 20));
+			$t->finish();
+			
 			$this->adapter->add_index("users", "name");
 			
 			$this->assertEquals(true, $this->adapter->has_index("users", "name") );						
@@ -232,7 +252,11 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_remove_index_with_default_index_name() {
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20), age int(3) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->column('age', 'integer', array('limit' => 3));
+			$t->finish();
+			
 			$this->adapter->add_index("users", "name");
 			
 			$this->assertEquals(true, $this->adapter->has_index("users", "name") );						
@@ -244,7 +268,11 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 
 		public function test_remove_index_with_custom_index_name() {
 			//create it
-			$this->adapter->execute_ddl("CREATE TABLE `users` ( name varchar(20), age int(3) );");	
+			$t = new Ruckusing_MySQLTableDefinition($this->adapter, 'users');
+			$t->column('name', 'string', array('limit' => 20));
+			$t->column('title', 'integer', array('limit' => 20));
+			$t->finish();
+
 			$this->adapter->add_index("users", "name", array('name' => 'my_special_index'));
 			
 			$this->assertEquals(true, $this->adapter->has_index("users", "name", array('name' => 'my_special_index')) );						
@@ -254,7 +282,16 @@ class MySQLAdapterTest extends PHPUnit_Framework_TestCase {
 			$this->assertEquals(false, $this->adapter->has_index("users", "name", array('name' => 'my_special_index')) );						
 		}
 
-		
+		// Test that we can generate a custom primary key that is also an AUTO_INCREMENT
+    public function test_custom_primary_with_auto_increment() {
+      $t1 = new Ruckusing_MySQLTableDefinition($this->adapter, "users", array('id' => false, 'options' => 'Engine=InnoDB') );
+    	$t1->column("user_id", "integer", array('primary_key' => true, 'increment' => true));
+    	$t1->finish();
+
+  		$col = $this->adapter->column_info("users", "user_id");
+			$this->assertEquals('auto_increment', $col['extra'] );
+    }
+    
 		
 		/*
 		public function test_determine_query_type() {

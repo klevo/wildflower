@@ -146,7 +146,7 @@ class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_
 		$this->load_tables(true);
 		foreach($this->tables as $tbl => $idx) {
 
-			if($tbl == 'schema_info') { continue; }
+			if($tbl == RUCKUSING_SCHEMA_TBL_NAME) { continue; }
 
 			$stmt = "SHOW CREATE TABLE `$tbl`";
 			$result = $this->query($stmt);
@@ -246,6 +246,10 @@ class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_
 	public function quote($value, $column) {
 	  return $this->quote_string($value);
 	}
+	
+	public function qualify_entity($str) {
+	  return '`' . $str . '`';
+  }
 	
 	public function rename_table($name, $new_name) {
 		if(empty($name)) {
@@ -501,7 +505,9 @@ class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_
 		if(is_array($options) && array_key_exists('unsigned', $options) && $options['unsigned'] === true) {
 			$sql .= " unsigned";
 		}
-		
+		if(is_array($options) && array_key_exists('increment', $options) && $options['increment'] === true) {
+			$sql .= " AUTO_INCREMENT";
+		}		
 		if(is_array($options) && array_key_exists('null', $options) && $options['null'] === false) {
 			$sql .= " NOT NULL";
 		}
@@ -509,7 +515,7 @@ class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_
 	}//add_column_options
 	
 	public function set_current_version($version) {
-		$sql = sprintf("UPDATE schema_info SET version = %d", $version);		
+		$sql = sprintf("UPDATE %s SET version = %d", $this->qualify_entity(RUCKUSING_SCHEMA_TBL_NAME), $version);
 		return $this->execute_ddl($sql);
 	}
 	

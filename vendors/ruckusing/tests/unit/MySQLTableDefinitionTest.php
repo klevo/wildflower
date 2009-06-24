@@ -105,6 +105,32 @@ EXP;
 		$this->assertEquals(null, $col);			
 	}
 	
+	public function test_generate_table_without_forced_primary_key_but_with_user_specified_key() {
+	  $actual_sql = <<<SQL
+CREATE TABLE `users` (
+`guid` varchar(255)
+, PRIMARY KEY (`guid`)
+) Engine=InnoDB;
+SQL;
+	  $t1 = new Ruckusing_MySQLTableDefinition($this->adapter, "users", array('id' => false, 'options' => 'Engine=InnoDB') );
+		$t1->column("guid", "string", array('primary_key' => true));
+		$generated_sql = $t1->finish(true);
+		$this->assertEquals($actual_sql, $generated_sql);		
+  }
+
+  /**
+   * @expectedException Ruckusing_SQLException
+   */
+   
+  //Since we have NOT specified the framework to NOT generate a primary key AND we have specified our own primary key
+  // the framework will throw an exception, which we expected so have PHPUnit verify that this exception
+  //gets thrown
+  public function test_generate_table_with_forced_primary_key_and_with_user_specified_key() {
+    $t1 = new Ruckusing_MySQLTableDefinition($this->adapter, "users", array('options' => 'Engine=InnoDB') );
+  	$t1->column("guid", "string", array('primary_key' => true));
+  	$t1->finish();
+  }
+	
 }
 
 ?>
