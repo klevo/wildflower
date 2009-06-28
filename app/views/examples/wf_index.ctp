@@ -1,1 +1,0 @@
-<p>This is ExamplesController::wf_index()</p>
