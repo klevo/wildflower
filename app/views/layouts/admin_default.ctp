@@ -111,11 +111,6 @@
     <div class="cleaner"></div>
 </div>
 
-<p id="footer">
-    <?php echo $html->link(__('Powered by Wildflower', true), array('controller' => 'wild_pages', 'action' => 'wf_about')); ?>&nbsp;&nbsp;
-    <?php if (Configure::read('debug') > 0) echo __('Debug mode'), ' ', Configure::read('debug'); ?>
-</p>
-
 </body>
 </html>
 
