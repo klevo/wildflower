@@ -13,8 +13,7 @@
     <?php echo $html->css('wfsite'); ?>
 </head>
 <body>
-
-    <div id="wrap">
+<div id="wrap">
 
     <div id="header">   
         <h1><?php echo $html->link("<span>$title_for_layout</span>", '/', null, null, false) ?></h1>
