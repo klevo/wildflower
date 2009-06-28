@@ -33,14 +33,9 @@
     <hr />
     
     <div id="footer">
-        <p>Powered by <?php 
-           echo $html->image('wildflower/small-logo.gif', array('alt' => 'Wildflower', 'class' => 'wf-icon')), 
-           ' ', 
-           $html->link('Wildflower', 'http://wf.klevo.sk/'),
-           '. ',
-           $this->element('admin_link') ?></p>
+        <p>Powered by <?php echo $html->link('Wildflower', 'http://wf.klevo.sk/'); ?>. <?php echo $this->element('admin_link'); ?></p>
         
-        <?php echo $this->element('debug_notice') ?>
+        <?php echo $this->element('debug_notice'); ?>
     </div>
     
 </div>
