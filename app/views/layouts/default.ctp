@@ -24,15 +24,7 @@
     
     <hr />
     
-    <?php 
-        echo $navigation->create(array(
-            'Home' => '/',
-            'Feature tour' => '/feature-tour',
-            'Blog' => '/blog',
-            'Documentation' => '/documentation',
-            'Contact' => '/contact'
-        ), array('id' => 'navigation'));
-    ?>
+    <?php echo $wild->menu('main_menu'); ?>
     
     <hr />
     
