@@ -34,10 +34,6 @@ class AppController extends Controller {
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
-    
-    public $view = 'Theme';
-    public $theme = 'wildflower';
-	
 	private $_isDatabaseConnected = true;
 	
 	/**
