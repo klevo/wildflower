@@ -45,7 +45,7 @@ img {
 #wrap,
 #footer,
 #header-wrap {
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 #wrap {
@@ -55,7 +55,7 @@ img {
 
 #footer {
     margin: 0;
-    padding: 0 40px 14px;
+    padding: 0 30px 14px;
     font-size: 10px;
 }
 
@@ -209,6 +209,7 @@ img {
 
 #content_pad {
     padding: 20px 25px 20px;
+    min-height: 200px;
 }
 
 .cleaner {
