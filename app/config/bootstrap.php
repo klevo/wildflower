@@ -42,4 +42,4 @@
  */
 
 // Include Wildflower bootsrap file
-require_once(APP . '..' . DS . 'wildflower' . DS . 'config' . DS . 'bootstrap.php');
+require_once(APP . 'config' . DS . 'wf_bootstrap.php');

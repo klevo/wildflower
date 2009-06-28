@@ -28,9 +28,9 @@
  */
  
 // Define your controller that should be accesible from Wildflower admin. /wf-prefix/my-controller => MyController::wf_index()
-$myWfAdminControllers = array('examples');
+$myWfAdminControllers = array();
 
-require_once(WILDFLOWER_DIR . DS . 'config' . DS . 'routes.php');
+require_once(dirname(__FILE__) . DS . 'wf_routes.php');
 
 // Continue with your app routes here
 // ...

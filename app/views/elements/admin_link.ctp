@@ -1,7 +1,6 @@
 <?php 
-if ($isLogged) {
-    echo '<span class="admin-link">',
-         $html->link('Site admin', '/' . Configure::read('Routing.admin')),
-         '</span>';	
-}
+    echo 
+    '<span class="admin_link">',
+    $html->link('Site admin', '/' . Configure::read('Wildflower.prefix')),
+    '</span>';
 ?>

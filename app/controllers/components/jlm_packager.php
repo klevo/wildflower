@@ -12,10 +12,8 @@ class JlmPackagerComponent {
 	private $_initializedViews = array();
 	
 	function startup() {
-		$this->wfJlmDir = WILDFLOWER_DIR . DS . 'jlm';
+		$this->wfJlmDir = APP . 'jlm';
 		if (!is_dir($this->wfJlmDir)) trigger_error('/wildflower/jlm directory does not exist!');
-		
-		$this->appJlmDir = APP . 'jlm';
 	}
 	
 	function l18n($string) {
@@ -63,17 +61,10 @@ class JlmPackagerComponent {
         $viewsPath = $this->wfJlmDir . DS . 'views';
         $output .= $this->readTemplates($viewsPath);
         
-        // Add App templates
-        $appViewsPath = $this->appJlmDir . DS . 'views';
-        $output .= $this->readTemplates($appViewsPath);
-        
         // Load other MVC dirs
         foreach ($this->_mvcDirs as $dir) {
             $wfDirPath = $this->wfJlmDir . DS . $dir;
             $output .= $this->readMvcFiles($wfDirPath);
-            
-            $appDirPath = $this->appJlmDir . DS . $dir;
-            $output .= $this->readMvcFiles($appDirPath);
         }
 
 		// Translate
