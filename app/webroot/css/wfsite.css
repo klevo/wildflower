@@ -14,7 +14,7 @@ body {
 /* Typography */
 
 html {
-	font: 0.88em/1.21 Verdana, Geneva, Arial, Helvetica, sans-serif; /* 14px / 17px */
+	font: 0.88em/1.21 "Helvetica Neue", Helvetica, Arial, sans-serif; /* 14px / 17px */
 	color: #363636;
 	background: #fff url(img/top-gradiend.gif) 0 0 repeat-x;
 }
