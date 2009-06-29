@@ -50,42 +50,33 @@
     </script>
     
 </head>
-<body<?php if (isset($editorMode)) echo ' class="editor_mode"'; ?>>
-
-<?php if (!isset($editorMode)): ?>    
+<body>
+ 
 <div id="header">
-    <div id="header-wrap">
-        <h1 id="site-title"><?php echo $html->link($siteName, '/', array('title' => __('View homepage', true))); ?></h1>
-        
-        <div id="login-info">
-            <?php echo $htmla->link(__('Logout', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
-            
-        </div>
-
-        <?php 
-            echo $navigation->create(array(
-                __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
-                __('Pages', true) => array('controller' => 'wild_pages'),
-                __('Modules', true) => array('controller' => 'wild_sidebars'),
-                __('Posts', true) => array('controller' => 'wild_posts'),
-                __('Categories', true) => array('controller' => 'wild_categories'),
-                __('Comments', true) => array('controller' => 'wild_comments'),
-                __('Messages', true) => array('controller' => 'wild_messages'),
-                __('Files', true) => array('controller' => 'wild_assets'),
-                
-                __('Users', true) => array('controller' => 'wild_users'),
-                __('Site Settings', true) => array('controller' => 'wild_settings'),
-                
-            ), array('id' => 'nav'));
-        ?>
+    <h1 id="site_title"><?php echo hsc($siteName); ?></h1>
+    <?php echo $html->link('Site index', '/', array('title' => __('Visit ', true)  . FULL_BASE_URL, 'id' => 'site_index')); ?>
+    
+    <div id="login_info">
+        <?php echo $htmla->link(__('Logout', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
     </div>
+
+    <?php 
+        echo $navigation->create(array(
+            __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
+            __('Pages', true) => array('controller' => 'wild_pages'),
+            __('Modules', true) => array('controller' => 'wild_sidebars'),
+            __('Posts', true) => array('controller' => 'wild_posts'),
+            __('Categories', true) => array('controller' => 'wild_categories'),
+            __('Comments', true) => array('controller' => 'wild_comments'),
+            __('Messages', true) => array('controller' => 'wild_messages'),
+            __('Files', true) => array('controller' => 'wild_assets'),
+            
+            __('Users', true) => array('controller' => 'wild_users'),
+            __('Site Settings', true) => array('controller' => 'wild_settings'),
+            
+        ), array('id' => 'nav'));
+    ?>
 </div>
-<?php else: ?>
-<ul id="editor_mode_header">
-    <li><?php echo $html->link('Go to all pages', array('action' => 'index')); ?></li>
-    <li><small>(Published at: <?php if (isset($publishedLink)) echo $publishedLink; ?>)</small></li>
-</ul>
-<?php endif; ?>
 
 <div id="wrap">
     <div id="content">

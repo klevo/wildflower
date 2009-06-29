@@ -63,62 +63,43 @@ img {
         color: #686868;
         text-decoration: none;
     }
+    
 
-#header,
-#editor_mode_header {
-    background: #1b3b53;
+/* Header */
+
+#header {
+    background: #092439;
     overflow: hidden;
     color: #feffc2;
+    padding: 0 15px;
 }
 
-#editor_mode_header {
-    padding: 0 40px;
-    margin: 0;
-    list-style: none;
-    overflow: hidden;
-}
-
-    #editor_mode_header li {
-        float: left;
-        padding: 6px;
-        margin: 0;
+    #header a {
+        color: #fff;
     }
     
-    #editor_mode_header small {
-        font-size: 11px;
-    }
-
-    #editor_mode_header a {
+    #header a:hover {
+        background: #3b3b3b;
         color: #fff;
     }
 
-    #header a {
-        color: #feffc2;
-    }
-    
-    #header a:hover,
-    #editor_mode_header a:hover {
-        background-color: #d0e4f8;
-        color: #000;
-    }
-
-#header-wrap {
-    position: relative;
-}
-
-#site-title {
-    font-size: 22px;
+#site_title {
+    font-size: 20px;
     font-weight: normal;
     margin: 0;
-    letter-spacing: 0.5px;
+    text-decoration: none;
+    padding: 17px 10px;
+    display: block;
+    float: left;
+    color: #eade51;
 }
-
-    #site-title a {
-        text-decoration: none;
-        padding: 20px 10px;
-        display: block;
-        float: left;
-    }
+    
+#site_index {
+    float: left;
+    display: block;
+    padding: 3px 5px;
+    margin: 18px 0 0 -3px;
+}
     
 #nav {
     list-style: none;
@@ -137,8 +118,8 @@ img {
         display: block;
         height: 13px;
         margin: 0 3px 0 0;
-        padding: 4px 9px 9px 9px;
-        background-color: #446076;
+        padding: 4px 9px 8px 9px;
+        background: #1f3b52;
         color: #fff;
         text-decoration: none;
     }
@@ -156,7 +137,7 @@ img {
         
     #nav a:hover {
         color: #fff;
-        background-color: #597d99;
+        background-color: #282828;
     }
     
 #nav .nav-site-settings,
@@ -164,15 +145,15 @@ img {
     float: right;
 }
 
-#login-info {
+#login_info {
     position: absolute;
-    top: 0px;
-    right: 32px;
+    top: 5px;
+    right: 20px;
 }
 
     #login-info a {
         display: inline-block;
-        padding: 6px;
+        padding: 3px 5px;
     }
 
 #content {
