@@ -262,7 +262,7 @@ h2 {
     font-size: 14px;
     font-weight: bold;
     line-height: 17px;
-    background: #eef5fb url(img/page_top.png) left bottom repeat-x;
+    background: #d2eafc;
 }
 
     .section h2 {
@@ -1238,8 +1238,8 @@ select {
     
 #edit-buttons {
     overflow: hidden;
-    margin: 10px -25px -22px;
-    background: #eee;
+    margin: 10px -20px -22px;
+    background: #ceffb0;
     padding: 10px 25px;
     position: relative;
 }
