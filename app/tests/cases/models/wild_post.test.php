@@ -1,27 +1,27 @@
 <?php 
-class WildPostTestCase extends CakeTestCase {
+class PostTestCase extends CakeTestCase {
     public $fixtures = array(
-        'wild_post', 
-        'wild_user',  
+        'post', 
+        'user',  
         'category_test', 
         'categories_post_test', 
         'comment_test',
     );
-    private $WildPost;
+    private $Post;
     
     function startTest() {
-        $this->WildPost = ClassRegistry::init('WildPost');
-        $this->WildPost->Behaviors->detach('Versionable');
-        $this->assertTrue($this->WildPost);
+        $this->Post = ClassRegistry::init('Post');
+        $this->Post->Behaviors->detach('Versionable');
+        $this->assertTrue($this->Post);
     }
     
     function endTest() {
-        unset($this->WildPost);
+        unset($this->Post);
     }
     
     function testFindAllNonRecursive() {
-        $result = $this->WildPost->find('all', array('recursive' => -1));
-        $result = Set::extract($result, "{n}.WildPost");
+        $result = $this->Post->find('all', array('recursive' => -1));
+        $result = Set::extract($result, "{n}.Post");
         $expected = array(
 	        array('id' => 1, 'slug' => 'some-nice-test-post', 'title' => 'Some nice test post', 'content' => 'First Article Body', 'user_id' => 1, 'description_meta_tag' => '', 'keywords_meta_tag' => '', 'created' => '2008-03-18 10:39:23', 'updated' => '2008-04-18 10:41:31'),
 	        array('id' => 2, 'slug' => 'alcohol', 'title' => 'A few beers and vodka', 'content' => 'First Article Body', 'user_id' => 1, 'description_meta_tag' => '', 'keywords_meta_tag' => '', 'created' => '2008-03-18 10:39:23', 'updated' => '2008-04-18 10:41:31'),
@@ -32,53 +32,53 @@ class WildPostTestCase extends CakeTestCase {
     
     function testAddNewPost() {
     	// Try 1
-    	$data['WildPost'] = array('title' => 'Some nice test post', 
+    	$data['Post'] = array('title' => 'Some nice test post', 
     	   'content' => 'First Article Body', 'description_meta_tag' => '', 
     	   'keywords_meta_tag' => ''); 
-    	$this->WildPost->save($data);
-    	$this->assertEqual($this->WildPost->id, 4);
+    	$this->Post->save($data);
+    	$this->assertEqual($this->Post->id, 4);
     	
         // Try 2    	
-    	$data['WildPost'] = array('title' => 'Nejaký slovenský text...', 
+    	$data['Post'] = array('title' => 'Nejaký slovenský text...', 
            'content' => '', 'description_meta_tag' => 'About nothing', 
            'keywords_meta_tag' => 'google noodle');
-    	$this->WildPost->create($data);
-    	$this->WildPost->save();
-    	$this->assertEqual($this->WildPost->id, 5);
+    	$this->Post->create($data);
+    	$this->Post->save();
+    	$this->assertEqual($this->Post->id, 5);
     }
     
     function testInvalidSave() {
-        $data['WildPost'] = array('title' => '', 
+        $data['Post'] = array('title' => '', 
            'content' => 'First Article Body', 'description_meta_tag' => '', 
            'keywords_meta_tag' => '');
-        $success = $this->WildPost->save($data);
+        $success = $this->Post->save($data);
         $this->assertEqual($success, false);
     }
     
     function testSlugCreation() {
-        $data['WildPost'] = array('title' => 'Nejaký slovenský text...', 
+        $data['Post'] = array('title' => 'Nejaký slovenský text...', 
            'content' => '', 'description_meta_tag' => 'About nothing', 
            'keywords_meta_tag' => 'google noodle');
-        $this->WildPost->save($data);
-        $this->WildPost->recursive = -1;
-        $savedPost = $this->WildPost->findById($this->WildPost->id);
-        $this->assertEqual($savedPost['WildPost']['slug'], 'nejaky-slovensky-text');
+        $this->Post->save($data);
+        $this->Post->recursive = -1;
+        $savedPost = $this->Post->findById($this->Post->id);
+        $this->assertEqual($savedPost['Post']['slug'], 'nejaky-slovensky-text');
     }
     
     function testPostDelete() {
-    	$this->WildPost->recursive = -1;
-    	$this->WildPost->delete(2);
+    	$this->Post->recursive = -1;
+    	$this->Post->delete(2);
     	$expected = array(
             array('id' => 1, 'slug' => 'some-nice-test-post', 'title' => 'Some nice test post', 'content' => 'First Article Body', 'user_id' => 1, 'description_meta_tag' => '', 'keywords_meta_tag' => '', 'created' => '2008-03-18 10:39:23', 'updated' => '2008-04-18 10:41:31'),
             array('id' => 3, 'slug' => 'strings-are-fuuun', 'title' => 'Strings are fúúún!', 'content' => 'First Article Body', 'user_id' => 1, 'description_meta_tag' => '', 'keywords_meta_tag' => '', 'created' => '2008-03-18 10:39:23', 'updated' => '2008-04-18 10:41:31'),
         );
-        $result = $this->WildPost->find('all', array('recursive' => -1));
-        $result = Set::extract($result, "{n}.WildPost");
+        $result = $this->Post->find('all', array('recursive' => -1));
+        $result = Set::extract($result, "{n}.Post");
         $this->assertEqual($result, $expected);
     }
     
     function testFindAllByCategory() {
-    	//$result = $this->WildPost->findAllByCategory('cakephp');
+    	//$result = $this->Post->findAllByCategory('cakephp');
     	//debug($result);
     }
     

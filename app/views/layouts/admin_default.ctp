@@ -57,22 +57,22 @@
     <?php echo $html->link('Site index', '/', array('title' => __('Visit ', true)  . FULL_BASE_URL, 'id' => 'site_index')); ?>
     
     <div id="login_info">
-        <?php echo $htmla->link(__('Logout', true), array('controller' => 'wild_users', 'action' => 'logout'), array('id' => 'logout')); ?>
+        <?php echo $htmla->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout')); ?>
     </div>
 
     <?php 
         echo $navigation->create(array(
             __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
-            __('Pages', true) => array('controller' => 'wild_pages'),
-            __('Modules', true) => array('controller' => 'wild_sidebars'),
-            __('Posts', true) => array('controller' => 'wild_posts'),
-            __('Categories', true) => array('controller' => 'wild_categories'),
-            __('Comments', true) => array('controller' => 'wild_comments'),
-            __('Messages', true) => array('controller' => 'wild_messages'),
-            __('Files', true) => array('controller' => 'wild_assets'),
+            __('Pages', true) => array('controller' => 'pages'),
+            __('Modules', true) => array('controller' => 'sidebars'),
+            __('Posts', true) => array('controller' => 'posts'),
+            __('Categories', true) => array('controller' => 'categories'),
+            __('Comments', true) => array('controller' => 'comments'),
+            __('Messages', true) => array('controller' => 'messages'),
+            __('Files', true) => array('controller' => 'assets'),
             
-            __('Users', true) => array('controller' => 'wild_users'),
-            __('Site Settings', true) => array('controller' => 'wild_settings'),
+            __('Users', true) => array('controller' => 'users'),
+            __('Site Settings', true) => array('controller' => 'settings'),
             
         ), array('id' => 'nav'));
     ?>

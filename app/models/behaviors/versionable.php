@@ -1,5 +1,5 @@
 <?php
-App::import('Model', 'WildRevision');
+App::import('Model', 'Revision');
 
 /**
  * Versionable behavior
@@ -30,7 +30,7 @@ class VersionableBehavior extends ModelBehavior {
 			// @TODO add all model fields automaticaly
 		}
 		
-		$this->Revision = ClassRegistry::init('WildRevision');
+		$this->Revision = ClassRegistry::init('Revision');
 		$this->_model = $model;
 		$this->_type = low($this->_model->name);
         $this->_versionedFields = $versionedFields;
@@ -50,7 +50,7 @@ class VersionableBehavior extends ModelBehavior {
     function getRevision($model, $nodeId, $versionNumber) {
         $revision = $this->getRevisionData($model, $nodeId, $versionNumber);
         //var_dump($revision);
-        $revContent = $revision['WildRevision']['content'];
+        $revContent = $revision['Revision']['content'];
         $revData = json_decode($revContent, true);
         
         $data = $model->findById($nodeId);
@@ -60,7 +60,7 @@ class VersionableBehavior extends ModelBehavior {
             unset($data[$model->name][$field]);
         }
         
-        $data['WildRevision']['created'] = $revision['WildRevision']['created'];
+        $data['Revision']['created'] = $revision['Revision']['created'];
         
         $data[$model->name] = am($data[$model->name], $revData[$model->name]);
         return $data;
@@ -103,7 +103,7 @@ class VersionableBehavior extends ModelBehavior {
         $latestRev = $this->Revision->find("{$this->Revision->name}.node_id = $nodeId AND {$this->Revision->name}.type = '{$this->_type}'", null, "{$this->Revision->name}.revision_number DESC");
         $revNo = 1;
         if (!empty($latestRev)) {
-            $revNo = intval($latestRev['WildRevision']['revision_number']) + 1;
+            $revNo = intval($latestRev['Revision']['revision_number']) + 1;
         }
 
         // Archive only the choosed fields
@@ -116,7 +116,7 @@ class VersionableBehavior extends ModelBehavior {
         
         // Encode content field
         $archive = json_encode($archive);
-        $revData['WildRevision'] = array(
+        $revData['Revision'] = array(
             'type' => $this->_type,
             'node_id' => $nodeId, 
             'content' => $archive, 
@@ -124,8 +124,8 @@ class VersionableBehavior extends ModelBehavior {
         );
         
         // Save only if the content has changed
-        if (!isset($latestRev['WildRevision']['content']) 
-            or $latestRev['WildRevision']['content'] !== $revData['WildRevision']['content']) {
+        if (!isset($latestRev['Revision']['content']) 
+            or $latestRev['Revision']['content'] !== $revData['Revision']['content']) {
             return $this->Revision->save($revData);
         }
         

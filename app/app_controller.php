@@ -48,17 +48,17 @@ class AppController extends Controller {
      */
 	private function _configureWildflower() {
 	    // AuthComponent config
-        $this->Auth->userModel = 'WildUser';
+        $this->Auth->userModel = 'User';
         $this->Auth->fields = array('username' => 'login', 'password' => 'password');
         $prefix = Configure::read('Wildflower.prefix');
         $this->Auth->loginAction = "/$prefix/login";
-        $this->Auth->logoutAction = array('prefix' => $prefix, 'controller' => 'wild_users', 'action' => 'logout');
+        $this->Auth->logoutAction = array('prefix' => $prefix, 'controller' => 'users', 'action' => 'logout');
         $this->Auth->autoRedirect = false;
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
 	    
 	    // Site settings
-		$settings = ClassRegistry::init('WildSetting')->getKeyValuePairs();
+		$settings = ClassRegistry::init('Setting')->getKeyValuePairs();
         Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
         Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
         
@@ -166,7 +166,7 @@ class AppController extends Controller {
         $query = urldecode($query);
         $results = $this->{$this->modelClass}->search($query);
         $this->set('results', $results);
-        $this->render('/wild_dashboards/wf_search');
+        $this->render('/dashboards/wf_search');
     }
 	
 	/**
@@ -197,8 +197,8 @@ class AppController extends Controller {
      * The name convencions is unserscored class that you want to plug into with "_callback"
      * suffix. Examples:
      *    
-     *    - wild_pages_controller_callback.php
-     *    - wild_comments_controller_callback.php
+     *    - pages_controller_callback.php
+     *    - comments_controller_callback.php
      *    - wildflower_app_controller_callback.php
      *
      * @param string $when Launch <code>before</code> or <code>after</code> current action

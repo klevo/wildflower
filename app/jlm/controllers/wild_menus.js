@@ -1,4 +1,4 @@
-$.jlm.bind('wild_menus.wf_add, wild_menus.wf_edit', function() {
+$.jlm.bind('menus.wf_add, menus.wf_edit', function() {
     
     function bindRemove() {
         $('.menu_items .delete').click(function() {
@@ -24,7 +24,7 @@ $.jlm.bind('wild_menus.wf_add, wild_menus.wf_edit', function() {
             var idName = $('input[type=hidden]', this).attr('name');
             //debug(labelName);debug(urlName);
             var replace = [labelName, urlName, idName];
-            var replaceWith = ['data[WildMenuItem][' + index + '][label]', 'data[WildMenuItem][' + index + '][url]', 'data[WildMenuItem][' + index + '][id]'];
+            var replaceWith = ['data[MenuItem][' + index + '][label]', 'data[MenuItem][' + index + '][url]', 'data[MenuItem][' + index + '][id]'];
             //debug(replace);debug(replaceWith)
             html = str_replace(replace, replaceWith, html);
             $(this).html(html);

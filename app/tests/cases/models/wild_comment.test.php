@@ -1,22 +1,22 @@
 <?php 
-class WildCommentTestCase extends CakeTestCase {
+class CommentTestCase extends CakeTestCase {
     public $fixtures = array(
-        'wild_comment', 
-        'wild_post',
-        'wild_page',
-        'wild_revision',
-        'wild_user',
-        'wild_category',
-        'wild_category_wild_post',
+        'comment', 
+        'post',
+        'page',
+        'revision',
+        'user',
+        'category',
+        'category_post',
     );
-    private $WildComment;
+    private $Comment;
     
     function startTest() {
-        $this->WildComment = ClassRegistry::init('WildComment');
+        $this->Comment = ClassRegistry::init('Comment');
     }
     
     function endTest() {
-        unset($this->WildComment);
+        unset($this->Comment);
     }
 
     function testValidSave() {
@@ -28,9 +28,9 @@ class WildCommentTestCase extends CakeTestCase {
             'content' => 'Some english text.'
             );
         
-        $this->WildComment->spamCheck = false;
-        $result = $this->WildComment->save($data);
-        unset($result[$this->WildComment->name]['created'], $result[$this->WildComment->name]['updated']);
+        $this->Comment->spamCheck = false;
+        $result = $this->Comment->save($data);
+        unset($result[$this->Comment->name]['created'], $result[$this->Comment->name]['updated']);
         $expected = array(
             'post_id' => 2,
             'name' => 'VALID alert("hello"); new comment',
@@ -39,11 +39,11 @@ class WildCommentTestCase extends CakeTestCase {
         'content' => 'Some english text.',
             'spam' => 0
             );
-        $this->assertEqual($expected, $result[$this->WildComment->name]);
+        $this->assertEqual($expected, $result[$this->Comment->name]);
     }
 
     function testInvalidSave() {
-        $this->WildComment->spamCheck = false;
+        $this->Comment->spamCheck = false;
 
         $data = array(
             'post_id' => 2,
@@ -53,7 +53,7 @@ class WildCommentTestCase extends CakeTestCase {
             'content' => 'Some english text.'
             );
 
-        $result = $this->WildComment->save($data);
+        $result = $this->Comment->save($data);
         $this->assertFalse($result);
 
         $data = array(
@@ -63,7 +63,7 @@ class WildCommentTestCase extends CakeTestCase {
             'url' => 'www.banany-su-zdrave.sk',
             'content' => 'Some english text.'
             );
-        $result = $this->WildComment->save($data);
+        $result = $this->Comment->save($data);
         $this->assertFalse($result);
 
         $data = array(
@@ -73,7 +73,7 @@ class WildCommentTestCase extends CakeTestCase {
             'url' => 'www.banany-su-zdrave.sk',
             'content' => '   '
             );
-        $result = $this->WildComment->save($data);
+        $result = $this->Comment->save($data);
         $this->assertFalse($result);
 
         $data = array(
@@ -83,7 +83,7 @@ class WildCommentTestCase extends CakeTestCase {
             'url' => 'www.banany-su-zdrave.sk',
             'content' => ' sa '
             );
-        $result = $this->WildComment->save($data);
+        $result = $this->Comment->save($data);
         $this->assertFalse($result);
     }
 

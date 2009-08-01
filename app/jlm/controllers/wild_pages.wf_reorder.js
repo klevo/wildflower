@@ -1,4 +1,4 @@
-$.jlm.bind('wild_pages.wf_reorder', function() {
+$.jlm.bind('pages.wf_reorder', function() {
     
     var movedPage = null;
     var dropZoneHtml = '<div class="drop_zone"><l18n>drop here</l18n></div>';

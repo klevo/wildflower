@@ -1,5 +1,5 @@
 
-$.jlm.bind('wild_posts.wf_categorize', function() {
+$.jlm.bind('posts.wf_categorize', function() {
     
     // Add new category box AJAX form
     var buttonEl = $('#add-category-box .submit input');
@@ -65,11 +65,11 @@ $.jlm.bind('wild_posts.wf_categorize', function() {
     
 });
 
-$.jlm.bind('wild_posts.wf_edit', function() {
+$.jlm.bind('posts.wf_edit', function() {
     // Update post form on category select
     $('#category_id').change(function() {
         var id = $(this).val();
-        $('#WildCategoryWildCategory').val(id);
+        $('#CategoryCategory').val(id);
     });
     
 });

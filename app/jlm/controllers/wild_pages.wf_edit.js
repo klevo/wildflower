@@ -1,4 +1,4 @@
-$.jlm.bind('wild_pages.wf_edit', function() {
+$.jlm.bind('pages.wf_edit', function() {
    
    $('textarea:first').focus();
    

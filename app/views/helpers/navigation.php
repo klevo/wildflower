@@ -93,7 +93,7 @@ class NavigationHelper extends AppHelper {
                 
                 // This is basically a hack to get a nice url in form of wf/controller-name/ instead of wf/controller-name/index
                 if (!isset($url['action']) || $url['action'] === 'wf_index') {
-                    $url = '/' . Configure::read('Wildflower.prefix') . '/' . str_replace('wild_', '', $url['controller']);
+                    $url = '/' . Configure::read('Wildflower.prefix') . '/' . str_replace('', '', $url['controller']);
                 }
                 
                 $url = $this->Html->url($url);

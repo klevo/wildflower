@@ -1,4 +1,4 @@
-$.jlm.component('RenameTitle', 'wild_pages.wf_edit, wild_posts.wf_edit', function() {
+$.jlm.component('RenameTitle', 'pages.wf_edit, posts.wf_edit', function() {
     
     $('.rename_title').click(function() {
         $('.title_as_heading').hide();

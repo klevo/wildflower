@@ -1,11 +1,11 @@
 <?php 
-class WildCommentFixture extends CakeTestFixture {
-    public $name = 'WildComment';
-    public $import = 'WildComment';
+class CommentFixture extends CakeTestFixture {
+    public $name = 'Comment';
+    public $import = 'Comment';
     public $records = array(
         array(
 	        'id' => 1,
-	        'wild_post_id' => 1,
+	        'post_id' => 1,
 	        'name' => 'klevo',
 	        'email' => 'someone@something.com',
 	        'url' => '',
@@ -16,7 +16,7 @@ class WildCommentFixture extends CakeTestFixture {
         ),
          array(
             'id' => 2,
-            'wild_post_id' => 2,
+            'post_id' => 2,
             'name' => 'Safir Tiges',
             'email' => 'someone@tiger.net',
             'url' => 'www.tiger.net',
@@ -27,7 +27,7 @@ class WildCommentFixture extends CakeTestFixture {
         ),
          array(
             'id' => 4,
-            'wild_post_id' => 1,
+            'post_id' => 1,
             'name' => 'čšľáýčšľžáý ŤžŽ25122',
             'email' => 'číľýčýšľíá@čľšíáýčýľíš.čšľ',
             'url' => '',

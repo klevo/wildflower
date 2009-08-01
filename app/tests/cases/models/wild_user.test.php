@@ -1,18 +1,18 @@
 <?php 
-class WildUserTestCase extends CakeTestCase {
+class UserTestCase extends CakeTestCase {
     public $fixtures = array(
-        'wild_user',
-        'wild_page',
-        'wild_revision',
-        'wild_post',
-        'wild_comment',
-        'wild_category',
-        'wild_category_wild_post',
+        'user',
+        'page',
+        'revision',
+        'post',
+        'comment',
+        'category',
+        'category_post',
     );
     private $User;
     
     function startTest() {
-    	$this->User = ClassRegistry::init('WildUser');
+    	$this->User = ClassRegistry::init('User');
     }
     
     function endTest() {

@@ -1,4 +1,4 @@
-$.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize, wild_pages.wf_edit', function() {
+$.jlm.component('EditButtons', 'posts.wf_edit, posts.wf_categorize, pages.wf_edit', function() {
     
     // Save buttons
     $('#save-draft input, #save-publish input').click(editButtonsOnClick);
@@ -10,7 +10,7 @@ $.jlm.component('EditButtons', 'wild_posts.wf_edit, wild_posts.wf_categorize, wi
         
         var isPublish = (buttonEl.parent().attr('id') == 'save-publish');
         if (isPublish) {
-            $('#WildPageDraft, #WildPostDraft').val('0');
+            $('#PageDraft, #PostDraft').val('0');
         }
         
         // Do AJAX save

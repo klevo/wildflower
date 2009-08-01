@@ -17,11 +17,11 @@
 <div class="submit" id="save-draft">
     <input type="submit" value="<?php __('Save as the newest version'); ?>" />
     <?php 
-        if ($this->params['controller'] == 'wild_pages') {
-            $entityUrl = $this->data['WildPage']['url'];
+        if ($this->params['controller'] == 'pages') {
+            $entityUrl = $this->data['Page']['url'];
             $entity = 'page';
-        } else if ($this->params['controller'] == 'wild_posts') {
-            $entityUrl = '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['WildPost']['slug'];
+        } else if ($this->params['controller'] == 'posts') {
+            $entityUrl = '/' . Configure::read('Wildflower.postsParent') . '/' . $this->data['Post']['slug'];
             $entity = 'post';
         }
         echo $html->link("View this $entity", $entityUrl, array('class' => 'editor_view_link')); 

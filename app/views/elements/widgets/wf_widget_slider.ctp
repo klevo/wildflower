@@ -2,9 +2,9 @@
     <a class="prev"></a>
 
     <div class="scrollable">
-    	<ul id="slider_<?php echo $data['WildWidget']['id']; ?>" class="thumbs">
+    	<ul id="slider_<?php echo $data['Widget']['id']; ?>" class="thumbs">
     	    <?php
-    	        if ($data['WildWidget']['randomize']) {
+    	        if ($data['Widget']['randomize']) {
     	            function fisherYatesShuffle(&$items) {
                        for ($i = count($items) - 1; $i > 0; $i--) {
                           $j = @mt_rand(0, $i);
@@ -13,10 +13,10 @@
                           $items[$j] = $tmp;
                        }
                     }
-    	            fisherYatesShuffle($data['WildWidget']['items']);
-    	            fb($data['WildWidget']['items']);
+    	            fisherYatesShuffle($data['Widget']['items']);
+    	            fb($data['Widget']['items']);
     	        }
-    	        foreach ($data['WildWidget']['items'] as $item) {
+    	        foreach ($data['Widget']['items'] as $item) {
     	            $cell = $html->link($item['label'], $item['url']);
     	            if (empty($item['url'])) {
     	                $cell = '<span class="no_link">' . hsc($item['label']) . '</span>';
@@ -36,7 +36,7 @@ $(function() {
 	// initialize scrollable 
 	$(".scrollable").scrollable({
 		size: 3,
-		items: '#slider_<?php echo $data['WildWidget']['id']; ?>',  
+		items: '#slider_<?php echo $data['Widget']['id']; ?>',  
 		hoverClass: 'hover'
 	});	
 });

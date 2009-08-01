@@ -1,7 +1,7 @@
 <?php 
-class WildRevisionFixture extends CakeTestFixture {
-    public $name = 'WildRevision';
-    public $import = 'WildRevision';
+class RevisionFixture extends CakeTestFixture {
+    public $name = 'Revision';
+    public $import = 'Revision';
     // public $records = array(
     // 
     // );

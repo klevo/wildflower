@@ -329,8 +329,8 @@ select {
     margin: 0;
 }
 
-#WildPostCreatedYear,
-#WildPageCreatedYear {
+#PostCreatedYear,
+#PageCreatedYear {
     margin-right: 10px;
 }
 

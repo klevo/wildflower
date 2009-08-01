@@ -1,22 +1,22 @@
 <?php
 require_once(APP . 'config' . DS . 'routes.php');
 
-class WildPageTestCase extends CakeTestCase {
+class PageTestCase extends CakeTestCase {
     public $fixtures = array(
-        'wild_page',
-        'wild_user',
-        'wild_revision',
-        'wild_post',
-        'wild_comment',
-        'wild_category',
-        'wild_category_wild_post',
-        'wild_setting',
+        'page',
+        'user',
+        'revision',
+        'post',
+        'comment',
+        'category',
+        'category_post',
+        'setting',
     );
     private $Page;
     
     function startTest() {
         Configure::write('AppSettings.home_page_id', 1);
-    	$this->Page = ClassRegistry::init('WildPage');
+    	$this->Page = ClassRegistry::init('Page');
     }
     
     function endTest() {
@@ -25,7 +25,7 @@ class WildPageTestCase extends CakeTestCase {
     
     function testUseDbConfig() {
         $this->assertEqual($this->Page->useDbConfig, 'test_suite');
-        $this->assertEqual($this->Page->WildUser->useDbConfig, 'test_suite');
+        $this->assertEqual($this->Page->User->useDbConfig, 'test_suite');
     }
     
     function testGetListThreadedWithSkipId() {

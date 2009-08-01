@@ -20,7 +20,7 @@ class WildHelper extends AppHelper {
 				$route['controller'] = $this->params['controller'];
 			}
 			// Wf shortcut
-			$route['controller'] = str_replace('wild_', '', $route['controller']);
+			$route['controller'] = str_replace('', '', $route['controller']);
 			$_route = '/' . Configure::read('Wildflower.prefix') 
 				. '/' . $route['controller'];
 			if (isset($route['action'])) {
@@ -115,10 +115,10 @@ class WildHelper extends AppHelper {
     }
     
     function getMenuItems($slug) {
-        $WildMenu = ClassRegistry::init('WildMenu');
-        $WildMenu->contain(array('WildMenuItem' => array('order' => 'WildMenuItem.order ASC')));
-        $menu = $WildMenu->findBySlug($slug);
-        return $menu['WildMenuItem'];
+        $Menu = ClassRegistry::init('Menu');
+        $Menu->contain(array('MenuItem' => array('order' => 'MenuItem.order ASC')));
+        $menu = $Menu->findBySlug($slug);
+        return $menu['MenuItem'];
     }
     
     function submit($label = 'Save') {
@@ -153,14 +153,14 @@ class WildHelper extends AppHelper {
         $selector = '.wf_widget';
         $dom = str_get_html($html);
         $widgets = $dom->find($selector);
-        $Widget = ClassRegistry::init('WildWidget');
+        $Widget = ClassRegistry::init('Widget');
         $view = ClassRegistry::getObject('view');
         foreach ($widgets as $widget) {
             $widgetId = $widget->id;
             $widgetClass = $widget->class;
             $instanceId = intval(r('wf_widget wf_widget_id_', '', $widgetClass));
             $data = $Widget->findById($instanceId);
-            $data = json_decode($data['WildWidget']['config'], true);
+            $data = json_decode($data['Widget']['config'], true);
             $replaceWith = $view->element('widgets/' . $widgetId, array('data' => $data));
             $replace = $widget->outertext;
             if ($widget->parent()->tag == 'p') {
@@ -175,13 +175,13 @@ class WildHelper extends AppHelper {
     function subPageNav() {
         $html = '<ul>';
         $pageSlug = end(array_filter(explode('/', $this->params['url']['url'])));
-        $WildPage = ClassRegistry::init('WildPage');
-        $WildPage->recursive = -1;
+        $Page = ClassRegistry::init('Page');
+        $Page->recursive = -1;
         
         // Get the parent page slug
         $url = $this->params['url']['url'];
         $slug = array_shift(explode('/', $url));
-        $pages = $WildPage->findAllBySlugWithChildren($slug);
+        $pages = $Page->findAllBySlugWithChildren($slug);
 
         if (empty($pages)) {
             return '';
@@ -189,24 +189,24 @@ class WildHelper extends AppHelper {
         
         // Build HTML
         foreach ($pages as $page) {
-            $html .= '<li>' . $this->Htmla->link($page['WildPage']['title'], $page['WildPage']['url'], array('strict' => true)) . '</li>';
+            $html .= '<li>' . $this->Htmla->link($page['Page']['title'], $page['Page']['url'], array('strict' => true)) . '</li>';
         }
         $html .= '</ul>';
         return $html;
     }
     
     function postsFromCategory($slug) {
-        $WildCategory = ClassRegistry::init('WildCategory');
-        $WildCategory->contain(array(
-            'WildPost' => array(
+        $Category = ClassRegistry::init('Category');
+        $Category->contain(array(
+            'Post' => array(
                 'conditions' => array(
                     'draft' => 0
                 )
             ),
-            'WildPost.WildUser'
+            'Post.User'
         ));
-        $category = $WildCategory->findBySlug($slug);
-        $posts = $category['WildPost'];
+        $category = $Category->findBySlug($slug);
+        $posts = $category['Post'];
         return $posts;
     }
 
