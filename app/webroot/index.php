@@ -24,6 +24,7 @@
  * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
+ error_reporting(E_ALL ^ E_DEPRECATED);
 /**
  * Use the DS to separate the directories in other defines
  */
