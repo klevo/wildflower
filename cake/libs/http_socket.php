@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: http_socket.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id: http_socket.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * HTTP Socket connection class.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision: 8120 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Core', array('Socket', 'Set', 'Router'));
@@ -846,7 +846,7 @@ class HttpSocket extends CakeSocket {
 		$cookies = array();
 		foreach ((array)$header['Set-Cookie'] as $cookie) {
 			$parts = preg_split('/(?<![^;]");[ \t]*/', $cookie);
-			list($name, $value) = explode('=', array_shift($parts));
+			list($name, $value) = explode('=', array_shift($parts), 2);
 			$cookies[$name] = compact('value');
 			foreach ($parts as $part) {
 				if (strpos($part, '=') !== false) {

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_mssql.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: dbo_mssql.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * MS SQL layer for DBO
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -221,7 +221,7 @@ class DboMssql extends DboSource {
 				'null' => (strtoupper($column[0]['Null']) == 'YES'),
 				'default' => preg_replace("/^[(]{1,2}'?([^')]*)?'?[)]{1,2}$/", "$1", $column[0]['Default']),
 				'length' => intval($column[0]['Length']),
-				'key'	=> ($column[0]['Key'] == '1')
+				'key' => ($column[0]['Key'] == '1') ? 'primary' : false
 			);
 			if ($fields[$field]['default'] === 'null') {
 				$fields[$field]['default'] = null;
@@ -341,17 +341,18 @@ class DboMssql extends DboSource {
 		if (!empty($values)) {
 			$fields = array_combine($fields, $values);
 		}
+		$primaryKey = $this->_getPrimaryKey($model);
 
-		if (array_key_exists($model->primaryKey, $fields)) {
-			if (empty($fields[$model->primaryKey])) {
-				unset($fields[$model->primaryKey]);
+		if (array_key_exists($primaryKey, $fields)) {
+			if (empty($fields[$primaryKey])) {
+				unset($fields[$primaryKey]);
 			} else {
-				$this->_execute("SET IDENTITY_INSERT " . $this->fullTableName($model) . " ON");
+				$this->_execute('SET IDENTITY_INSERT ' . $this->fullTableName($model) . ' ON');
 			}
 		}
 		$result = parent::create($model, array_keys($fields), array_values($fields));
-		if (array_key_exists($model->primaryKey, $fields) && !empty($fields[$model->primaryKey])) {
-			$this->_execute("SET IDENTITY_INSERT " . $this->fullTableName($model) . " OFF");
+		if (array_key_exists($primaryKey, $fields) && !empty($fields[$primaryKey])) {
+			$this->_execute('SET IDENTITY_INSERT ' . $this->fullTableName($model) . ' OFF');
 		}
 		return $result;
 	}
@@ -632,6 +633,29 @@ class DboMssql extends DboSource {
 		}
 	}
 /**
+ * Inserts multiple values into a table
+ *
+ * @param string $table
+ * @param string $fields
+ * @param array $values
+ * @access protected
+ */
+	function insertMulti($table, $fields, $values) {
+		$primaryKey = $this->_getPrimaryKey($table);
+		$hasPrimaryKey = $primaryKey != null && (
+			(is_array($fields) && in_array($primaryKey, $fields)
+			|| (is_string($fields) && strpos($fields, $this->startQuote . $primaryKey . $this->endQuote) !== false))
+		);
+
+		if ($hasPrimaryKey) {
+			$this->_execute('SET IDENTITY_INSERT ' . $this->fullTableName($table) . ' ON');
+		}
+		parent::insertMulti($table, $fields, $values);
+		if ($hasPrimaryKey) {
+			$this->_execute('SET IDENTITY_INSERT ' . $this->fullTableName($table) . ' OFF');
+		}
+	}
+/**
  * Generate a database-native column schema string
  *
  * @param array $column An array structured like the following: array('name'=>'value', 'type'=>'value'[, options]),
@@ -679,6 +703,28 @@ class DboMssql extends DboSource {
 			$join[] = $out;
 		}
 		return $join;
+	}
+/**
+ * Makes sure it will return the primary key
+ *
+ * @param mixed $model
+ * @access protected
+ * @return string
+ */
+	function _getPrimaryKey($model) {
+		if (is_object($model)) {
+			$schema = $model->schema();
+		} else {
+			$schema = $this->describe($model);
+		}
+
+		foreach ($schema as $field => $props) {
+			if (isset($props['key']) && $props['key'] == 'primary') {
+				return $field;
+			}
+		}
+
+		return null;
 	}
 }
 ?>

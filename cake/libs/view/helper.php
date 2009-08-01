@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: helper.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id: helper.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * Backend for helpers.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 8120 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -591,7 +591,7 @@ class Helper extends Overloadable {
 
 		if (is_array($result)) {
 			$view =& ClassRegistry::getObject('view');
-			if (isset($result[$view->fieldSuffix])) {
+			if (array_key_exists($view->fieldSuffix, $result)) {
 				$result = $result[$view->fieldSuffix];
 			}
 		}

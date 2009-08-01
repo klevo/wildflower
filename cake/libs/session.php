@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: session.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id: session.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * Session class for Cake.
  *
@@ -22,9 +22,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v .0.10.0.1222
- * @version       $Revision: 8120 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -510,7 +510,7 @@ class CakeSession extends Object {
 													array('Cache', 'read'),
 													array('Cache', 'write'),
 													array('Cache', 'delete'),
-													array('CakeSession', '__gc'));
+													array('Cache', 'gc'));
 			break;
 			default:
 				if (empty($_SESSION)) {

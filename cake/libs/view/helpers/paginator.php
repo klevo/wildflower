@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: paginator.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id: paginator.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * Pagination Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision: 8120 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -222,8 +222,16 @@ class PaginatorHelper extends AppHelper {
 			$title = __(Inflector::humanize(preg_replace('/_id$/', '', $title)), true);
 		}
 		$dir = 'asc';
+		$sortKey = $this->sortKey($options['model']);
+		$defaultModel = $this->defaultModel();
 
-		if ($this->sortKey($options['model']) == $key && $this->sortDir($options['model']) == 'asc') {
+		if (strpos($sortKey, $defaultModel) !== false && strpos($key, $defaultModel) === false) {
+			$isSorted = ($sortKey === $defaultModel . '.' . $key);
+		} else {
+			$isSorted = ($sortKey === $key);
+		}
+
+		if ($isSorted && $this->sortDir($options['model']) === 'asc') {
 			$dir = 'desc';
 		}
 		if (is_array($title) && array_key_exists($dir, $title)) {

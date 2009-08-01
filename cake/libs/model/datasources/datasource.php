@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: datasource.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id: datasource.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * DataSource base class
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 7945 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -241,13 +241,14 @@ class DataSource extends Object {
 		if ($this->cacheSources === false) {
 			return null;
 		}
-		if (isset($this->__descriptions[$model->tablePrefix . $model->table])) {
-			return $this->__descriptions[$model->tablePrefix . $model->table];
+		$table = $this->fullTableName($model, false);
+		if (isset($this->__descriptions[$table])) {
+			return $this->__descriptions[$table];
 		}
-		$cache = $this->__cacheDescription($model->tablePrefix . $model->table);
+		$cache = $this->__cacheDescription($table);
 
 		if ($cache !== null) {
-			$this->__descriptions[$model->tablePrefix . $model->table] =& $cache;
+			$this->__descriptions[$table] =& $cache;
 			return $cache;
 		}
 		return null;

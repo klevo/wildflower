@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_oracle.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id: dbo_oracle.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * Oracle layer for DBO.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP v 1.2.0.4041
- * @version       $Revision: 8004 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -454,6 +454,7 @@ class DboOracle extends DboSource {
 		while($r = $this->fetchRow()) {
 			$sources[] = strtolower($r[0]['name']);
 		}
+		parent::listSources($sources);
 		return $sources;
 	}
 /**
@@ -834,8 +835,7 @@ class DboOracle extends DboSource {
 
 		switch($column) {
 			case 'date':
-				$date = new DateTime($data);
-				$data = $date->format('Y-m-d H:i:s');
+				$data = date('Y-m-d H:i:s', strtotime($data));
 				$data = "TO_DATE('$data', 'YYYY-MM-DD HH24:MI:SS')";
 			break;
 			case 'integer' :

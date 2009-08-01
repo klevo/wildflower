@@ -292,7 +292,14 @@ class Configure extends Object {
 
 		if (isset($config['debug'])) {
 			if ($_this->debug) {
-				error_reporting(E_ALL ^ E_DEPRECATED);
+				/**
+                 * PHP 5.3 compatibility
+                 */
+                if (defined('E_DEPRECATED')) {
+                    error_reporting(E_ALL ^ E_DEPRECATED); 
+                } else {
+                    error_reporting(E_ALL);
+                }
 
 				if (function_exists('ini_set')) {
 					ini_set('display_errors', 1);

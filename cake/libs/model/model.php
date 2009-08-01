@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: model.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id: model.php 8166 2009-05-04 21:17:19Z gwoo $ */
 /**
  * Object-relational mapper.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model
  * @since         CakePHP(tm) v 0.10.0.0
- * @version       $Revision: 8120 $
+ * @version       $Revision: 8166 $
  * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -1010,7 +1010,10 @@ class Model extends Overloadable {
 		}
 
 		if ($id !== null && $id !== false) {
-			$this->data = $this->find(array($this->alias . '.' . $this->primaryKey => $id), $fields);
+			$this->data = $this->find('first', array(
+				'conditions' => array($this->alias . '.' . $this->primaryKey => $id),
+				'fields' => $fields
+			));
 			return $this->data;
 		} else {
 			return false;
@@ -1210,7 +1213,7 @@ class Model extends Overloadable {
 				foreach ($this->_schema as $field => $properties) {
 					if ($this->primaryKey === $field) {
 						$fInfo = $this->_schema[$field];
-						$isUUID = ($fInfo['length'] === 36 &&
+						$isUUID = ($fInfo['length'] == 36 &&
 							($fInfo['type'] === 'string' || $fInfo['type'] === 'binary')
 						);
 						if (empty($this->data[$this->alias][$this->primaryKey]) && $isUUID) {
@@ -1279,7 +1282,7 @@ class Model extends Overloadable {
 				));
 
 				$isUUID = !empty($this->{$join}->primaryKey) && (
-						$this->{$join}->_schema[$this->{$join}->primaryKey]['length'] === 36 && (
+						$this->{$join}->_schema[$this->{$join}->primaryKey]['length'] == 36 && (
 						$this->{$join}->_schema[$this->{$join}->primaryKey]['type'] === 'string' ||
 						$this->{$join}->_schema[$this->{$join}->primaryKey]['type'] === 'binary'
 					)
@@ -1374,16 +1377,15 @@ class Model extends Overloadable {
 				$conditions = ($recursive == 1) ? (array)$assoc['counterScope'] : array();
 
 				if (isset($keys['old'][$foreignKey])) {
-					if ($keys['old'][$foreignKey] == $keys[$foreignKey]) {
-						continue;
+					if ($keys['old'][$foreignKey] != $keys[$foreignKey]) {
+						$conditions[$fkQuoted] = $keys['old'][$foreignKey];
+						$count = intval($this->find('count', compact('conditions', 'recursive')));
+	
+						$this->{$parent}->updateAll(
+							array($assoc['counterCache'] => $count),
+							array($this->{$parent}->escapeField() => $keys['old'][$foreignKey])
+						);
 					}
-					$conditions[$fkQuoted] = $keys['old'][$foreignKey];
-					$count = intval($this->find('count', compact('conditions', 'recursive')));
-
-					$this->{$parent}->updateAll(
-						array($assoc['counterCache'] => $count),
-						array($this->{$parent}->escapeField() => $keys['old'][$foreignKey])
-					);
 				}
 				$conditions[$fkQuoted] = $keys[$foreignKey];
 
@@ -1420,7 +1422,7 @@ class Model extends Overloadable {
 			return array();
 		}
 		$old = $this->find('first', array(
-			'conditions' => array('id' => $this->id),
+			'conditions' => array($this->primaryKey => $this->id),
 			'fields' => array_values($included),
 			'recursive' => -1
 		));
@@ -1853,7 +1855,7 @@ class Model extends Overloadable {
 		if ($this->getID() === false || $this->useTable === false) {
 			return false;
 		}
-		if ($this->__exists !== null && $reset !== true) {
+		if (!empty($this->__exists) && $reset !== true) {
 			return $this->__exists;
 		}
 		$conditions = array($this->alias . '.' . $this->primaryKey => $this->getID());
