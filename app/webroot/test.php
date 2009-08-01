@@ -24,7 +24,14 @@
  * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
-error_reporting(E_ALL);
+/**
+ * PHP 5.3 compatibility
+ */
+if (defined('E_DEPRECATED')) {
+    error_reporting(E_ALL ^ E_DEPRECATED); 
+} else {
+    error_reporting(E_ALL);
+}
 set_time_limit(0);
 ini_set('memory_limit','128M');
 ini_set('display_errors', 1);
