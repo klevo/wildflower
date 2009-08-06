@@ -38,15 +38,3 @@ function fb() {
     return call_user_func_array(array($instance,'fb'),$args);
     return true;
 }
-
-function __autoload($className) {
-    /** Wildfower callbacks auto-loading */
-    $fileName = Inflector::underscore($className) . '_callback.php';
-    $filePath = APP . 'controllers' . DS . 'wildflower_callbacks' . DS . $fileName;
-
-    if (file_exists($filePath)) {
-        require_once($filePath);
-    }
-}
-
-class WildflowerCallback {}
