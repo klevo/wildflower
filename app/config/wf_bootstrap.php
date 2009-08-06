@@ -7,8 +7,6 @@
  * @package wildflower
  */
 
-define('SETTINGS_CACHE_FILE', TMP . 'settings' . DS . 'cache'); // @depracated
-
 // Include Wildflower config
 require_once(dirname(__FILE__) . DS . 'wf_core.php');
 
