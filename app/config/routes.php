@@ -20,10 +20,6 @@ Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category
 $prefix = Configure::read('Routing.admin');
 Router::connect("/$prefix", array('controller' => 'dashboards', 'action' => 'index', 'admin' => true));
 
-// Contact form
-Router::connect('/contact', array('controller' => 'messages', 'action' => 'index'));
-Router::connect('/contact/create', array('controller' => 'messages', 'action' => 'create'));
-
 // Image thumbnails
 // @TODO shorten to '/i/*'
 Router::connect('/wildflower/thumbnail/*', array('controller' => 'assets', 'action' => 'thumbnail'));

@@ -4,15 +4,16 @@
 <?php $session->flash(); ?>
 
 <?php
+    $url = $html->url(array('controller' => 'messages', 'action' => 'index', 'base' => false));
     echo 
-    $form->create('Message', array('url' => $here, 'class' => 'contact-form')),
+    $form->create('Message', array('url' => $url, 'class' => 'contact_form')),
     "<fieldset>\n",
-    "<legend>Contact form</legend>\n",
+    "<legend>", __('Contact form', true), "</legend>\n",
     $form->input('name'),
     $form->input('email'),
     $form->input('content', array('type' => 'textarea', 'label' => 'Message')),
-    $form->submit('Send my message'),
     "</fieldset>\n",
+    $form->submit('Send my message'),
     $form->end();
 ?>
 
