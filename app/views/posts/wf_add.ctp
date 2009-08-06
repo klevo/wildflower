@@ -9,8 +9,8 @@
 <ul id="sidebar">
     <li>
         <ul class="sidebar-menu">
-            <li><?php echo $html->link('Title & Content', array('action' => 'wf_edit'), array('class' => 'current')); ?></li>
-            <li><?php echo $html->link('Categories', array('action' => 'wf_edit_categories')); ?></li>
+            <li><?php echo $html->link('Title & Content', array('action' => 'admin_edit'), array('class' => 'current')); ?></li>
+            <li><?php echo $html->link('Categories', array('action' => 'admin_edit_categories')); ?></li>
         </ul>
     </li>
     <li><?php echo $html->link(

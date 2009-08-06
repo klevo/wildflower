@@ -8,7 +8,7 @@ if($hasUser) {
 <?php
 $json = array(
     'post-info' => $info,
-    'edit-buttons' => $this->element('wf_edit_buttons', array('isDraft' => $page['Page']['draft'])),
+    'edit-buttons' => $this->element('admin_edit_buttons', array('isDraft' => $page['Page']['draft'])),
 );
 
 echo json_encode($json);

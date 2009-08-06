@@ -12,20 +12,20 @@ class MessagesController extends AppController {
         )
 	);
 	
-    function wf_index() {
+    function admin_index() {
         $this->pageTitle = 'Contact form messages';
         $messages = $this->paginate('Message');
         $this->set(compact('messages'));
     }   
     
-    function wf_spam() {
+    function admin_spam() {
         $this->pageTitle = 'Spam contact form messages';
         $messages = $this->paginate('Message', 'spam = 1');
         $this->set(compact('messages'));
-        $this->render('wf_index');
+        $this->render('admin_index');
     }
 	
-	function wf_view($id = null) {
+	function admin_view($id = null) {
 	    $message = $this->Message->findById($id);
 	    $this->pageTitle = $message['Message']['subject'];
 	    $this->set(compact('message'));
@@ -84,7 +84,7 @@ class MessagesController extends AppController {
         $this->render('contact');
     }
     
-    function wf_recheck_inbox_for_spam() {
+    function admin_recheck_inbox_for_spam() {
         $msgs = $this->Message->find('all');
         $movedToSpam = 0;
         foreach ($msgs as $msg) {

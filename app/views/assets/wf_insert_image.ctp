@@ -22,7 +22,7 @@
         <?php endforeach; ?>
         </ul>
 
-        <?php echo $this->element('wf_pagination'); ?>
+        <?php echo $this->element('admin_pagination'); ?>
 
     <?php endif; ?>
     

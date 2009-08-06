@@ -25,14 +25,14 @@ class PagesController extends AppController {
      * A static about Wildflower page
      *
      */
-    function wf_about() {
+    function admin_about() {
     }
     
     /**
      * Create a new page, with title set, as a draft.
      *
      */
-    function wf_create() {
+    function admin_create() {
         $this->data[$this->modelClass]['draft'] = 1;
         $this->data[$this->modelClass]['content'] = '';
         $this->Page->create($this->data);
@@ -47,7 +47,7 @@ class PagesController extends AppController {
      *
      * @param int $pageId
      */
-    function wf_diff($pageId, $revisionId) {
+    function admin_diff($pageId, $revisionId) {
         $pageDiff = $this->Page->revisionDiff($pageId, $revisionId);
         $this->set('revisionDiff', $pageDiff);
     }
@@ -59,7 +59,7 @@ class PagesController extends AppController {
      *
      * @param int $id
      */
-    function wf_discardChanges($id = null, $actionAfter = null) {
+    function admin_discardChanges($id = null, $actionAfter = null) {
         $previewCachePath = TMP . 'preview' . DS . "page_{$id}_preview.txt";
         if (file_exists($previewCachePath)) {
             unlink($previewCachePath);
@@ -77,7 +77,7 @@ class PagesController extends AppController {
      * 
      * @param int $id Page ID
      */
-    function wf_edit($id = null) {
+    function admin_edit($id = null) {
         if (isset($this->params['named']['rev'])) {
             $page = $this->Page->getRevision($id, $this->params['named']['rev']);
         } else {
@@ -93,7 +93,7 @@ class PagesController extends AppController {
         $this->set(compact('newParentPageOptions', 'revisions', 'isDraft'));
     }
     
-    function wf_preview($id, $previewCacheFileName = null) {
+    function admin_preview($id, $previewCacheFileName = null) {
         if (isset($this->params['named']['rev'])) {
             $page = $this->Page->getRevision($id, $this->params['named']['rev']);
         } else {
@@ -108,7 +108,7 @@ class PagesController extends AppController {
         $this->set(compact('page'));
     }
     
-    function wf_options($id = null) {
+    function admin_options($id = null) {
         $this->Page->contain('User');
         $this->data = $this->Page->findById($id);
         
@@ -119,7 +119,7 @@ class PagesController extends AppController {
         $this->set(compact('parentPageOptions'));
     }
     
-    function wf_reorder() {
+    function admin_reorder() {
         $this->pageTitle = 'Reordering pages';
         $this->Page->recursive = -1;
         $order = 'lft ASC';
@@ -128,7 +128,7 @@ class PagesController extends AppController {
     	$this->set(compact('pages'));
     }
     
-    function wf_sidebar($id = null) {
+    function admin_sidebar($id = null) {
         $this->Page->contain('User');
         $this->data = $this->Page->findById($id);
         
@@ -137,7 +137,7 @@ class PagesController extends AppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function wf_update() {
+    function admin_update() {
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
         
         $this->Page->create($this->data);
@@ -165,7 +165,7 @@ class PagesController extends AppController {
         if ($this->RequestHandler->isAjax()) {
             $this->data = $page;
             $this->set(compact('page', 'hasUser'));
-            return $this->render('wf_update');
+            return $this->render('admin_update');
         }
         
         $this->redirect(array('action' => 'edit', $this->data[$this->modelClass]['id']));
@@ -175,7 +175,7 @@ class PagesController extends AppController {
      * Pages administration overview
      * 
      */
-    function wf_index() {
+    function admin_index() {
         $this->pageTitle = 'Pages';
         $this->Page->recursive = -1;
     	$pages = $this->Page->find('all', array('order' => 'lft ASC'));
@@ -187,7 +187,7 @@ class PagesController extends AppController {
      * Insert link dialog
      *
      */
-    function wf_link() {
+    function admin_link() {
         $this->autoLayout = false;
         $pages = $this->Page->findAll();
         $pagesForSelectBox = $pageUrlMap = array();
@@ -209,7 +209,7 @@ class PagesController extends AppController {
            'postUrlMap' => $postUrlMap,
            'pageUrlMap' => $pageUrlMap));
         
-        $this->layout = 'wf_dialog';
+        $this->layout = 'admin_dialog';
     }
     
     /**
@@ -217,7 +217,7 @@ class PagesController extends AppController {
      *
      * @param int $id
      */
-    function wf_moveup($id = null) {
+    function admin_moveup($id = null) {
     	$this->Page->moveup($id);
     	$this->Session->write('ChangeIndicator.id', $id);
         $this->redirect("/admin/pages/#page-$id");
@@ -228,7 +228,7 @@ class PagesController extends AppController {
      *
      * @param int $id
      */
-    function wf_movedown($id = null) {
+    function admin_movedown($id = null) {
         $this->Page->movedown($id);
         $this->Session->write('ChangeIndicator.id', $id);
         $this->redirect("/admin/pages/#page-$id");
@@ -239,7 +239,7 @@ class PagesController extends AppController {
      * 
      * Maintenance function.
      */
-    function wf_setUrlFields() {
+    function admin_setUrlFields() {
     	$pages = $this->Page->findAll();
     	
     	// Resave each page
@@ -399,7 +399,7 @@ class PagesController extends AppController {
      *
      * @param int $id Page ID
      */
-    function wf_custom_fields($id) {
+    function admin_custom_fields($id) {
         $page = $this->Page->findById($id);
         $customFields = $page[$this->modelClass]['custom_fields'];
         $customFields = json_decode($customFields, true);
@@ -435,7 +435,7 @@ class PagesController extends AppController {
      * 
      * Handles redirect if the correct url for page is not entered.
      */
-    function wf_versions($id = null) {
+    function admin_versions($id = null) {
         $this->Page->contain('User');
         $this->data = $this->Page->findById($id);
         

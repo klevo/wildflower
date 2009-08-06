@@ -4,15 +4,15 @@
     echo 
     $navigation->create(array(
 		'View' => $postUrl . "#comment-{$this->data['Comment']['id']}",
-		'Delete' => array('action' => 'wf_delete', $this->data['Comment']['id']),
-        'Approved' => array('action' => 'wf_index'),
-        'Spam' => array('action' => 'wf_spam'),
+		'Delete' => array('action' => 'admin_delete', $this->data['Comment']['id']),
+        'Approved' => array('action' => 'admin_index'),
+        'Spam' => array('action' => 'admin_spam'),
     ), array('id' => 'sub-nav'));
     
     $session->flash();
     
     echo 
-    $form->create('Comment', array('url' => $html->url(array('action' => 'wf_edit', 'base' => false)))),
+    $form->create('Comment', array('url' => $html->url(array('action' => 'admin_edit', 'base' => false)))),
     $form->hidden('Post.slug'), 
     $form->hidden('Post.id'), 
     $form->hidden('Post.permalink', array('value' => $html->url($postUrl, true))), 

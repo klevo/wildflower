@@ -5,13 +5,13 @@
 
 <h2 class="section"><?php __('User Accounts'); ?></h2>
 
-<?php echo $this->element('wf_select_actions'); ?>
+<?php echo $this->element('admin_select_actions'); ?>
 
 <ul class="list">
     <?php foreach ($users as $user): ?>
         <li class="post-row actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $user['User']['id']) ?></span>
-            <span class="title-row"><?php echo $html->link($user['User']['name'], array('action' => 'wf_edit', $user['User']['id']), array('title' => __('Edit this user account.', true))) ?></span>
+            <span class="title-row"><?php echo $html->link($user['User']['name'], array('action' => 'admin_edit', $user['User']['id']), array('title' => __('Edit this user account.', true))) ?></span>
             <span class="cleaner"></span>
         </li>
     <?php endforeach; ?>
@@ -19,8 +19,8 @@
 
 <?php
     echo
-    $this->element('wf_select_actions'), 
-	//$this->element('wf_pagination'),
+    $this->element('admin_select_actions'), 
+	//$this->element('admin_pagination'),
     $form->end();
 ?>
 

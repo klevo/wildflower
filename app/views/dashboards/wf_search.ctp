@@ -13,7 +13,7 @@
 			continue;
 		}
 		
-		$url = array('controller' => $controller, 'action' => 'wf_edit', $item[$model]['id']);
+		$url = array('controller' => $controller, 'action' => 'admin_edit', $item[$model]['id']);
 		echo '<li>' . $html->link($item[$model]['title'], $url) . '</li>';
 	}
 ?>

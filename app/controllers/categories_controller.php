@@ -13,7 +13,7 @@ class CategoriesController extends AppController {
      * Reorder categories
      * 
      */
-    function wf_index() {
+    function admin_index() {
         if (!empty($this->data)) {
             if ($this->Category->save($this->data)) {
                 return $this->redirect(array('action' => 'index'));
@@ -30,7 +30,7 @@ class CategoriesController extends AppController {
      *
      * Returns the updated category list as JSON.
      */
-    function wf_create() {
+    function admin_create() {
     	$postId = intval($this->data[$this->modelClass]['post_id']);
     	unset($this->data[$this->modelClass]['post_id']);
     	
@@ -48,7 +48,7 @@ class CategoriesController extends AppController {
     }
     
     // @TODO make POST only
-    function wf_delete($id) {
+    function admin_delete($id) {
         if ($this->_isFixed($id)) {
             return $this->_renderNoEdit($id);
         }
@@ -62,7 +62,7 @@ class CategoriesController extends AppController {
      * @param int $id
      * @deprecated Add this info to admin_edit
      */
-    function wf_view($id = null) {
+    function admin_view($id = null) {
         $category = $this->Category->findById($id);
         $this->set('category', $category);
     }
@@ -72,7 +72,7 @@ class CategoriesController extends AppController {
      * 
      * @param int $id
      */
-    function wf_edit($id = null) {
+    function admin_edit($id = null) {
         if ($this->_isFixed($id)) {
             return $this->_renderNoEdit($id);
         }

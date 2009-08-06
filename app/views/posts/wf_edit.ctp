@@ -4,7 +4,7 @@
     }
 
     echo 
-    $form->create('Post', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form')),
+    $form->create('Post', array('url' => $html->url(array('action' => 'admin_update', 'base' => false)), 'class' => 'editor_form')),
     $form->input('title', array(
         'label' => __('Post title', true)
     )),
@@ -23,7 +23,7 @@
 ?>
     
 <div id="edit-buttons">
-    <?php echo $this->element('wf_edit_buttons'); ?>
+    <?php echo $this->element('admin_edit_buttons'); ?>
 </div>
 
 <?php echo $form->end(); ?>
@@ -33,7 +33,7 @@
     <li class="main_sidebar">
         <?php echo $html->link(
             '<span>Write a new post</span>', 
-            array('action' => 'wf_create'),
+            array('action' => 'admin_create'),
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li class="main_sidebar category_sidebar">

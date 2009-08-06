@@ -26,7 +26,7 @@ echo $navigation->create(array(
 <div id="file-upload">
     <?php
         echo 
-        $form->create('Asset', array('type' => 'file', 'url' => $html->url(array('action' => 'wf_update', 'base' => false)))),
+        $form->create('Asset', array('type' => 'file', 'url' => $html->url(array('action' => 'admin_update', 'base' => false)))),
         $form->input('title', array('between' => '<br />', 'label' => 'Title <small>(optional)</small>')),
         '<div>',
         $form->hidden('id'),

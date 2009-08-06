@@ -5,10 +5,10 @@
 
     echo 
     $form->create('Message', array('action' => 'mass_update')),
-    $this->element('wf_select_actions', array('actions' => array('Delete'))),
+    $this->element('admin_select_actions', array('actions' => array('Delete'))),
     $list->create($messages, array('model' => 'Message', 'class' => 'list selectable-list', 'element' => 'admin_messages_list_item')),
-    $this->element('wf_select_actions', array('actions' => array('Delete'))),
-    $this->element('wf_pagination'),
+    $this->element('admin_select_actions', array('actions' => array('Delete'))),
+    $this->element('admin_pagination'),
     $form->end();
 ?>  
 

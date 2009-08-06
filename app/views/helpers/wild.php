@@ -109,7 +109,7 @@ class WildHelper extends AppHelper {
     	}
     	$links = join("\n", $links);
     	if (is_null($id)) {
-    	    $id = "wf_$slug";
+    	    $id = "admin_$slug";
     	}
     	return "<ul id=\"$id\">\n$links\n</ul>\n";
     }
@@ -150,7 +150,7 @@ class WildHelper extends AppHelper {
     
     function processWidgets($html) {
         // Find the widget element
-        $selector = '.wf_widget';
+        $selector = '.admin_widget';
         $dom = str_get_html($html);
         $widgets = $dom->find($selector);
         $Widget = ClassRegistry::init('Widget');
@@ -158,7 +158,7 @@ class WildHelper extends AppHelper {
         foreach ($widgets as $widget) {
             $widgetId = $widget->id;
             $widgetClass = $widget->class;
-            $instanceId = intval(r('wf_widget wf_widget_id_', '', $widgetClass));
+            $instanceId = intval(r('admin_widget admin_widget_id_', '', $widgetClass));
             $data = $Widget->findById($instanceId);
             $data = json_decode($data['Widget']['config'], true);
             $replaceWith = $view->element('widgets/' . $widgetId, array('data' => $data));

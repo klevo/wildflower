@@ -5,7 +5,7 @@ This post is <?php if ($post['Post']['draft']): ?>not published, therefore not v
 <?php
 $json = array(
     'post-info' => $info,
-    'edit-buttons' => $this->element('wf_edit_buttons', array('isDraft' => $post['Post']['draft'])),
+    'edit-buttons' => $this->element('admin_edit_buttons', array('isDraft' => $post['Post']['draft'])),
 );
 
 echo json_encode($json);

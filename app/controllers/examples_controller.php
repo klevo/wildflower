@@ -1,7 +1,7 @@
 <?php
 class ExamplesController extends AppController {
     
-    function wf_index() {
+    function admin_index() {
         
     }
     

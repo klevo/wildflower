@@ -4,7 +4,7 @@ class DashboardsController extends AppController {
 	public $helpers = array('List', 'Time', 'Text');
 	public $pageTitle = 'Dashboard';
 	
-	function wf_index() {
+	function admin_index() {
         $items = $this->Dashboard->findRecentHappening();
         $users = ClassRegistry::init('User')->find('all', array('order' => 'last_login ASC'));
 		$this->set(compact('items', 'users'));
@@ -15,7 +15,7 @@ class DashboardsController extends AppController {
      *
      * @param string $query Search term, encoded by Javascript's encodeURI()
      */
-    function wf_search($query = '') {
+    function admin_search($query = '') {
         $query = urldecode($query);
         $postResults = ClassRegistry::init('Post')->search($query);
         $pageResults = ClassRegistry::init('Page')->search($query);

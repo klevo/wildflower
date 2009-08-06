@@ -8,7 +8,7 @@ class SettingsController extends AppController {
 	    $this->modelClass = $this->Setting->name;
 	}
 	
-	function wf_add() {
+	function admin_add() {
 		if (!empty($this->data)) {
 			$this->data[$this->modelClass]['name'] = trim($this->data[$this->modelClass]['name']);
 			if ($this->Setting->save($this->data)) {
@@ -25,7 +25,7 @@ class SettingsController extends AppController {
 	 * Site Settings
 	 * 
 	 */
-	function wf_index() {
+	function admin_index() {
 	    $this->pageTitle = 'Site settings';
 	    
 	    $homePageIdOptions = $this->Page->getListThreaded();
@@ -39,7 +39,7 @@ class SettingsController extends AppController {
 	 * @TODO: Add some validation
 	 *
 	 */
-	function wf_update() {
+	function admin_update() {
 	    // If cache has been turned off clear it
 	    $cacheSetting = $this->Setting->findByName('cache');
 	    if ($cacheSetting[$this->modelClass]['value'] == 'on' and $this->data[$this->modelClass][$cacheSetting[$this->modelClass]['id']] == 'off') {

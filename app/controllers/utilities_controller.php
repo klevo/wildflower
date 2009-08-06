@@ -12,11 +12,11 @@ class WildUtilitiesController extends AppController {
             return $this->do404();
         }
         
-        $this->Security->requireAuth('wf_index');
+        $this->Security->requireAuth('admin_index');
         $this->pageTitle = 'Developer Utilities';
     }
         
-    function wf_index() {
+    function admin_index() {
         if (!empty($this->data)) {
             $addWhat = '_massAdd' . ucwords($this->data['Utility']['what']);
             $howMany = intval($this->data['Utility']['how_many']);

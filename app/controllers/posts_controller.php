@@ -12,7 +12,7 @@ class PostsController extends AppController {
 	);
 	public $components = array('Email');
 	
-	/** Pagination options for the wf_index action **/
+	/** Pagination options for the admin_index action **/
     public $paginate = array(
         'limit' => 12,
         'order' => array('Post.created' => 'desc'),
@@ -22,7 +22,7 @@ class PostsController extends AppController {
      * Create a post and redirect to it's edit screen
      *
      */
-    function wf_create() {
+    function admin_create() {
         // Generate UUID
         $uuid = sha1(String::uuid()); 
         // Check if unique
@@ -37,14 +37,14 @@ class PostsController extends AppController {
         $this->data[$this->modelClass] = am($this->data[$this->modelClass], $defaultParams);
         $this->{$this->modelClass}->create($this->data);
         $this->{$this->modelClass}->save();
-        $this->redirect(array('action' => 'wf_edit', $this->{$this->modelClass}->id));
+        $this->redirect(array('action' => 'admin_edit', $this->{$this->modelClass}->id));
     }
     
     /**
      * Manage post's comments
      * 
      */
-    function wf_comments($id = null, $status = null) {
+    function admin_comments($id = null, $status = null) {
         $spam = ($status == 'spam') ? 1 : 0;
         $approved = ($status == 'unapproved') ? 0 : 1;
         if ($spam) {
@@ -71,7 +71,7 @@ class PostsController extends AppController {
      * Posts overview
      * 
      */
-    function wf_index() {
+    function admin_index() {
     	$posts = $this->paginate($this->modelClass);
         $this->set('posts', $posts);
     }
@@ -81,7 +81,7 @@ class PostsController extends AppController {
      * 
      * @param int $id
      */
-    function wf_edit($id = null, $revisionNumber = null) {
+    function admin_edit($id = null, $revisionNumber = null) {
         $this->Post->contain(array('User', 'Category'));
         $this->data = $this->Post->findById($id);
         //var_dump($this->data);
@@ -118,7 +118,7 @@ class PostsController extends AppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function wf_categorize($id = null) {
+    function admin_categorize($id = null) {
         $this->Post->contain(array('User', 'Category'));
         $this->data = $this->Post->findById($id);
         
@@ -133,7 +133,7 @@ class PostsController extends AppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function wf_options($id = null) {
+    function admin_options($id = null) {
         $this->Post->contain(array('User', 'Category'));
         $this->data = $this->Post->findById($id);
         
@@ -145,7 +145,7 @@ class PostsController extends AppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function wf_update() {
+    function admin_update() {
         //fb($this->data);
         $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
 
@@ -177,7 +177,7 @@ class PostsController extends AppController {
             $this->Post->contain('User');
             $this->data = $post = $this->Post->findById($this->Post->id); // @TODO clean up
             $this->set(compact('post'));
-            return $this->render('wf_update');
+            return $this->render('admin_update');
         }
 
         $this->redirect(array('action' => 'edit', $this->Post->id));

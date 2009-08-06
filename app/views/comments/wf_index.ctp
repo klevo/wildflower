@@ -2,14 +2,14 @@
 
 <?php
 	echo 
-	$form->create('Comment', array('action' => 'wf_mass_update', 'id' => 'comments_index'));
+	$form->create('Comment', array('action' => 'admin_mass_update', 'id' => 'comments_index'));
 ?>
 
 <?php
     if (empty($comments)) {
         echo '<p>', __('No comments yet.', true), '</p>';
     } else {
-        $actions = $this->element('wf_select_actions', array('actions' => array('Unapprove', 'Spam!', 'Delete')));
+        $actions = $this->element('admin_select_actions', array('actions' => array('Unapprove', 'Spam!', 'Delete')));
 
         echo 
         $actions,

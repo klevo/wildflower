@@ -3,7 +3,7 @@ class MenusController extends AppController {
     
     public $pageTitle = 'Navigation';
     
-    function wf_add() {
+    function admin_add() {
         if (!empty($this->data)) {
             $this->_addOrderToItems();
             $this->data['Menu']['slug'] = Inflector::slug($this->data['Menu']['title']);
@@ -14,7 +14,7 @@ class MenusController extends AppController {
         }
     }
     
-    function wf_edit($id) {
+    function admin_edit($id) {
         if (!empty($this->data)) {
             $this->_addOrderToItems();
             //var_dump($this->data);die();

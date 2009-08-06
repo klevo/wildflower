@@ -7,13 +7,13 @@ class SidebarsController extends AppController {
         $this->_bindCustomModel();
     }
     
-    function wf_index() {
+    function admin_index() {
         $sidebars = $this->Sidebar->find('all');
         $menus = ClassRegistry::init('Menu')->find('all', array('recursive' => -1));
         $this->set(compact('sidebars', 'menus'));
     }
     
-    function wf_add() {
+    function admin_add() {
         $this->_bindCustomModel();
         
         if (!empty($this->data)) {
@@ -30,7 +30,7 @@ class SidebarsController extends AppController {
         $this->set(compact('pages', 'inPages'));
     }    
     
-    function wf_edit($id) {
+    function admin_edit($id) {
         $this->_bindCustomModel();
         
         if (!empty($this->data)) {

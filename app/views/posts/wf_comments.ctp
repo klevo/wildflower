@@ -16,7 +16,7 @@
 <?php if (empty($this->data['Comment'])): ?>
     <p>No comments.</p>
 <?php else: ?>
-    <?php echo $this->element('wf_select_actions', array('actions' => array('Approve', 'Unapprove', 'Spam', 'Unspam', 'Delete'))); ?>
+    <?php echo $this->element('admin_select_actions', array('actions' => array('Approve', 'Unapprove', 'Spam', 'Unspam', 'Delete'))); ?>
     
     <ol class="comments_list">
         <?php foreach ($this->data['Comment'] as $i => $comment): ?>      
@@ -31,7 +31,7 @@
         <?php endforeach; ?>
     </ol>
     
-    <?php echo $this->element('wf_select_actions', array('actions' => array('Approve', 'Unapprove', 'Spam', 'Unspam', 'Delete'))); ?>
+    <?php echo $this->element('admin_select_actions', array('actions' => array('Approve', 'Unapprove', 'Spam', 'Unspam', 'Delete'))); ?>
 <?php endif; ?>
 
 <p><?php echo $html->link(__('Back to post edit', true), array('action' => 'edit', $this->params['pass'][0])); ?></p>

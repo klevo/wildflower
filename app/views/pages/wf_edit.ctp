@@ -4,7 +4,7 @@
     }
     
     echo 
-    $form->create('Page', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)), 'class' => 'editor_form')),
+    $form->create('Page', array('url' => $html->url(array('action' => 'admin_update', 'base' => false)), 'class' => 'editor_form')),
     $form->input('title', array('between' => '', 'label' => 'Page title')), 
     $form->input('content', array(
         'type' => 'textarea',
@@ -20,7 +20,7 @@
 ?>
 
 <div id="edit-buttons">
-    <?php echo $this->element('wf_edit_buttons'); ?>
+    <?php echo $this->element('admin_edit_buttons'); ?>
 </div>
 
 <?php 

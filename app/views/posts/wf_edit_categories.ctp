@@ -1,5 +1,5 @@
 <?php 
-    echo $form->create('Post', array('url' => $html->url(array('action' => 'wf_update', 'base' => false)))); 
+    echo $form->create('Post', array('url' => $html->url(array('action' => 'admin_update', 'base' => false)))); 
 ?>
 
 <div id="post-categories">

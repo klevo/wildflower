@@ -8,12 +8,12 @@ class AssetsController extends AppController {
         'order' => array('created' => 'desc')
     );
 	
-	function wf_create() {
+	function admin_create() {
 	    $this->Asset->create($this->data);
 	    
 	    if (!$this->Asset->validates()) {
 	        $this->feedFileManager();
-	        return $this->render('wf_index');
+	        return $this->render('admin_index');
 	    }
 	    
 	    // @TODO replace upload logic with Asset::upload()
@@ -46,7 +46,7 @@ class AssetsController extends AppController {
         if (!$isUploaded) {
             $this->Asset->invalidate('file', 'File can`t be moved to the uploads directory. Check permissions.');
             $this->feedFileManager();
-            return $this->render('wf_index');
+            return $this->render('admin_index');
         }
         
         // Make this file writable and readable
@@ -67,7 +67,7 @@ class AssetsController extends AppController {
 	 * Files overview
 	 *
 	 */
-	function wf_index() {
+	function admin_index() {
         $this->feedFileManager();
 	}
 	
@@ -77,7 +77,7 @@ class AssetsController extends AppController {
 	 * @param int $id
 	 */
 	 // @TODO make require a POST
-	function wf_delete($id) {
+	function admin_delete($id) {
 	    $this->Asset->delete($id);
 		$this->redirect(array('action' => 'index'));
 	}
@@ -87,7 +87,7 @@ class AssetsController extends AppController {
 	 *
 	 * @param int $id
 	 */
-	function wf_edit($id) {
+	function admin_edit($id) {
 		$this->data = $this->Asset->findById($id);
 		$this->pageTitle = $this->data[$this->modelClass]['title'];
 	}
@@ -97,7 +97,7 @@ class AssetsController extends AppController {
 	 *
 	 * @param int $limit Number of images on one page
 	 */
-	function wf_insert_image() {
+	function admin_insert_image() {
 		$this->autoLayout = false;
 		$this->paginate['limit'] = 10;
 		$this->paginate['conditions'] = "{$this->modelClass}.mime LIKE 'image%'";
@@ -105,14 +105,14 @@ class AssetsController extends AppController {
 		$this->set('images', $images);
 	}
 	
-	function wf_browse_images() {
+	function admin_browse_images() {
 		$this->paginate['limit'] = 6;
 		$this->paginate['conditions'] = "{$this->modelClass}.mime LIKE 'image%'";
 		$images = $this->paginate($this->modelClass);
 		$this->set('images', $images);
 	}
 	
-	function wf_update() {
+	function admin_update() {
 	    $this->Asset->create($this->data);
 	    if (!$this->Asset->exists()) return $this->cakeError('object_not_found');
 	    $this->Asset->saveField('title', $this->data[$this->modelClass]['title']);
@@ -139,11 +139,11 @@ class AssetsController extends AppController {
      *
      * The output is cached when not in debug mode.
      */
-    function wf_jlm() {
-        $javascripts = Cache::read('wf_jlm'); 
+    function admin_jlm() {
+        $javascripts = Cache::read('admin_jlm'); 
         if (empty($javascripts) or Configure::read('debug') > 0) {
             $javascripts = $this->JlmPackager->concate();
-            Cache::write('wf_jlm', $javascripts);
+            Cache::write('admin_jlm', $javascripts);
         }
         
         $this->layout = false;
@@ -151,7 +151,7 @@ class AssetsController extends AppController {
         $this->RequestHandler->respondAs('application/javascript');
         
         $cacheSettings = Cache::settings();
-        $file = CACHE . $cacheSettings['prefix'] . 'wf_jlm';
+        $file = CACHE . $cacheSettings['prefix'] . 'admin_jlm';
         $this->JlmPackager->browserCacheHeaders(filemtime($file));
         
         Configure::write('debug', 0);

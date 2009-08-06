@@ -15,7 +15,7 @@
 
 <h2 class="section"><?php __('Blog Posts'); ?></h2>
 
-<?php echo $this->element('wf_select_actions'); ?>
+<?php echo $this->element('admin_select_actions'); ?>
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post): ?>
@@ -27,7 +27,7 @@
                     $draftStatus = '<abbr title="This post is not published, therefore not visible to the public." class="draft-status">(Draft)</abbr> ';
                 }
             ?>
-            <span class="title-row"><?php echo $draftStatus, $html->link($post['Post']['title'], array('action' => 'wf_edit', $post['Post']['id']), array('title' => __('Edit this post.', true))) ?></span>
+            <span class="title-row"><?php echo $draftStatus, $html->link($post['Post']['title'], array('action' => 'admin_edit', $post['Post']['id']), array('title' => __('Edit this post.', true))) ?></span>
             <span class="post-date"><?php echo $html->link($time->format('j M y', $post['Post']['created']), array('action' => 'options', $post['Post']['id']), array('title' => __('Change post options.', true))); ?></span>
             <div class="post-categories">
             <?php
@@ -50,8 +50,8 @@
 
 <?php
     echo
-    $this->element('wf_select_actions'), 
-	$this->element('wf_pagination'),
+    $this->element('admin_select_actions'), 
+	$this->element('admin_pagination'),
     $form->end();
 ?>
 
@@ -62,7 +62,7 @@
     </li>
     <li><?php echo $html->link(
         '<span>' . __('Write a new post', true) . '</span>',
-        array('action' => 'wf_create'),
+        array('action' => 'admin_create'),
         array('class' => 'add', 'escape' => false)) ?>
     </li>
 <?php $partialLayout->blockEnd(); ?>

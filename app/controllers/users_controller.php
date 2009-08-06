@@ -11,7 +11,7 @@ class UsersController extends AppController {
      *
      * @param int $id
      */
-    function wf_delete($id) {
+    function admin_delete($id) {
         $id = intval($id);
         if ($this->RequestHandler->isAjax()) {
             return $this->User->del($id);
@@ -96,14 +96,14 @@ class UsersController extends AppController {
      * 
      * Delete User info from Session, Cookie and reset cookie token.
      */
-    function wf_logout() {
+    function admin_logout() {
         $this->User->create($this->Auth->user());
         $this->User->saveField('cookie_token', '');
         $this->Cookie->del('Auth.User');
         $this->redirect($this->Auth->logout());
     }
 
-    function wf_view($id) {
+    function admin_view($id) {
         $this->User->recursive = -1;
         $this->set('user', $this->User->findById($id));
     }
@@ -112,12 +112,12 @@ class UsersController extends AppController {
      * Users overview
      * 
      */
-    function wf_index() {
+    function admin_index() {
         $users = $this->User->findAll();
         $this->set(compact('users'));
     }
     
-    function wf_change_password($id = null) {
+    function admin_change_password($id = null) {
         $this->data = $this->User->findById($id);
     }
 
@@ -125,14 +125,14 @@ class UsersController extends AppController {
      * Create new user
      *
      */
-    function wf_create() {
+    function admin_create() {
         if ($this->User->save($this->data)) {
             return $this->redirect(array('action' => 'index'));
         }
 
         $users = $this->User->find('all');
         $this->set(compact('users'));
-        $this->render('wf_index');
+        $this->render('admin_index');
     }
 
     /**
@@ -140,21 +140,21 @@ class UsersController extends AppController {
      *
      * @param int $id
      */
-    function wf_edit($id = null) {
+    function admin_edit($id = null) {
         $this->data = $this->User->findById($id);
         if (empty($this->data)) $this->cakeError('object_not_found');
     }
     
-    function wf_update() {
+    function admin_update() {
         unset($this->User->validate['password']);
         $this->User->create($this->data);
         if ($this->User->save()) {
             return $this->redirect(array('action' => 'edit', $this->User->id));
         }
-        $this->render('wf_edit');
+        $this->render('admin_edit');
     }
     
-    function wf_update_password() {
+    function admin_update_password() {
         unset($this->User->validate['name'], $this->User->validate['email'], $this->User->validate['login']);
         App::import('Security');
         $this->data['User']['password'] = Security::hash($this->data['User']['password'], null, true);
@@ -163,7 +163,7 @@ class UsersController extends AppController {
         if ($this->User->save()) {
             return $this->redirect(array('action' => 'edit', $this->data[$this->modelClass]['id']));
         }
-        $this->render('wf_change_password');
+        $this->render('admin_change_password');
     }
 
 }

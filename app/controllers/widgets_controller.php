@@ -2,11 +2,11 @@
 class WidgetsController extends AppController {
     
     public $signatures = array(
-        array('html' => '<div id="slider" class="wf_widget"></div>', 'action' => 'slider'),
+        array('html' => '<div id="slider" class="admin_widget"></div>', 'action' => 'slider'),
     );
     
     // Return an ID of the newly created instance
-    function wf_insert_widget() {
+    function admin_insert_widget() {
         $data['Widget'] = '';
         $data = array('config' => json_encode($data));
         $this->Widget->create($data);
@@ -15,7 +15,7 @@ class WidgetsController extends AppController {
         $this->render('/elements/json');
     }
     
-    function wf_list_widgets() {
+    function admin_list_widgets() {
         // Scan plugin and theme element dirs for widgets
         $widgetsPath = APP . 'views' . DS . 'elements' . DS . 'widgets';
         if (isset($this->theme) and is_dir(APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets')) {
@@ -35,7 +35,7 @@ class WidgetsController extends AppController {
 		    }
 		    
 	        $fileName = r('.ctp', '', $fileName);
-	        $humanized = Inflector::humanize(r('wf_widget_', '', $fileName));
+	        $humanized = Inflector::humanize(r('admin_widget_', '', $fileName));
 	        $result[] = array(
 	            'id' => $fileName,
 	            'name' => $humanized,
@@ -45,14 +45,14 @@ class WidgetsController extends AppController {
 		return $result;
     }
     
-    function wf_config($name, $id) {
+    function admin_config($name, $id) {
         $widget = $this->Widget->findById($id);
         $this->data = json_decode($widget['Widget']['config'], true);
         $this->data['Widget']['id'] = intval($id);
         $this->render("/elements/widgets/{$name}_config");
     }
     
-    function wf_update() {
+    function admin_update() {
         if (!empty($this->data)) {
             $config = json_encode($this->data);
             $this->Widget->id = intval($this->data['Widget']['id']);

@@ -9,7 +9,7 @@ class CommentsController extends AppController {
     );
     public $pageTitle = 'Comments';
 
-    function wf_delete() {
+    function admin_delete() {
         $this->Comment->create($this->data);
         if (!$this->Comment->exists()) {
             return;
@@ -17,36 +17,36 @@ class CommentsController extends AppController {
         $this->Comment->delete();
     }
     
-    function wf_edit($id = null) {
+    function admin_edit($id = null) {
         if (!empty($this->data)) {
             $this->Comment->create($this->data);
             if ($this->Comment->save()) {
-                return $this->redirect(array('action' => 'wf_edit', $this->Comment->id));
+                return $this->redirect(array('action' => 'admin_edit', $this->Comment->id));
             }
         }
         $this->Comment->contain('Post.slug');
         $this->data = $this->Comment->findById($id);
     }
     
-    function wf_get_content($id) {
+    function admin_get_content($id) {
         $comment = $this->Comment->findById($id, array('content'));
         $data = array('content' => $comment['Comment']['content']);
         $this->set(compact('data'));
         $this->render('/elements/json');
     }
 
-    function wf_index() {
+    function admin_index() {
         $comments = $this->paginate('Comment', 'Comment.spam = 0');
         $this->set('comments', $comments);
     }
     
-    function wf_spam() {
+    function admin_spam() {
         $this->Comment->contain('Post.title', 'Post.id');
         $comments = $this->paginate('Comment', 'Comment.spam = 1');
         $this->set('comments', $comments);
     }
     
-    function wf_mark_spam() {
+    function admin_mark_spam() {
         $this->Comment->create($this->data);
         if (!$this->Comment->exists()) {
             return;
@@ -55,7 +55,7 @@ class CommentsController extends AppController {
         exit();
     }
     
-    function wf_mass_edit() {
+    function admin_mass_edit() {
     	$this->paginate['conditions'] = 'Comment.spam = 0';
     	$this->paginate['limit'] = 30;
         $this->Comment->recursive = -1;
@@ -63,7 +63,7 @@ class CommentsController extends AppController {
         $this->set('comments', $comments);
     }
     
-    function wf_not_spam() {
+    function admin_not_spam() {
         $this->Comment->create($this->data);
         if (!$this->Comment->exists()) {
             return;
@@ -76,7 +76,7 @@ class CommentsController extends AppController {
      *
      * @param unknown_type $id
      */
-    function wf_not_spam_confirmation($id = null) {
+    function admin_not_spam_confirmation($id = null) {
         $this->Comment->contain();
         $this->data = $this->Comment->findById($id);
     }
@@ -85,7 +85,7 @@ class CommentsController extends AppController {
      * AJAX only comment update
      *
      */
-    function wf_update() {
+    function admin_update() {
         $this->Comment->create($this->data);
         if (!$this->Comment->exists()) {
             return;

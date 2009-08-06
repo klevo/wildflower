@@ -6,7 +6,7 @@
     
     <?php echo $form->create('Asset', array('action' => 'mass_update')); ?>
     
-    <?php echo $this->element('wf_select_actions'); ?>
+    <?php echo $this->element('admin_select_actions'); ?>
     
     <ul class="file-list list">
     <?php foreach ($files as $file): ?>
@@ -34,12 +34,12 @@
     <?php endforeach; ?>
     </ul>
     
-    <?php echo $this->element('wf_select_actions'); ?>
+    <?php echo $this->element('admin_select_actions'); ?>
     <?php echo $form->end(); ?>
 
 <?php endif; ?>
 
-<?php echo $this->element('wf_pagination') ?>
+<?php echo $this->element('admin_pagination') ?>
 
 
 <?php $partialLayout->blockStart('sidebar'); ?>

@@ -9,7 +9,7 @@
 
 <h3><?php __('Sidebars'); ?></h3>
 
-<?php echo $this->element('wf_select_actions'); ?>
+<?php echo $this->element('admin_select_actions'); ?>
 
 <ul class="list">
 <?php foreach ($sidebars as $sidebar): ?>
@@ -23,7 +23,7 @@
 
 <?php
     echo
-    $this->element('wf_select_actions'),
+    $this->element('admin_select_actions'),
     $form->end();
 ?>
 
