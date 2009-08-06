@@ -3,6 +3,24 @@
 class RemoveWildPrefix extends Ruckusing_BaseMigration {
 
 	public function up() {
+	    // Columns
+        $this->rename_column('wild_categories_wild_posts', 'wild_category_id', 'category_id');
+        $this->rename_column('wild_categories_wild_posts', 'wild_post_id', 'post_id');
+        
+        $this->rename_column('wild_comments', 'wild_post_id', 'post_id');
+        
+        $this->rename_column('wild_menu_items', 'wild_menu_id', 'menu_id');
+        
+        $this->rename_column('wild_pages', 'wild_user_id', 'user_id');
+        
+        $this->rename_column('wild_pages_wild_sidebars', 'wild_page_id', 'page_id');
+        $this->rename_column('wild_pages_wild_sidebars', 'wild_sidebar_id', 'sidebar_id');
+        
+        $this->rename_column('wild_posts', 'wild_user_id', 'user_id');
+        $this->rename_column('wild_posts', 'wild_comment_count', 'comment_count');
+        
+        
+	    // Tables
         $this->rename_table('wild_assets', 'assets');
         $this->rename_table('wild_categories', 'categories');
         $this->rename_table('wild_categories_wild_posts', 'categories_posts');
@@ -21,7 +39,6 @@ class RemoveWildPrefix extends Ruckusing_BaseMigration {
 	}//up()
 
 	public function down() {
-
+        // To lazy to do this...
 	}//down()
 }
-?>

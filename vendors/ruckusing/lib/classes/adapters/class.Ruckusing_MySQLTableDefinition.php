@@ -266,11 +266,11 @@ class Ruckusing_ColumnDefinition {
 	}//sql_type
 	
 
-	private function __set($name, $value) {
+    function __set($name, $value) {
 		$this->properties[$name] = $value;
 	}
-	
-	private function __get($name) {
+
+    function __get($name) {
 		if(isset($this->properties[$name])) {
 			return $this->properties[$name];		
 		} else {
