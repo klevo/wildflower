@@ -20,9 +20,6 @@ Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category
 $prefix = Configure::read('Routing.admin');
 Router::connect("/$prefix", array('controller' => 'dashboards', 'action' => 'index', 'admin' => true));
 
-// Login screen
-Router::connect("/$prefix/login", array('controller' => 'users', 'action' => 'login', 'admin' => false));
-
 // Contact form
 Router::connect('/contact', array('controller' => 'messages', 'action' => 'index'));
 Router::connect('/contact/create', array('controller' => 'messages', 'action' => 'create'));

@@ -47,9 +47,9 @@ class AppController extends Controller {
 	    // AuthComponent config
         $this->Auth->userModel = 'User';
         $this->Auth->fields = array('username' => 'login', 'password' => 'password');
-        $prefix = Configure::read('Wildflower.prefix');
-        $this->Auth->loginAction = "/$prefix/login";
-        $this->Auth->logoutAction = array('prefix' => $prefix, 'controller' => 'users', 'action' => 'logout');
+        $prefix = Configure::read('Routing.admin');
+        $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false);
+        $this->Auth->logoutAction = array('controller' => 'users', 'action' => 'logout', 'admin' => false);
         $this->Auth->autoRedirect = false;
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
@@ -308,10 +308,10 @@ class AppController extends Controller {
      * @return bool
      */
     function isAdminAction() {
-        $adminRoute = Configure::read('Routing.admin');
-        $wfPrefix = Configure::read('Wildflower.prefix');
-        if (isset($this->params[$adminRoute]) and $this->params[$adminRoute] === $wfPrefix) return true;
-        return (isset($this->params['prefix']) and $this->params['prefix'] === 'wf');
+        if (isset($this->params[Configure::read('Routing.admin')]) and $this->params[Configure::read('Routing.admin')]) {
+            return true;
+        }
+        return false;
     }
 
     /**
