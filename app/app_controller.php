@@ -2,14 +2,11 @@
 /**
  * Wildflower AppController
  *
- * If you have a custom AppController in your application, you need to merge 
- * the functionality with this. It's essential for Wildflower's functionality.
- *
  * WF AppController does:
  * - authentificate users
  * - set WF Configure settings
  * - load necessary Helpers and Components
- * - provides some generic controller actions
+ * - provides some global controller actions like delete (@TODO: this could be dangerous - revisit)
  */
 App::import('Sanitize');
 App::import('Core', 'l10n');
