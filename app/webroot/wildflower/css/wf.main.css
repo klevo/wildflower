@@ -114,6 +114,10 @@ img {
         float: left;
     }
     
+    #nav .nav_item_on_right {
+        float: right;
+    }
+    
     #nav a {
         display: block;
         height: 13px;
@@ -124,26 +128,21 @@ img {
         text-decoration: none;
     }
     
-        #nav .current a,
-        #nav .current a:hover {
-            color: #008720;
-            background-color: #e2e2e2;
-            font-weight: bold;
-        }
-        
-        #nav .current a {
-            color: #008720;
-        }
+    #nav .current,
+    #nav .current:hover {
+        color: #008720;
+        background-color: #e2e2e2;
+        font-weight: bold;
+    }
+    
+    #nav .current {
+        color: #008720;
+    }
         
     #nav a:hover {
         color: #fff;
         background-color: #282828;
     }
-    
-#nav .nav-site-settings,
-#nav .nav-users {
-    float: right;
-}
 
 #login_info {
     position: absolute;

@@ -60,22 +60,18 @@
         <?php echo $htmla->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout')); ?>
     </div>
 
-    <?php 
-        echo $navigation->create(array(
-            __('Dashboard', true) => '/' . Configure::read('Wildflower.prefix'),
-            __('Pages', true) => array('controller' => 'pages'),
-            __('Modules', true) => array('controller' => 'sidebars'),
-            __('Posts', true) => array('controller' => 'posts'),
-            __('Categories', true) => array('controller' => 'categories'),
-            __('Comments', true) => array('controller' => 'comments'),
-            __('Messages', true) => array('controller' => 'messages'),
-            __('Files', true) => array('controller' => 'assets'),
-            
-            __('Users', true) => array('controller' => 'users'),
-            __('Site Settings', true) => array('controller' => 'settings'),
-            
-        ), array('id' => 'nav'));
-    ?>
+    <ul id="nav">
+        <li><?php echo $htmla->link(__('Dashboard', true), '/' . Configure::read('Routing.admin')); ?></li>
+        <li><?php echo $htmla->link(__('Pages', true), array('controller' => 'pages')); ?></li>
+        <li><?php echo $htmla->link(__('Modules', true), array('controller' => 'sidebars')); ?></li>
+        <li><?php echo $htmla->link(__('Posts', true), array('controller' => 'posts')); ?></li>
+        <li><?php echo $htmla->link(__('Categories', true), array('controller' => 'categories')); ?></li>
+        <li><?php echo $htmla->link(__('Comments', true), array('controller' => 'comments')); ?></li>
+        <li><?php echo $htmla->link(__('Messages', true), array('controller' => 'messages')); ?></li>
+        <li><?php echo $htmla->link(__('Files', true), array('controller' => 'assets')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Users', true), array('controller' => 'users')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Site Settings', true), array('controller' => 'settings')); ?></li>
+    </ul>
 </div>
 
 <div id="wrap">

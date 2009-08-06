@@ -18,7 +18,7 @@ Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category
 
 // Wildflower admin routes
 $prefix = Configure::read('Routing.admin');
-Router::connect("/$prefix", array('controller' => 'dashboards', 'action' => 'index', 'prefix' => 'wf'));
+Router::connect("/$prefix", array('controller' => 'dashboards', 'action' => 'index', 'prefix' => 'wf', 'wf' => true));
 
 // Login screen
 Router::connect("/$prefix/login", array('controller' => 'users', 'action' => 'login', 'admin' => false));
