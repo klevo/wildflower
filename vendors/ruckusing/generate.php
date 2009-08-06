@@ -5,7 +5,7 @@
   Usage: php generate.php <migration name>
   Call with no arguments to see usage info.
 */
-
+error_reporting(E_ALL ^ E_DEPRECATED);
 
 define('RUCKUSING_BASE', realpath(dirname(__FILE__)));
 require_once RUCKUSING_BASE . '/config/config.inc.php';
