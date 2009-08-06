@@ -1,36 +1,43 @@
 <?php
-/* SVN FILE: $Id: routes.php 7945 2008-12-19 02:16:01Z gwoo $ */
 /**
- * Short description for file.
+ * Wildflower routes
  *
- * In this file, you set up routes to your controllers and their actions.
- * Routes are very important mechanism that allows you to freely connect
- * different urls to chosen controllers and their actions (functions).
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
- * @package       cake
- * @subpackage    cake.app.config
- * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * Wildflower reservers these URL's:
  */
  
-// Define your controller that should be accesible from Wildflower admin. /wf-prefix/my-controller => MyController::wf_index()
-$myWfAdminControllers = array();
+// Home page
+Router::connect('/', array('controller' => 'pages', 'action' => 'view'));
+Router::connect('/app/webroot/', array('controller' => 'pages', 'action' => 'view'));
 
-require_once(dirname(__FILE__) . DS . 'wf_routes.php');
+// Posts section
+Router::connect('/rss', array('controller' => 'posts', 'action' => 'rss'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'posts', 'action' => 'index'));
+Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/*', array('controller' => 'posts', 'action' => 'index'));
+Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:slug', array('controller' => 'posts', 'action' => 'view'));
+Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category'));
 
-// Continue with your app routes here
-// ...
+// Wildflower admin routes
+$prefix = Configure::read('Routing.admin');
+Router::connect("/$prefix", array('controller' => 'dashboards', 'action' => 'index', 'prefix' => 'wf'));
+
+// Login screen
+Router::connect("/$prefix/login", array('controller' => 'users', 'action' => 'login', 'admin' => false));
+
+// Contact form
+Router::connect('/contact', array('controller' => 'messages', 'action' => 'index'));
+Router::connect('/contact/create', array('controller' => 'messages', 'action' => 'create'));
+
+// Image thumbnails
+// @TODO shorten to '/i/*'
+Router::connect('/wildflower/thumbnail/*', array('controller' => 'assets', 'action' => 'thumbnail'));
+Router::connect('/wildflower/thumbnail_by_id/*', array('controller' => 'assets', 'action' => 'thumbnail_by_id'));
+
+// Connect root pages slugs
+App::import('Vendor', 'WfRootPagesCache', array('file' => 'WfRootPagesCache.php'));
+WildflowerRootPagesCache::connect();
+
+
+/**
+ * Your routes here...
+ */
+
