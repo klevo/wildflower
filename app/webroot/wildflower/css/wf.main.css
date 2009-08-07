@@ -575,23 +575,19 @@ select {
     line-height: 17px;
 }    
 
-    /* Sidebar search */
+/* Sidebar search */
 
-        #sidebar .search .input {
-            margin-bottom: 0;
-        }
-        
-        #sidebar .search label {
-            font-weight: bold;
-        }
-        
-        #sidebar .search input {
-            width: 99%;
-            margin: 2px 0 0 0;
-            display: block;
-            font-size: 14px;
-            padding: 2px;
-        }
+#sidebar .search .input {
+    margin-bottom: 0;
+}
+
+#sidebar .search input {
+    width: 99%;
+    margin: 2px 0 0 0;
+    display: block;
+    font-size: 14px;
+    padding: 2px;
+}
 
 #sidebar-search-results {
     list-style: none;
