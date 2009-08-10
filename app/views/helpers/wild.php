@@ -111,6 +111,9 @@ class WildHelper extends AppHelper {
     	if (is_null($id)) {
     	    $id = "admin_$slug";
     	}
+    	if (is_null($id)) {
+            $id = $slug;
+    	}
     	return "<ul id=\"$id\">\n$links\n</ul>\n";
     }
     

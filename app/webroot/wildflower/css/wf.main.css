@@ -42,6 +42,10 @@ img {
     border: none;
 }
 
+hr {
+    display: none;
+}
+
 #wrap,
 #footer,
 #header-wrap {
