@@ -17,6 +17,7 @@
 
     <div id="header">   
         <h1><?php echo $html->link("<span>$title_for_layout</span>", '/', null, null, false) ?></h1>
+        <?php e($html->image('/wildflower/img/logo.jpg')); ?>
     </div>
     
     <hr />
