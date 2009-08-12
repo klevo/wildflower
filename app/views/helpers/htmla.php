@@ -2,51 +2,45 @@
 App::import('Helper', 'Html');
 
 /**
- * HTML Advanced Helper
+ * Wildflower Html Helper
  *
- * @package SM Events
+ * Adding some missing features to Cake's HtmlHelper.
+ *
+ * @package Wildflower
  */
 class HtmlaHelper extends HtmlHelper {
     
     function link($title, $url = null, $htmlAttributes = array(), $confirmMessage = false, $escapeTitle = true) {
-        $linkUrl = parent::url($url);
-        $currentUrl = $this->here;
-        
-        // Remove paging from currentUrl
-        // @TODO if another named param goes after paging it do it's thing
-        $pieces = explode('/', $currentUrl);
-        $paging = end($pieces);
-        if (strpos($paging, 'page:') === 0) {
-            array_pop($pieces);
-            $currentUrl = join('/', $pieces);
-        }
-        
-        if (isset($htmlAttributes['strict']) and $htmlAttributes['strict']) {
-            $htmlAttributes['currentOn'] = $url;
-        }
-        unset($htmlAttributes['strict']);
-        
-        $currentOverride = false;
-        if (isset($htmlAttributes['currentOn']) && !is_null($htmlAttributes['currentOn'])) {
-            if ($currentUrl === parent::url($htmlAttributes['currentOn'])) {
-                $currentOverride = true;
+        // $parsedUrl = rtrim(parent::url($url), '/');
+        //         $parsedUrl = rtrim($parsedUrl, '/index');
+        //         $currentUrl = rtrim($this->here, '/');
+        //         $currentUrl = rtrim($currentUrl, '/index');
+        //         $linksToCurrentPage = (bool)($parsedUrl === $currentUrl);
+        //         
+        //         $containsCurrentPage = (bool)(strpos($currentUrl, $parsedUrl) === 0);
+        //         
+        //         if ($linksToCurrentPage or (!isset($htmlAttributes['strict']) and $containsCurrentPage)) {
+        //             if (isset($htmlAttributes['class'])) {
+        //                 $htmlAttributes['class'] = $htmlAttributes['class'] + ' current';
+        //             } else {
+        //                 $htmlAttributes['class'] = 'current';
+        //             }
+        //         }
+        //         
+        //         unset($htmlAttributes['strict']);
+        $parsedUrl = rtrim(parent::url($url), '/');
+        $parsedUrl = rtrim($parsedUrl, '/index');
+        $currentUrl = rtrim($this->here, '/');
+        $currentUrl = rtrim($currentUrl, '/index');
+        $linksToCurrentPage = (bool)($parsedUrl === $currentUrl);
+        $isPartOfUrl = (bool)(strpos($currentUrl, $parsedUrl) === 0);
+        if ($linksToCurrentPage or (!isset($htmlAttributes['strict']) and $isPartOfUrl)) {
+            if (isset($htmlAttributes['class'])) {
+                $htmlAttributes['class'] += ' current';
+            } else {
+                $htmlAttributes['class'] = 'current';
             }
-        }
-        
-        if ((strpos($currentUrl, $linkUrl) === 0 && (!isset($htmlAttributes['currentOn']) || is_null($htmlAttributes['currentOn'])))
-            || ($currentOverride === true)) {
-            if (!isset($htmlAttributes['class'])) {
-                $htmlAttributes['class'] = '';
-            }
-            $classes = explode(' ', $htmlAttributes['class']);
-            if (!isset($classes['current'])) {
-                $classes[] = 'current';
-            }
-            $htmlAttributes['class'] = join(' ', $classes);
-        }
-        
-        unset($htmlAttributes['currentOn']);
-        
+        }        
         return parent::link($title, $url, $htmlAttributes, $confirmMessage, $escapeTitle);
     }
     

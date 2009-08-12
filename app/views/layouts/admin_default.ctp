@@ -61,16 +61,16 @@
     </div>
 
     <ul id="nav">
-        <li><?php echo $htmla->link(__('Dashboard', true), '/' . Configure::read('Routing.admin')); ?></li>
-        <li><?php echo $htmla->link(__('Pages', true), array('controller' => 'pages')); ?></li>
-        <li><?php echo $htmla->link(__('Modules', true), array('controller' => 'sidebars')); ?></li>
-        <li><?php echo $htmla->link(__('Posts', true), array('controller' => 'posts')); ?></li>
-        <li><?php echo $htmla->link(__('Categories', true), array('controller' => 'categories')); ?></li>
-        <li><?php echo $htmla->link(__('Comments', true), array('controller' => 'comments')); ?></li>
-        <li><?php echo $htmla->link(__('Messages', true), array('controller' => 'messages')); ?></li>
-        <li><?php echo $htmla->link(__('Files', true), array('controller' => 'assets')); ?></li>
-        <li class="nav_item_on_right"><?php echo $htmla->link(__('Users', true), array('controller' => 'users')); ?></li>
-        <li class="nav_item_on_right"><?php echo $htmla->link(__('Site Settings', true), array('controller' => 'settings')); ?></li>
+        <li><?php echo $htmla->link(__('Dashboard', true), '/' . Configure::read('Routing.admin'), array('strict' => true)); ?></li>
+        <li><?php echo $htmla->link(__('Pages', true), array('controller' => 'pages', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Modules', true), array('controller' => 'sidebars', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Posts', true), array('controller' => 'posts', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Categories', true), array('controller' => 'categories', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Comments', true), array('controller' => 'comments', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Messages', true), array('controller' => 'messages', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Files', true), array('controller' => 'assets', 'action' => 'index')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Users', true), array('controller' => 'users', 'action' => 'index')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Site Settings', true), array('controller' => 'settings', 'action' => 'index')); ?></li>
     </ul>
 </div>
 
