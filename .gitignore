@@ -23,3 +23,7 @@ app/webroot/cache/*
 
 # .bak files
 *.*.bak
+
+# ignore plugins dir
+app/plugins/*
+
