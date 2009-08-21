@@ -28,14 +28,14 @@
     <![endif]-->
     
     <!-- JQuery Light MVC -->
-    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Wildflower.prefix') . '/assets/jlm'); ?>"></script>
+    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Routing.admin') . '/assets/jlm'); ?>"></script>
     <script type="text/javascript">
     //<![CDATA[
         $.jlm.config({
             base: '<?php echo $this->base ?>',
             controller: '<?php echo $this->params['controller'] ?>',
             action: '<?php echo $this->params['action'] ?>', 
-            prefix: '<?php echo Configure::read('Wildflower.prefix') ?>',
+            prefix: '<?php echo Configure::read('Routing.admin') ?>',
             custom: {
                 wildflowerUploads: '<?php echo Configure::read('Wildflower.uploadsDirectoryName'); ?>'
             }
