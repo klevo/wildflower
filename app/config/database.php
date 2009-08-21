@@ -81,22 +81,6 @@ class DATABASE_CONFIG {
      * @var array
      */
 	public $default = array(
-		'driver' => 'mysqli',
-	    'encoding' => 'utf8',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'wildflower',
-	    'port' => 3306
-	);
-    
-	/**
-     * This is the default configuration
-     *
-     * @var array
-     */
-	public $majic3 = array(
 		'driver' => 'mysql',
 	    'encoding' => 'utf8',
 		'persistent' => false,
@@ -104,8 +88,7 @@ class DATABASE_CONFIG {
 		'login' => 'root',
 		'password' => 'majic',
 		'database' => 'wildflower_klevo',
-	    'port' => 3306,
-		'domain' => 'klevo.wildflower.ss29'
+	    'port' => 3306
 	);
 	
 	/**
