@@ -21,9 +21,7 @@ class WidgetsController extends AppController {
         if (isset($this->theme) and is_dir(APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets')) {
             $widgetsPath = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets';
         }
-        $themeWidgets = $this->_parseWidgetFileList(scandir($widgetsPath));
-        $wfWidgets = $this->_parseWidgetFileList(scandir(WILDFLOWER_DIR . DS . 'views' . DS . 'elements' . DS . 'widgets'));
-		$widgets = am($wfWidgets, $themeWidgets);
+		$widgets = $this->_parseWidgetFileList(scandir($widgetsPath));
 		$this->set(compact('widgets'));
     }
     

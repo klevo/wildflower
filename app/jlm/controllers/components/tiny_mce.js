@@ -180,7 +180,7 @@ $.jlm.addComponent('tinyMce', {
 	            $.getJSON(url, function(json) {
 	                var instanceId = json.id;
 	                var src = $.jlm.base + '/wildflower/widgets/' + widgetId + '.png';
-    	            var widgetHtml = '<img id="' + widgetId + '" class="wf_widget wf_widget_id_' + instanceId + '" src="' + src + '" />';
+    	            var widgetHtml = '<img id="' + widgetId + '" class="admin_widget admin_widget_id_' + instanceId + '" src="' + src + '" />';
     	            editor.execCommand('mceInsertContent', 0, widgetHtml);
 	            });
 	            return false;
