@@ -5,7 +5,7 @@ $.jlm.addComponent('widgets', {
         
         // First make sure this is a widget el
         var jEl = $(e);
-        if (!jEl.hasClass('wf_widget')) {
+        if (!jEl.hasClass('admin_widget')) {
             return false;
         }
         
@@ -20,7 +20,7 @@ $.jlm.addComponent('widgets', {
         
         // Load the widget config action
         var widgetName = jEl.attr('id');
-        var widgetId = jEl.attr('class').replace('wf_widget wf_widget_id_', '');
+        var widgetId = jEl.attr('class').replace('admin_widget admin_widget_id_', '');
         var url = $.jlm.base + '/' + $.jlm.params.prefix + '/widgets/config/' + widgetName + '/' + widgetId;
         
         $.post(url, function(html) {

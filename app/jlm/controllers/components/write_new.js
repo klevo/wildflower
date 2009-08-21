@@ -1,4 +1,4 @@
-$.jlm.component('WriteNew', 'posts.wf_index, posts.wf_edit, pages.wf_index, pages.wf_edit', function() {
+$.jlm.component('WriteNew', 'posts.admin_index, posts.admin_edit, pages.admin_index, pages.admin_edit', function() {
     
     $('#sidebar .add').click(function() {
         // if ($('.new-dialog').size() > 0) {

@@ -1,4 +1,4 @@
-$.jlm.bind('users.wf_change_password', function() {
+$.jlm.bind('users.admin_change_password', function() {
 
     $('form').clearForm();
 	

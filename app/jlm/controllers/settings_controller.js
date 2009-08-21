@@ -1,4 +1,4 @@
-$.jlm.bind('settings.wf_index', function() {
+$.jlm.bind('settings.admin_index', function() {
     
     function showHideSmtpOptions() {
 		var method = $('#setting-email_delivery select').val();

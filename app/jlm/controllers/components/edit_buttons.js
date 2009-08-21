@@ -1,4 +1,4 @@
-$.jlm.component('EditButtons', 'posts.wf_edit, posts.wf_categorize, pages.wf_edit', function() {
+$.jlm.component('EditButtons', 'posts.admin_edit, posts.admin_categorize, pages.admin_edit', function() {
     
     // Save buttons
     $('#save-draft input, #save-publish input').click(editButtonsOnClick);
