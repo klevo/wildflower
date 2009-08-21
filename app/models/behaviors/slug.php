@@ -1,5 +1,4 @@
 <?php 
-require_once APP . 'app_helper.php';
 /**
  * Slug behavior to a model
  * 
@@ -103,6 +102,13 @@ class SlugBehavior extends ModelBehavior {
      * @return string   Slug for given string.
      */
     private function _getSlug($string, $settings) {
+		/*
+		might pertain to cakephp 1.2.4
+		if (!class_exists('AppHelper')) {
+		  App::import('Core', 'AppHelper', false); 
+		} 
+		*/
+		require_once APP . 'app_helper.php';
     	return AppHelper::slug($string, $settings['separator']);
     }
 

@@ -130,7 +130,7 @@ class AppController extends Controller {
      *
      * @TODO Could be much faster using custom UPDATE or DELETE queries
      */
-    function wf_mass_update() {
+    function admin_mass_update() {
         //fb($this->data);exit();
         if ($this->data['__action'] == 'delete') {
             $this->data['__action'] = 'mass_delete';
@@ -159,7 +159,7 @@ class AppController extends Controller {
      *
      * @param string $query Search term, encoded by Javascript's encodeURI()
      */
-    function wf_search($query = '') {
+    function admin_search($query = '') {
         $query = urldecode($query);
         $results = $this->{$this->modelClass}->search($query);
         $this->set('results', $results);
@@ -279,7 +279,7 @@ class AppController extends Controller {
 	 *
 	 * @return void
 	 */
-	function wf_create_preview() {
+	function admin_create_preview() {
         $cacheDir = Configure::read('Wildflower.previewCache') . DS;
         
         // Create a unique file name

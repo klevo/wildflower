@@ -1,4 +1,4 @@
-$.jlm.bind('menus.wf_add, menus.wf_edit', function() {
+$.jlm.bind('menus.admin_add, menus.admin_edit', function() {
     
     function bindRemove() {
         $('.menu_items .delete').click(function() {
@@ -7,7 +7,7 @@ $.jlm.bind('menus.wf_add, menus.wf_edit', function() {
             });
             
             // If on edit delete the real item
-            if ($.jlm.params.action == 'wf_edit') {
+            if ($.jlm.params.action == 'admin_edit') {
                 $.post($(this).attr('href'));
             }
             

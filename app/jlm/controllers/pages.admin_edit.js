@@ -1,4 +1,4 @@
-$.jlm.bind('pages.wf_edit', function() {
+$.jlm.bind('pages.admin_edit', function() {
    
    $('textarea:first').focus();
    

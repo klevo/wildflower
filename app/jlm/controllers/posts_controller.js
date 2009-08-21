@@ -1,5 +1,5 @@
 
-$.jlm.bind('posts.wf_categorize', function() {
+$.jlm.bind('posts.admin_categorize', function() {
     
     // Add new category box AJAX form
     var buttonEl = $('#add-category-box .submit input');
@@ -65,7 +65,7 @@ $.jlm.bind('posts.wf_categorize', function() {
     
 });
 
-$.jlm.bind('posts.wf_edit', function() {
+$.jlm.bind('posts.admin_edit', function() {
     // Update post form on category select
     $('#category_id').change(function() {
         var id = $(this).val();

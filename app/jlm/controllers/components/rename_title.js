@@ -1,4 +1,4 @@
-$.jlm.component('RenameTitle', 'pages.wf_edit, posts.wf_edit', function() {
+$.jlm.component('RenameTitle', 'pages.admin_edit, posts.admin_edit', function() {
     
     $('.rename_title').click(function() {
         $('.title_as_heading').hide();

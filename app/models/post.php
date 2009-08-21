@@ -42,6 +42,7 @@ class Post extends AppModel {
      */
     function draft($id) {
         $id = intval($id);
+		// savefield?
         return $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id = $id");
     }
     

@@ -633,7 +633,7 @@ select {
         text-align: right;
         float: right;
         position: relative;
-        top: -16px;
+        top: -1px;
     }
     
         .select-actions span a,

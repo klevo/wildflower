@@ -39,6 +39,10 @@ Use the UtilityShell to generate an AuthComponent compatible password hash:
 Insert the result into your database in the 'password' field of the 'wild_users' table.
 
 
+Wildflower Logo designed by Oliver Treend
+http://www.olivertreend.com/
+
+
 Content of CakePHP README file
 ******************************
 

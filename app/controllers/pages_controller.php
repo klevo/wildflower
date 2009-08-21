@@ -278,6 +278,7 @@ class PagesController extends AppController {
      */
     function get($slug = null) {
         $this->assertInternalRequest();
+		// b2c may resolve this issue. is this relevent or not - http://github.com/klevo/wildflower/issues#issue/7
         return $this->Page->findBySlug($slug);
     }
     
