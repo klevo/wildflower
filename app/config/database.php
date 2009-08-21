@@ -90,6 +90,23 @@ class DATABASE_CONFIG {
 		'database' => 'wildflower',
 	    'port' => 3306
 	);
+    
+	/**
+     * This is the default configuration
+     *
+     * @var array
+     */
+	public $majic3 = array(
+		'driver' => 'mysql',
+	    'encoding' => 'utf8',
+		'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => 'majic',
+		'database' => 'wildflower_klevo',
+	    'port' => 3306,
+		'domain' => 'klevo.wildflower.ss29'
+	);
 	
 	/**
 	 * This is for unit tests
