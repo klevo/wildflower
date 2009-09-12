@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: scaffold.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Scaffold.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller
  * @since         Cake v 0.10.0.1076
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -161,13 +161,13 @@ class Scaffold extends Object {
 		$displayField = $this->ScaffoldModel->displayField;
 		$singularVar = Inflector::variable($modelClass);
 		$pluralVar = Inflector::variable($this->controller->name);
-		$singularHumanName = Inflector::humanize($modelClass);
-		$pluralHumanName = Inflector::humanize($this->controller->name);
+		$singularHumanName = Inflector::humanize(Inflector::underscore($modelClass));
+		$pluralHumanName = Inflector::humanize(Inflector::underscore($this->controller->name));
 		$scaffoldFields = array_keys($this->ScaffoldModel->schema());
 		$associations = $this->__associations();
 
 		$this->controller->set(compact('modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar',
-								'singularHumanName', 'pluralHumanName', 'scaffoldFields', 'associations'));
+			'singularHumanName', 'pluralHumanName', 'scaffoldFields', 'associations'));
 
 		if ($this->controller->view && $this->controller->view !== 'Theme') {
 			$this->controller->view = 'scaffold';
@@ -237,6 +237,10 @@ class Scaffold extends Object {
  * @access private
  */
 	function __scaffoldForm($action = 'edit') {
+		$this->controller->viewVars['scaffoldFields'] = array_merge(
+			$this->controller->viewVars['scaffoldFields'],
+			array_keys($this->ScaffoldModel->hasAndBelongsToMany)
+		);
 		$this->controller->render($action, $this->layout);
 		$this->_output();
 	}
@@ -263,11 +267,12 @@ class Scaffold extends Object {
 				}
 
 				if (!$this->ScaffoldModel->exists()) {
+					$message = sprintf(__("Invalid id for %s::edit()", true), Inflector::humanize($this->modelKey));
 					if (isset($this->controller->Session) && $this->controller->Session->valid() != false) {
-						$this->controller->Session->setFlash(sprintf(__("Invalid id for %s::edit()", true), Inflector::humanize($this->modelKey)));
+						$this->controller->Session->setFlash($message);
 						$this->controller->redirect($this->redirect);
 					} else {
-						return $this->controller->flash(sprintf(__("Invalid id for %s::edit()", true), Inflector::humanize($this->modelKey)), $this->redirect);
+						return $this->controller->flash($message, $this->redirect);
 					}
 				}
 			}
@@ -279,11 +284,16 @@ class Scaffold extends Object {
 
 				if ($this->ScaffoldModel->save($this->controller->data)) {
 					if ($this->controller->_afterScaffoldSave($action)) {
+						$message = sprintf(__('The %1$s has been %2$s', true), 
+							Inflector::humanize($this->modelKey),
+							$success
+						);
 						if (isset($this->controller->Session) && $this->controller->Session->valid() != false) {
-							$this->controller->Session->setFlash(sprintf(__('The %1$s has been %2$s', true), Inflector::humanize($this->modelClass), $success));
+							$this->controller->Session->setFlash($message);
 							$this->controller->redirect($this->redirect);
 						} else {
-							return $this->controller->flash(sprintf(__('The %1$s has been %2$s', true), Inflector::humanize($this->modelClass), $success), $this->redirect);
+							$this->controller->flash($message, $this->redirect);
+							return $this->_output();
 						}
 					} else {
 						return $this->controller->_afterScaffoldSaveError($action);
@@ -332,8 +342,8 @@ class Scaffold extends Object {
 				$this->controller->Session->setFlash(sprintf(__("No id set for %s::delete()", true), Inflector::humanize($this->modelKey)));
 				$this->controller->redirect($this->redirect);
 			} else {
-				return $this->controller->flash(sprintf(__("No id set for %s::delete()", true), Inflector::humanize($this->modelKey)),
-																	'/' . Inflector::underscore($this->controller->viewPath));
+				$this->controller->flash(sprintf(__("No id set for %s::delete()", true), Inflector::humanize($this->modelKey)), '/' . Inflector::underscore($this->controller->viewPath));
+				return $this->_output();
 			}
 
 			if ($this->ScaffoldModel->del($id)) {
@@ -341,14 +351,16 @@ class Scaffold extends Object {
 					$this->controller->Session->setFlash(sprintf(__('The %1$s with id: %2$d has been deleted.', true), Inflector::humanize($this->modelClass), $id));
 					$this->controller->redirect($this->redirect);
 				} else {
-					return $this->controller->flash(sprintf(__('The %1$s with id: %2$d has been deleted.', true), Inflector::humanize($this->modelClass), $id), '/' . $this->viewPath);
+					$this->controller->flash(sprintf(__('The %1$s with id: %2$d has been deleted.', true), Inflector::humanize($this->modelClass), $id), '/' . $this->viewPath);
+					return $this->_output();
 				}
 			} else {
 				if (isset($this->controller->Session) && $this->controller->Session->valid() != false) {
 					$this->controller->Session->setFlash(sprintf(__('There was an error deleting the %1$s with id: %2$d', true), Inflector::humanize($this->modelClass), $id));
 					$this->controller->redirect($this->redirect);
 				} else {
-					return $this->controller->flash(sprintf(__('There was an error deleting the %1$s with id: %2$d', true), Inflector::humanize($this->modelClass), $id), '/' . $this->viewPath);
+					$this->controller->flash(sprintf(__('There was an error deleting the %1$s with id: %2$d', true), Inflector::humanize($this->modelClass), $id), '/' . $this->viewPath);
+					return $this->_output();
 				}
 			}
 		} elseif ($this->controller->_scaffoldError('delete') === false) {
@@ -378,7 +390,7 @@ class Scaffold extends Object {
  * @access private
  */
 	function __scaffold($params) {
-		$db = &ConnectionManager::getDataSource($this->ScaffoldModel->useDbConfig);
+		$db =& ConnectionManager::getDataSource($this->ScaffoldModel->useDbConfig);
 		$admin = Configure::read('Routing.admin');
 
 		if (isset($db)) {

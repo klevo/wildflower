@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_source.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Core', array('Set', 'String'));
@@ -78,8 +78,8 @@ class DboSource extends DataSource {
  * @access protected
  */
 	var $_commands = array(
-		'begin'	   => 'BEGIN',
-		'commit'   => 'COMMIT',
+		'begin' => 'BEGIN',
+		'commit' => 'COMMIT',
 		'rollback' => 'ROLLBACK'
 	);
 /**
@@ -200,9 +200,8 @@ class DboSource extends DataSource {
 		if ($this->error) {
 			$this->showQuery($sql);
 			return false;
-		} else {
-			return $this->_result;
 		}
+		return $this->_result;
 	}
 /**
  * DataSource Query abstraction
@@ -410,14 +409,15 @@ class DboSource extends DataSource {
 			$data[$i] = str_replace($this->startQuote . $this->startQuote, $this->startQuote, $data[$i]);
 			$data[$i] = str_replace($this->startQuote . '(', '(', $data[$i]);
 			$data[$i] = str_replace(')' . $this->startQuote, ')', $data[$i]);
+			$alias = !empty($this->alias) ? $this->alias : 'AS ';
 
-			if (preg_match('/\s+AS\s+/', $data[$i])) {
-				if (preg_match('/\w+\s+AS\s+/', $data[$i])) {
-					$quoted = $this->endQuote . ' AS ' . $this->startQuote;
-					$data[$i] = str_replace(' AS ', $quoted, $data[$i]);
+			if (preg_match('/\s+' . $alias . '\s*/', $data[$i])) {
+				if (preg_match('/\w+\s+' . $alias . '\s*/', $data[$i])) {
+					$quoted = $this->endQuote . ' ' . $alias . $this->startQuote;
+					$data[$i] = str_replace(' ' . $alias, $quoted, $data[$i]);
 				} else {
-					$quoted = ' AS ' . $this->startQuote;
-					$data[$i] = str_replace(' AS ', $quoted, $data[$i]) . $this->endQuote;
+					$quoted = $alias . $this->startQuote;
+					$data[$i] = str_replace($alias, $quoted, $data[$i]) . $this->endQuote;
 				}
 			}
 
@@ -627,16 +627,22 @@ class DboSource extends DataSource {
 			$queryData['fields'] = $this->fields($model);
 		}
 
-		foreach ($model->__associations as $type) {
-			foreach ($model->{$type} as $assoc => $assocData) {
-				if ($model->recursive > -1) {
-					$linkModel =& $model->{$assoc};
-					$external = isset($assocData['external']);
+		$_associations = $model->__associations;
 
-					if ($model->useDbConfig == $linkModel->useDbConfig) {
-						if (true === $this->generateAssociationQuery($model, $linkModel, $type, $assoc, $assocData, $queryData, $external, $null)) {
-							$linkedModels[] = $type . '/' . $assoc;
-						}
+		if ($model->recursive == -1) {
+			$_associations = array();
+		} else if ($model->recursive == 0) {
+			unset($_associations[2], $_associations[3]);
+		}
+
+		foreach ($_associations as $type) {
+			foreach ($model->{$type} as $assoc => $assocData) {
+				$linkModel =& $model->{$assoc};
+				$external = isset($assocData['external']);
+
+				if ($model->useDbConfig == $linkModel->useDbConfig) {
+					if (true === $this->generateAssociationQuery($model, $linkModel, $type, $assoc, $assocData, $queryData, $external, $null)) {
+						$linkedModels[$type . '/' . $assoc] = true;
 					}
 				}
 			}
@@ -653,12 +659,12 @@ class DboSource extends DataSource {
 
 		$filtered = $this->__filterResults($resultSet, $model);
 
-		if ($model->recursive > 0) {
-			foreach ($model->__associations as $type) {
+		if ($model->recursive > -1) {
+			foreach ($_associations as $type) {
 				foreach ($model->{$type} as $assoc => $assocData) {
 					$linkModel =& $model->{$assoc};
 
-					if (!in_array($type . '/' . $assoc, $linkedModels)) {
+					if (empty($linkedModels[$type . '/' . $assoc])) {
 						if ($model->useDbConfig == $linkModel->useDbConfig) {
 							$db =& $this;
 						} else {
@@ -737,11 +743,11 @@ class DboSource extends DataSource {
 		if ($query = $this->generateAssociationQuery($model, $linkModel, $type, $association, $assocData, $queryData, $external, $resultSet)) {
 			if (!isset($resultSet) || !is_array($resultSet)) {
 				if (Configure::read() > 0) {
-					e('<div style = "font: Verdana bold 12px; color: #FF0000">' . sprintf(__('SQL Error in model %s:', true), $model->alias) . ' ');
+					echo '<div style = "font: Verdana bold 12px; color: #FF0000">' . sprintf(__('SQL Error in model %s:', true), $model->alias) . ' ';
 					if (isset($this->error) && $this->error != null) {
-						e($this->error);
+						echo $this->error;
 					}
-					e('</div>');
+					echo '</div>';
 				}
 				return null;
 			}
@@ -852,11 +858,8 @@ class DboSource extends DataSource {
 
 						foreach ($fetch as $j => $data) {
 							if (
-								(isset($data[$with]) && $data[$with][$foreignKey] === $row[$model->alias][$model->primaryKey]) &&
-								(!in_array($data[$with][$joinKeys[1]], $uniqueIds))
+								(isset($data[$with]) && $data[$with][$foreignKey] === $row[$model->alias][$model->primaryKey])
 							) {
-								$uniqueIds[] = $data[$with][$joinKeys[1]];
-
 								if ($habtmFieldsCount <= 2) {
 									unset($data[$with]);
 								}
@@ -1403,6 +1406,7 @@ class DboSource extends DataSource {
 	function _prepareUpdateFields(&$model, $fields, $quoteValues = true, $alias = false) {
 		$quotedAlias = $this->startQuote . $model->alias . $this->endQuote;
 
+		$updates = array();
 		foreach ($fields as $field => $value) {
 			if ($alias && strpos($field, '.') === false) {
 				$quoted = $model->escapeField($field);
@@ -1503,7 +1507,7 @@ class DboSource extends DataSource {
 					'alias' => $assoc,
 					'type' => isset($assocData['type']) ? $assocData['type'] : 'LEFT',
 					'conditions' => trim($this->conditions(
-						$this->getConstraint($assocData['association'], $model, $model->{$assoc}, $assoc, $assocData),
+						$this->__mergeConditions($assocData['conditions'], $this->getConstraint($assocData['association'], $model, $model->{$assoc}, $assoc, $assocData)),
 						true, false, $model
 					))
 				));
@@ -1512,12 +1516,12 @@ class DboSource extends DataSource {
 		return $join;
 	}
 /**
- * Returns the an SQL calculation, i.e. COUNT() or MAX()
+ * Returns an SQL calculation, i.e. COUNT() or MAX()
  *
  * @param model $model
  * @param string $func Lowercase name of SQL function, i.e. 'count' or 'max'
  * @param array $params Function parameters (any values must be quoted manually)
- * @return string	An SQL calculation function
+ * @return string An SQL calculation function
  * @access public
  */
 	function calculate(&$model, $func, $params = array()) {
@@ -1677,7 +1681,9 @@ class DboSource extends DataSource {
 
 		if ($count >= 1 && !in_array($fields[0], array('*', 'COUNT(*)'))) {
 			for ($i = 0; $i < $count; $i++) {
-				if (!preg_match('/^.+\\(.*\\)/', $fields[$i])) {
+				if (preg_match('/^\(.*\)\s' . $this->alias . '.*/i', $fields[$i])){
+					continue;
+				} elseif (!preg_match('/^.+\\(.*\\)/', $fields[$i])) {
 					$prepend = '';
 
 					if (strpos($fields[$i], 'DISTINCT') !== false) {
@@ -1840,9 +1846,9 @@ class DboSource extends DataSource {
 					if (array_keys($value) === array_values(array_keys($value))) {
 						$count = count($value);
 						if ($count === 1) {
-							$data = $this->name($key) . ' = (';
+							$data = $this->__quoteFields($key) . ' = (';
 						} else {
-							$data = $this->name($key) . ' IN (';
+							$data = $this->__quoteFields($key) . ' IN (';
 						}
 						if ($quoteValues || strpos($value[0], '-!') !== 0) {
 							if (is_object($model)) {
@@ -1905,7 +1911,9 @@ class DboSource extends DataSource {
 			}
 		}
 
+
 		$type = (is_object($model) ? $model->getColumnType($key) : null);
+
 		$null = ($value === null || (is_array($value) && empty($value)));
 
 		if (strtolower($operator) === 'not') {
@@ -1914,6 +1922,7 @@ class DboSource extends DataSource {
 			);
 			return $data[0];
 		}
+
 		$value = $this->value($value, $type);
 
 		if ($key !== '?') {
@@ -1954,6 +1963,7 @@ class DboSource extends DataSource {
 				break;
 			}
 		}
+
 		return "{$key} {$operator} {$value}";
 	}
 /**
@@ -2381,11 +2391,12 @@ class DboSource extends DataSource {
 				if (!empty($value['unique'])) {
 					$out .= 'UNIQUE ';
 				}
+				$name = $this->startQuote . $name . $this->endQuote;
 			}
 			if (is_array($value['column'])) {
-				$out .= 'KEY '. $name .' (' . join(', ', array_map(array(&$this, 'name'), $value['column'])) . ')';
+				$out .= 'KEY ' . $name . ' (' . join(', ', array_map(array(&$this, 'name'), $value['column'])) . ')';
 			} else {
-				$out .= 'KEY '. $name .' (' . $this->name($value['column']) . ')';
+				$out .= 'KEY ' . $name . ' (' . $this->name($value['column']) . ')';
 			}
 			$join[] = $out;
 		}

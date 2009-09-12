@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: l10n.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4116
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -150,8 +150,8 @@ class L10n extends Object {
 								/* Sami (Lappish) */ 'smi' => 'sz',
 								/* Serbian */ 'scc' => 'sr',
 								/* Serbian */ 'srp' => 'sr',
-								/* Slovack */ 'slo' => 'sk',
-								/* Slovack */ 'slk' => 'sk',
+								/* Slovak */ 'slo' => 'sk',
+								/* Slovak */ 'slk' => 'sk',
 								/* Slovenian */ 'slv' => 'sl',
 								/* Sorbian */ 'wen' => 'sb',
 								/* Spanish (Spain - Traditional) */ 'spa' => 'es',
@@ -290,7 +290,7 @@ class L10n extends Object {
 										'ro-mo' => array('language' => 'Romanian (Moldavia)', 'locale' => 'ro_mo', 'localeFallback' => 'rum', 'charset' => 'utf-8'),
 										'ru-mo' => array('language' => 'Russian (Moldavia)', 'locale' => 'ru_mo', 'localeFallback' => 'rus', 'charset' => 'utf-8'),
 										'sb' => array('language' => 'Sorbian', 'locale' => 'wen', 'localeFallback' => 'wen', 'charset' => 'utf-8'),
-										'sk' => array('language' => 'Slovack', 'locale' => 'slo', 'localeFallback' => 'slo', 'charset' => 'utf-8'),
+										'sk' => array('language' => 'Slovak', 'locale' => 'slo', 'localeFallback' => 'slo', 'charset' => 'utf-8'),
 										'sl' => array('language' => 'Slovenian', 'locale' => 'slv', 'localeFallback' => 'slv', 'charset' => 'utf-8'),
 										'sq' => array('language' => 'Albanian', 'locale' => 'alb', 'localeFallback' => 'alb', 'charset' => 'utf-8'),
 										'sr' => array('language' => 'Serbian', 'locale' => 'scc', 'localeFallback' => 'scc', 'charset' => 'utf-8'),

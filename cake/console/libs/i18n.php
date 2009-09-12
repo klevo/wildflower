@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: i18n.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5669
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -76,18 +76,18 @@ class I18nShell extends Shell {
 		$this->out(__('[H]elp', true));
 		$this->out(__('[Q]uit', true));
 
-		$choice = strtoupper($this->in(__('What would you like to do?', true), array('E', 'I', 'H', 'Q')));
+		$choice = strtolower($this->in(__('What would you like to do?', true), array('E', 'I', 'H', 'Q')));
 		switch ($choice) {
-			case 'E':
+			case 'e':
 				$this->Extract->execute();
 			break;
-			case 'I':
+			case 'i':
 				$this->initdb();
 			break;
-			case 'H':
+			case 'h':
 				$this->help();
 			break;
-			case 'Q':
+			case 'q':
 				exit(0);
 			break;
 			default:

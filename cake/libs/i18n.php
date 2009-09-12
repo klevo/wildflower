@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: i18n.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4116
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -62,7 +62,7 @@ class I18n extends Object {
  * Current language used for translations
  *
  * @var string
- * @access private;
+ * @access private
  */
 	var $__lang = null;
 /**
@@ -94,7 +94,9 @@ class I18n extends Object {
  * @var array
  * @access private
  */
-	var $__categories = array('LC_CTYPE', 'LC_NUMERIC', 'LC_TIME', 'LC_COLLATE', 'LC_MONETARY', 'LC_MESSAGES', 'LC_ALL');
+	var $__categories = array(
+		 'LC_ALL', 'LC_COLLATE', 'LC_CTYPE', 'LC_MONETARY', 'LC_NUMERIC', 'LC_TIME', 'LC_MESSAGES'
+	);
 /**
  * Return a static instance of the I18n class
  *
@@ -111,7 +113,7 @@ class I18n extends Object {
 	}
 /**
  * Used by the translation functions in basics.php
- * Can also be used like I18n::translate(); but only if the uses('i18n'); has been used to load the class.
+ * Can also be used like I18n::translate(); but only if the App::import('I18n'); has been used to load the class.
  *
  * @param string $singular String to translate
  * @param string $plural Plural string (if any)
@@ -121,7 +123,7 @@ class I18n extends Object {
  * @return string translated strings.
  * @access public
  */
-	function translate($singular, $plural = null, $domain = null, $category = null, $count = null) {
+	function translate($singular, $plural = null, $domain = null, $category = 6, $count = null) {
 		$_this =& I18n::getInstance();
 
 		if (strpos($singular, "\r\n") !== false) {

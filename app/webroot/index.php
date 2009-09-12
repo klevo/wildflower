@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: index.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,19 +19,11 @@
  * @package       cake
  * @subpackage    cake.app.webroot
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-/**
-  * PHP 5.3 compatibility
-  */
-    if (defined('E_DEPRECATED')) {
-        error_reporting(E_ALL ^ E_DEPRECATED); 
-    } else {
-        error_reporting(E_ALL);
-    }
 /**
  * Use the DS to separate the directories in other defines
  */
@@ -95,13 +87,10 @@
 		$Dispatcher = new Dispatcher();
 		$Dispatcher->dispatch($url);
 	}
-	// Wildflower: Commented out because of some AJAX calls. JSON content for example, does not like this.
+	// For fucks sake CakePHP developers - nobody needs this - just breaks JSON
+	// ?
+	//
     // if (Configure::read() > 0) {
     //  echo "<!-- " . round(getMicrotime() - $TIME_START, 4) . "s -->";
     // }
-    
-    // Wildflower: Memory usage. Use for debugging - note AJAX does not like this
-    // Typical WF memory usage is 10 MB
-    // $memoryUsageMb = memory_get_usage() / 1024 / 1024;
-    // echo "<!-- $memoryUsageMb MB -->";
 ?>

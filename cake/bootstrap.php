@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: bootstrap.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Basic Cake functionality.
  *
@@ -19,14 +19,18 @@
  * @package       cake
  * @subpackage    cake.cake
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 if (!defined('PHP5')) {
 	define('PHP5', (PHP_VERSION >= 5));
 }
+if (!defined('E_DEPRECATED')) {
+	define('E_DEPRECATED', 8192);
+}
+error_reporting(E_ALL & ~E_DEPRECATED);
 /**
  * Configuration, directory layout and standard libraries
  */

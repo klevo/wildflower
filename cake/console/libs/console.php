@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: console.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -252,8 +252,7 @@ class ConsoleShell extends Shell {
 					if ($this->__isValidModel($modelToSave)) {
 						// Extract the array of data we are trying to build
 						list($foo, $data) = explode("->save", $command);
-						$badChars = array("(", ")");
-						$data = str_replace($badChars, "", $data);
+						$data = preg_replace('/^\(*(array)?\(*(.+?)\)*$/i', '\\2', $data);
 						$saveCommand = "\$this->{$modelToSave}->save(array('{$modelToSave}' => array({$data})));";
 						@eval($saveCommand);
 						$this->out('Saved record for ' . $modelToSave);

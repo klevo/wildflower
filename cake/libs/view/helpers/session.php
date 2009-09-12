@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: session.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 1.1.7.3328
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 if (!class_exists('cakesession')) {
@@ -142,10 +142,10 @@ class SessionHelper extends CakeSession {
 					$out = $flash['message'];
 				} else {
 					$view =& ClassRegistry::getObject('view');
-					list($tmpLayout, $tmpVars, $tmpTitle) = array($view->layout, $view->viewVars, $view->pageTitle);
-					list($view->layout, $view->viewVars, $view->pageTitle) = array($flash['layout'], $flash['params'], '');
-					$out = $view->renderLayout($flash['message']);
-					list($view->layout, $view->viewVars, $view->pageTitle) = array($tmpLayout, $tmpVars, $tmpTitle);
+					list($tmpVars, $tmpTitle) = array($view->viewVars, $view->pageTitle);
+					list($view->viewVars, $view->pageTitle) = array($flash['params'], '');
+					$out = $view->renderLayout($flash['message'], $flash['layout']);
+					list($view->viewVars, $view->pageTitle) = array($tmpVars, $tmpTitle);
 				}
 				echo($out);
 				parent::del('Message.' . $key);

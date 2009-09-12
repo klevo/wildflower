@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: api.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * API shell to get CakePHP core method signatures.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
@@ -66,7 +66,7 @@ class ApiShell extends Shell {
 			return $this->help();
 		}
 
-		$type = low($this->args[0]);
+		$type = strtolower($this->args[0]);
 
 		if (isset($this->paths[$type])) {
 			$path = $this->paths[$type];
@@ -117,7 +117,7 @@ class ApiShell extends Shell {
 				$this->out($list);
 
 				$methods = array_keys($parsed);
-				while ($number = $this->in(__('Select a number to see the more information about a specific method. q to quit. l to list.', true), null, 'q')) {
+				while ($number = strtolower($this->in(__('Select a number to see the more information about a specific method. q to quit. l to list.', true), null, 'q'))) {
 					if ($number === 'q') {
 						$this->out(__('Done', true));
 						$this->_stop();
@@ -151,17 +151,17 @@ class ApiShell extends Shell {
 
 		$commands = array(
 			'path' => "\t<type>\n" .
-						"\t\tEither a full path or type of class (model, behavior, controller, component, view, helper).\n".
-						"\t\tAvailable values:\n\n".
-						"\t\tbehavior\tLook for class in CakePHP behavior path\n".
-						"\t\tcache\tLook for class in CakePHP cache path\n".
-						"\t\tcontroller\tLook for class in CakePHP controller path\n".
-						"\t\tcomponent\tLook for class in CakePHP component path\n".
-						"\t\thelper\tLook for class in CakePHP helper path\n".
-						"\t\tmodel\tLook for class in CakePHP model path\n".
-						"\t\tview\tLook for class in CakePHP view path\n",
+				"\t\tEither a full path or type of class (model, behavior, controller, component, view, helper).\n".
+				"\t\tAvailable values:\n\n".
+				"\t\tbehavior\tLook for class in CakePHP behavior path\n".
+				"\t\tcache\tLook for class in CakePHP cache path\n".
+				"\t\tcontroller\tLook for class in CakePHP controller path\n".
+				"\t\tcomponent\tLook for class in CakePHP component path\n".
+				"\t\thelper\tLook for class in CakePHP helper path\n".
+				"\t\tmodel\tLook for class in CakePHP model path\n".
+				"\t\tview\tLook for class in CakePHP view path\n",
 			'className' => "\t<className>\n" .
-						"\t\tA CakePHP core class name (e.g: Component, HtmlHelper).\n"
+				"\t\tA CakePHP core class name (e.g: Component, HtmlHelper).\n"
 		);
 
 		$this->out($head);
@@ -196,16 +196,16 @@ class ApiShell extends Shell {
 
 		$contents = $File->read();
 
-		if (preg_match_all('%(/\\*\\*[\\s\\S]*?\\*/)(\\s+function\\s+\\w+)(\\(.+\\))%', $contents, $result, PREG_PATTERN_ORDER)) {
+		if (preg_match_all('%(/\\*\\*[\\s\\S]*?\\*/)(\\s+function\\s+\\w+)(\\(.*\\))%', $contents, $result, PREG_PATTERN_ORDER)) {
 			foreach ($result[2] as $key => $method) {
 				$method = str_replace('function ', '', trim($method));
 
 				if (strpos($method, '__') === false && $method[0] != '_') {
 					$parsed[$method] = array(
-											'comment' => r(array('/*', '*/', '*'), '', trim($result[1][$key])),
-											'method' => $method,
-											'parameters' => trim($result[3][$key]),
-											);
+						'comment' => str_replace(array('/*', '*/', '*'), '', trim($result[1][$key])),
+						'method' => $method,
+						'parameters' => trim($result[3][$key])
+					);
 				}
 			}
 		}

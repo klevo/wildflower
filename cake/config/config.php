@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: config.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Core Configurations.
  *
@@ -17,10 +17,10 @@
  * @package       cake
  * @subpackage    cake.app.config
  * @since         CakePHP(tm) v 1.1.11.4062
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-return $config['Cake.version'] = '1.2.3.8166';
+return $config['Cake.version'] = '1.2.4.8284';
 ?>

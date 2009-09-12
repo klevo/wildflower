@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: html.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Html Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.9.1
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -316,8 +316,10 @@ class HtmlHelper extends AppHelper {
 /**
  * Creates a link element for CSS stylesheets.
  *
- * @param mixed $path The name of a CSS style sheet in /app/webroot/css, or an array containing names of CSS stylesheets in that directory.
- * @param string $rel Rel attribute. Defaults to "stylesheet".
+ * @param mixed $path The name of a CSS style sheet or an array containing names of
+ *   CSS stylesheets. If `$path` is prefixed with '/', the path will be relative to the webroot
+ *   of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
+ * @param string $rel Rel attribute. Defaults to "stylesheet". If equal to 'import' the stylesheet will be imported.
  * @param array $htmlAttributes Array of HTML attributes.
  * @param boolean $inline If set to false, the generated tag appears in the head tag of the layout.
  * @return string CSS <link /> or <style /> tag, depending on the type of link.
@@ -435,10 +437,11 @@ class HtmlHelper extends AppHelper {
 		} elseif ($path[0] === '/') {
 			$path = $this->webroot($path);
 		} elseif (strpos($path, '://') === false) {
-			if ((Configure::read('Asset.timestamp') == true && Configure::read() > 0) || Configure::read('Asset.timestamp') === 'force') {
-				$path .= '?' . @filemtime(str_replace('/', DS, WWW_ROOT . IMAGES_URL . $path));
-			}
 			$path = $this->webroot(IMAGES_URL . $path);
+
+			if ((Configure::read('Asset.timestamp') == true && Configure::read() > 0) || Configure::read('Asset.timestamp') === 'force') {
+				$path .= '?' . @filemtime(str_replace('/', DS, WWW_ROOT . $path));
+			}
 		}
 
 		if (!isset($options['alt'])) {

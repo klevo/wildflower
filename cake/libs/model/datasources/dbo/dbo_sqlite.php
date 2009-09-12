@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_sqlite.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * SQLite layer for DBO
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.9.0
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -88,7 +88,7 @@ class DboSqlite extends DboSource {
 		'primary_key' => array('name' => 'integer primary key'),
 		'string' => array('name' => 'varchar', 'limit' => '255'),
 		'text' => array('name' => 'text'),
-		'integer' => array('name' => 'integer', 'limit' => null, 'formatter' => 'intval'),
+		'integer' => array('name' => 'integer', 'limit' => 11, 'formatter' => 'intval'),
 		'float' => array('name' => 'float', 'formatter' => 'floatval'),
 		'datetime' => array('name' => 'datetime', 'format' => 'Y-m-d H:i:s', 'formatter' => 'date'),
 		'timestamp' => array('name' => 'timestamp', 'format' => 'Y-m-d H:i:s', 'formatter' => 'date'),
@@ -190,18 +190,19 @@ class DboSqlite extends DboSource {
 
 		foreach ($result as $column) {
 			$fields[$column[0]['name']] = array(
-				'type'		=> $this->column($column[0]['type']),
-				'null'		=> !$column[0]['notnull'],
-				'default'	=> $column[0]['dflt_value'],
-				'length'	=> $this->length($column[0]['type'])
+				'type' => $this->column($column[0]['type']),
+				'null' => !$column[0]['notnull'],
+				'default' => $column[0]['dflt_value'],
+				'length' => $this->length($column[0]['type'])
 			);
 			if ($column[0]['pk'] == 1) {
+				$colLength = $this->length($column[0]['type']);
 				$fields[$column[0]['name']] = array(
-					'type'		=> $fields[$column[0]['name']]['type'],
-					'null'		=> false,
-					'default'	=> $column[0]['dflt_value'],
-					'key'		=> $this->index['PRI'],
-					'length'	=> 11
+					'type' => $fields[$column[0]['name']]['type'],
+					'null' => false,
+					'default' => $column[0]['dflt_value'],
+					'key' => $this->index['PRI'],
+					'length'=> ($colLength != null) ? $colLength : 11
 				);
 			}
 		}
@@ -449,34 +450,34 @@ class DboSqlite extends DboSource {
 		}
 
 		$real = $this->columns[$type];
-		if (isset($column['key']) && $column['key'] == 'primary') {
-			$out = $this->name($name) . ' ' . $this->columns['primary_key']['name'];
-		} else {
-			$out = $this->name($name) . ' ' . $real['name'];
-
-			if (isset($real['limit']) || isset($real['length']) || isset($column['limit']) || isset($column['length'])) {
-				if (isset($column['length'])) {
-					$length = $column['length'];
-				} elseif (isset($column['limit'])) {
-					$length = $column['limit'];
-				} elseif (isset($real['length'])) {
-					$length = $real['length'];
-				} else {
-					$length = $real['limit'];
-				}
-				$out .= '(' . $length . ')';
+		$out = $this->name($name) . ' ' . $real['name'];
+		if (isset($column['key']) && $column['key'] == 'primary' && $type == 'integer') {
+			return $this->name($name) . ' ' . $this->columns['primary_key']['name'];
+		}
+		if (isset($real['limit']) || isset($real['length']) || isset($column['limit']) || isset($column['length'])) {
+			if (isset($column['length'])) {
+				$length = $column['length'];
+			} elseif (isset($column['limit'])) {
+				$length = $column['limit'];
+			} elseif (isset($real['length'])) {
+				$length = $real['length'];
+			} else {
+				$length = $real['limit'];
 			}
-			if (isset($column['key']) && $column['key'] == 'primary') {
-				$out .= ' NOT NULL';
-			} elseif (isset($column['default']) && isset($column['null']) && $column['null'] == false) {
-				$out .= ' DEFAULT ' . $this->value($column['default'], $type) . ' NOT NULL';
-			} elseif (isset($column['default'])) {
-				$out .= ' DEFAULT ' . $this->value($column['default'], $type);
-			} elseif (isset($column['null']) && $column['null'] == true) {
-				$out .= ' DEFAULT NULL';
-			} elseif (isset($column['null']) && $column['null'] == false) {
-				$out .= ' NOT NULL';
-			}
+			$out .= '(' . $length . ')';
+		}
+		if (isset($column['key']) && $column['key'] == 'primary' && $type == 'integer') {
+			$out .= ' ' . $this->columns['primary_key']['name'];
+		} elseif (isset($column['key']) && $column['key'] == 'primary') {
+			$out .= ' NOT NULL';
+		} elseif (isset($column['default']) && isset($column['null']) && $column['null'] == false) {
+			$out .= ' DEFAULT ' . $this->value($column['default'], $type) . ' NOT NULL';
+		} elseif (isset($column['default'])) {
+			$out .= ' DEFAULT ' . $this->value($column['default'], $type);
+		} elseif (isset($column['null']) && $column['null'] == true) {
+			$out .= ' DEFAULT NULL';
+		} elseif (isset($column['null']) && $column['null'] == false) {
+			$out .= ' NOT NULL';
 		}
 		return $out;
 	}

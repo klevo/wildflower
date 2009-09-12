@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: missing_view.ctp 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  *
  * PHP versions 4 and 5
@@ -16,16 +16,16 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.templates.errors
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 ?>
 <h2><?php __('Missing View'); ?></h2>
 <p class="error">
 	<strong><?php __('Error'); ?>: </strong>
-	<?php echo sprintf(__('The view for %1$s%2$s was not found.', true), "<em>". $controller."Controller::</em>", "<em>". $action ."()</em>");?>
+	<?php echo sprintf(__('The view for %1$s%2$s was not found.', true), "<em>" . $controller . "Controller::</em>", "<em>". $action . "()</em>");?>
 </p>
 <p class="error">
 	<strong><?php __('Error'); ?>: </strong>
@@ -33,5 +33,5 @@
 </p>
 <p class="notice">
 	<strong><?php __('Notice'); ?>: </strong>
-	<?php echo sprintf(__('If you want to customize this error message, create %s', true), APP_DIR.DS."views".DS."errors".DS."missing_view.ctp");?>
+	<?php echo sprintf(__('If you want to customize this error message, create %s', true), APP_DIR . DS . "views" . DS . "errors" . DS . "missing_view.ctp");?>
 </p>

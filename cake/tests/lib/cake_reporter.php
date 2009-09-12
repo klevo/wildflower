@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: cake_reporter.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.tests.libs
  * @since         CakePHP(tm) v 1.2.0.4433
- * @version       $Revision: 8004 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 /**
@@ -91,7 +91,6 @@ class CakeHtmlReporter extends SimpleReporter {
 		echo "<strong>" . $this->getFailCount() . "</strong> fails and ";
 		echo "<strong>" . $this->getExceptionCount() . "</strong> exceptions.";
 		echo "</div>\n";
-		echo "</body>\n</html>\n";
 	}
 /**
  * Paints the test failure with a breadcrumbs

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dbo_mssql.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * MS SQL layer for DBO
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -211,9 +211,10 @@ class DboMssql extends DboSource {
 			return $cache;
 		}
 
-		$fields = false;
-		$cols = $this->fetchAll("SELECT COLUMN_NAME as Field, DATA_TYPE as Type, COL_LENGTH('" . $this->fullTableName($model, false) . "', COLUMN_NAME) as Length, IS_NULLABLE As [Null], COLUMN_DEFAULT as [Default], COLUMNPROPERTY(OBJECT_ID('" . $this->fullTableName($model, false) . "'), COLUMN_NAME, 'IsIdentity') as [Key], NUMERIC_SCALE as Size FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->fullTableName($model, false) . "'", false);
+		$table = $this->fullTableName($model, false);
+		$cols = $this->fetchAll("SELECT COLUMN_NAME as Field, DATA_TYPE as Type, COL_LENGTH('" . $table . "', COLUMN_NAME) as Length, IS_NULLABLE As [Null], COLUMN_DEFAULT as [Default], COLUMNPROPERTY(OBJECT_ID('" . $table . "'), COLUMN_NAME, 'IsIdentity') as [Key], NUMERIC_SCALE as Size FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $table . "'", false);
 
+		$fields = false;
 		foreach ($cols as $column) {
 			$field = $column[0]['Field'];
 			$fields[$field] = array(
@@ -258,6 +259,9 @@ class DboMssql extends DboSource {
 		if ($data === null) {
 			return 'NULL';
 		}
+		if (in_array($column, array('integer', 'float', 'binary')) && $data === '') {
+			return 'NULL';
+		}
 		if ($data === '') {
 			return "''";
 		}
@@ -295,7 +299,8 @@ class DboMssql extends DboSource {
 		$fields = parent::fields($model, $alias, $fields, false);
 		$count = count($fields);
 
-		if ($count >= 1 && $fields[0] != '*' && strpos($fields[0], 'COUNT(*)') === false) {
+		if ($count >= 1 && strpos($fields[0], 'COUNT(*)') === false) {
+			$result = array();
 			for ($i = 0; $i < $count; $i++) {
 				$prepend = '';
 
@@ -306,6 +311,19 @@ class DboMssql extends DboSource {
 				$fieldAlias = count($this->__fieldMappings);
 
 				if (!preg_match('/\s+AS\s+/i', $fields[$i])) {
+					if (substr($fields[$i], -1) == '*') {
+						if (strpos($fields[$i], '.') !== false && $fields[$i] != $alias . '.*') {
+							$build = explode('.', $fields[$i]);
+							$AssociatedModel = $model->{$build[0]};
+						} else {
+							$AssociatedModel = $model;
+						}
+
+						$_fields = $this->fields($AssociatedModel, $AssociatedModel->alias, array_keys($AssociatedModel->schema()));
+						$result = array_merge($result, $_fields);
+						continue;
+					}
+
 					if (strpos($fields[$i], '.') === false) {
 						$this->__fieldMappings[$alias . '__' . $fieldAlias] = $alias . '.' . $fields[$i];
 						$fieldName  = $this->name($alias . '.' . $fields[$i]);
@@ -321,10 +339,12 @@ class DboMssql extends DboSource {
 					}
 					$fields[$i] =  "{$fieldName} AS {$fieldAlias}";
 				}
-				$fields[$i] = $prepend . $fields[$i];
+				$result[] = $prepend . $fields[$i];
 			}
+			return $result;
+		} else {
+			return $fields;
 		}
-		return $fields;
 	}
 /**
  * Generates and executes an SQL INSERT statement for given model, fields, and values.
@@ -373,6 +393,9 @@ class DboMssql extends DboSource {
 		if (isset($fields[$model->primaryKey])) {
 			unset($fields[$model->primaryKey]);
 		}
+		if (empty($fields)) {
+			return true;
+		}
 		return parent::update($model, array_keys($fields), array_values($fields), $conditions);
 	}
 /**
@@ -384,7 +407,7 @@ class DboMssql extends DboSource {
 		$error = mssql_get_last_message($this->connection);
 
 		if ($error) {
-			if (!preg_match('/contexto de la base de datos a|contesto di database|changed database/i', $error)) {
+			if (!preg_match('/contexto de la base de datos a|contesto di database|changed database|datenbankkontext/i', $error)) {
 				return $error;
 			}
 		}
@@ -460,8 +483,8 @@ class DboMssql extends DboSource {
 			}
 			return $col;
 		}
-		$col                = str_replace(')', '', $real);
-		$limit              = null;
+		$col = str_replace(')', '', $real);
+		$limit = null;
 		if (strpos($col, '(') !== false) {
 			list($col, $limit) = explode('(', $col);
 		}
@@ -659,21 +682,15 @@ class DboMssql extends DboSource {
  * Generate a database-native column schema string
  *
  * @param array $column An array structured like the following: array('name'=>'value', 'type'=>'value'[, options]),
- *                      where options can be 'default', 'length', or 'key'.
+ *   where options can be 'default', 'length', or 'key'.
  * @return string
  */
 	function buildColumn($column) {
 		$result = preg_replace('/(int|integer)\([0-9]+\)/i', '$1', parent::buildColumn($column));
-		$null = (
-			(isset($column['null']) && $column['null'] == true) ||
-			(array_key_exists('default', $column) && $column['default'] === null) ||
-			(array_keys($column) == array('type', 'name'))
-		);
-		$primaryKey = (isset($column['key']) && $column['key'] == 'primary');
-		$stringKey =  ($primaryKey && $column['type'] != 'integer');
-
-		if ($null && !$primaryKey) {
-			$result .= " NULL";
+		if (strpos($result, 'DEFAULT NULL') !== false) {
+			$result = str_replace('DEFAULT NULL', 'NULL', $result);
+		} else if (array_keys($column) == array('type', 'name')) {
+			$result .= ' NULL';
 		}
 		return $result;
 	}
@@ -689,8 +706,8 @@ class DboMssql extends DboSource {
 
 		foreach ($indexes as $name => $value) {
 			if ($name == 'PRIMARY') {
-				$out = 'PRIMARY KEY  (' . $this->name($value['column']) . ')';
-			} else {
+				$join[] = 'PRIMARY KEY (' . $this->name($value['column']) . ')';
+			} else if (isset($value['unique']) && $value['unique']) {
 				$out = "ALTER TABLE {$table} ADD CONSTRAINT {$name} UNIQUE";
 
 				if (is_array($value['column'])) {
@@ -699,8 +716,8 @@ class DboMssql extends DboSource {
 					$value['column'] = $this->name($value['column']);
 				}
 				$out .= "({$value['column']});";
+				$join[] = $out;
 			}
-			$join[] = $out;
 		}
 		return $join;
 	}
@@ -723,7 +740,6 @@ class DboMssql extends DboSource {
 				return $field;
 			}
 		}
-
 		return null;
 	}
 }

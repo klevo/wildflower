@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: error.php 8004 2009-01-16 20:15:21Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * ErrorHandler for Console Shells
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console
  * @since         CakePHP(tm) v 1.2.0.5074
- * @version       $Revision: 8004 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-01-16 12:15:21 -0800 (Fri, 16 Jan 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**

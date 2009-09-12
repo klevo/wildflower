@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: datasource.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * DataSource base class
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources
  * @since         CakePHP(tm) v 0.10.5.1790
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -91,28 +91,28 @@ class DataSource extends Object {
  * Enter description here...
  *
  * @var array
- * @access private
+ * @access protected
  */
 	var $_result = null;
 /**
  * Queries count.
  *
  * @var int
- * @access private
+ * @access protected
  */
 	var $_queriesCnt = 0;
 /**
  * Total duration of all queries.
  *
  * @var unknown_type
- * @access private
+ * @access protected
  */
 	var $_queriesTime = null;
 /**
  * Log of queries executed by this DataSource
  *
  * @var unknown_type
- * @access private
+ * @access protected
  */
 	var $_queriesLog = array();
 /**
@@ -121,21 +121,21 @@ class DataSource extends Object {
  * >6000 queries on one system.
  *
  * @var int Maximum number of queries in the queries log.
- * @access private
+ * @access protected
  */
 	var $_queriesLogMax = 200;
 /**
  * Caches serialzed results of executed queries
  *
  * @var array Maximum number of queries in the queries log.
- * @access private
+ * @access protected
  */
 	var $_queryCache = array();
 /**
  * The default configuration of a specific DataSource
  *
  * @var array
- * @access public
+ * @access protected
  */
 	var $_baseConfig = array();
 /**

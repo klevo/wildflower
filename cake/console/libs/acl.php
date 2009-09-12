@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: acl.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 App::import('Component', 'Acl');
@@ -205,7 +205,7 @@ class AclShell extends Shell {
 		extract($this->__dataVars());
 		$data = array(
 			$class => array(
-				'id' 		=> $this->args[1],
+				'id' => $this->args[1],
 				'parent_id' => $this->args[2]
 			)
 		);
@@ -336,7 +336,12 @@ class AclShell extends Shell {
 			}
 			$last   = $n[$class]['rght'];
 			$count  = count($stack);
-			$this->out(str_repeat('  ', $count) . "[" . $n[$class]['id'] . "]" . $n[$class]['alias']."\n");
+			$indent = str_repeat('  ', $count);
+			if ($n[$class]['alias']) {
+				$this->out($indent . "[" . $n[$class]['id'] . "]" . $n[$class]['alias']."\n");
+			 } else {
+				$this->out($indent . "[" . $n[$class]['id'] . "]" . $n[$class]['model'] . '.' . $n[$class]['foreign_key'] . "\n");
+			}
 		}
 		$this->hr();
 	}

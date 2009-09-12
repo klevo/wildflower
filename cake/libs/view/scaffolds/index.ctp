@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: index.ctp 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  *
  * PHP versions 4 and 5
@@ -16,9 +16,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs.templates.views
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 ?>
@@ -51,7 +51,7 @@ echo "\n";
 				foreach ($associations['belongsTo'] as $_alias => $_details) {
 					if ($_field === $_details['foreignKey']) {
 						$isKey = true;
-						echo "\t\t<td>\n\t\t\t" . $html->link(${$singularVar}[$_alias][$_details['displayField']], array('controller'=> $_details['controller'], 'action'=>'view', ${$singularVar}[$_alias][$_details['primaryKey']])) . "\n\t\t</td>\n";
+						echo "\t\t<td>\n\t\t\t" . $html->link(${$singularVar}[$_alias][$_details['displayField']], array('controller' => $_details['controller'], 'action' => 'view', ${$singularVar}[$_alias][$_details['primaryKey']])) . "\n\t\t</td>\n";
 						break;
 					}
 				}
@@ -62,9 +62,9 @@ echo "\n";
 		}
 
 		echo "\t\t<td class=\"actions\">\n";
-		echo "\t\t\t" . $html->link(__('View', true), array('action'=>'view', ${$singularVar}[$modelClass][$primaryKey])) . "\n";
-	 	echo "\t\t\t" . $html->link(__('Edit', true), array('action'=>'edit', ${$singularVar}[$modelClass][$primaryKey])) . "\n";
-	 	echo "\t\t\t" . $html->link(__('Delete', true), array('action'=>'delete', ${$singularVar}[$modelClass][$primaryKey]), null, __('Are you sure you want to delete', true).' #' . ${$singularVar}[$modelClass][$primaryKey]) . "\n";
+		echo "\t\t\t" . $html->link(__('View', true), array('action' => 'view', ${$singularVar}[$modelClass][$primaryKey])) . "\n";
+	 	echo "\t\t\t" . $html->link(__('Edit', true), array('action' => 'edit', ${$singularVar}[$modelClass][$primaryKey])) . "\n";
+	 	echo "\t\t\t" . $html->link(__('Delete', true), array('action' => 'delete', ${$singularVar}[$modelClass][$primaryKey]), null, __('Are you sure you want to delete', true).' #' . ${$singularVar}[$modelClass][$primaryKey]) . "\n";
 		echo "\t\t</td>\n";
 	echo "\t</tr>\n";
 
@@ -74,20 +74,20 @@ echo "\n";
 </table>
 </div>
 <div class="paging">
-<?php echo "\t" . $paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled')) . "\n";?>
+<?php echo "\t" . $paginator->prev('<< ' . __('previous', true), array(), null, array('class' => 'disabled')) . "\n";?>
  | <?php echo $paginator->numbers() . "\n"?>
-<?php echo "\t ". $paginator->next(__('next', true) .' >>', array(), null, array('class'=>'disabled')) . "\n";?>
+<?php echo "\t ". $paginator->next(__('next', true) .' >>', array(), null, array('class' => 'disabled')) . "\n";?>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link('New '.$singularHumanName, array('action'=>'add')); ?></li>
+		<li><?php echo $html->link('New '.$singularHumanName, array('action' => 'add')); ?></li>
 <?php
 		$done = array();
 		foreach ($associations as $_type => $_data) {
 			foreach ($_data as $_alias => $_details) {
 				if ($_details['controller'] != $this->name && !in_array($_details['controller'], $done)) {
-					echo "\t\t<li>".$html->link(sprintf(__('List %s', true), Inflector::humanize($_details['controller'])), array('controller'=> $_details['controller'], 'action'=>'index'))."</li>\n";
-					echo "\t\t<li>".$html->link(sprintf(__('New %s', true), Inflector::humanize(Inflector::underscore($_alias))), array('controller'=> $_details['controller'], 'action'=>'add'))."</li>\n";
+					echo "\t\t<li>" . $html->link(sprintf(__('List %s', true), Inflector::humanize($_details['controller'])), array('controller' => $_details['controller'], 'action' => 'index')) . "</li>\n";
+					echo "\t\t<li>" . $html->link(sprintf(__('New %s', true), Inflector::humanize(Inflector::underscore($_alias))), array('controller' => $_details['controller'], 'action' => 'add')) . "</li>\n";
 					$done[] = $_details['controller'];
 				}
 			}

@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: tree.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Tree behavior class.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP v 1.2.0.4487
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -877,9 +877,10 @@ class TreeBehavior extends ModelBehavior {
 				$scope['NOT'][$Model->alias . '.' . $Model->primaryKey] = $Model->id;
 			}
 		}
+		$name = $Model->alias . '.' . $right;
 		list($edge) = array_values($Model->find('first', array(
 			'conditions' => $scope,
-			'fields' => $db->calculate($Model, 'max', array($right)),
+			'fields' => $db->calculate($Model, 'max', array($name, $right)),
 			'recursive' => $recursive
 		)));
 		return (empty($edge[$right])) ? 0 : $edge[$right];
@@ -895,9 +896,10 @@ class TreeBehavior extends ModelBehavior {
  */
 	function __getMin($Model, $scope, $left, $recursive = -1) {
 		$db =& ConnectionManager::getDataSource($Model->useDbConfig);
+		$name = $Model->alias . '.' . $left;
 		list($edge) = array_values($Model->find('first', array(
 			'conditions' => $scope,
-			'fields' => $db->calculate($Model, 'min', array($left)),
+			'fields' => $db->calculate($Model, 'min', array($name, $left)),
 			'recursive' => $recursive
 		)));
 		return (empty($edge[$left])) ? 0 : $edge[$left];

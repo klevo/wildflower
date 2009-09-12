@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: containable.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Behavior for binding management.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5669
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -48,7 +48,7 @@ class ContainableBehavior extends ModelBehavior {
 	var $runtime = array();
 /**
  * Initiate behavior for the model using specified settings.
- * 
+ *
  * Available settings:
  *
  * - recursive: (boolean, optional) set to true to allow containable to automatically
@@ -313,7 +313,7 @@ class ContainableBehavior extends ModelBehavior {
 						$option = 'conditions';
 						$val = $Model->{$name}->alias.'.'.$key;
 					}
-					$children[$option] = isset($children[$option]) ? array_merge((array) $children[$option], (array) $val) : $val;
+					$children[$option] = is_array($val) ? $val : array($val);
 					$newChildren = null;
 					if (!empty($name) && !empty($children[$key])) {
 						$newChildren = $children[$key];

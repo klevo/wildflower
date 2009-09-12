@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: email.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 1.2.0.3467
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -346,6 +346,7 @@ class EmailComponent extends Object{
 		$this->subject = null;
 		$this->additionalParams = null;
 		$this->smtpError = null;
+		$this->attachments = array();
 		$this->__header = array();
 		$this->__boundary = null;
 		$this->__message = array();
@@ -490,7 +491,6 @@ class EmailComponent extends Object{
 			$this->__header[] = 'Content-Type: text/html; charset=' . $this->charset;
 		} elseif ($this->sendAs === 'both') {
 			$this->__header[] = 'Content-Type: multipart/alternative; boundary="alt-' . $this->__boundary . '"';
-			$this->__header[] = '';
 		}
 
 		$this->__header[] = 'Content-Transfer-Encoding: 7bit';
@@ -503,12 +503,16 @@ class EmailComponent extends Object{
  */
 	function __formatMessage($message) {
 		if (!empty($this->attachments)) {
-			$prefix = array(
-				'--' . $this->__boundary,
-				'Content-Type: text/plain; charset=' . $this->charset,
-				'Content-Transfer-Encoding: 7bit',
-				''
-			);
+			$prefix = array('--' . $this->__boundary);
+			if ($this->sendAs === 'text') {
+				$prefix[] = 'Content-Type: text/plain; charset=' . $this->charset;
+			} elseif ($this->sendAs === 'html') {
+				$prefix[] = 'Content-Type: text/html; charset=' . $this->charset;
+			} elseif ($this->sendAs === 'both') {
+				$prefix[] = 'Content-Type: multipart/alternative; boundary="alt-' . $this->__boundary . '"';
+			}
+			$prefix[] = 'Content-Transfer-Encoding: 7bit';
+			$prefix[] = '';
 			$message = array_merge($prefix, $message);
 		}
 		return $message;
@@ -632,7 +636,9 @@ class EmailComponent extends Object{
  * @access private
  */
 	function __strip($value, $message = false) {
-		$search = '%0a|%0d|Content-(?:Type|Transfer-Encoding)\:|charset\=|mime-version\:|multipart/mixed|(?:to|b?cc)\:.*';
+		$search  = '%0a|%0d|Content-(?:Type|Transfer-Encoding)\:';
+		$search .= '|charset\=|mime-version\:|multipart/mixed|(?:[^a-z]to|b?cc)\:.*';
+
 		if ($message !== true) {
 			$search .= '|\r|\n';
 		}
@@ -674,10 +680,14 @@ class EmailComponent extends Object{
 			return false;
 		}
 
-		if (isset($this->smtpOptions['host'])) {
-			$host = $this->smtpOptions['host'];
+		$httpHost = env('HTTP_HOST');
+
+		if (isset($this->smtpOptions['client'])) {
+			$host = $this->smtpOptions['client'];
+		} elseif (!empty($httpHost)) {
+			$host = $httpHost;
 		} else {
-			$host = env('HTTP_HOST');
+			$host = 'localhost';
 		}
 
 		if (!$this->__smtpSend("HELO {$host}", '250')) {

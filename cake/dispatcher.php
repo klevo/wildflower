@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: dispatcher.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Dispatcher takes the URL information, parses it for paramters and
  * tells the involved controllers what to do.
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -303,22 +303,28 @@ class Dispatcher extends Object {
 				$params['url'] = $url;
 			}
 		}
+
 		foreach ($_FILES as $name => $data) {
 			if ($name != 'data') {
 				$params['form'][$name] = $data;
 			}
 		}
+
 		if (isset($_FILES['data'])) {
 			foreach ($_FILES['data'] as $key => $data) {
 				foreach ($data as $model => $fields) {
-					foreach ($fields as $field => $value) {
-						if (is_array($value)) {
-							foreach ($value as $k => $v) {
-								$params['data'][$model][$field][$k][$key] = $v;
+					if (is_array($fields)) {
+						foreach ($fields as $field => $value) {
+							if (is_array($value)) {
+								foreach ($value as $k => $v) {
+									$params['data'][$model][$field][$k][$key] = $v;
+								}
+							} else {
+								$params['data'][$model][$field][$key] = $value;
 							}
-						} else {
-							$params['data'][$model][$field][$key] = $value;
 						}
+					} else {
+						$params['data'][$model][$key] = $fields;
 					}
 				}
 			}
@@ -515,10 +521,10 @@ class Dispatcher extends Object {
 				parse_str($uri[1], $_GET);
 			}
 			$uri = $uri[0];
-		} elseif (empty($uri) && is_string(env('QUERY_STRING'))) {
+		} else {
 			$uri = env('QUERY_STRING');
 		}
-		if (strpos($uri, 'index.php') !== false) {
+		if (is_string($uri) && strpos($uri, 'index.php') !== false) {
 			list(, $uri) = explode('index.php', $uri, 2);
 		}
 		if (empty($uri) || $uri == '/' || $uri == '//') {
@@ -619,7 +625,7 @@ class Dispatcher extends Object {
 
 				if ($pos > 0) {
 					$plugin = substr($url, 0, $pos - 1);
-					$url = str_replace($plugin . '/', '', $url);
+					$url = preg_replace('/^' . preg_quote($plugin, '/') . '\//i', '', $url);
 					$pluginPaths = Configure::read('pluginPaths');
 					$count = count($pluginPaths);
 					for ($i = 0; $i < $count; $i++) {
@@ -627,7 +633,6 @@ class Dispatcher extends Object {
 					}
 				}
 				$paths = array_merge($paths, Configure::read('vendorPaths'));
-
 				foreach ($paths as $path) {
 					if (is_file($path . $url) && file_exists($path . $url)) {
 						$assetFile = $path . $url;

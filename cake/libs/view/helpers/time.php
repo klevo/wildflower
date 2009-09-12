@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: time.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Time Helper class file.
  *
@@ -17,9 +17,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -295,8 +295,8 @@ class TimeHelper extends AppHelper {
  * Relative dates look something like this:
  *	3 weeks, 4 days ago
  *	15 seconds ago
- * Formatted dates look like this:
- *	on 02/18/2004
+ *
+ * Default date formatting is d/m/yy e.g: on 18/2/09
  *
  * The returned string includes 'ago' or 'on' and assumes you'll properly add a word
  * like 'Posted ' before the function output.
@@ -481,7 +481,7 @@ class TimeHelper extends AppHelper {
  * @return bool
  */
 	function wasWithinLast($timeInterval, $dateString, $userOffset = null) {
-		$tmp = r(' ', '', $timeInterval);
+		$tmp = str_replace(' ', '', $timeInterval);
 		if (is_numeric($tmp)) {
 			$timeInterval = $tmp . ' ' . __('days', true);
 		}

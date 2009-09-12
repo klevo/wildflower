@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: missing_controller.ctp 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  *
  * PHP versions 4 and 5
@@ -16,20 +16,20 @@
  * @package       cake
  * @subpackage    cake.cake.libs.view.templates.errors
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 ?>
 <h2><?php __('Missing Controller'); ?></h2>
 <p class="error">
 	<strong><?php __('Error'); ?>: </strong>
-	<?php echo sprintf(__('%s could not be found.', true), "<em>".$controller."</em>");?>
+	<?php echo sprintf(__('%s could not be found.', true), "<em>" . $controller . "</em>");?>
 </p>
 <p class="error">
 	<strong><?php __('Error'); ?>: </strong>
-	<?php echo sprintf(__('Create the class %s below in file: %s', true), "<em>".$controller."</em>", APP_DIR.DS."controllers".DS.Inflector::underscore($controller).".php");?>
+	<?php echo sprintf(__('Create the class %s below in file: %s', true), "<em>" . $controller . "</em>", APP_DIR . DS . "controllers" . DS . Inflector::underscore($controller) . ".php");?>
 </p>
 <pre>
 &lt;?php
@@ -41,5 +41,5 @@ class <?php echo $controller;?> extends AppController {
 </pre>
 <p class="notice">
 	<strong><?php __('Notice'); ?>: </strong>
-	<?php echo sprintf(__('If you want to customize this error message, create %s', true), APP_DIR.DS."views".DS."errors".DS."missing_controller.ctp");?>
+	<?php echo sprintf(__('If you want to customize this error message, create %s', true), APP_DIR . DS . "views" . DS . "errors" . DS . "missing_controller.ctp");?>
 </p>

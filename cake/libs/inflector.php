@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: inflector.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Pluralize and singularize English words.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -249,14 +249,14 @@ class Inflector extends Object {
 			$_this->pluralRules['regexIrregular'] = $regexIrregular;
 		}
 
-		if (preg_match('/(.*)\\b(' . $regexIrregular . ')$/i', $word, $regs)) {
-			$_this->pluralized[$word] = $regs[1] . substr($word, 0, 1) . substr($irregular[strtolower($regs[2])], 1);
-			return $_this->pluralized[$word];
-		}
-
 		if (preg_match('/^(' . $regexUninflected . ')$/i', $word, $regs)) {
 			$_this->pluralized[$word] = $word;
 			return $word;
+		}
+
+		if (preg_match('/(.*)\\b(' . $regexIrregular . ')$/i', $word, $regs)) {
+			$_this->pluralized[$word] = $regs[1] . substr($word, 0, 1) . substr($irregular[strtolower($regs[2])], 1);
+			return $_this->pluralized[$word];
 		}
 
 		foreach ($pluralRules as $rule => $replacement) {
@@ -318,7 +318,8 @@ class Inflector extends Object {
 			'nexus', 'Niasese', 'Pekingese', 'Piedmontese', 'pincers', 'Pistoiese', 'pliers', 'Portuguese', 'proceedings',
 			'rabies', 'rice', 'rhinoceros', 'salmon', 'Sarawakese', 'scissors', 'sea[- ]bass', 'series', 'Shavese', 'shears',
 			'siemens', 'species', 'swine', 'testes', 'trousers', 'trout', 'tuna', 'Vermontese', 'Wenchowese',
-			'whiting', 'wildebeest', 'Yengeese');
+			'whiting', 'wildebeest', 'Yengeese'
+		);
 
 		$coreIrregularSingular = array(
 			'atlases' => 'atlas',
@@ -349,7 +350,9 @@ class Inflector extends Object {
 			'soliloquies' => 'soliloquy',
 			'testes' => 'testis',
 			'trilbys' => 'trilby',
-			'turfs' => 'turf');
+			'turfs' => 'turf',
+			'waves' => 'wave'
+		);
 
 		$singularRules = Set::pushDiff($this->__singularRules, $coreSingularRules);
 		$uninflected = Set::pushDiff($this->__uninflectedSingular, $coreUninflectedSingular);
@@ -385,14 +388,14 @@ class Inflector extends Object {
 			$_this->singularRules['regexIrregular'] = $regexIrregular;
 		}
 
-		if (preg_match('/(.*)\\b(' . $regexIrregular . ')$/i', $word, $regs)) {
-			$_this->singularized[$word] = $regs[1] . substr($word, 0, 1) . substr($irregular[strtolower($regs[2])], 1);
-			return $_this->singularized[$word];
-		}
-
 		if (preg_match('/^(' . $regexUninflected . ')$/i', $word, $regs)) {
 			$_this->singularized[$word] = $word;
 			return $word;
+		}
+
+		if (preg_match('/(.*)\\b(' . $regexIrregular . ')$/i', $word, $regs)) {
+			$_this->singularized[$word] = $regs[1] . substr($word, 0, 1) . substr($irregular[strtolower($regs[2])], 1);
+			return $_this->singularized[$word];
 		}
 
 		foreach ($singularRules as $rule => $replacement) {

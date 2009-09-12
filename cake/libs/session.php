@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: session.php 8166 2009-05-04 21:17:19Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Session class for Cake.
  *
@@ -22,9 +22,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v .0.10.0.1222
- * @version       $Revision: 8166 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-05-04 14:17:19 -0700 (Mon, 04 May 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -137,22 +137,23 @@ class CakeSession extends Object {
 		$this->time = time();
 
 		if ($start === true) {
-			$this->host = env('HTTP_HOST');
-
-			if (empty($base) || strpos($base, '?') === 0 || strpos($base, 'index.php') === 0) {
-				$this->path = '/';
-			} else {
+			if (!empty($base)) {
 				$this->path = $base;
+				if (strpos($base, 'index.php') !== false) {
+				   $this->path = str_replace('index.php', '', $base);
+				}
+				if (strpos($base, '?') !== false) {
+				   $this->path = str_replace('?', '', $base);
+				}
 			}
+			$this->host = env('HTTP_HOST');
 
 			if (strpos($this->host, ':') !== false) {
 				$this->host = substr($this->host, 0, strpos($this->host, ':'));
 			}
-
 			if (!class_exists('Security')) {
 				App::import('Core', 'Security');
 			}
-
 			$this->sessionTime = $this->time + (Security::inactiveMins() * Configure::read('Session.timeout'));
 			$this->security = Configure::read('Security.level');
 		}

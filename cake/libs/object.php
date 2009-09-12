@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: object.php 8120 2009-03-19 20:25:10Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Object class, allowing __construct and __destruct in PHP4.
  *
@@ -20,9 +20,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision: 8120 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2009-03-19 13:25:10 -0700 (Thu, 19 Mar 2009) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -77,9 +77,10 @@ class Object {
 /**
  * Calls a controller's method from any location.
  *
- * @param string $url URL in the form of Cake URL ("/controller/method/parameter")
+ * @param mixed $url String or array-based url.
  * @param array $extra if array includes the key "return" it sets the AutoRender to true.
- * @return mixed Success (true/false) or contents if 'return' is set in $extra
+ * @return mixed Boolean true or false on success/failure, or contents
+ *               of rendered action if 'return' is set in $extra.
  * @access public
  */
 	function requestAction($url, $extra = array()) {

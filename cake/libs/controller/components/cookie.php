@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: cookie.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
  * @since         CakePHP(tm) v 1.2.0.4213
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
@@ -203,10 +203,10 @@ class CookieComponent extends Object {
 
 			if (count($name) > 1) {
 				$this->__values[$name[0]][$name[1]] = $value;
-				$this->__write("[".$name[0]."][".$name[1]."]", $value);
+				$this->__write("[" . $name[0] . "][" . $name[1] . "]", $value);
 			} else {
 				$this->__values[$name[0]] = $value;
-				$this->__write("[".$name[0]."]", $value);
+				$this->__write("[" . $name[0] . "]", $value);
 			}
 		} else {
 			foreach ($key as $names => $value) {
@@ -214,10 +214,10 @@ class CookieComponent extends Object {
 
 				if (count($name) > 1) {
 					$this->__values[$name[0]][$name[1]] = $value;
-					$this->__write("[".$name[0]."][".$name[1]."]", $value);
+					$this->__write("[" . $name[0] . "][" . $name[1] . "]", $value);
 				} else {
 					$this->__values[$name[0]] = $value;
-					$this->__write("[".$name[0]."]", $value);
+					$this->__write("[" . $name[0] . "]", $value);
 				}
 			}
 		}
@@ -278,17 +278,17 @@ class CookieComponent extends Object {
 		$name = $this->__cookieVarNames($key);
 		if (count($name) > 1) {
 			if (isset($this->__values[$name[0]])) {
-				$this->__delete("[".$name[0]."][".$name[1]."]");
+				$this->__delete("[" . $name[0] . "][" . $name[1] . "]");
 				unset($this->__values[$name[0]][$name[1]]);
 			}
 		} else {
 			if (isset($this->__values[$name[0]])) {
 				if (is_array($this->__values[$name[0]])) {
 					foreach ($this->__values[$name[0]] as $key => $value) {
-						$this->__delete("[".$name[0]."][".$key."]");
+						$this->__delete("[" . $name[0] . "][" . $key . "]");
 					}
 				}
-				$this->__delete("[".$name[0]."]");
+				$this->__delete("[" . $name[0] . "]");
 				unset($this->__values[$name[0]]);
 			}
 		}

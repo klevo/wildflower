@@ -1,5 +1,5 @@
 <?php
-/* SVN FILE: $Id: cake_test_fixture.php 7945 2008-12-19 02:16:01Z gwoo $ */
+/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
@@ -19,9 +19,9 @@
  * @package       cake
  * @subpackage    cake.cake.tests.libs
  * @since         CakePHP(tm) v 1.2.0.4667
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @version       $Revision$
+ * @modifiedby    $LastChangedBy$
+ * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 /**
@@ -31,6 +31,12 @@
  * @subpackage    cake.cake.tests.lib
  */
 class CakeTestFixture extends Object {
+/**
+ * Name of the object
+ *
+ * @var string
+ **/
+	var $name = null;
 /**
  * Cake's DBO driver (e.g: DboMysql).
  *
@@ -43,7 +49,6 @@ class CakeTestFixture extends Object {
  * @access public
  */
 	var $table = null;
-
 /**
  * Instantiate the fixture.
  *
