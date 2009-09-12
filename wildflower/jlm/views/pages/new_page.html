@@ -1,0 +1,24 @@
+<div id="name-new-page" class="new-dialog">
+    <h2 class="section"><l18n>Create a new page</l18n></h2>
+    
+    <form action="${action}" method="post">
+        <fieldset style="display:none">
+            <input type="hidden" name="_method" value="POST" />
+        </fieldset>
+        <div class="input title_input">
+            <label for="NewPageTitle">Page title</label>
+            <input id="NewPageTitle" type="text" size="60" name="data[Page][title]" maxlength="256" />
+        </div>
+        
+        <div class="input select">
+            ${parentPageOptions}
+            <div><l18n>If you want to organize pages into a hierarchy, you can do so by selecting a parent page.</l18n></div>
+        </div>
+        
+        <div class="submit wf-form-button">
+            <input type="submit" value="<l18n>Create this page</l18n>" />
+        </div>
+        <div class="cancel-edit"> or <a href="#Cancel"><l18n>Cancel</l18n></a></div>
+    </form>
+    
+</div>

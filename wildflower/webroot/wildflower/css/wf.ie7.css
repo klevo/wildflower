@@ -1,0 +1,32 @@
+/*
+    Hey Internet Explorer developers,
+    
+    this file demonstrates the quality of your work. I mean it should not be here. 
+    Do you see any special styles for Firefox, Opera or Safari? If you can't get it 
+    right with your rendering engine, use something open source. There are plenty of 
+    options.
+*/
+
+#contet {
+}
+
+#content_pad {
+    padding-top: 20px;
+}
+
+.editor_mode #content_pad {
+    padding-top: 1px;
+}
+
+.sidebar-menu,
+.sidebar-menu-alt {
+    overflow: hidden;
+}
+
+    .sidebar-menu a {
+        height: 1%;
+    }
+    
+    .list-of-posts li {
+        height: 1%;
+    }

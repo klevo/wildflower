@@ -6,10 +6,7 @@
  *
  * @package wildflower
  */
-
-// Include Wildflower config
-require_once(dirname(__FILE__) . DS . 'wf_core.php');
-
+die('koko');
 /**
  * Wrapper for application encoding respecting htmlspecialchars
  * 

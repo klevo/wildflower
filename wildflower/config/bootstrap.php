@@ -42,15 +42,15 @@
  */
  
 // Wildflower stuff below
-require_once(APP'wf_bootsrap.php'));
-require_once('Vendor', 'wf_core', array('file' => 'wf_core.php'));
-$viewPaths        = array(APP . '..' . DS . 'wildflower' . DS . 'views' . DS);
-$controllerPaths  = array(APP . '..' . DS . 'wildflower' . DS . 'controllers' . DS);
-$modelPaths       = array(APP . '..' . DS . 'wildflower' . DS . 'models' . DS);
-$helperPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'views' . DS . 'helpers' . DS);
-$componentPaths   = array(APP . '..' . DS . 'wildflower' . DS . 'controllers' . DS . 'components' . DS);
-$behaviorPaths    = array(APP . '..' . DS . 'wildflower' . DS . 'models' . DS . 'behaviors' . DS);
-$pluginPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'plugins' . DS);
-$vendorPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'vendors' . DS);
-$localePaths      = array(APP . '..' . DS . 'wildflower' . DS . 'locale' . DS);
-$shellPaths       = array(APP . '..' . DS . 'wildflower' . DS . 'vendors' . DS . 'shells' . DS);
+App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootsrap.php'));
+App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
+$viewPaths        = array(APP . 'wildflower' . DS . 'views');
+$controllerPaths  = array();
+$modelPaths       = array();
+$helperPaths      = array();
+$componentPaths   = array();
+$behaviorPaths    = array();
+$pluginPaths      = array();
+$vendorPaths      = array();
+$localePaths      = array();
+$shellPaths       = array();

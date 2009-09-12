@@ -1,0 +1,1 @@
+2009-09-12 15:06:57 Warning: Warning (2): file_put_contents() [<a href='http://php.net/function.file-put-contents'>function.file-put-contents</a>]: Filename cannot be empty in [CORE/vendors/WfRootPagesCache.php, line 48]

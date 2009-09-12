@@ -1,0 +1,2 @@
+1252760861
+a:2:{s:11:"category_id";a:5:{s:4:"type";s:7:"integer";s:4:"null";b:1;s:7:"default";N;s:6:"length";i:11;s:3:"key";s:5:"index";}s:7:"post_id";a:4:{s:4:"type";s:7:"integer";s:4:"null";b:1;s:7:"default";N;s:6:"length";i:11;}}
