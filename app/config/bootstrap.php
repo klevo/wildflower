@@ -44,13 +44,14 @@
 // Wildflower stuff below
 App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
 App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
-$viewPaths        = array(APP . '..' . DS . 'wildflower' . DS . 'views' . DS);
-$controllerPaths  = array(APP . '..' . DS . 'wildflower' . DS . 'controllers' . DS);
-$modelPaths       = array(APP . '..' . DS . 'wildflower' . DS . 'models' . DS);
-$helperPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'views' . DS . 'helpers' . DS);
-$componentPaths   = array(APP . '..' . DS . 'wildflower' . DS . 'controllers' . DS . 'components' . DS);
-$behaviorPaths    = array(APP . '..' . DS . 'wildflower' . DS . 'models' . DS . 'behaviors' . DS);
-$pluginPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'plugins' . DS);
-$vendorPaths      = array(APP . '..' . DS . 'wildflower' . DS . 'vendors' . DS);
-$localePaths      = array(APP . '..' . DS . 'wildflower' . DS . 'locale' . DS);
-$shellPaths       = array(APP . '..' . DS . 'wildflower' . DS . 'vendors' . DS . 'shells' . DS);
+define('WILDFLOWER_DIR', APP . '..' . DS . 'wildflower' . DS);
+$viewPaths        = array(WILDFLOWER_DIR . 'views' . DS);
+$controllerPaths  = array(WILDFLOWER_DIR . 'controllers' . DS);
+$modelPaths       = array(WILDFLOWER_DIR . 'models' . DS);
+$helperPaths      = array(WILDFLOWER_DIR . 'views' . DS . 'helpers' . DS);
+$componentPaths   = array(WILDFLOWER_DIR . 'controllers' . DS . 'components' . DS);
+$behaviorPaths    = array(WILDFLOWER_DIR . 'models' . DS . 'behaviors' . DS);
+$pluginPaths      = array(WILDFLOWER_DIR . 'plugins' . DS);
+$vendorPaths      = array(WILDFLOWER_DIR . 'vendors' . DS);
+$localePaths      = array(WILDFLOWER_DIR . 'locale' . DS);
+$shellPaths       = array(WILDFLOWER_DIR . 'vendors' . DS . 'shells' . DS);
