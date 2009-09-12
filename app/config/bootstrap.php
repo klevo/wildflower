@@ -42,8 +42,8 @@
  */
  
 // Wildflower stuff below
-require_once(APP'wf_bootsrap.php'));
-require_once('Vendor', 'wf_core', array('file' => 'wf_core.php'));
+App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
+App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
 $viewPaths        = array(APP . '..' . DS . 'wildflower' . DS . 'views' . DS);
 $controllerPaths  = array(APP . '..' . DS . 'wildflower' . DS . 'controllers' . DS);
 $modelPaths       = array(APP . '..' . DS . 'wildflower' . DS . 'models' . DS);
