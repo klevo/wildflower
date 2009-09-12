@@ -2,12 +2,12 @@
 /**
  * Wildflower plugin core configuration
  *
- * This file is automatically loaded by WF's bootstrap.php.
+ * This file should be included in app/bootsrap.php.
  * 
  * @package wildflower
  */
 
-/** Constant used in CmsHelper */
+/** Constant used in CmsHelper @depracated */
 define('CHILD_PAGES_PLEASE', 'CHILD_PAGES_PLEASE');
 
 /** Wildflower config. Access like Configure::read('Wildflower.settingName'); */
