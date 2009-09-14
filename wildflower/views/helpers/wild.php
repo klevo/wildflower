@@ -91,7 +91,7 @@ class WildHelper extends AppHelper {
         return $default;
     }
     
-    function menu($slug, $id = null) {
+    function menu($slug, $options = array()) {
     	$items = $this->getMenuItems($slug);
     	if (empty($items)) {
     	    return '<p>' . __('Wildflower: There are no menu items for this menu.', true) . '</p>';
@@ -108,13 +108,18 @@ class WildHelper extends AppHelper {
     	    $links[] = '<li class="' . join(' ', $classes) . '">' . $this->Html->link("<span>$label</span>", $item['url'], array('escape' => false)) . '</li>';
     	}
     	$links = join("\n", $links);
-    	if (is_null($id)) {
-    	    $id = "admin_$slug";
+    	$attrs = '';
+    	if (is_array($options)) {
+    	    foreach (array('id', 'class') as $attr) {
+        	    if (isset($options[$attr])) {
+        	        $attrs .= ' ' . $attr . '="' . $options[$attr] . '"';
+        	    }
+        	}
+    	} else {
+    	    $attrs = ' id="' . $id . '"';
     	}
-    	if (is_null($id)) {
-            $id = $slug;
-    	}
-    	return "<ul id=\"$id\">\n$links\n</ul>\n";
+
+    	return "<ul$attrs>\n$links\n</ul>\n";
     }
     
     function getMenuItems($slug) {
