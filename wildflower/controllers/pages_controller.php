@@ -6,8 +6,6 @@
  */
 class PagesController extends AppController {
 	
-	public $components = array('RequestHandler', 'Seo');
-	public $helpers = array('Form', 'Html', 'Text', 'Time', 'List', 'Tree');
     public $paginate = array(
         'limit' => 25,
         'order' => array('Page.lft' => 'asc')
@@ -157,7 +155,7 @@ class PagesController extends AppController {
         $this->Page->contain('User');
         $page = $this->Page->findById($this->Page->id);
         
-        if (Configure::read('AppSettings.home_page_id') != $this->Page->id) {
+        if (Configure::read('Wildflower.settings.home_page_id') != $this->Page->id) {
             $this->Page->updateChildPageUrls($this->Page->id, $oldUrl, $page['Page']['url']);
         }
 		$hasUser = $page['User']['id'] ? true : false;

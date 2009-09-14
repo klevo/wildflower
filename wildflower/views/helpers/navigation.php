@@ -364,7 +364,7 @@ class NavigationHelper extends AppHelper {
     		
     		// URL
     		$url = $node[$model]['url'];
-    		if (Configure::read('AppSettings.home_page_id') == $node[$model]['id']) {
+    		if (Configure::read('Wildflower.settings.home_page_id') == $node[$model]['id']) {
     		    $url = '/';
     		}
     		

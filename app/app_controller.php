@@ -12,22 +12,12 @@ App::import('Sanitize');
 App::import('Core', 'l10n');
 
 class AppController extends Controller {
+    
+	public $helpers = array('Html', 'Htmla', 'Form', 'Javascript', 'Wild', 'Navigation', 'PartialLayout', 'Textile', 'Tree', 'Text', 'Time');
+	public $components = array('Auth', 'AutoPageTitle', 'Cookie', 'RequestHandler');
 
-	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Seo');
+	// @TODO organize following vars into Wildflower namespace
 	public $currentUserId;
-	public $helpers = array(
-	    'Html', 
-	    'Htmla', 
-	    'Form', 
-	    'Javascript', 
-	    'Wild', 
-	    'Navigation', 
-	    'PartialLayout', 
-	    'Textile', 
-	    'Tree', 
-	    'Text',
-	    'Time'
-	);
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
@@ -104,6 +94,8 @@ class AppController extends Controller {
      * @param int $id
      */
     function wf_delete($id = null) {
+        trigger_error('AppController::wf_delete() DEPRACATED');
+        exit();
     	$id = intval($id);
     	$model = $this->modelClass;
     	
@@ -242,7 +234,7 @@ class AppController extends Controller {
         //     return;
         // }
 
-        $this->Seo->title();
+        $this->AutoPageTitle->title();
         
     	/** @var $refeter string Convenient $referer var in all views **/
     	$this->set('referer', $this->referer());

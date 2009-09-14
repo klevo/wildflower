@@ -1,15 +1,6 @@
 <?php
 class PostsController extends AppController {
-	public $helpers = array(
-	    'Cache', 
-	    'List', 
-	    'Rss', 
-	    'Textile', 
-	    'Category', 
-	    'Tree', 
-	    'Time',
-	    'Paginator',
-	);
+	public $helpers = array('Rss', 'Textile', 'Category', 'Paginator');
 	public $components = array('Email');
 	
 	/** Pagination options for the admin_index action **/
@@ -322,7 +313,7 @@ class PostsController extends AppController {
     function view() {
         $this->_acceptComment();
         
-		if (Configure::read('AppSettings.cache') == 'on') {
+		if (Configure::read('Wildflower.settings.cache') == 'on') {
             $this->cacheAction = 60 * 60 * 24 * 3; // Cache for 3 days
         }
 

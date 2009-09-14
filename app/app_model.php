@@ -37,16 +37,16 @@ class AppModel extends Model {
         return $ancestors;
     }
     
-    /**
-     * Overloading AppModel invalidate to include l18n
-     *
-     * @param string $field
-     * @param bool $value
-     */
-    function invalidate($field, $value = true) {
-        return parent::invalidate($field, __($value, true));
-    }
-    
+    // /**
+    //  * Overloading AppModel invalidate to include l18n
+    //  *
+    //  * @param string $field
+    //  * @param bool $value
+    //  */
+    // function invalidate($field, $value = true) {
+    //     return parent::invalidate($field, __($value, true));
+    // }
+    // 
     /**
      * Delete record(s)
      *

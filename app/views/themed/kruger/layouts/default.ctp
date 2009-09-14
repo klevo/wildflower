@@ -8,9 +8,10 @@
     <meta name="description" content="<?php echo isset($descriptionMetaTag) ? $descriptionMetaTag : '' ?>" />
     
     <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/' . Configure::read('Wildflower.blogIndex') . '/rss'); ?>" />
+    <link rel="alternate" type="application/rss+xml" title="<?php echo Configure::read('Wildflower.settings.site_name'); ?> RSS Feed" href="<?php echo $html->url('/' . Configure::read('Wildflower.blogIndex') . '/rss'); ?>" />
     
-    <?php echo $html->css('wfsite'); ?>
+    <?php echo $html->css('../wildflower/css/kruger/reset.css'); ?>
+    <?php echo $html->css('../wildflower/css/kruger/stylesheet.css'); ?>
 </head>
 <body>
 <div id="wrap">

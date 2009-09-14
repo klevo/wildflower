@@ -40,7 +40,7 @@ class Page extends AppModel {
     	// Construct the absolute page URL
     	if (isset($this->data[$this->name]['slug'])) {
 	    	$level = 0;
-	    	if (intval($this->id) === intval(Configure::read('AppSettings.home_page_id'))) {
+	    	if (intval($this->id) === intval(Configure::read('Wildflower.settings.home_page_id'))) {
 	    		// Home page has the URL of root
 	    		$this->data[$this->name]['url'] = '/';
 	    	} else if (!isset($this->data[$this->name]['parent_id']) or !is_numeric($this->data[$this->name]['parent_id'])) {

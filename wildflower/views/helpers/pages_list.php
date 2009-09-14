@@ -127,7 +127,7 @@ class PagesListHelper extends AppHelper {
         	}
         	
         	// Is home page?
-        	$homePageId = Configure::read('AppSettings.home_page_id');
+        	$homePageId = Configure::read('Wildflower.settings.home_page_id');
         	if ($page['Page']['id'] == $homePageId) {
         		$cssClasses[] = 'homepage';
         	}

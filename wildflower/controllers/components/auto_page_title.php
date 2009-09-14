@@ -3,7 +3,7 @@
  * SEO Component
  * 
  */
-class SeoComponent extends Object {
+class AutoPageTitleComponent extends Object {
 	
 	/**
 	 * Current controller
@@ -33,8 +33,8 @@ class SeoComponent extends Object {
     	   $pageTitle = ucwords($this->controller->params['controller']);
     	}
     	
-    	$description = Configure::read('AppSettings.description');
-    	$nameAndDescription = hsc(Configure::read('AppSettings.site_name'));
+    	$description = Configure::read('Wildflower.settings.description');
+    	$nameAndDescription = hsc(Configure::read('Wildflower.settings.site_name'));
     	if ($description) {
     	    $description = hsc($description);
     	    $nameAndDescription = "$nameAndDescription - {$description}";
