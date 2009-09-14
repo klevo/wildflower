@@ -36,8 +36,7 @@
     <!-- HEADER -->
 	<div class="header">
     	<div class="web-title">
-            <?php echo $html->link("<span>$title_for_layout</span>", '/', null, null, false) ?>
-            <h2>CakePHP framework CMS</h2>
+            <h1 id="wildflower_logo"><?php echo $html->link("<span>$siteName</span>", '/', array('escape' => false)); ?></h1>
         </div>
         <?php echo $wild->menu('main_menu', array('class' => 'topnav')); ?>
         <div class="clear"></div>

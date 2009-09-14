@@ -12,13 +12,13 @@ img		{ border: none; }
 .web-title h1 	{ color:#323232; line-height:80px; height:80px !important; }
 .web-title h2 	{ color:#7aac49; font-size:30px; line-height:36px; }
 
-.header 				{ background: transparent url(../../img/kruger/desk.png) 662px 117px no-repeat; padding: 50px 0 20px 0;   margin: 0; min-height: 320px !important; }
-.header ul.topnav		{ padding: 0; margin-top: 15px; float: right; width:auto; list-style: none; text-align:right; }
-.header ul.topnav li	{ float:left; margin:0; padding:0; text-transform:uppercase; font-size:20px; width:auto; font-family:Arial, Helvetica, sans-serif; font-weight:bold; }
+.header 				{ background: transparent url(../../img/kruger/desk.png) 662px 117px no-repeat; padding: 50px 0 20px 0;   margin: 0; min-height: 320px !important; position: relative; }
+.header ul.topnav		{ padding: 0; margin-top: -25px; float: right; width:auto; list-style: none; text-align:right; }
+.header ul.topnav li	{ float:left; margin:0; padding:0; text-transform:uppercase; font-size:15px; width:auto; font-family:Arial, Helvetica, sans-serif; font-weight:bold; }
 .header li a 			{ display: block; padding-left:25px; color:#323232; text-decoration:none; }
 .header li a:hover 		{ color:#7aac49;  }
 
-h3.intro		{ color:#323232; font-size:30px; line-height:38px; }
+h3.intro		{ color:#323232; font-size:30px; line-height:38px; margin-top: 100px; }
 p.intro 		{ font-size: 16px; line-height:22px; color:#575656; font-style:italic; padding: 0; margin:0; width:620px; }
 
 
@@ -59,3 +59,19 @@ ul.blog-entries li a	{ font-weight:bold; color:#323232; text-decoration:none; di
 .footer a 		{ border:medium none !important; }
 .footer a img 	{ position:relative; top:4px; }
 .footer span 	{ color:#E6E3DB; margin:0 10px 0; }
+
+/* Wildflower */
+
+#wildflower_logo {
+    background: url('../../css/img/wildflower.png');
+    height: 94px;
+    width: 409px;
+    position: absolute;
+    top: 80px;
+    left:0px;
+}
+
+#wildflower_logo span {
+    position: absolute;
+    top: -9999em;
+}
