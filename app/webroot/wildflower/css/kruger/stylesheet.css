@@ -2,7 +2,7 @@
 /* SITE Structure
 /* ------------------------------- */
 
-html 	{ background:#f8f3df url(../images/bd-bg.jpg) repeat-x; text-align:center; }
+html 	{ background:#f8f3df url(../../img/kruger/bd-bg.jpg) repeat-x; text-align:center; }
 body 	{ text-align: left; font: 13px/18px georgia, 'times new roman', serif; color: #1d1918; margin: 0 auto; width: 920px; }
 .clear 	{ clear: both; height: 0; width: 0; line-height: 0; font-size: .1px; }
 hr 		{ display: none; height: 0; padding: 0; margin: 0; }
@@ -12,7 +12,7 @@ img		{ border: none; }
 .web-title h1 	{ color:#323232; line-height:80px; height:80px !important; }
 .web-title h2 	{ color:#7aac49; font-size:30px; line-height:36px; }
 
-.header 				{ background: transparent url(../images/desk.png) 662px 117px no-repeat; padding: 50px 0 20px 0;   margin: 0; min-height: 320px !important; }
+.header 				{ background: transparent url(../../img/kruger/desk.png) 662px 117px no-repeat; padding: 50px 0 20px 0;   margin: 0; min-height: 320px !important; }
 .header ul.topnav		{ padding: 0; margin-top: 15px; float: right; width:auto; list-style: none; text-align:right; }
 .header ul.topnav li	{ float:left; margin:0; padding:0; text-transform:uppercase; font-size:20px; width:auto; font-family:Arial, Helvetica, sans-serif; font-weight:bold; }
 .header li a 			{ display: block; padding-left:25px; color:#323232; text-decoration:none; }
