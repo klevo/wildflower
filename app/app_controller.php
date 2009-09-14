@@ -33,6 +33,9 @@ class AppController extends Controller {
     public $isHome = false;
 	private $_isDatabaseConnected = true;
 	
+	public $view = 'Theme';    
+	public $theme = 'kruger';
+	
 	/**
 	 * Configure and initialize everything Wildflower needs
 	 *
@@ -56,8 +59,8 @@ class AppController extends Controller {
 	    
 	    // Site settings
 		$settings = ClassRegistry::init('Setting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
-        Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
+		// Namespace for WF settings
+        Configure::write('Wildflower.settings', $settings); 
         
         // Admin area requires authentification
 		if ($this->isAdminAction()) {
@@ -73,7 +76,7 @@ class AppController extends Controller {
         Configure::write('Config.language', 'en');
 
 		// Home page ID
-		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
+		$this->homePageId = intval(Configure::read('Wildflower.settings.home_page_id'));
 
 		// Set cookie defaults
 		$this->cookieName = Configure::read('Wildflower.cookie.name');
@@ -84,6 +87,8 @@ class AppController extends Controller {
 		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
 		    $this->gzipOutput();
 		}
+		
+		$this->theme = Configure::read('Wildflower.settings.theme');
 	}
 	
     function beforeFilter() {
@@ -244,8 +249,8 @@ class AppController extends Controller {
     	
     	// Set view parameters (CmsHelper uses some of these for example)
         $params = array(
-            'siteName' => Configure::read('AppSettings.site_name'),
-            'siteDescription' => Configure::read('AppSettings.description'),
+            'siteName' => Configure::read('Wildflower.settings.site_name'),
+            'siteDescription' => Configure::read('Wildflower.settings.description'),
             'isLogged' => $this->Auth->isAuthorized(),
             'isAuthorized' => $this->Auth->isAuthorized(),
             'isPage' => false,
