@@ -110,7 +110,7 @@ class Ruckusing_FrameworkRunner {
 			for($i = 2; $i < $num_args;$i++) {
 				$arg = $argv[$i];
 				if(strpos($arg, '=') !== FALSE) {
-					list($key, $value) = split("=", $arg);
+					list($key, $value) = explode("=", $arg);
 					$options[$key] = $value;
 					if($key == 'ENV') {
 						$this->ENV = $value;
