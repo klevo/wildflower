@@ -32,7 +32,17 @@ class SettingsController extends AppController {
 	    
 	    $settings = $this->Setting->find('all', array('order' => 'order ASC'));
 	    
-	    $this->set(compact('settings', 'homePageIdOptions'));
+	    $availThemes = scandir(APP . 'views' . DS . 'themed');
+	    foreach ($availThemes as $i => $theme) {
+	        if (strpos($theme, '.') === 0) {
+	            continue;
+	        }
+	        $theme_ = Inflector::underscore($theme);
+	        $availThemes_[$theme_] = Inflector::humanize($theme); 
+	    }
+	    $availThemes = $availThemes_;
+	    
+	    $this->set(compact('settings', 'homePageIdOptions', 'availThemes'));
 	}
 
 	/**
