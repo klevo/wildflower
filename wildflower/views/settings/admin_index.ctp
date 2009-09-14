@@ -72,5 +72,5 @@
 ?>
 
 <?php $partialLayout->blockStart('sidebar'); ?>
-    <?php echo $this->element('../settings/_right_menu'); ?>
+
 <?php $partialLayout->blockEnd(); ?>
