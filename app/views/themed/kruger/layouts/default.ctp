@@ -41,8 +41,8 @@
         <?php echo $wild->menu('main_menu', array('class' => 'topnav')); ?>
         <div class="clear"></div>
         
-        <h3 class="intro">Bla bla</h3>        
-        <p class="intro">As developer I made my own way  trought projects,  understanding what the client wants and what his company really needs. I give professionalism &amp; talent to the client  in every project. And thereby I take my work seriously, so take a look around, and get in touch if you think we would work well together.</p>
+        <h2 class="intro">A CakePHP<br /> Content Management System</h2>        
+        <p class="intro">Pages, posts, categories, RSS, themes, MVC, database migrations. All good stuff.</p>
     
     </div>
     <!-- HEADER -->

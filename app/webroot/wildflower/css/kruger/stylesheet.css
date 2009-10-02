@@ -18,8 +18,8 @@ img		{ border: none; }
 .header li a 			{ display: block; padding-left:25px; color:#323232; text-decoration:none; }
 .header li a:hover 		{ color:#7aac49;  }
 
-h3.intro		{ color:#323232; font-size:30px; line-height:38px; margin-top: 100px; }
-p.intro 		{ font-size: 16px; line-height:22px; color:#575656; font-style:italic; padding: 0; margin:0; width:620px; }
+h2.intro		{ color:#323232; font-size:190%; line-height:1.3em; margin-top: 100px; }
+p.intro 		{ font-size: 16px; line-height:26px; color:#575656; font-style:italic; padding: 0; margin:0; width:620px; }
 
 
 .title				{ border-bottom:1px solid #c8c0bf !important; display:block; margin-bottom:10px; }

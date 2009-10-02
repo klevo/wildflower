@@ -100,7 +100,7 @@ class CategoriesController extends AppController {
         $this->params['breadcrumb']['current'] = array('title' => $category['Category']['title']);
         $this->params['current'] = array('type' => 'category', 'slug' => $category['Category']['slug']);
         
-        $this->Seo->title($category['Category']['title']);
+        $this->AutoPageTitle->title($category['Category']['title']);
     }
     
     private function _isFixed($id) {
