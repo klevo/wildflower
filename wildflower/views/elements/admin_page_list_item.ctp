@@ -3,9 +3,6 @@
     <?php
         $tree->addItemAttribute('id', 'page-' . $data['Page']['id']);
         $tree->addItemAttribute('class', 'level-' . $depth);
-        if (ListHelper::isOdd()) {
-            $tree->addItemAttribute('class', 'odd');
-        }
         
         // Draft status        
         if ($data['Page']['draft']) {
