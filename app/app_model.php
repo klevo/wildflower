@@ -60,5 +60,25 @@ class AppModel extends Model {
         $ids = join(', ', $ids);
         $this->query("DELETE FROM {$this->useTable} WHERE id IN ($ids)");
     }
+    
+    /**
+     * Format a timestamp to MySQL date format
+     *
+     * @param int $time
+     * @return string
+     */
+    function timeToDate($time) {
+        return date("Y-m-d", $time);
+    }
+    
+    /**
+     * Format a timestamp to MySQL datetime format
+     *
+     * @param int $time
+     * @return string
+     */
+    function timeToDatetime($time) {
+        return date("Y-m-d H:i:s", $time);
+    }
 
 }
