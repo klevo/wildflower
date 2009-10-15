@@ -16,7 +16,7 @@ class CategoriesController extends AppController {
     function admin_index() {
         if (!empty($this->data)) {
             if ($this->Category->save($this->data)) {
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => 'index', 'controller' => 'categories'));
             }
         }
         
