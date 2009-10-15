@@ -37,7 +37,21 @@
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li class="main_sidebar category_sidebar">
-        <?php echo $form->input('category_id', array('type' => 'select', 'options' => $categories, 'label' => __('Category', true), 'empty' => '(no category)', 'value' => $categoryId)); ?>
+        <h4><?php __('Category'); ?></h4>
+        <?php if (empty($this->data['Category'])): ?>
+            <span>Not assigned under any categories.</span>
+        <?php else: ?>
+        <ul>
+        <?php foreach ($this->data['Category'] as $category): ?>
+            <li><?php echo $category['name']; ?></li>
+        <?php endforeach; ?>
+        </ul>
+        <?php endif; ?>
+        
+        <?php 
+            echo $form->input('category_id', array('type' => 'select', 'options' => $categories, 'label' => false, 'empty' => __('select a category...', true), 'value' => $categoryId)); 
+            echo $form->submit('Assign');
+        ?>
     </li>
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
