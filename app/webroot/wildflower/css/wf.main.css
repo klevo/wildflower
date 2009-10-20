@@ -743,7 +743,7 @@ select {
 #assign_category_box {
     border: 1px solid #ddd;
     background: #eee;
-    padding: 8px;
+    padding: 6px;
     margin-top: 5px;
 }
 
@@ -755,6 +755,10 @@ select {
 
 #assign_category_box .submit {
     margin-left: 10px;
+}
+
+#assign_category_box input, #assign_category_box select {
+    font-size: 11px;
 }
 
 .post-categories,
