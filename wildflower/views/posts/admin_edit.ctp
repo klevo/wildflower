@@ -48,10 +48,13 @@
         </ul>
         <?php endif; ?>
         
+        <div id="assign_category_box">
         <?php 
             echo $form->input('category_id', array('type' => 'select', 'options' => $categories, 'label' => false, 'empty' => __('select a category...', true), 'value' => $categoryId)); 
-            echo $form->submit('Assign');
-        ?>
+            echo $form->submit('Assign', array('name' => 'assign_category'));
+        ?>   
+        </div>
+
     </li>
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">

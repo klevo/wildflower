@@ -739,6 +739,23 @@ select {
     .category_sidebar select {
         font-size: 12px;
     }
+    
+#assign_category_box {
+    border: 1px solid #ddd;
+    background: #eee;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+#assign_category_box .input, #assign_category_box .submit {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+#assign_category_box .submit {
+    margin-left: 10px;
+}
 
 .post-categories,
 .post-comments {
