@@ -727,18 +727,11 @@ select {
     float: left;
 }
 
-    .category_sidebar label {
-        background: #eefaff;
-        padding: 3px 6px;
-        margin: 0 0 7px;
-        display: block;
-        font-weight: bold;
-        font-size: 12px;
-    }
-    
-    .category_sidebar select {
-        font-size: 12px;
-    }
+.category_sidebar h4 {
+    margin: 0 0 5px 0;
+    padding: 6px;
+    background: #e2eaed;
+}
     
 #assign_category_box {
     border: 1px solid #ddd;
