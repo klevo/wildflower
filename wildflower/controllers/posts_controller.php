@@ -158,6 +158,15 @@ class PostsController extends AppController {
              // Delete all post categories
              $this->Post->query("DELETE FROM categories_posts WHERE post_id = {$this->Post->id}");
         }
+        
+        // Assigning a new category?
+        if (isset($this->data['_assign_category'])) {
+            $result = $this->Post->CategoriesPost->save(array(
+                'post_id' => $this->data[$this->modelClass]['id'],
+                'category_id' => $this->data[$this->modelClass]['assign_category_id'],
+            ));
+            fb($result);
+        }
 
         if (!$this->Post->save()) return $this->cakeError('save_error'); // @TODO Rendering the exact save errors would be better
 

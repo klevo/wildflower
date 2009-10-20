@@ -50,8 +50,8 @@
         
         <div id="assign_category_box">
         <?php 
-            echo $form->input('category_id', array('type' => 'select', 'options' => $categories, 'label' => false, 'empty' => __('select a category...', true), 'value' => $categoryId)); 
-            echo $form->submit('Assign', array('name' => 'assign_category'));
+            echo $form->input('assign_category_id', array('type' => 'select', 'options' => $categories, 'label' => false, 'empty' => __('select a category...', true), 'value' => $categoryId)); 
+            echo $form->submit('Assign', array('name' => 'data[_assign_category]'));
         ?>   
         </div>
 
