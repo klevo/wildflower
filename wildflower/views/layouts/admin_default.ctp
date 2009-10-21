@@ -61,7 +61,7 @@
     </div>
 
     <ul id="nav">
-        <li><?php echo $htmla->link(__('Dashboard', true), '/' . Configure::read('Routing.admin')); ?></li>
+        <li><?php echo $htmla->link(__('Dashboard', true), array('controller' => 'dashboards', 'action' => 'index', 'strict' => true)); ?></li>
         <li><?php echo $htmla->link(__('Pages', true), array('controller' => 'pages', 'action' => 'index')); ?></li>
         <li><?php echo $htmla->link(__('Modules', true), array('controller' => 'sidebars', 'action' => 'index')); ?></li>
         <li><?php echo $htmla->link(__('Posts', true), array('controller' => 'posts', 'action' => 'index')); ?></li>
