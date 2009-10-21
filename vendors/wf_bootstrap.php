@@ -19,6 +19,20 @@ function hsc($string) {
 }
 
 /**
+ * Echo with htmlspecialchars() and debug output for non-strings and non-itegers
+ * 
+ * @param mix $string ir integer
+ * @return void
+ * @package wildflower
+ */
+function eko($string) {
+    if (!is_string($string) && !is_numeric($string)) {
+        var_dump($string);
+    }
+    echo hsc($string);
+}
+
+/**
  * FirePHP debug
  *
  * @param mixed Variables to output to FireBug console

@@ -28,6 +28,7 @@ $.jlm.bind('posts.admin_categorize', function() {
     }
     
     formEl.submit(function() {
+        
         originalLabel = buttonEl.attr('value');
         buttonEl.attr('value', 'Adding...').attr('disabled', 'disabled');
 
@@ -66,10 +67,7 @@ $.jlm.bind('posts.admin_categorize', function() {
 });
 
 $.jlm.bind('posts.admin_edit', function() {
-    // Update post form on category select
-    $('#category_id').change(function() {
-        var id = $(this).val();
-        $('#CategoryCategory').val(id);
-    });
+    
+    
     
 });

@@ -2,6 +2,7 @@
 class PostsController extends AppController {
 	public $helpers = array('Rss', 'Textile', 'Category', 'Paginator');
 	public $components = array('Email');
+	public $pageTitle = 'Posts';
 	
 	/** Pagination options for the admin_index action **/
     public $paginate = array(
@@ -146,29 +147,24 @@ class PostsController extends AppController {
         }
         unset($this->data['__save']);
         
-        if (isset($this->data[$this->modelClass]['slug'])) {
-            $this->data[$this->modelClass]['slug'] = AppHelper::slug($this->data[$this->modelClass]['slug']);
-        }
+        // if (isset($this->data[$this->modelClass]['slug'])) {
+        //     $this->data[$this->modelClass]['slug'] = AppHelper::slug($this->data[$this->modelClass]['slug']);
+        // }
         
         $this->Post->create($this->data);
         
         if (!$this->Post->exists()) return $this->cakeError('object_not_found');
         
-        if (isset($this->data[$this->modelClass]['categories_can_be_empty']) && !isset($this->data['Category'])) {
-             // Delete all post categories
-             $this->Post->query("DELETE FROM categories_posts WHERE post_id = {$this->Post->id}");
-        }
-        
         // Assigning a new category?
-        if (isset($this->data['_assign_category'])) {
-            $result = $this->Post->CategoriesPost->save(array(
-                'post_id' => $this->data[$this->modelClass]['id'],
-                'category_id' => $this->data[$this->modelClass]['assign_category_id'],
-            ));
-            fb($result);
-        }
-
-        if (!$this->Post->save()) return $this->cakeError('save_error'); // @TODO Rendering the exact save errors would be better
+        // if (isset($this->data['_assign_category'])) {
+        //     $result = $this->Post->CategoriesPost->save(array(
+        //         'post_id' => $this->data[$this->modelClass]['id'],
+        //         'category_id' => $this->data[$this->modelClass]['assign_category_id'],
+        //     ));
+        //     fb($result);
+        // }
+//var_dump($this->data);die();
+        if (!$this->Post->saveAll()) return $this->cakeError('save_error'); // @TODO Rendering the exact save errors would be better
 
         // $cacheName = str_replace('-', '_', $this->data[$this->modelClass]['slug']); // @TODO check cache for proper naming method
         // clearCache($cacheName, 'views', '.php');
@@ -185,9 +181,6 @@ class PostsController extends AppController {
     
     function beforeFilter() {
     	parent::beforeFilter();
-    	
-    	$this->pageTitle = 'Blog';
-    	
     	$this->params['current']['type'] = 'post';
     	$this->params['current']['slug'] = Configure::read('Wildflower.blogIndex');
     }

@@ -5,6 +5,12 @@ $.jlm.component('EditButtons', 'posts.admin_edit, posts.admin_categorize, pages.
     
     function editButtonsOnClick() {
         buttonEl = $(this);
+
+        if (buttonEl.attr('name') == 'data[_assign_category]') {
+                    debug(this);
+            //return true;
+        }
+        
         var originalLabel = buttonEl.attr('value');
         buttonEl.attr('value', 'Saving...').attr('disabled', 'disabled');
         
@@ -32,7 +38,6 @@ $.jlm.component('EditButtons', 'posts.admin_edit, posts.admin_categorize, pages.
         };
         
         var errorCallback = function(data) {
-            alert('Error while saving. Check FireBug console for debug data.');
             if (typeof(console) == 'object') {
                 console.debug(data);
             }
