@@ -43,8 +43,8 @@
         <?php 
             echo $form->create('Post', array('action' => 'update'));
             echo $form->input('Category', array('multiple' => 'checkbox', 'options' => $categories, 'label' => false)); 
-            echo $form->input('id', array('type' => 'hidden')); 
             echo $form->submit('Assign', array('name' => 'data[_assign_category]'));
+            echo $form->end();
         ?>   
 
 

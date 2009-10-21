@@ -137,9 +137,9 @@ class PostsController extends AppController {
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
-    function admin_update() {
-        //fb($this->data);
-        $this->data[$this->modelClass]['user_id'] = $this->getLoggedInUserId();
+    function admin_update($id) {
+        $this->data[$this->modelClass]['user_id'] = $this->Auth->user('id');
+        $this->data[$this->modelClass]['id'] = intval($id);
 
         // Publish?
         if (isset($this->data['__save']['publish'])) {
