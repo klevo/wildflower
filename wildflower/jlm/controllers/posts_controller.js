@@ -20,7 +20,6 @@ $.jlm.bind('posts.admin_categorize', function() {
     };
     
     var errorCallback = function(data) {
-        alert('Error while saving. Check FireBug console for debug data.');
         if (typeof(console) == 'object') {
             console.debug(data);
         }

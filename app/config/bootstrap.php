@@ -40,10 +40,11 @@
  * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
  *
  */
- 
-// Wildflower stuff below
-App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
-App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
+
+/**
+ * Wildflower MVC paths
+ *
+ */
 define('WILDFLOWER_DIR', APP . '..' . DS . 'wildflower' . DS);
 $viewPaths        = array(WILDFLOWER_DIR . 'views' . DS);
 $controllerPaths  = array(WILDFLOWER_DIR . 'controllers' . DS);
@@ -55,3 +56,10 @@ $pluginPaths      = array(WILDFLOWER_DIR . 'plugins' . DS);
 $vendorPaths      = array(WILDFLOWER_DIR . 'vendors' . DS);
 $localePaths      = array(WILDFLOWER_DIR . 'locale' . DS);
 $shellPaths       = array(WILDFLOWER_DIR . 'vendors' . DS . 'shells' . DS);
+ 
+/**
+ * Wildflower bootstrap file
+ *
+ */
+App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
+

@@ -3,9 +3,11 @@
  * Wildflower global  functions
  * 
  * This file should be included in app/bootsrap.php.
+ * PHP 5.3 requirement.
  *
  * @package wildflower
  */
+date_default_timezone_set('Europe/Bratislava');
 
 /**
  * Wrapper for application encoding respecting htmlspecialchars
@@ -47,3 +49,9 @@ function fb() {
     return call_user_func_array(array($instance,'fb'),$args);
     return true;
 }
+
+/**
+ * Load default Wildflower Configuration
+ *
+ */
+App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));

@@ -5,11 +5,6 @@ $.jlm.component('EditButtons', 'posts.admin_edit, posts.admin_categorize, pages.
     
     function editButtonsOnClick() {
         buttonEl = $(this);
-
-        if (buttonEl.attr('name') == 'data[_assign_category]') {
-                    debug(this);
-            //return true;
-        }
         
         var originalLabel = buttonEl.attr('value');
         buttonEl.attr('value', 'Saving...').attr('disabled', 'disabled');
