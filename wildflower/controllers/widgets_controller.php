@@ -17,7 +17,7 @@ class WidgetsController extends AppController {
     
     function admin_list_widgets() {
         // Scan plugin and theme element dirs for widgets
-        $widgetsPath = APP . 'views' . DS . 'elements' . DS . 'widgets';
+        $widgetsPath = WILDFLOWER_DIR . 'views' . DS . 'elements' . DS . 'widgets';
         if (isset($this->theme) and is_dir(APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets')) {
             $widgetsPath = APP . 'views' . DS . 'themed' . DS . $this->theme . DS . 'elements' . DS . 'widgets';
         }
