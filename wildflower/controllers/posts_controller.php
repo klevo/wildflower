@@ -156,7 +156,7 @@ class PostsController extends AppController {
         unset($this->data['__save']);
         
         if (isset($this->data[$this->modelClass]['slug'])) {
-            $this->data[$this->modelClass]['slug'] = AppHelper::slug($this->data[$this->modelClass]['slug']);
+            $this->data[$this->modelClass]['slug'] = $this->slug($this->data[$this->modelClass]['slug']);
         }
         
         $this->Post->create($this->data);
