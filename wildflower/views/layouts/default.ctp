@@ -23,6 +23,10 @@
     <hr />
     
     <?php echo $wild->menu('main_menu'); ?>
+    <?php echo $form->create("Dashboard",array('action' => 'search'));
+	    echo $form->input("query", array('label' => 'Search: '));
+	    echo $form->end('');
+	?>
     
     <hr />
     
