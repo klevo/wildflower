@@ -115,7 +115,7 @@ class Post extends AppModel {
      */
     function search($query) {
     	$fields = array('id', 'title', 'slug');
-    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%'", $fields, null, null, 1);
+    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0 and {$this->name}.archive=0", $fields, null, null, 1);
     	$contentResults = array();
     	if (empty($titleResults)) {
     		$titleResults = array();

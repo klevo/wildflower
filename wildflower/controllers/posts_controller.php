@@ -428,7 +428,20 @@ class PostsController extends AppController {
      * 
      * @return array
      */
-   public function latest(){
-	return $this->Post->find('all', array('order' => 'Post.created DESC', 'limit' => 10));
-   } 
+	public function latest($category = null, $limit = 5){
+		if(!empty($category)){
+			$this->Post->bindModel(array(
+				'hasOne' => array(
+					'CategoriesPost',
+					'FilterTag' => array(
+						'className' => 'Category',
+						'foreignKey' => false,
+						'conditions' => array('FilterTag.id = CategoriesPost.category_id')
+			))));
+			$posts = $this->Post->find('all', array('order' => 'Post.created DESC', 'conditions' => 'Post.draft = 0 and FilterTag.slug = "'.$category.'" ', 'limit' => $limit));
+		}else{
+			$posts = $this->Post->find('all', array('order' => 'Post.created DESC', 'conditions' => 'Post.draft = 0', 'limit' => $limit));
+		}
+	return $posts;
+	} 
 }

@@ -72,3 +72,21 @@ a {
 	width: 780px;
 	margin: 0 auto;
 }
+.sidebar_posts {
+        padding: 5px 0 0 5px;
+}
+        .sidebar_posts h2, .sidebar_posts h2 a {
+                color: #000000;
+                display: inline;
+                font-size: 0.95em;
+        }
+        .sidebar_posts a {
+                color: #009900;
+                display: inline-block;
+                font-size: 0.95em;
+        }
+        .sidebar_posts .post-date {
+                color: #ffffff;
+                display: block;
+                font-size: 0.85em;
+        }
