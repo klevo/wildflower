@@ -10,6 +10,7 @@
 <?php
     echo 
     $form->input('draft', array('type' => 'select', 'label' => 'Status', 'options' => Post::getStatusOptions())),
+    $form->input('archive', array('type' => 'checkbox', 'label' => 'Archived')),
     $form->input('description_meta_tag', array('type' => 'textarea', 'rows' => 4, 'cols' => 60, 'tabindex' => '4')),
     $form->input('slug', array('label' => 'URL slug', 'size' => 61)),
     $form->input('created', array());

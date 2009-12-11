@@ -741,7 +741,8 @@ select {
     }
 
 .post-categories,
-.post-comments {
+.post-comments,
+.post-archive {
     color: #535353;
     margin: 0;
     padding: 4px 0 0 30px;
@@ -767,6 +768,11 @@ select {
 .post-comments {
     background-image: url(img/comment.png);
 }
+.post-archive {
+    background-image: url(img/archived.png);
+    width: 30px;
+}
+
    
 .permalink,
 .edit-sections .permalink {

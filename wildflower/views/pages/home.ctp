@@ -11,6 +11,7 @@
     <div class="entry">
        <?php echo $page['Page']['content']; ?>
     </div>
+    <?php echo $this->element('latest_posts');  ?>
     
     <?php echo $this->element('edit_this', array('id' => $page['Page']['id'])) ?>
 </div>
