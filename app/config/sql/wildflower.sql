@@ -302,7 +302,7 @@ CREATE TABLE `posts` (
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `draft` int(1) NOT NULL default '0',
-  `archive` tinyint(1) NOT NULL default '0'
+  `archive` tinyint(1) NOT NULL default '0',
   `uuid` varchar(255) collate utf8_unicode_ci NOT NULL,
   `comment_count` int(11) default NULL,
   PRIMARY KEY  (`id`),
@@ -317,7 +317,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (60,'a-test-posts','A test posts','',1,NULL,NULL,'2009-06-29 18:44:28','2009-07-02 18:55:22',0,'755abcb0855fe16cc54f270e59a4efd6091783a9',0);
+INSERT INTO `posts` VALUES (60,'a-test-posts','A test posts','',1,NULL,NULL,'2009-06-29 18:44:28','2009-07-02 18:55:22',0, 0,'755abcb0855fe16cc54f270e59a4efd6091783a9',0);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
