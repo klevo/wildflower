@@ -156,7 +156,7 @@ CREATE TABLE `menu_items` (
 
 LOCK TABLES `menu_items` WRITE;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
-INSERT INTO `menu_items` VALUES (1,1,'Download','/',0),(2,1,'News','/blog',1),(3,1,'Documentation','/documentation',2),(4,1,'API','/api',3),(5,1,'Source Code','http://github.com/klevo/wildflower/tree/master',4),(6,1,'Donate','/donate',5);
+INSERT INTO `menu_items` VALUES (1,1,'Download','/',0),(2,1,'News','/blog',1),(3,1,'Documentation','/documentation',2),(4,1,'API','/api',3),(5,1,'Source Code','http://github.com/klevo/wildflower/tree/master',4),(6,1,'Donate','/donate',5),(7,1,'Contact Us','/contact',6);
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +256,7 @@ CREATE TABLE `pages` (
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (211,NULL,3,4,0,'api','/api','API','<h2>WildHelper</h2>\n<h3>menu($slug, $id = null)</h3>\n<p>bla bla</p>',NULL,NULL,0,'2009-06-28 19:14:16','2009-06-28 19:16:08',NULL,1,NULL),(212,NULL,5,6,0,'documentation','/documentation','Documentation','',NULL,NULL,1,'2009-06-29 19:07:22','2009-06-29 19:07:22',NULL,NULL,NULL),(210,NULL,1,2,0,'home','/home','Wildflower is a CakePHP content management system','<p>The aim is to remove all unnecessary features of a modern CMS and provide the most effective and simple way to manage a website.</p>\n<p>The foundation of a rapid development framework CakePHP allows developers to build any features specific to their project quickly and effectively.</p>',NULL,NULL,0,'2009-06-28 18:15:30','2009-06-28 18:52:54',NULL,1,NULL);
+INSERT INTO `pages` VALUES (211,NULL,3,4,0,'api','/api','API','<h2>WildHelper</h2>\n<h3>menu($slug, $id = null)</h3>\n<p>bla bla</p>',NULL,NULL,0,'2009-06-28 19:14:16','2009-06-28 19:16:08',NULL,1,NULL),(212,NULL,5,6,0,'documentation','/documentation','Documentation','',NULL,NULL,1,'2009-06-29 19:07:22','2009-06-29 19:07:22',NULL,NULL,NULL),(210,NULL,1,2,0,'home','/home','Wildflower is a CakePHP content management system','<p>The aim is to remove all unnecessary features of a modern CMS and provide the most effective and simple way to manage a website.</p>\n<p>The foundation of a rapid development framework CakePHP allows developers to build any features specific to their project quickly and effectively.</p>',NULL,NULL,0,'2009-06-28 18:15:30','2009-06-28 18:52:54',NULL,1,NULL), (213,NULL,7,8,0,'contact','/contact','Contact','',NULL,NULL,0,'2009-12-18 15:13:23','2009-12-18 15:13:32',NULL,1,NULL);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 

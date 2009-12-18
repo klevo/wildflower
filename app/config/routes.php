@@ -9,6 +9,10 @@
 Router::connect('/', array('controller' => 'pages', 'action' => 'view'));
 Router::connect('/app/webroot/', array('controller' => 'pages', 'action' => 'view'));
 
+// Contact form
+Router::connect('/contact', array('controller' => 'messages', 'action' => 'index'));
+Router::connect('/contact/create', array('controller' => 'messages', 'action' => 'create'));
+
 // Posts section
 Router::connect('/rss', array('controller' => 'posts', 'action' => 'rss'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'posts', 'action' => 'index'));

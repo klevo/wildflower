@@ -90,3 +90,25 @@ a {
                 display: block;
                 font-size: 0.85em;
         }
+.contact_form fieldset{
+	border:1px solid #999999;
+	margin:20px 0;
+	padding:15px 10px;
+}
+	.contact_form fieldset legend{
+		color:#999999;
+		text-transform:uppercase;
+	}
+	.contact_form .input label{
+		width: 150px;
+	}
+.input {
+	display:block;
+	padding:0 0 15px;
+}
+	.input label {
+		display:inline-block;
+		font-size:0.75em;
+		padding-right:5px;
+		text-align:right;
+	}
