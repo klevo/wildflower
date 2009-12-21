@@ -1366,6 +1366,16 @@ select {
 
 #setting-approve_comments input {
     float: left;
+
+}
+
+#setting-homepage_credits label {
+    width: auto;
+    display: inline;
+}
+
+#setting-homepage_credits input {
+    float: left;
 }
 
 

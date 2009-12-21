@@ -36,6 +36,7 @@ class SeoComponent extends Object {
     	$description = hsc(Configure::read('AppSettings.description'));
 	$keywords = hsc(Configure::read('AppSettings.keywords'));
     	$credits = Configure::read('AppSettings.credits');
+    	$homepage_credits = Configure::read('AppSettings.homepage_credits');
     	$nameAndDescription = hsc(Configure::read('AppSettings.site_name'));
     	if ($description) {
     	    $nameAndDescription = "$nameAndDescription - {$description}";
@@ -46,7 +47,9 @@ class SeoComponent extends Object {
         } else {
             $this->controller->pageTitle = "$pageTitle &#8226; $nameAndDescription";
 	    // Uncomment below for homepage only credits
-	    // $credits = "";
+	    if($homepage_credits){
+	    	$credits = "";
+	    }
         }
         
         $this->controller->set('page_title_for_layout', $pageTitle);
