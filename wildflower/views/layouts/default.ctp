@@ -39,7 +39,7 @@
     <hr />
     
     <div id="footer">
-        <p>Powered by <?php echo $html->link('Wildflower', 'http://wf.klevo.sk/'); ?>. Wildflower Logo designed by <?php echo $html->link('Oliver Treend', 'http://www.olivertreend.com/'); ?>. <?php echo $this->element('admin_link'); ?></p>
+        <p><?= isset($credits)? $credits:'' ?> <?php echo $this->element('admin_link'); ?></p>
         
         <?php echo $this->element('debug_notice'); ?>
     </div>

@@ -33,10 +33,11 @@ class SeoComponent extends Object {
     	   $pageTitle = ucwords($this->controller->params['controller']);
     	}
     	
-    	$description = Configure::read('AppSettings.description');
+    	$description = hsc(Configure::read('AppSettings.description'));
+	$keywords = hsc(Configure::read('AppSettings.keywords'));
+    	$credits = Configure::read('AppSettings.credits');
     	$nameAndDescription = hsc(Configure::read('AppSettings.site_name'));
     	if ($description) {
-    	    $description = hsc($description);
     	    $nameAndDescription = "$nameAndDescription - {$description}";
     	}
     	
@@ -44,10 +45,15 @@ class SeoComponent extends Object {
             $this->controller->pageTitle = $nameAndDescription;
         } else {
             $this->controller->pageTitle = "$pageTitle &#8226; $nameAndDescription";
+	    // Uncomment below for homepage only credits
+	    // $credits = "";
         }
         
         $this->controller->set('page_title_for_layout', $pageTitle);
         $this->controller->set('site_title_for_layout', $nameAndDescription);
+	$this->controller->set('descriptionMetaTag', $description);
+        $this->controller->set('keywordsMetaTag', $keywords);
+        $this->controller->set('credits', $credits);
     }
 	
 }
