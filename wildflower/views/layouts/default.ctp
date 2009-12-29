@@ -9,7 +9,7 @@
     <meta name="keywords" content="<?php echo isset($keywordsMetaTag) ? $keywordsMetaTag : '' ?>" />
     
     <link rel="shortcut icon" href="<?php echo $this->webroot;?>favicon.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/' . Configure::read('Wildflower.blogIndex') . '/rss'); ?>" />
+    <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/rss'); ?>" />
     
     <?php echo $html->css('wfsite'); ?>
 </head>
@@ -19,6 +19,7 @@
     <div id="header">   
         <h1><?php echo $html->link("<span>$title_for_layout</span>", '/', null, null, false) ?></h1>
         <?php e($html->image('/wildflower/img/logo.jpg')); ?>
+        <?php e($html->link('rss', '/rss', array('class' => 'rss'))); ?>
     </div>
     
     <hr />
