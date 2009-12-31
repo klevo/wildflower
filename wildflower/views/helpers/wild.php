@@ -91,7 +91,7 @@ class WildHelper extends AppHelper {
         return $default;
     }
     
-    function menu($slug, $options) {
+    function menu($slug, $options = null) {
     	$items = $this->getMenuItems($slug);
     	if (empty($items)) {
     	    return '<p>' . __('Wildflower: There are no menu items for this menu.', true) . '</p>';
