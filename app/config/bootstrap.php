@@ -44,6 +44,12 @@
 // Wildflower stuff below
 App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
 App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
+
+/**
+ * Wildflower Additional Class Paths
+ *
+ * @link http://book.cakephp.org/view/36/Additional-Class-Paths
+ */
 define('WILDFLOWER_DIR', APP . '..' . DS . 'wildflower' . DS);
 $viewPaths        = array(WILDFLOWER_DIR . 'views' . DS);
 $controllerPaths  = array(WILDFLOWER_DIR . 'controllers' . DS);
