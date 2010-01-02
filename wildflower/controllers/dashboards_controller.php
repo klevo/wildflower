@@ -29,30 +29,20 @@ class DashboardsController extends AppController {
      *
      */
     function search() {
-        if (!empty($this->data)) {
-            $query = '';
-            if (isset($this->data['Search']['query'])) {
-                $query = $this->data['Search']['query'];
-            } else if (isset($this->data['Dashboard']['query'])) {
-                $query = $this->data['Dashboard']['query'];
-            } else {
-                return;
-            }
-            
-            $postResults = $this->Post->search($query);
-	        $pageResults = $this->Page->search($query);
-	        if (!is_array($postResults)) {
-	        	$postResults = array();
-	        }
-	        if (!is_array($pageResults)) {
-	        	$pageResults = array();
-	        }
-	        $results = array_merge($postResults, $pageResults);
-            $this->set('results', $results);
+		$query = Sanitize::escape($_GET['q']);
+        $postResults = $this->Post->search($query);
+        $pageResults = $this->Page->search($query);
+        if (!is_array($postResults)) {
+        	$postResults = array();
+        }
+        if (!is_array($pageResults)) {
+        	$pageResults = array();
+        }
+        $results = array_merge($postResults, $pageResults);
+        $this->set('results', $results);
 
-            if ($this->RequestHandler->isAjax()) {
-                $this->render('/elements/search_results');
-            }
+        if ($this->RequestHandler->isAjax()) {
+            $this->render('/elements/search_results');
         }
     }
 	

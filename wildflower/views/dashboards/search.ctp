@@ -12,7 +12,7 @@
 	?>
 	
 	<?php if (isset($results) && !empty($results)) { ?>
-	<h3>Search results for "<?php echo hsc($this->data['Dashboard']['query']) ?>"</h3>
+	<h3>Search results for "<?php echo hsc($_GET['q']) ?>"</h3>
 	
 	<ul>
 	<?php
