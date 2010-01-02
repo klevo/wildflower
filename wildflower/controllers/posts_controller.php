@@ -32,7 +32,8 @@ class PostsController extends AppController {
         
         $defaultParams = array(
             'draft' => 1,
-            'uuid' => $uuid
+            'uuid' => $uuid,
+			'comment_count' => 0
         );
         $this->data[$this->modelClass] = am($this->data[$this->modelClass], $defaultParams);
         $this->{$this->modelClass}->create($this->data);
