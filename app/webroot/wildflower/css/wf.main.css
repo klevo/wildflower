@@ -1622,3 +1622,13 @@ select {
     height: 30px;
     background: #fff74c !important;
 }
+
+.remove {
+	font-size: 90%;
+	color: #e91414;
+}
+
+.remove:hover {
+	background-color: #e91414;
+	color: #fff;
+}
