@@ -137,4 +137,41 @@ class Post extends AppModel {
     	return $results;
     }
     
+    /**
+     * Find posts from a specified category
+     * 
+     * @param mixed $idOrSlug Category ID or slug
+     * @return mixed
+     */
+    function findAllFromCategory($idOrSlug, $limit = null) {
+		$conditions = array(
+            'category_id' => $idOrSlug,
+        );
+        if (is_string($idOrSlug)) {
+			$conditions = array(
+	            'slug' => $idOrSlug,
+	        );
+		}
+        $recursive = -1;
+		$fields = array('id');
+        $category = $this->Category->find('first', compact('conditions', 'recursive', 'fields'));
+        $categoriesPosts = $this->CategoriesPost->find('all', array(
+            'conditions' => array(
+                'category_id' => $category['Category']['id'],
+            ),
+			'recursive' => -1,
+        ));
+        $postsIds = Set::extract($categoriesPosts, '{n}.CategoriesPost.post_id');
+        
+		$posts = $this->find('all', array(
+            'conditions' => array(
+                'Post.id' => $postsIds,
+            ),
+			'recursive' => -1,
+			'limit' => $limit
+        ));
+		
+        return $posts;
+    }
+
 }
