@@ -99,22 +99,12 @@ class PostsController extends AppController {
         $isRevision = !is_null($revisionNumber);
         
         // Categories for select box
-        $categories = array();
-        if (is_integer(Configure::read('App.blogCategoryId'))) { // @TODO document blogCategoryId
-            $_categories = $this->Post->Category->children(Configure::read('App.blogCategoryId'));
-            // Transform to list
-            foreach ($_categories as $cat) {
-                $categories[$cat['Category']['id']] = $cat['Category']['title'];
-            }
-        } else {
-            $categories = $this->Post->Category->find('list', array('fields' => array('id', 'title')));
-        }
-        
+        $categories = $this->Post->Category->find('list', array('fields' => array('id', 'title')));
         $inCategories = Set::extract($this->data['Category'], '{n}.id');
+        $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
+        $categoriesForTree = $this->Post->Category->find('all', array('order' => 'lft ASC', 'recursive' => -1));
         
-        $categoryId = isset($inCategories[0]) ? $inCategories[0] : null;
-        
-        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categories', 'inCategories', 'categoryId'));
+        $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categoriesForTree', 'inCategories'));
         $this->pageTitle = $this->data[$this->modelClass]['title'];
     }
     
@@ -294,7 +284,6 @@ class PostsController extends AppController {
             'conditions' => array(
                 'Post.draft' => 0,
                 'Post.id' => $postsIds,
-				'Post.archive' => 0,
             ),
         );
         $posts = $this->paginate($this->modelClass);

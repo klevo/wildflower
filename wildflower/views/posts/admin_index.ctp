@@ -43,9 +43,7 @@
             ?>
             </div>
             <div class="post-comments"><?php echo $html->link($post['Post']['comment_count'], array('action' => 'comments', $post['Post']['id']), array('title' => __('Manage this post\'s comments.', true)))?></div>
-           <?php if ($post['Post']['archive'] == 1) : ?>
-				<div class="post-archive">&nbsp;</div>
-			<?php endif; ?>
+
 		    <span class="row-actions"><?php echo $html->link('View', Post::getUrl($post['Post']['slug']), array('class' => '', 'rel' => 'permalink', 'title' => __('View this post.', true))) ?></span>
             <span class="cleaner"></span>
         </li>

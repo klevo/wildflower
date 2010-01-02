@@ -358,7 +358,7 @@ select {
         padding: 0;
     }
 
-    .editor_form label {
+    .editor_form #content label {
         font-size: 11px;
         height: 15px;
         text-transform: uppercase !important;
@@ -727,18 +727,22 @@ select {
     float: left;
 }
 
-    .category_sidebar label {
-        background: #eefaff;
-        padding: 3px 6px;
-        margin: 0 0 7px;
-        display: block;
-        font-weight: bold;
-        font-size: 12px;
-    }
-    
-    .category_sidebar select {
-        font-size: 12px;
-    }
+.sidebar_heading {
+    background: #eefaff;
+    padding: 3px 6px;
+    margin: 0 0 7px;
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.category_sidebar {
+	line-height: 1.3;
+}
+
+.category_sidebar li li {
+	padding-left: 7px;
+}
 
 .post-categories,
 .post-comments,
@@ -987,8 +991,7 @@ select {
         
 /* Image browser (image insert) */
 
-    #image-browser h4,
-    .sidebar_heading {
+    #image-browser h4 {
         background: #eefaff;
         padding: 3px 6px;
         margin: 0 0 5px;
