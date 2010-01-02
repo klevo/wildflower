@@ -326,7 +326,7 @@ class PostsController extends AppController {
                 'conditions' => array('spam' => 0, 'approved' => 1),
             ),
         ));
-        $post = $this->Post->findBySlugAndDraftAndArchive($slug, 0, 0);
+        $post = $this->Post->findBySlugAndDraft($slug, 0);
 
 		if (empty($post)) {
 			return $this->do404();
