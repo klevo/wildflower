@@ -143,7 +143,7 @@ class Post extends AppModel {
      * @param mixed $idOrSlug Category ID or slug
      * @return mixed
      */
-    function findAllFromCategory($idOrSlug, $limit = null) {
+    function findAllFromCategory($idOrSlug, $limit = null, $contain = array('User'), $draft = 0) {
 		$conditions = array(
             'category_id' => $idOrSlug,
         );
@@ -166,9 +166,10 @@ class Post extends AppModel {
 		$posts = $this->find('all', array(
             'conditions' => array(
                 'Post.id' => $postsIds,
+				'Post.draft' => $draft
             ),
-			'recursive' => -1,
-			'limit' => $limit
+			'limit' => $limit,
+			'contain' => $contain
         ));
 		
         return $posts;
