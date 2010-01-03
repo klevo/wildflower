@@ -102,9 +102,9 @@ class WildHelper extends AppHelper {
     	    $label = hsc($item['label']);
     	    $slug = self::slug($item['label']);
     	    $classes = array('nav-' . $slug);
-    	    $isCurrent = (rtrim($this->here, '/') === $this->Html->url($item['url']));
+    	    $isCurrent = (rtrim($this->here, '/') . '/' === rtrim($this->Html->url($item['url']), '/') . '/');
 			
-	        if ($view->viewVars['current_link_for_layout'] === $item['url']) {
+	        if (isset($view->viewVars['current_link_for_layout']) && $view->viewVars['current_link_for_layout'] === $item['url']) {
 				$isCurrent = true;
 			}
 
