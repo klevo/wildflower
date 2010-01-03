@@ -97,11 +97,17 @@ class WildHelper extends AppHelper {
     	    return '<p>' . __('Wildflower: There are no menu items for this menu.', true) . '</p>';
     	}
     	$links = array();
+		$view = ClassRegistry::getObject('view');
     	foreach ($items as $item) {
     	    $label = hsc($item['label']);
     	    $slug = self::slug($item['label']);
     	    $classes = array('nav-' . $slug);
-    	    $isCurrent = ($this->here === $this->Html->url($item['url']));
+    	    $isCurrent = (rtrim($this->here, '/') === $this->Html->url($item['url']));
+			
+	        if ($view->viewVars['current_link_for_layout'] === $item['url']) {
+				$isCurrent = true;
+			}
+
     	    if ($isCurrent) {
     	        $classes[] = 'current';
     	    }
