@@ -1,8 +1,16 @@
 <?php
 /**
- * Wildflower routes
+ * Load my_routes.php first, so user routes have priority over Wildflower
  *
- * Note: To add your custom routes, create file my_routes.php in this folder and add them there. When you update Wildflower you won't have to  merge this file with a new version.
+ * To add your custom routes, create file my_routes.php in this folder and add them there. When you update Wildflower you won't have to  merge this file with a new version.
+ */
+$myRoutesPath = dirname(__FILE__) . DS . 'my_routes.php';
+if (file_exists($myRoutesPath)) {
+	require_once($myRoutesPath);
+}
+
+/**
+ * Wildflower routes
  *
  * Wildflower reservers these URL's:
  */
@@ -37,13 +45,3 @@ Router::connect('/search', array('controller' => 'dashboards', 'action' => 'sear
 // Connect root pages slugs
 App::import('Vendor', 'WfRootPagesCache', array('file' => 'WfRootPagesCache.php'));
 WildflowerRootPagesCache::connect();
-
-
-/**
- * Load my_routes.php if exists
- */
-$myRoutesPath = dirname(__FILE__) . DS . 'my_routes.php';
-if (file_exists($myRoutesPath)) {
-	require_once($myRoutesPath);
-}
-
