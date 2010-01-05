@@ -96,13 +96,13 @@ $.jlm.addComponent('tinyMce', {
 
                 // Thumbnail
                 var resizeWidth = $('#resize_x', imageSidebarEl).val();
-                var crop = 1;
+                var crop = $('#crop', imageSidebarEl).val();
                 var resizeHeight = $('#resize_y', imageSidebarEl).val();
-                if (intval(resizeHeight) < 1) {
+                if (intval(resizeHeight) > 1) {
                     resizeHeight = resizeWidth;
                 }
                 if (intval(resizeHeight) > 1) {
-                    imgUrl = $.jlm.base + '/'+$.jlm.wildflowerMPreix+'/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
+                    imgUrl = $.jlm.base + '/'+$.jlm.params.custom.wildflowerMPrefix+'/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
                 }
 
     			// Image HTML - needs to handle class & alt
