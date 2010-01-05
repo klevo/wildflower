@@ -10,7 +10,8 @@ echo $navigation->create(array(
     // If file is image display it fitting the wrap
     $isImage = (strpos($this->data['Asset']['mime'], 'image') === 0);
     if ($isImage) {
-        echo $html->image("/wildflower/thumbnail/{$this->data['Asset']['name']}/600/1000"),
+		$mprefix = Configure::read('Wildflower.mediaRoute');
+        echo $html->image("/$mprefix/thumbnail/{$this->data['Asset']['name']}/600/1000"),
             '<p class="image-resized-notice">This image is resized. ',
             $html->link("View the original image.", '/uploads/' . $this->data['Asset']['name']),
             '</p>';
