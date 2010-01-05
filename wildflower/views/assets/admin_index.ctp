@@ -9,7 +9,9 @@
     <?php echo $this->element('admin_select_actions'); ?>
     
     <ul class="file-list list">
-    <?php foreach ($files as $file): ?>
+    <?php
+	$mprefix = Configure::read('Wildflower.mediaRoute');
+	foreach ($files as $file): ?>
 
         <li id="file-<?php echo $file['Asset']['id']; ?>" class="actions-handle">
             <span class="row-check"><?php echo $form->checkbox('id.' . $file['Asset']['id']) ?></span>
@@ -21,7 +23,7 @@
             ?>
             
             <a class="thumbnail" href="<?php echo $html->url(array('action' => 'edit', $file['Asset']['id'])); ?>">
-    	        <img width="50" height="50" src="<?php echo $html->url("/wildflower/thumbnail/{$file['Asset']['name']}/50/50/1"); ?>" alt="<?php echo hsc($file['Asset']['title']); ?>" />
+    	        <img width="50" height="50" src="<?php echo $html->url("/$mprefix/thumbnail/{$file['Asset']['name']}/50/50/1"); ?>" alt="<?php echo hsc($file['Asset']['title']); ?>" />
     	    </a>
     	    
             <h3><?php echo $html->link($label, array('action' => 'edit', $file['Asset']['id'])); ?></h3>

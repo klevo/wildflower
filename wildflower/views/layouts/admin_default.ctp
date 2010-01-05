@@ -37,7 +37,8 @@
             action: '<?php echo $this->params['action'] ?>', 
             prefix: '<?php echo Configure::read('Routing.admin') ?>',
             custom: {
-                wildflowerUploads: '<?php echo Configure::read('Wildflower.uploadsDirectoryName'); ?>'
+                wildflowerUploads: '<?php echo Configure::read('Wildflower.uploadsDirectoryName'); ?>',
+                wildflowerMPreix: '<?php echo Configure::read('Wildflower.mediaRoute'); ?>'
             }
         });
         

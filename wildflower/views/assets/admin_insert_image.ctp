@@ -6,11 +6,13 @@
     <?php else: ?>
 
         <ul class="file-list list">
-        <?php foreach ($images as $file): ?>
+        <?php
+		$mprefix = Configure::read('Wildflower.mediaRoute');
+		foreach ($images as $file): ?>
 
             <li id="file-<?php echo $file['Asset']['id']; ?>" class="actions-handle">
 
-        	    <img class="thumbnail" width="50" height="50" src="<?php echo $html->url("/wildflower/thumbnail/{$file['Asset']['name']}/50/50/1"); ?>" alt="<?php echo $file['Asset']['name']; ?>" />
+        	    <img class="thumbnail" width="50" height="50" src="<?php echo $html->url("/$mprefix/thumbnail/{$file['Asset']['name']}/50/50/1"); ?>" alt="<?php echo $file['Asset']['name']; ?>" />
 
                 <h3><?php echo hsc($file['Asset']['name']); ?></h3>
 
@@ -28,8 +30,15 @@
     
     <div id="resize_image">
         <h5>Resize</h5>
-        Width: <input type="text" id="resize_x" name="data[Resize][width]" size="4"> px&nbsp;&nbsp; Height: <input type="text" name="data[Resize][height]" id="resize_y" size="4"> px
+        Width: <input type="text" id="resize_x" name="data[Resize][width]" size="4"> px&nbsp;&nbsp; Height: <input type="text" name="data[Resize][height]" id="resize_y" size="4" /> px
     </div>
+    
+    <!-- div id="image_meta">
+        <h5>Alt</h5>
+        Alternative Text: <input type="text" id="meta_alt" name="data[Meta][alt]" size="75" />
+        <h5>Class</h5>
+		Class: <input type="text" name="data[Meta][class]" id="meta_class" size="4" />
+    </div -->
     
     <span class="cleaner"></span>
     <button id="insert_image">Insert selected image</button>

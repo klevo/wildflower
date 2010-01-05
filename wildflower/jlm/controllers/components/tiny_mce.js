@@ -102,10 +102,10 @@ $.jlm.addComponent('tinyMce', {
                     resizeHeight = resizeWidth;
                 }
                 if (intval(resizeHeight) > 1) {
-                    imgUrl = $.jlm.base + '/wildflower/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
+                    imgUrl = $.jlm.base + '/'+$.jlm.wildflowerMPreix+'/thumbnail/' + imgNameEscaped + '/' + resizeWidth + '/' + resizeHeight + '/' + crop;
                 }
 
-    			// Image HTML
+    			// Image HTML - needs to handle class & alt
     			var imgHtml = '<img alt="' + imgName + '" src="' + imgUrl + '" />';
 
     			$.jlm.components.tinyMce.editor.execCommand('mceInsertContent', 0, imgHtml);
