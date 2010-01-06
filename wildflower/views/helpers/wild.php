@@ -217,4 +217,25 @@ class WildHelper extends AppHelper {
         return $posts;
     }
 
+	function dateWithTime($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('M j Y, g:ia', $time);
+    }
+        
+    function date($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('M j Y', $time);
+    }    
+    
+    function epicTime($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('l', $time) . ', ' . date('F j Y', $time);
+    }
+
 }
