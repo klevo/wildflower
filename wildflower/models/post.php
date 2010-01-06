@@ -23,6 +23,15 @@ class Post extends AppModel {
        '0' => 'Published',
        '1' => 'Draft'
     );
+
+	private $findAllFromCategoryDefaults = array(
+		'limit' => null, 
+		'contain' => array('User'), 
+		'draft' => 0,
+		// Find posts from children categories too?
+		'children' => false,
+		'order' => 'Post.created DESC'
+	);
     
     /**
      * Get URL to a post, suitable for $html->url() and likes
@@ -115,7 +124,7 @@ class Post extends AppModel {
      */
     function search($query) {
     	$fields = array('id', 'title', 'slug');
-    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0 and {$this->name}.archive=0", $fields, null, null, 1);
+    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0", $fields, null, null, 1);
     	$contentResults = array();
     	if (empty($titleResults)) {
     		$titleResults = array();
@@ -141,9 +150,13 @@ class Post extends AppModel {
      * Find posts from a specified category
      * 
      * @param mixed $idOrSlug Category ID or slug
+	 * @param array $options Check $this->findAllFromCategoryDefaults for available options
      * @return mixed
      */
-    function findAllFromCategory($idOrSlug, $limit = null, $contain = array('User'), $draft = 0) {
+    function findAllFromCategory($idOrSlug, $options = array()) {
+		$options = am($this->findAllFromCategoryDefaults, $options);
+		extract($options);
+	
 		$conditions = array(
             'category_id' => $idOrSlug,
         );
@@ -153,11 +166,27 @@ class Post extends AppModel {
 	        );
 		}
         $recursive = -1;
-		$fields = array('id');
-        $category = $this->Category->find('first', compact('conditions', 'recursive', 'fields'));
+		$fields = array('id', 'lft', 'rght');
+		
+        $parentCategory = $this->Category->find('first', compact('conditions', 'recursive', 'fields'));
+		
+		$categories = array();
+		$categories[] = $parentCategory;
+		
+		if ($children) {
+			$categories = $this->Category->find('all', array(
+				'conditions' => array(
+					'Category.lft >=' => $parentCategory['Category']['lft'], 
+					'Category.rght <=' => $parentCategory['Category']['rght']
+				),
+				'recursive' => -1,
+				'fields' => $fields
+			));
+		}
+
         $categoriesPosts = $this->CategoriesPost->find('all', array(
             'conditions' => array(
-                'category_id' => $category['Category']['id'],
+                'category_id' => Set::extract('{n}.Category.id', $categories),
             ),
 			'recursive' => -1,
         ));
@@ -169,7 +198,8 @@ class Post extends AppModel {
 				'Post.draft' => $draft
             ),
 			'limit' => $limit,
-			'contain' => $contain
+			'contain' => $contain,
+			'order' => $order
         ));
 		
         return $posts;
