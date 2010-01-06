@@ -4,7 +4,7 @@
     }
     
     echo 
-    $form->create('Page', array('url' => $html->url(array('action' => 'admin_update', 'base' => false)), 'class' => 'editor_form')),
+    $form->create('Page', array('action' => 'admin_update', 'class' => 'editor_form')),
     $form->input('title', array('between' => '', 'label' => 'Page title')), 
     $form->input('content', array(
         'type' => 'textarea',
@@ -16,6 +16,7 @@
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
+    $form->hidden('slug'),
     '</div>';
 ?>
 

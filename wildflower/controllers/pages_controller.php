@@ -157,10 +157,13 @@ class PagesController extends AppController {
         $this->Page->contain('User');
         $page = $this->Page->findById($this->Page->id);
         
-        if (Configure::read('AppSettings.home_page_id') != $this->Page->id) {
+		// @TODO first check if the page has any children
+        if (Configure::read('Wildflower.settings.home_page_id') != $this->Page->id) { 
             $this->Page->updateChildPageUrls($this->Page->id, $oldUrl, $page['Page']['url']);
         }
+
 		$hasUser = $page['User']['id'] ? true : false;
+		
         // JSON response
         if ($this->RequestHandler->isAjax()) {
             $this->data = $page;
@@ -168,7 +171,7 @@ class PagesController extends AppController {
             return $this->render('admin_update');
         }
         
-        $this->redirect(array('action' => 'edit', $this->data[$this->modelClass]['id']));
+        $this->redirect(array('action' => 'edit', $page[$this->modelClass]['id']));
     }
     
     /**
