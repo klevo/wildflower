@@ -64,13 +64,3 @@ $.jlm.bind('posts.admin_categorize', function() {
     bindDeleteLinks();
     
 });
-
-$.jlm.bind('posts.admin_edit', function() {
-    // Update post form on category select
-    $('#CategoryCategory').val($('#category_id').val());
-    $('#category_id').change(function() {
-        var id = $(this).val();
-        $('#CategoryCategory').val(id);
-    });
-    
-});

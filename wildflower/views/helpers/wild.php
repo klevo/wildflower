@@ -97,11 +97,17 @@ class WildHelper extends AppHelper {
     	    return '<p>' . __('Wildflower: There are no menu items for this menu.', true) . '</p>';
     	}
     	$links = array();
+		$view = ClassRegistry::getObject('view');
     	foreach ($items as $item) {
     	    $label = hsc($item['label']);
     	    $slug = self::slug($item['label']);
     	    $classes = array('nav-' . $slug);
-    	    $isCurrent = ($this->here === $this->Html->url($item['url']));
+    	    $isCurrent = (rtrim($this->here, '/') . '/' === rtrim($this->Html->url($item['url']), '/') . '/');
+			
+	        if (isset($view->viewVars['current_link_for_layout']) && $view->viewVars['current_link_for_layout'] === $item['url']) {
+				$isCurrent = true;
+			}
+
     	    if ($isCurrent) {
     	        $classes[] = 'current';
     	    }
@@ -209,6 +215,27 @@ class WildHelper extends AppHelper {
         $category = $Category->findBySlug($slug);
         $posts = $category['Post'];
         return $posts;
+    }
+
+	function dateWithTime($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('M j, Y, g:ia', $time);
+    }
+        
+    function date($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('M j, Y', $time);
+    }    
+    
+    function epicTime($time) {
+        if (!is_integer($time)) {
+            $time = strtotime($time);
+        }
+        return date('l', $time) . ', ' . date('F j, Y', $time);
     }
 
 }

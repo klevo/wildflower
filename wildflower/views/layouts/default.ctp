@@ -26,9 +26,9 @@
     
     <?php echo $wild->menu('main_menu'); ?>
     <?php echo $this->element('latest_posts', array('categorySlug'=>'action','categoryLimit'=>4));  ?>
-    <?php echo $form->create("Dashboard",array('action' => 'search'));
-	    echo $form->input("query", array('label' => 'Search: '));
-	    echo $form->end('');
+    <?php echo $form->create("Dashboard", array('url' => '/search', 'type' => 'get'));
+	    echo $form->input("q", array('label' => false));
+	    echo $form->end('Search');
 	?>
     
     <hr />

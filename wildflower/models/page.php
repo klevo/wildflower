@@ -40,7 +40,8 @@ class Page extends AppModel {
     	// Construct the absolute page URL
     	if (isset($this->data[$this->name]['slug'])) {
 	    	$level = 0;
-	    	if (intval($this->id) === intval(Configure::read('AppSettings.home_page_id'))) {
+			$homePageId = intval(Configure::read('Wildflower.settings.home_page_id'));
+	    	if (intval($this->id) === $homePageId && $homePageId !== 0) {
 	    		// Home page has the URL of root
 	    		$this->data[$this->name]['url'] = '/';
 	    	} else if (!isset($this->data[$this->name]['parent_id']) or !is_numeric($this->data[$this->name]['parent_id'])) {
@@ -69,15 +70,12 @@ class Page extends AppModel {
     
     function updateChildPageUrls($id, $oldUrl, $newUrl) {
         // Update child pages URLs
-    	$children = $this->find('all', array(
-    	    'conditions' => "{$this->name}.url LIKE '$oldUrl%' AND {$this->name}.id != $id",
-    	    'recursive' => -1,
-    	    'fields' => array('id', 'url', 'slug'),
-    	));
+    	$children = $this->children($id);
         if (!empty($children)) {
             foreach ($children as $page) {
-                        $childNewUrl = str_replace($oldUrl, $newUrl, $page[$this->name]['url']);
-                        $this->query("UPDATE {$this->useTable} SET url = '$childNewUrl' WHERE id = {$page[$this->name]['id']}");
+				// Just resave, beforeSave does the magic
+				$this->create($page);
+				$this->save();
             }
         }
     }

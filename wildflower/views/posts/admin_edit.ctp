@@ -3,8 +3,9 @@
         $session->flash();
     }
 
+	$partialLayout->setLayoutVar('form_for_layout', $form->create('Post', array('action' => 'update', 'class' => 'editor_form')));
+
     echo 
-    $form->create('Post', array('url' => $html->url(array('action' => 'admin_update', 'base' => false)), 'class' => 'editor_form')),
     $form->input('title', array(
         'label' => __('Post title', true)
     )),
@@ -27,9 +28,6 @@
     <?php echo $this->element('admin_edit_buttons'); ?>
 </div>
 
-<?php echo $form->end(); ?>
-    
-
 <?php $partialLayout->blockStart('sidebar'); ?>
     <li class="main_sidebar">
         <?php echo $html->link(
@@ -38,7 +36,8 @@
             array('class' => 'add', 'escape' => false)); ?>
     </li>
     <li class="main_sidebar category_sidebar">
-        <?php echo $form->input('category_id', array('type' => 'select', 'options' => $categories, 'label' => __('Category', true), 'empty' => '(no category)', 'value' => $categoryId)); ?>
+		<h4 class="sidebar_heading"><?php __('Categories'); ?></h4>
+		<?php echo $tree->generate($categoriesForTree, array('model' => 'Category', 'class' => '', 'element' => '../categories/list_item', 'inCategories' => $inCategories)); ?>
     </li>
     <li class="main_sidebar">
         <ul class="sidebar-menu-alt edit-sections-menu">
