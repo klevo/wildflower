@@ -14,7 +14,7 @@
     ?>
     
     <div class="comment_meta">
-    <?
+    <?php
         echo 
         $html->link(
             $data['Comment']['name'], 
@@ -26,7 +26,8 @@
         if (!empty($data['Comment']['url'])) {
             echo '&nbsp;&nbsp;&nbsp;&nbsp;', $html->link($data['Comment']['url'], $data['Comment']['url']);
         }
-    ?>
+
+        ?>
     </div>
     
     <div class="comment_entry inplace-edit"><?php echo $textile->format($data['Comment']['content']) ?></div>
@@ -40,6 +41,16 @@
             ); 
         ?>
     </small>
-    
+    <?php
+	
+		echo
+		$html->link(
+			'Edit Comment', 
+			'#',
+			array(
+				'class' => 'edit-comment'
+			)
+		); 
+	?>
     <span class="cleaner"></span>
 </div>
