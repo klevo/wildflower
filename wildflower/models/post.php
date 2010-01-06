@@ -122,8 +122,9 @@ class Post extends AppModel {
      * @param string $query
      * @return array
      */
-    function search($query) {
+    function search($query, $contain = array('Category')) {
     	$fields = array('id', 'title', 'slug');
+		$this->contain($contain);
     	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0", $fields, null, null, 1);
     	$contentResults = array();
     	if (empty($titleResults)) {
@@ -158,7 +159,7 @@ class Post extends AppModel {
 		extract($options);
 	
 		$conditions = array(
-            'category_id' => $idOrSlug,
+            'id' => $idOrSlug,
         );
         if (is_string($idOrSlug)) {
 			$conditions = array(
