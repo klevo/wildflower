@@ -13,7 +13,7 @@
 
         echo 
         $actions,
-        $tree->generate($comments, array('model' => 'Comment', 'class' => 'list pages-list', 'element' => '../comments/_index_list_item')),
+        $tree->generate($comments, array('model' => 'Comment', 'class' => 'list comments-list', 'element' => '../comments/_index_list_item')),
         $actions;
     }
    
