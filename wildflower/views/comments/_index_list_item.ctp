@@ -41,16 +41,5 @@
             ); 
         ?>
     </small>
-    <?php
-	
-		echo
-		$html->link(
-			'Edit Comment', 
-			'#',
-			array(
-				'class' => 'edit-comment'
-			)
-		); 
-	?>
     <span class="cleaner"></span>
 </div>
