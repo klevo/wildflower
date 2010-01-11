@@ -1,7 +1,7 @@
 <?php
 class MenuItemsController extends AppController {
     
-    function delete($id) {
+    function admin_delete($id) {
         $this->MenuItem->recursive = -1;
         $this->MenuItem->id = $id;
         $item = $this->MenuItem->read();
