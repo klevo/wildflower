@@ -220,7 +220,9 @@ class PostsController extends AppController {
         $this->layout = 'rss/default';
         $posts = $this->Post->find('all', array(
              'order' => 'Post.created DESC',
-             'contain' => 'User',
+             'contain' => array('User', 'Category'),
+			 'limit' => 20,
+			 'conditions' => 'Post.draft = 0',
         ));
         $this->set(compact('posts'));
         $this->RequestHandler->respondAs('text/xml');
