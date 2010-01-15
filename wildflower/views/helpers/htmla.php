@@ -36,11 +36,16 @@ class HtmlaHelper extends HtmlHelper {
         $isPartOfUrl = (bool)(strpos($currentUrl, $parsedUrl) === 0);
         if ($linksToCurrentPage or (!isset($htmlAttributes['strict']) and $isPartOfUrl)) {
             if (isset($htmlAttributes['class'])) {
-                $htmlAttributes['class'] += ' current';
+                $htmlAttributes['class'] .= ' current';
             } else {
                 $htmlAttributes['class'] = 'current';
             }
-        }        
+        }
+
+		if(isset($htmlAttributes['strict']))	{
+			$htmlAttributes['strict'] = false;
+		}
+
         return parent::link($title, $url, $htmlAttributes, $confirmMessage, $escapeTitle);
     }
     
