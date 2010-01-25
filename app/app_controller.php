@@ -13,7 +13,7 @@ App::import('Core', 'l10n');
 
 class AppController extends Controller {
 
-	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Seo', 'DebugKit.Toolbar');
+	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Seo');//, 'DebugKit.Toolbar'); # 
 	public $currentUserId;
 	public $helpers = array(
 	    'Html', 
