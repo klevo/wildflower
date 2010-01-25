@@ -43,7 +43,7 @@ $.jlm.addComponent('inplaceEdit', {
                 formEl.ajaxForm(afterSave);
             }
 
-            var url = $.jlm.base + '/wf/comments/get_content/' + commentId;
+            var url = $.jlm.base + '/' + $.jlm.params.prefix + '/comments/get_content/' + commentId;
             var content = $.post(url, respond, {}, 'json');
             return false;
         };
@@ -65,7 +65,7 @@ $.jlm.addComponent('inplaceEdit', {
 
         var commentId = commentEl.attr('id').split('-');
         commentId = commentId[1];
-        var url = $.jlm.base + '/admin/comments/delete';
+        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/comments/delete';
         var data = { 'data[Comment][id]': commentId };
         $.post(url, data);
 
@@ -84,7 +84,7 @@ $.jlm.addComponent('inplaceEdit', {
 
         var commentId = commentEl.attr('id').split('-');
         commentId = commentId[1];
-        var url = $.jlm.base + '/admin/comments/mark_spam';
+        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/comments/mark_spam';
         var data = { 'data[Comment][id]': commentId };
         $.post(url, data);
 
@@ -99,7 +99,7 @@ $.jlm.addComponent('inplaceEdit', {
 
         var commentId = commentEl.attr('id').split('-');
         commentId = commentId[1];
-        var url = $.jlm.base + '/admin/comments/not_spam';
+        var url = $.jlm.base + '/' + $.jlm.params.prefix + '/comments/not_spam';
         var data = { 'data[Comment][id]': commentId };
         $.post(url, data);
 
@@ -110,3 +110,4 @@ $.jlm.addComponent('inplaceEdit', {
     }
 
 });
+
