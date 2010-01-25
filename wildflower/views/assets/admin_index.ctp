@@ -6,12 +6,17 @@
     
     <?php echo $form->create('Asset', array('action' => 'mass_update')); ?>
     
-    <?php echo $this->element('admin_select_actions'); ?>
-    
-    <ul class="file-list list">
-    <?php foreach ($files as $file): ?>
+    <?php echo $this->element('admin_select_actions', array('options' => array('Edit', 'Delete'))); ?>
+    <div id="assetList-nav"></div>
+    <ul id="assetList" class="file-list">
+    <?php 
+		foreach ($files as $file):
+			// explode the mime - so we know if its image - use after the / as a className
+			$mimeClass = explode('/', $file['Asset']['mime']);
+			($mimeClass[1] == 'jpeg') ? $mimeClass[1] : str_replace('jpeg', 'jpg', $mimeClass[1]);
+	?>
 
-        <li id="file-<?php echo $file['Asset']['id']; ?>" class="actions-handle">
+        <li id="file-<?php echo $file['Asset']['id']; ?>" class="actions-handle<?php	echo ($mimeClass[0] == 'image') ? ' img'  : ' ' . $mimeClass[1];	?>">
             <span class="row-check"><?php echo $form->checkbox('id.' . $file['Asset']['id']) ?></span>
             <?php 
                 $label = $file['Asset']['title'];
@@ -19,20 +24,44 @@
                     $label = $file['Asset']['name'];
                 }
             ?>
-            
-            <a class="thumbnail" href="<?php echo $html->url(array('action' => 'edit', $file['Asset']['id'])); ?>">
-    	        <img width="50" height="50" src="<?php echo $html->url("/wildflower/thumbnail/{$file['Asset']['name']}/50/50/1"); ?>" alt="<?php echo hsc($file['Asset']['title']); ?>" />
-    	    </a>
-    	    
-            <h3><?php echo $html->link($label, array('action' => 'edit', $file['Asset']['id'])); ?></h3>
+
+			<?php
+				$iconOrThumbnail = $thumbUrl = '';
+				if($mimeClass[0] == 'image') {
+					$thumbUrl = "/wildflower/thumbnail/{$file['Asset']['name']}/";
+					$iconOrThumbnail = $html->link(
+						$html->image(
+							$thumbUrl . '50/50/1', 
+							array('class' => 'thumbnail', 'width' => '24', 'height' => '24')
+						),
+						array('action' => 'edit', $file['Asset']['id']),
+						array(
+							'class' => 'icon',
+							'rel' => $thumbUrl . '200/',
+							'title' => 'Preivew of asset ' . $file['Asset']['id']
+						), false, false
+					);
+				} else  {
+					$iconOrThumbnail = "<span class=\"icon\">&nbsp;</span>";
+				}
+				echo $iconOrThumbnail;
+				?>
+
+            <h3><?php echo $html->link($text->truncate($label, 35, '...'), array('action' => 'edit', $file['Asset']['id'])); ?></h3>
             
             <span class="row-actions"><?php echo $html->link(__('View', true), Asset::getUploadUrl($file['Asset']['name']), array('class' => '', 'rel' => 'permalink', 'title' => __('View or download this file.', true))); ?></span>
+            
+            <a href="<?php echo $html->url(); ?>" class="file edit">
+    	        <?php echo $text->truncate($file['Asset']['name'], 35, '...'); ?>
+    	    </a>
             
             <span class="cleaner"></span>
         </li>
              
     <?php endforeach; ?>
     </ul>
+            
+            <span class="cleaner"></span>
     
     <?php echo $this->element('admin_select_actions'); ?>
     <?php echo $form->end(); ?>

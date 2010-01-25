@@ -32,7 +32,7 @@ $.jlm.addComponent('tinyMce', {
             doctype: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
 
             // Theme options
-            theme_advanced_buttons1: "undo,redo,|,bold,italic,strikethrough,|,formatselect,styleselect,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,wfinsertimage,wfinsertwidget,|,charmap,code,fullscreen",
+            theme_advanced_buttons1: "undo,redo,|,bold,italic,strikethrough,|,formatselect,styleselect,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,wfinsertimage,wfinsertasset,wfinsertwidget,|,charmap,code,fullscreen",
             theme_advanced_styles : "Align left=left;Align right=right",
     		theme_advanced_buttons2: "",
     		theme_advanced_buttons3: "",
@@ -42,6 +42,8 @@ $.jlm.addComponent('tinyMce', {
             theme_advanced_resizing: false,
             theme_advanced_resize_horizontal: false,
     		theme_advanced_path: false,
+			//	extended_valid_elements: '',
+			//	event_elements : "td,img,a,input",
             width: '100%',
 
             // URLs
@@ -129,6 +131,29 @@ $.jlm.addComponent('tinyMce', {
 		});
 	},
 	
+	insertAsset: function(editor) {
+	    $.jlm.components.tinyMce.editor = editor;
+	    
+	    // Close if open
+	    if ($('.insert_asset_sidebar').size() > 0) {
+	        $('.insert_asset_sidebar').remove();
+	        $('.main_sidebar').show();
+	        return false;
+	    }
+	    
+	    var url = $.jlm.base + '/' + $.jlm.params.prefix + '/assets/insert_asset';
+	    return false;
+	},
+	
+	resizeToFillScreen: function(textareaEl) {
+	    var otherContentHeight = $('body').height() - textareaEl.height();
+	    var bumper = 20;
+	    var result = $(window).height() - otherContentHeight - bumper; 
+	    
+		textareaEl.height(result);
+		return result;
+	},
+	
 	insertImage: function(editor) {
 	    $.jlm.components.tinyMce.editor = editor;
 	    
@@ -192,5 +217,13 @@ $.jlm.addComponent('tinyMce', {
     
     insertLink: function() {
         log('INSERT LINK');
+    },
+    
+    hoverLink: function() {
+        log('hover LINK');
+    },
+    
+    hoverImage: function() {
+        log('hover IMAGE');
     }
 });

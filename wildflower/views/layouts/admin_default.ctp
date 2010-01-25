@@ -57,7 +57,7 @@
     <?php echo $html->link('Site index', '/', array('title' => __('Visit ', true)  . FULL_BASE_URL, 'id' => 'site_index')); ?>
     
     <div id="login_info">
-        <?php echo $htmla->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout')); ?>
+        <a href="#" class="areaToggle" title="Click here to enable full view of content area (no sidebar)">Full</a> &#124; <?php echo $htmla->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout')); ?>
     </div>
 
     <ul id="nav">

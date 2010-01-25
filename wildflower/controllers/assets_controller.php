@@ -68,6 +68,8 @@ class AssetsController extends AppController {
 	 *
 	 */
 	function admin_index() {
+		if(isset($_GET['l'])) $fileLimit = Sanitize::escape($_GET['l']);
+		$this->paginate['limit'] = (isset($fileLimit)) ? $fileLimit : 250;
         $this->feedFileManager();
 	}
 	
@@ -97,6 +99,19 @@ class AssetsController extends AppController {
 	 *
 	 * @param int $limit Number of images on one page
 	 */
+	function admin_insert_asset() {
+		$this->autoLayout = false;
+		$this->paginate['limit'] = 10;
+		// $this->paginate['conditions'] = "{$this->modelClass}.mime LIKE 'image%'";
+		$images = $this->paginate($this->modelClass);
+		$this->set('images', $images);
+	}
+	
+	/**
+	 * Insert image dialog
+	 *
+	 * @param int $limit Number of images on one page
+	 */
 	function admin_insert_image() {
 		$this->autoLayout = false;
 		$this->paginate['limit'] = 10;
@@ -116,7 +131,7 @@ class AssetsController extends AppController {
 	    $this->Asset->create($this->data);
 	    if (!$this->Asset->exists()) return $this->cakeError('object_not_found');
 	    $this->Asset->saveField('title', $this->data[$this->modelClass]['title']);
-	    $this->redirect(array('action' => 'edit', $this->Asset->id));
+	    $this->redirect(array('action' => 'index'));
 	}
 	
 	function beforeFilter() {

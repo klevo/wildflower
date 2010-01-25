@@ -7,6 +7,19 @@ Colors
 #e2e2e2 - Light Grey - Non-content background 
 #0033CC - Link Blue - Hyperlinks
 #eefaff - Ligh Blue - Sidebar highlight background
+
+added styling for full area display & begining of icons (using sprites)
+	- header items & sidebar can be hidden this is toggled with full|exit in top right of admin
+	- the function is in jlm app controller - see there for more notes
+	- the benefit of is this is increased visible content for editing or more items displayed 
+	- items full will display in three cols (on a wide screen)
+
+added listNav styles
+	- alphabetical listing of files is auto filtered with jquery
+
+
+
+
 */
 
 html,
@@ -86,6 +99,18 @@ hr {
         background: #3b3b3b;
         color: #fff;
     }
+
+.full #header #nav,
+.full #sidebar,
+.full label[for="PageTitle"],
+.full label[for="PostTitle"],
+.full #PageTitle,
+.full #PostTitle {
+    display: none;
+}
+.full #content {
+    width: 100%;
+}
 
 #site_title {
     font-size: 20px;
@@ -239,6 +264,17 @@ hr {
         margin-top: 7px;
     }
 
+/* listNav to filter lists by name alphabetically */
+.listNav { padding-top: 20px; margin:0 0 10px; }
+	.ln-letters { overflow:hidden; }
+	.ln-letters a { font-size:0.9em; display:block; float:left; padding:2px 6px; border:1px solid silver; border-right:none; text-decoration:none; }
+	.ln-letters a.ln-last { border-right:1px solid silver; }
+	.ln-letters a:hover,
+	.ln-letters a.ln-selected { background-color:#eaeaea; }
+	.ln-letters a.ln-disabled { color:#ccc; }
+	.ln-letter-count { text-align:center; font-size:0.8em; line-height:1; margin-bottom:3px; color:#336699; }
+
+
 
 .button {
     color: red !important;
@@ -316,6 +352,141 @@ h2 {
         color: yellow !important;
         background-color: transparent !important;
     }
+
+/*	spirite icons for files	*/
+.icon	{
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: green url('img/icon-spites.gif') top left;
+}
+	.full .icon,
+	.full .img img {
+		width: 50px;
+		height: 50px;
+	}
+
+	.doc .icon	{	background-position: top left;	}
+	.pdf .icon		{	background-position: top left;	}
+	.swf .icon		{	background-position: top left;	}
+	.img .thumbnail		{		}
+	.mp3 .icon		{	background-position: top left;	}
+	.flv .icon		{	background-position: top left;	}
+	.mov .icon		{	background-position: top left;	}
+	.mpg .icon		{	background-position: top left;	}
+	.avi .icon		{	background-position: top left;	}
+
+	.full .doc .icon		{	background-position: top left;	}
+	.full .pdf .icon		{	background-position: top left;	}
+	.full .swf .icon	{	background-position: top left;	}
+	.full .img .thumbnail	{	background-position: top left;	}
+	.full .psd .icon		{	background-position: top left;	}
+	.full .mp3 .icon		{	background-position: top left;	}
+	.full .flv .icon		{	background-position: top left;	}
+	.full .mov .icon		{	background-position: top left;	}
+	.full .mpg .icon		{	background-position: top left;	}
+	.full .avi .icon		{	background-position: top left;	}
+
+
+/*	collapse menu */
+.cmenu {
+	font-size:90%;
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+	width:145px;
+}
+	.cmenu ul {
+		display:none;
+		list-style-image:none;
+		list-style-position:outside;
+		list-style-type:none;
+		margin:0;
+		padding:0;
+	}
+	.cmenu li {
+		background-image:none;
+		margin:0;
+		padding:0;
+	}
+	.cmenu ul ul {
+		display:inline;
+	}
+	.cmenu ul ul li a {
+		padding-left:20px;
+		width:118px;
+	}
+	.cmenu a {
+		color:#000000;
+		cursor:pointer;
+		display:block;
+		font-weight:bold;
+		margin-left:0;
+		padding:2px 2px 2px 17px;
+		width:121px;
+	}
+	.cmenu a.expanded {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#BBBBBB url(img/collapsible-menu/collapse.gif) no-repeat scroll 3px 50%;
+	}
+	.cmenu a.collapsed {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#BBBBBB url(img/collapsible-menu/expand.gif) no-repeat scroll 3px 50%;
+	}
+	.cmenu a:hover {
+		text-decoration:none;
+	}
+	.cmenu ul a {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#E8E8E8 none repeat scroll 0 0;
+		border-top:2px solid #FFFFFF;
+		color:#000000;
+		display:block;
+		font-weight:normal;
+		padding:2px 2px 2px 10px;
+		width:128px;
+	}
+	.cmenu ul a:hover {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#F5F5F5 none repeat scroll 0 0;
+		text-decoration:underline;
+	}
+	.cmenu li.active a {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#FFFFFF none repeat scroll 0 0;
+	}
+	.cmenu li.active li a {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:#E8E8E8 none repeat scroll 0 0;
+	}
+	.cmenu .footer {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+		background:transparent url(img/collapsible-menu/footer.jpg) no-repeat scroll 0 0;
+		border-top:2px solid #FFFFFF;
+		height:9px;
+		margin:0 0 10px;
+		width:142px;
+	}
+	.cmenu .footer span {
+		display:none;
+	}
 
 
 /* Form elements */
@@ -1122,22 +1293,40 @@ select {
 
     .file-list li,
     .list li {
-        margin: 0;
-        padding: 4px 0;
+        margin: 0 5% 0 0;
+        padding: 15px 0;
         border-bottom: 1px solid #e0e0e0;
     }
 
+	.list li {width: 100%;}
+
+	.file-list li { float: left; width: 43%;  height: 35px;}
+
+	.full .file-list li {height: 65px; min-width: 320px;}
+
     .file-list .thumbnail,
     .list .thumbnail {
-        float: left;
-        margin: 0 10px 0 5px;
+		width: 24px;
+	}
+
+	.file-list .icon {
+        float: right;
+        margin: -6px 10px 0 5px;
         display: block;
     }
+
+	#sidebar .file-list li {height: auto}
+
+		#sidebar .file-list li h3	{display: block; left: left; margin-right: 0;margin-top: 0; padding-right: 0px; width: 80px;}
+
+		#sidebar .file-list li img {float: right; width: 50px; height: 50px; }
+
     
+	/* 
     .file-list img,
     .list img {
         display: block;
-    }
+    } */
     
     .file-list h3,
     .list h3 {
@@ -1145,6 +1334,10 @@ select {
         font-weight: normal;
         margin: 0;
     }
+    
+    .file-list h3	{
+		padding-right: 24px;
+	}
 
 #admin_bar {
     background: #000;
@@ -1489,10 +1682,10 @@ select {
     }
     
 #comments_index li {
-    padding: 10px !important;
     background: #eee;
     border: 2px solid #ddd;
     margin: 10px 0;
+	height:auto;
 }
 
 .view_comment_post {
@@ -1501,6 +1694,7 @@ select {
     font-size: 11px;    
     position: relative;
     bottom: -2px;
+	margin-top: -20px; margin-right: 5px;
 }
 
 .comment_entry {

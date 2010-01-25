@@ -25,6 +25,18 @@ more interesting stuff - idea to group assets and have two of these - first list
 http://www.lousyllama.com/sandbox/collapsible-menu#
 
 
+TODO:
+	>edit in place for assets (and other things - should work with comments too not tied to a specific UNIT)
+		>>be able to edit asset titles before inserting
+	>image size control (keywords like gmail onhover in editor)
+	>image tag control (class & alt)
+	>non image files insert
+	>quick image upload (and not redirect or reload editor)
+	>use image preview in other views - eg dashboard, themes etc
+	>alternative method for displaying html source - not default mce overlay
+	>>>...
+
+
  * Also some other ideas from My fork are in here where justified (full toggle - I think its great - it could be skipped)
  * For admin stuff from my fork may never work with IE (I don't think anyone should use IE at all for any meaning stuff BTW the German Gov urges it population to not use IE)
  * I feel all the better for ignoring IE for admin of wildflower - better browser that do more exist

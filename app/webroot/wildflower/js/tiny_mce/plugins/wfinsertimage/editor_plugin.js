@@ -12,6 +12,15 @@
 	            },
 	            'class' : 'mceIcon mce_image'
 	        });
+			
+			// Insert image button
+            ed.addButton('wfinsertasset', {
+	            title : 'Insert an Asset',
+	            onclick : function() {
+	                 $.jlm.components.tinyMce.insertAsset(ed);
+	            },
+	            'image' : $.jlm.base + '/wildflower/img/cog.png'
+	        });
 	        
 	        // Insert Widget button
 	        ed.addButton('wfinsertwidget',  {
@@ -25,6 +34,8 @@
 	        ed.onDblClick.add(function(ed, e) {
                 $.jlm.components.widgets.edit(e.target);
             });
+	        
+	        // ed.onMouseOver.add(function(ed, e) { log('over the image - gimme size keywords'); });
     
 		}
 		
