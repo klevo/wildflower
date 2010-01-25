@@ -1,3 +1,35 @@
+Branch Intentions
+~~~~~~~~~~~~~~~~~
+
+I have to differing approaches in mind, unsure which I will try first
+
+* filtering content and/or use a table sortable columns
+* want to be able to control the number of asset records
+* be able to upload images from page/post/sidebar admin
+* edit inplace for titles
+* ability to filter files by type mime or suffix
+* ablity to control size of image inserted into content (use size keywords like gmail - maybe)
+* list non image type and insert them as text links
+* be able to control image class & alt text
+* option to name/Title an image on upload
+* ability to search assets by name/Title within a type when inserting asset in to content
+* display a icon for common file type when in admin (eg pdf, swf, doc - when a thumb should not be generated) // or don't display the image at all and display the thum on mouseover and a large in a light box editinplus in the lightbox? or edit inplace in the list
+* mass upload (this eludes me still)
+
+these are both interesting - trying the list nav first - but the listmenu might be useful inplace 
+http://www.ihwy.com/Labs/demos/current/jquery-listmenu-plugin.aspx
+http://www.ihwy.com/Labs/jquery-listnav-plugin.aspx
+
+more interesting stuff - idea to group assets and have two of these - first lists types - second lists files corresponding to type (first(images|pdfs|swf|tla|etc) second(item1,item2,item3,....,itemN)) - clicking on any thing in first changes second clicking anything in seconds displays a jlm view to control insertion of content
+
+http://www.lousyllama.com/sandbox/collapsible-menu#
+
+
+ * Also some other ideas from My fork are in here where justified (full toggle - I think its great - it could be skipped)
+ * For admin stuff from my fork may never work with IE (I don't think anyone should use IE at all for any meaning stuff BTW the German Gov urges it population to not use IE)
+ * I feel all the better for ignoring IE for admin of wildflower - better browser that do more exist
+~~~~~~~~~~~~~~~~~
+
 Wildflower 1.3 Beta - A CakePHP CMS
 ***********************************
 
