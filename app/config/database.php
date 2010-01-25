@@ -86,8 +86,8 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '',
-		'database' => 'wildflower',
+		'password' => 'majic',
+		'database' => 'wildflower_klevo',
 	    'port' => 3306
 	);
 	
