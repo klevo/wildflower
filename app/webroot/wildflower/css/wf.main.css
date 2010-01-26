@@ -1293,7 +1293,7 @@ select {
 
     .file-list li,
     .list li {
-        margin: 0 5% 0 0;
+        margin: 0 2% 0 0;
         padding: 15px 0;
         border-bottom: 1px solid #e0e0e0;
     }
@@ -1302,7 +1302,7 @@ select {
 
 	.file-list li { float: left; width: 43%;  height: 35px;}
 
-	.full .file-list li {height: 65px; min-width: 320px;}
+	.full .file-list li {height: 65px; min-width: 31%;}
 
     .file-list .thumbnail,
     .list .thumbnail {
