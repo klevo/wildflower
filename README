@@ -23,7 +23,7 @@ Installation
 The Wildflower Way - or why its not a CakePHP plugin
 ====================================================
 
-WF uses the additional MVC paths CakePHP feature. All the Wildflower MVC (models, views, controllers) are located inside the /wildflower directory. Except the app_controller.php, app_model.php and app_helper.php. These are of course essential for proper WF functioning and are found standardly in the /app folder. This architecture enables you to copy any WF MVC file into your /app folder, modify it and Cake will automatically use it. With the core features of Wildflower and some setting can ease the customisation of the site it powers.  Adding custom controllers/models/etc, for your custom functionality is simple.  Since your app specific code isolated upgrading is simple.
+WF uses the additional MVC paths CakePHP feature. All the Wildflower MVC (models, views, controllers) are located inside the /wildflower directory. Except the app_controller.php, app_model.php and app_helper.php. These are of course essential for proper WF functioning and are found standardly in the /app folder. This architecture enables you to copy any WF MVC file into your /app folder, modify it and Cake will automatically use it. With the core features of Wildflower and some settings can ease the customisation of the site it powers.  Adding custom controllers/models/etc, for your custom functionality is simple.  Since your app specific code isolated upgrading is simple.
 
 
 Upgrading
@@ -41,6 +41,8 @@ Use the UtilityShell to generate an AuthComponent compatible password hash:
 Insert the result into your database in the 'password' field of the 'users' table.
 
 or run this sql (get the salt value from - app/config/core.php)
+
+UPDATE users SET password = sha1(concat('salt', 'admin123')) WHERE login = 'admin';
 
 Support & more information 
 ===========================
