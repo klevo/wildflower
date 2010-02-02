@@ -22,6 +22,9 @@ class DashboardsController extends AppController {
         $pageResults = ClassRegistry::init('Page')->search($query);
         $results = am($postResults, $pageResults);
         $this->set('results', $results);
+        if ($this->RequestHandler->isAjax()) {
+            $this->render('../dashboards/wf_search');
+        }
     }
     
     /**
