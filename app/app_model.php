@@ -4,6 +4,8 @@ class AppModel extends Model {
     /**
      * Get data for select box
      * 
+     *@deprecated Using Cake's TreeBehavior::generatetreelist
+     * 
      * @param int $skipId id to skip
      */
     function getListThreaded($skipId = null, $alias = 'title') {

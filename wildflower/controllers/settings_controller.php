@@ -28,7 +28,7 @@ class SettingsController extends AppController {
 	function admin_index() {
 	    $this->pageTitle = 'Site settings';
 	    
-	    $homePageIdOptions = $this->Page->getListThreaded();
+	    $homePageIdOptions = $this->Page->generatetreelist(null, null, null, ' - ');
 	    
 	    $themeOptions = $this->Setting->getThemes();
 	    
