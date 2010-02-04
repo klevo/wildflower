@@ -371,7 +371,7 @@ class AppController extends Controller {
 	 */
 	function gzipOutput() {
 		if (@ob_start('ob_gzhandler')) {
-			header('Content-type: text/html; charset: UTF-8');
+			header('Content-type: text/html; charset=UTF-8');
 			header('Cache-Control: must-revalidate');
 			$offset = -1;
 			$expireTime = gmdate('D, d M Y H:i:s', time() + $offset);
