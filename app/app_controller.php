@@ -28,6 +28,7 @@ class AppController extends Controller {
 	    'Text',
 	    'Time'
 	);
+	public $view = 'Theme';
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
@@ -263,6 +264,8 @@ class AppController extends Controller {
     	
     	// User ID for views
 		$this->set('loggedUserId', $this->Auth->user('id'));
+		
+	$this->theme = Configure::read('Wildflower.settings.theme');
     }
 
 	function do404() {
