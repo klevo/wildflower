@@ -28,6 +28,7 @@ class AppController extends Controller {
 	    'Text',
 	    'Time'
 	);
+	public $view = 'Theme';
 	public $homePageId;
 	public $isAuthorized = false;
     public $isHome = false;
@@ -263,6 +264,8 @@ class AppController extends Controller {
     	
     	// User ID for views
 		$this->set('loggedUserId', $this->Auth->user('id'));
+		
+	$this->theme = Configure::read('Wildflower.settings.theme');
     }
 
 	function do404() {
@@ -469,5 +472,69 @@ class AppController extends Controller {
         pr($output);
         die();
     }
+    
+/**
+ * Abstracts cakephp's Email component Send function and sets default values
+ *@access public
+ *
+ *@param string $templateName 	The name of the template to use in sending the message
+ *@param string $emailSubject
+ *@param array $recipients 	An associative array with keys 'to', 'cc', and 'bcc'. 'cc' and 'bcc' are arrays
+ *@param string $from
+ *@param string $replyToEmail
+ *@param string $sendAs
+ *
+ *@return boolean 	true if mail is successfully sent
+ */	
+
+	function _sendEmail($templateName,
+			    $emailSubject,
+			    $recipients = array(),
+			    $from = null,
+			    $sendAs = 'both',
+			    $replyToEmail = null
+			    ){
+		
+		if(!empty($recipients['to']))
+			$this->Email->to = $recipients['to'];
+
+		if(!empty($recipients['cc']))
+			$this->Email->cc = $recipients['cc'];
+
+		if(!empty($recipients['bcc']))
+			$this->Email->bcc = $recipients['bcc'];
+		
+		$this->Email->delivery = Configure::read('Wildflower.settings.email_delivery');
+		
+    		if ($this->Email->delivery == 'smtp') {
+        		$this->Email->smtpOptions = array(
+                    'username' => Configure::read('Wildflower.settings.smtp_username'),
+                    'password' => Configure::read('Wildflower.settings.smtp_password'),
+                    'host' => Configure::read('Wildflower.settings.smtp_server'),
+        		    'port' => 25, // @TODO add port to settings
+        		    'timeout' => 30
+        		);
+		}
+		
+		$this->Email->subject = $emailSubject;
+		
+		if(!empty($from)){
+			$this->Email->from = $from;
+		} else {
+			$this->Email->from = Configure::read('Wildflower.settings.contact_email');
+		}
+		
+		if(empty($replyToEmail)){
+			$this->Email->replyTo = $from;
+		} else {
+			$this->Email->replyTo = $replyToEmail;
+		}
+		
+		$this->Email->from = $from;
+		$this->Email->template = $templateName;
+		$this->Email->sendAs = $sendAs;
+		
+		return $this->Email->send();
+	}    
 	
 }

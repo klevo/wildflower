@@ -28,11 +28,13 @@ class SettingsController extends AppController {
 	function admin_index() {
 	    $this->pageTitle = 'Site settings';
 	    
-	    $homePageIdOptions = $this->Page->getListThreaded();
+	    $homePageIdOptions = $this->Page->generatetreelist(null, null, null, ' - ');
+	    
+	    $themeOptions = $this->Setting->getThemes();
 	    
 	    $settings = $this->Setting->find('all', array('order' => 'order ASC'));
 	    
-	    $this->set(compact('settings', 'homePageIdOptions'));
+	    $this->set(compact('settings', 'homePageIdOptions', 'themeOptions'));
 	}
 
 	/**

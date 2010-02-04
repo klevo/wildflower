@@ -40,31 +40,22 @@ class MessagesController extends AppController {
                 }
                 
                 // Send email to site owner
-        		$this->Email->to = Configure::read('Wildflower.settings.contact_email');
-        		$this->Email->from = $this->data[$this->modelClass]['email'];
-        		$this->Email->replyTo = $this->data[$this->modelClass]['email'];
-        		$this->Email->subject = Configure::read('Wildflower.settings.site_name') . ' contact form';
+        		$subject = Configure::read('Wildflower.settings.site_name') . ' contact form';
                 if (isset($this->data['Message']['idea'])) {
-                    $this->Email->subject = Configure::read('Wildflower.settings.site_name') . ' IDEAS form';
+                    $subject = Configure::read('Wildflower.settings.site_name') . ' IDEAS form';
         		}
-        		$this->Email->sendAs = 'text';
-        		$this->Email->template = 'contact_form';
-
+			
         		$this->set('message', $this->data[$this->modelClass]['content']);
         		$this->set('phone', isset($this->data[$this->modelClass]['phone']) ? $this->data[$this->modelClass]['phone'] : '');
 
-        		$this->Email->delivery = Configure::read('Wildflower.settings.email_delivery');
-        		if ($this->Email->delivery == 'smtp') {
-            		$this->Email->smtpOptions = array(
-                        'username' => Configure::read('Wildflower.settings.smtp_username'),
-                        'password' => Configure::read('Wildflower.settings.smtp_password'),
-                        'host' => Configure::read('Wildflower.settings.smtp_server'),
-            		    'port' => 25, // @TODO add port to settings
-            		    'timeout' => 30
-            		);
-        		}
+			$sent = $this->_sendEmail('contact_form',
+					  $subject,
+					  array('to' => Configure::read('Wildflower.settings.contact_email')),
+					  $this->data[$this->modelClass]['email'],
+					  'text');
 
-        		if ($this->Email->send()) {
+
+        		if ($sent) {
         			$message = 'Your message has been succesfuly sent. Thanks!';
         		} else {
         			$message = "A problem occured. Your message has not been send. Sorry!";
