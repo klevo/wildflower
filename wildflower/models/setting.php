@@ -23,12 +23,17 @@ class Setting extends AppModel {
      * @return array
      * 
      */	
-    function getThemes(){
-	$themed_dir = WWW_ROOT . 'themed' . DS;
-	$filter = array('.', '..');
-	$themes = scandir($themed_dir);
-	$themes = Set::diff($filter, $themes);
-	$themes = array_combine($themes, $themes);
-	return $themes;
+    function getThemes()	{
+		$themed_dir = APP . 'views' . DS . 'themed' . DS;
+		$filter = array('.', '..');
+		$themes = @scandir($themed_dir);
+		
+		if(!$themes)	{
+			return false;
+		}
+
+		$themes = Set::diff($filter, $themes);
+		$themes = array_combine($themes, $themes);
+		return $themes;
     }
 }
