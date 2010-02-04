@@ -47,10 +47,11 @@ UPDATE users SET password = sha1(concat('salt', 'admin123')) WHERE login = 'admi
 Support & more information 
 ===========================
 
+http://github.com/klevo/wildflower 
 http://forums.wf.klevo.sk
 http://twitter.com/wildflowerCMS
-http://github.com/klevo/wildflower
 http://github.com/klevo/wildflower/issues
+irc://irc.freenode.net/wildflower
 
 The wf.klevo.sk is out of date, content refers to an old version of WF - updaing soon :)
 
