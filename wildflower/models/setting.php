@@ -16,5 +16,19 @@ class Setting extends AppModel {
         $settings = array_combine($names, $values);
         return $settings;
     }
-	
+
+    /**
+     * Find all themes in the webroot themed directory
+     *
+     * @return array
+     * 
+     */	
+    function getThemes(){
+	$themed_dir = WWW_ROOT . 'themed' . DS;
+	$filter = array('.', '..');
+	$themes = scandir($themed_dir);
+	$themes = Set::diff($filter, $themes);
+	$themes = array_combine($themes, $themes);
+	return $themes;
+    }
 }
