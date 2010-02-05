@@ -10,7 +10,7 @@
 /** Constant used in CmsHelper @depracated */
 define('CHILD_PAGES_PLEASE', 'CHILD_PAGES_PLEASE');
 
-/** Wildflower config. Access like Configure::read('Wildflower.settingName'); */
+/** Wildflower config. Access like Configure::read('Wildflower.settings.settingName'); */
 Configure::write(array('Wildflower' => array(
     'cookie' => array(
         'name' => 'WildflowerUser',
