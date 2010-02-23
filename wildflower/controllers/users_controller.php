@@ -61,7 +61,7 @@ class UsersController extends AppController {
             
             // Save last login time
             $User->create($user);
-            $User->saveField('last_login', time());
+            $User->saveField('last_login', date('Y-m-d h:i:s', time()));
             
             $this->redirect($this->Auth->redirect());
         }
@@ -80,7 +80,7 @@ class UsersController extends AppController {
                     
                     // Save last login time
                     $User->create($user);
-                    $User->saveField('last_login', time());
+                    $User->saveField('last_login', date('Y-m-d h:i:s', time()));
                     
                     return $this->redirect($this->Auth->redirect());
                 } else { 
