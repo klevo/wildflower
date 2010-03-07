@@ -43,7 +43,7 @@ class HtmlaHelper extends HtmlHelper {
         }
 
 		if(isset($htmlAttributes['strict']))	{
-			$htmlAttributes['strict'] = false;
+			unset($htmlAttributes['strict']);
 		}
 
         return parent::link($title, $url, $htmlAttributes, $confirmMessage, $escapeTitle);
