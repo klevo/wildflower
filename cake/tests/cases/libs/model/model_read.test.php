@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.model
@@ -25,7 +25,6 @@
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 require_once dirname(__FILE__) . DS . 'model.test.php';
-require_once dirname(__FILE__) . DS . 'model_read.test.php';
 /**
  * ModelReadTest
  *
@@ -4899,6 +4898,21 @@ class ModelReadTest extends BaseModelTest {
 		$result = Set::extract($TestModel->find('all', array('callbacks' => false)), '/Author/user');
 		$expected = array('mariano', 'nate', 'larry', 'garrett');
 		$this->assertEqual($result, $expected);
+	}
+/**
+ * Tests that the database configuration assigned to the model can be changed using
+ * (before|after)Find callbacks
+ *
+ * @return void
+ */
+	function testCallbackSourceChange() {
+		$this->loadFixtures('Post');
+		$TestModel = new Post();
+		$this->assertEqual(3, count($TestModel->find('all')));
+
+		$this->expectError(new PatternExpectation('/Non-existent data source foo/i'));
+		$this->expectError(new PatternExpectation('/Only variable references/i'));
+		$this->assertFalse($TestModel->find('all', array('connection' => 'foo')));
 	}
 /**
  * testMultipleBelongsToWithSameClass method

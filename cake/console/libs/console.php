@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.console.libs
@@ -286,7 +286,7 @@ class ConsoleShell extends Shell {
 				break;
 				case (preg_match("/^routes\s+show/i", $command, $tmp) == true):
 					$router =& Router::getInstance();
-					$this->out(join("\n", Set::extract($router->routes, '{n}.0')));
+					$this->out(implode("\n", Set::extract($router->routes, '{n}.0')));
 				break;
 				case (preg_match("/^route\s+(.*)/i", $command, $tmp) == true):
 					$this->out(var_export(Router::parse($tmp[1]), true));

@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.cake.tests.libs
@@ -634,10 +634,10 @@ class CakeTestCase extends UnitTestCase {
 					$permutations = $this->__array_permute($attrs);
 					$permutationTokens = array();
 					foreach ($permutations as $permutation) {
-						$permutationTokens[] = join('', $permutation);
+						$permutationTokens[] = implode('', $permutation);
 					}
 					$regex[] = array(
-						sprintf('%s', join(', ', $explanations)),
+						sprintf('%s', implode(', ', $explanations)),
 						$permutationTokens,
 						$i,
 					);

@@ -6,13 +6,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
@@ -115,6 +115,9 @@ class MagicDbTest extends UnitTestCase {
 
 		$r = $this->Db->toArray(array('yeah'));
 		$this->assertTrue($r === array('yeah'));
+
+		$r = $this->Db->toArray("# FILE_ID DB\r\n# Date:2009-10-10\r\n# Source:xxx.php");
+		$this->assertTrue($r === array());
 
 		$r = $this->Db->toArray('foo');
 		$this->assertTrue($r === array());

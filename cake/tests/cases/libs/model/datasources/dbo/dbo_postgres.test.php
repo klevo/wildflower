@@ -6,13 +6,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
@@ -291,11 +291,11 @@ class DboPostgresTest extends CakeTestCase {
 		$this->assertEqual($this->db2->value(null, 'boolean'), "NULL");
 	}
 /**
- * test that date columns do not generate errors with null and nullish values.
+ * test that date and time columns do not generate errors with null and nullish values.
  *
  * @return void
  **/
-	function testDateAsNull() {
+	function testDateAndTimeAsNull() {
 		$this->assertEqual($this->db2->value(null, 'date'), 'NULL');
 		$this->assertEqual($this->db2->value('', 'date'), 'NULL');
 
@@ -304,6 +304,9 @@ class DboPostgresTest extends CakeTestCase {
 
 		$this->assertEqual($this->db2->value('', 'timestamp'), 'NULL');
 		$this->assertEqual($this->db2->value(null, 'timestamp'), 'NULL');
+
+		$this->assertEqual($this->db2->value('', 'time'), 'NULL');
+		$this->assertEqual($this->db2->value(null, 'time'), 'NULL');
 	}
 /**
  * Tests that different Postgres boolean 'flavors' are properly returned as native PHP booleans
