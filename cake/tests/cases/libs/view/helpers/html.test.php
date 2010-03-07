@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2006-2008, Cake Software Foundation, Inc.
+ * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2006-2008, Cake Software Foundation, Inc.
+ * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.view.helpers
@@ -284,6 +284,15 @@ class HtmlHelperTest extends CakeTestCase {
 
 		$result = $this->Html->image('cake.icon.gif');
 		$this->assertTags($result, array('img' => array('src' => 'preg:/img\/cake\.icon\.gif\?\d+/', 'alt' => '')));
+
+		$webroot = $this->Html->webroot;
+		$this->Html->webroot = '/testing/longer/';
+		$result = $this->Html->image('cake.icon.gif');
+		$expected = array(
+			'img' => array('src' => 'preg:/\/testing\/longer\/img\/cake\.icon\.gif\?[0-9]+/', 'alt' => '')
+		);
+		$this->assertTags($result, $expected);
+		$this->Html->webroot = $webroot;
 	}
 /**
  * Tests creation of an image tag using a theme and asset timestamping
@@ -307,6 +316,16 @@ class HtmlHelperTest extends CakeTestCase {
 				'src' => 'preg:/themed\/default\/img\/cake\.power\.gif\?\d+/',
 				'alt' => ''
 		)));
+
+		$webroot = $this->Html->webroot;
+		$this->Html->webroot = '/testing/';
+		$result = $this->Html->image('cake.power.gif');
+		$this->assertTags($result, array(
+			'img' => array(
+				'src' => 'preg:/\/testing\/themed\/default\/img\/cake\.power\.gif\?\d+/',
+				'alt' => ''
+		)));
+		$this->Html->webroot = $webroot;
 	}
 /**
  * testStyle method
@@ -343,6 +362,10 @@ class HtmlHelperTest extends CakeTestCase {
 		$result = $this->Html->css('screen.css');
 		$this->assertTags($result, $expected);
 
+		$result = $this->Html->css('my.css.library');
+		$expected['link']['href'] = 'preg:/.*css\/my\.css\.library\.css/';
+		$this->assertTags($result, $expected);
+
 		$result = $this->Html->css('screen.css?1234');
 		$expected['link']['href'] = 'preg:/.*css\/screen\.css\?1234/';
 		$this->assertTags($result, $expected);
@@ -350,12 +373,6 @@ class HtmlHelperTest extends CakeTestCase {
 		$result = $this->Html->css('http://whatever.com/screen.css?1234');
 		$expected['link']['href'] = 'preg:/http:\/\/.*\/screen\.css\?1234/';
 		$this->assertTags($result, $expected);
-
-		Configure::write('Asset.filter.css', 'css.php');
-		$result = $this->Html->css('cake.generic');
-		$expected['link']['href'] = 'preg:/.*ccss\/cake\.generic\.css/';
-		$this->assertTags($result, $expected);
-		Configure::write('Asset.filter.css', false);
 
 		$result = explode("\n", trim($this->Html->css(array('cake.generic', 'vendor.generic'))));
 		$expected['link']['href'] = 'preg:/.*css\/cake\.generic\.css/';
@@ -365,12 +382,6 @@ class HtmlHelperTest extends CakeTestCase {
 		$this->assertEqual(count($result), 2);
 
 		Configure::write('Asset.timestamp', true);
-
-		Configure::write('Asset.filter.css', 'css.php');
-		$result = $this->Html->css('cake.generic');
-		$expected['link']['href'] = 'preg:/.*ccss\/cake\.generic\.css\?[0-9]+/';
-		$this->assertTags($result, $expected);
-		Configure::write('Asset.filter.css', false);
 
 		$result = $this->Html->css('cake.generic');
 		$expected['link']['href'] = 'preg:/.*css\/cake\.generic\.css\?[0-9]+/';
@@ -391,16 +402,50 @@ class HtmlHelperTest extends CakeTestCase {
 		$webroot = $this->Html->webroot;
 		$this->Html->webroot = '/testing/';
 		$result = $this->Html->css('cake.generic');
-		$expected['link']['href'] = 'preg:/\/testing\/css\/cake\.generic\.css\?/';
+		$expected['link']['href'] = 'preg:/\/testing\/css\/cake\.generic\.css\?[0-9]+/';
 		$this->assertTags($result, $expected);
 		$this->Html->webroot = $webroot;
 
 		$webroot = $this->Html->webroot;
 		$this->Html->webroot = '/testing/longer/';
 		$result = $this->Html->css('cake.generic');
-		$expected['link']['href'] = 'preg:/\/testing\/longer\/css\/cake\.generic\.css\?/';
+		$expected['link']['href'] = 'preg:/\/testing\/longer\/css\/cake\.generic\.css\?[0-9]+/';
 		$this->assertTags($result, $expected);
 		$this->Html->webroot = $webroot;
+	}
+/**
+ * test css() with Asset.Css.filter
+ *
+ * @return void
+ **/
+	function testCssFiltering() {
+		$this->Html->webroot = '/';
+
+		Configure::write('Asset.filter.css', 'css.php');
+		$result = $this->Html->css('cake.generic');
+		$expected = array(
+			'link' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'preg:/\/ccss\/cake\.generic\.css/')
+		);
+		$this->assertTags($result, $expected);
+
+		Configure::write('Asset.timestamp', true);
+		Configure::write('Asset.filter.css', 'css.php');
+
+		$result = $this->Html->css('cake.generic');
+		$expected['link']['href'] = 'preg:/\/ccss\/cake\.generic\.css\?[0-9]+/';
+		$this->assertTags($result, $expected);
+
+		Configure::write('Asset.timestamp', false);
+		$result = $this->Html->css('myfoldercss/cake.generic');
+		$expected['link']['href'] = 'preg:/\/ccss\/myfoldercss\/cake\.generic\.css/';
+		$this->assertTags($result, $expected);
+		
+		$this->Html->webroot = '/testing/longer/';
+		$result = $this->Html->css('myfoldercss/cake.generic');
+		$expected['link']['href'] = 'preg:/\/testing\/longer\/ccss\/myfoldercss\/cake\.generic\.css/';
+		$this->assertTags($result, $expected);
+
+		Configure::write('Asset.filter.css', false);
 	}
 /**
  * testCharsetTag method

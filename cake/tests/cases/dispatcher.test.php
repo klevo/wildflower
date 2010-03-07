@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases
@@ -447,6 +447,15 @@ class TestCachedPagesController extends AppController {
  */
 	function view($id = null) {
 		$this->render('index');
+	}
+/**
+ * test cached forms / tests view object being registered
+ *
+ * @return void
+ */
+	function cache_form() {
+		$this->cacheAction = 10;
+		$this->helpers[] = 'Form';
 	}
 }
 /**
@@ -1094,7 +1103,7 @@ class DispatcherTest extends CakeTestCase {
 		$result = $Dispatcher->baseUrl();
 		$expected = '/index.php';
 		$this->assertEqual($expected, $result);
-		$expectedWebroot = '/app/webroot/';
+		$expectedWebroot = '/';
 		$this->assertEqual($expectedWebroot, $Dispatcher->webroot);
 
 		Configure::write('App.baseUrl', '/CakeBB/app/webroot/index.php');
@@ -1165,12 +1174,12 @@ class DispatcherTest extends CakeTestCase {
  */
 	function testMissingController() {
 		$Dispatcher =& new TestDispatcher();
-		Configure::write('App.baseUrl','/index.php');
+		Configure::write('App.baseUrl', '/index.php');
 		$url = 'some_controller/home/param:value/param2:value2';
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 		$expected = array('missingController', array(array(
 			'className' => 'SomeControllerController',
-			'webroot' => '/app/webroot/',
+			'webroot' => '/',
 			'url' => 'some_controller/home/param:value/param2:value2',
 			'base' => '/index.php'
 		)));
@@ -1192,7 +1201,7 @@ class DispatcherTest extends CakeTestCase {
 		$expected = array('privateAction', array(array(
 			'className' => 'SomePagesController',
 			'action' => '_protected',
-			'webroot' => '/app/webroot/',
+			'webroot' => '/',
 			'url' => 'some_pages/_protected/param:value/param2:value2',
 			'base' => '/index.php'
 		)));
@@ -1206,7 +1215,7 @@ class DispatcherTest extends CakeTestCase {
  */
 	function testMissingAction() {
 		$Dispatcher =& new TestDispatcher();
-		Configure::write('App.baseUrl','/index.php');
+		Configure::write('App.baseUrl', '/index.php');
 		$url = 'some_pages/home/param:value/param2:value2';
 
 		$controller = $Dispatcher->dispatch($url, array('return'=> 1));
@@ -1214,7 +1223,7 @@ class DispatcherTest extends CakeTestCase {
 		$expected = array('missingAction', array(array(
 			'className' => 'SomePagesController',
 			'action' => 'home',
-			'webroot' => '/app/webroot/',
+			'webroot' => '/',
 			'url' => '/index.php/some_pages/home/param:value/param2:value2',
 			'base' => '/index.php'
 		)));
@@ -1229,7 +1238,7 @@ class DispatcherTest extends CakeTestCase {
 		$expected = array('missingAction', array(array(
 			'className' => 'SomePagesController',
 			'action' => 'redirect',
-			'webroot' => '/app/webroot/',
+			'webroot' => '/',
 			'url' => '/index.php/some_pages/redirect/param:value/param2:value2',
 			'base' => '/index.php'
 		)));
@@ -1711,7 +1720,7 @@ class DispatcherTest extends CakeTestCase {
 
 		Configure::write('debug', 0);
 		ob_start();
-		$Dispatcher->dispatch('/img/test.jpg');
+		$Dispatcher->dispatch('img/test.jpg');
 		$result = ob_get_clean();
 		$file = file_get_contents(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'vendors' . DS . 'img' . DS . 'test.jpg');
 		$this->assertEqual($file, $result);
@@ -1755,6 +1764,15 @@ class DispatcherTest extends CakeTestCase {
 		$result = ob_get_clean();
 		$file = file_get_contents(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'plugins' . DS . 'test_plugin' .DS . 'vendors' . DS . 'img' . DS . 'cake.icon.gif');
 		$this->assertEqual($file, $result);
+
+
+		Configure::write('debug', 2);
+		$Dispatcher->params = $Dispatcher->parseParams('plugin_js/js/plugin_js.js');
+		ob_start();
+		$Dispatcher->cached('plugin_js/js/plugin_js.js');
+		$result = ob_get_clean();
+		$expected = "alert('win sauce');";
+		$this->assertEqual($result, $expected);
 
 		header('Content-type: text/html');//reset the header content-type without page can render as plain text.
 	}
@@ -1890,6 +1908,48 @@ class DispatcherTest extends CakeTestCase {
 		$filename = $this->__cachePath($dispatcher->here);
 		$this->assertTrue(file_exists($filename));
 		unlink($filename);
+
+		$url = 'TestCachedPages/test_nocache_tags';
+	}
+/**
+ * test that cached() registers a view and un-registers it.  Tests
+ * that helpers using ClassRegistry::getObject('view'); don't fail
+ *
+ * @return void
+ */
+	function testCachedRegisteringViewObject() {
+		Configure::write('Cache.disable', false);
+		Configure::write('Cache.check', true);
+		Configure::write('debug', 2);
+
+		$_POST = array();
+		$_SERVER['PHP_SELF'] = '/';
+
+		Router::reload();
+		Configure::write('viewPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'views'. DS));
+
+		$dispatcher =& new Dispatcher();
+		$dispatcher->base = false;
+
+		$url = 'test_cached_pages/cache_form';
+		ob_start();
+		$dispatcher->dispatch($url);
+		$out = ob_get_clean();
+
+		ClassRegistry::flush();
+
+		ob_start();
+		$dispatcher->cached($url);
+		$cached = ob_get_clean();
+
+		$result = str_replace(array("\t", "\r\n", "\n"), "", $out);
+		$cached = preg_replace('/<!--+[^<>]+-->/', '', $cached);
+		$expected =  str_replace(array("\t", "\r\n", "\n"), "", $cached);
+
+		$this->assertEqual($result, $expected);
+		$filename = $this->__cachePath($dispatcher->here);
+		unlink($filename);
+		ClassRegistry::flush();
 	}
 /**
  * testHttpMethodOverrides method
