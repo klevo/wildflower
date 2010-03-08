@@ -30,6 +30,8 @@
 		}
 	?>
 	</ul>
+	<?php	}	else	{	?>
+		<p>No results found for "<?php echo hsc($_GET['q']) ?>"</p>
 	<?php } ?>
 	
 </div>
