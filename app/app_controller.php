@@ -136,8 +136,8 @@ class AppController extends Controller {
         if ($this->data['__action'] == 'delete') {
             $this->data['__action'] = 'mass_delete';
         }
-		
-        $availActions = array('mass_delete', 'archive', 'unarchive', 'publish', 'unpublish', 'approve', 'unapprove', 'spam', 'unspam');
+
+        $availActions = array('mass_delete', 'publish', 'unpublish', 'approve', 'unapprove', 'spam', 'unspam');
         // Collect selected item IDs
         $ids = array();
         if (isset($this->data['__action'])) {

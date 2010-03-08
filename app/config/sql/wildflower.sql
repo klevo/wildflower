@@ -327,11 +327,10 @@ CREATE TABLE `posts` (
   `keywords_meta_tag` text COLLATE utf8_unicode_ci,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
-  `draft` int(1) NOT NULL DEFAULT '0',
-  `archive` tinyint(1) NOT NULL DEFAULT '0',
-  `uuid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `comment_count` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `draft` int(1) NOT NULL default '0',
+  `uuid` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `comment_count` int(11) default NULL,
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `slug` (`slug`),
   FULLTEXT KEY `content` (`content`)
 ) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -94,28 +94,6 @@ class Post extends AppModel {
 		// savefield?
         return $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id = $id");
     }
-	
-	/**
-     * Mark a post as archived
-     *
-     * @param int $id
-     */
-    function archive($id) {
-        $id = intval($id);
-		// savefield?
-        return $this->query("UPDATE {$this->useTable} SET archive = 1 WHERE id = $id");
-    }
-	
-	/**
-     * Mark a post as not-archived
-     *
-     * @param int $id
-     */
-    function unarchive($id) {
-        $id = intval($id);
-		// savefield?
-        return $this->query("UPDATE {$this->useTable} SET archive = 0 WHERE id = $id");
-    }
     
 	/**
      * Search title and content fields
@@ -126,18 +104,36 @@ class Post extends AppModel {
     function search($query, $contain = array('Category')) {
     	$fields = array('id', 'title', 'slug');
 		$this->contain($contain);
-    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0", $fields, null, null, 1);
+    	$titleResults = $this->find(
+			'all',
+			array(
+				'conditions' => "{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0",
+				'fields' => $fields
+			)
+		);
     	$contentResults = array();
     	if (empty($titleResults)) {
     		$titleResults = array();
-			$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')", $fields, null, null, 1);
+			$contentResults = $this->find(
+				'all',
+				array(
+					'conditions' => "MATCH ({$this->name}.content) AGAINST ('$query')",
+					'fields' => $fields
+				)
+			);
     	} else {
     		$alredyFoundIds = join(', ', Set::extract($titleResults, '{n}.Post.id'));
     	    $notInQueryPart = '';
             if (!empty($alredyFoundIds)) {
                 $notInQueryPart = " AND {$this->name}.id NOT IN ($alredyFoundIds)";
             }
-    		$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')$notInQueryPart", $fields, null, null, 1);
+    		$contentResults = $this->find(
+				'all',
+				array(
+					'conditions' => "MATCH ({$this->name}.content) AGAINST ('$query')$notInQueryPart",
+					'fields' => $fields
+				)
+			);
     	}
     	
     	if (!is_array(($contentResults))) {

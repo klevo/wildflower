@@ -6,13 +6,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
@@ -153,6 +153,7 @@ class MysqlTestModel extends Model {
  * @subpackage    cake.tests.cases.libs.model.datasources.dbo
  */
 class DboMysqlTest extends CakeTestCase {
+	var $fixtures = array('core.binary_test');
 /**
  * The Dbo instance to be tested
  *
@@ -176,7 +177,6 @@ class DboMysqlTest extends CakeTestCase {
  */
 	function setUp() {
 		$db = ConnectionManager::getDataSource('test_suite');
-		$this->db = new DboMysqlTestDb($db->config);
 		$this->model = new MysqlTestModel();
 	}
 /**
@@ -185,7 +185,8 @@ class DboMysqlTest extends CakeTestCase {
  * @access public
  */
 	function tearDown() {
-		unset($this->db);
+		unset($this->model);
+		ClassRegistry::flush();
 	}
 /**
  * startCase
@@ -269,11 +270,11 @@ class DboMysqlTest extends CakeTestCase {
  * @return void
  */
 	function testTinyintCasting() {
-		$this->db->cacheSources = $this->db->testing = false;
+		$this->db->cacheSources = false;
 		$this->db->query('CREATE TABLE ' . $this->db->fullTableName('tinyint') . ' (id int(11) AUTO_INCREMENT, bool tinyint(1), small_int tinyint(2), primary key(id));');
 
 		$this->model = new CakeTestModel(array(
-			'name' => 'Tinyint', 'table' => $this->db->fullTableName('tinyint', false)
+			'name' => 'Tinyint', 'table' => 'tinyint', 'ds' => 'test_suite'
 		));
 
 		$result = $this->model->schema();
@@ -307,12 +308,12 @@ class DboMysqlTest extends CakeTestCase {
  * @access public
  */
 	function testIndexDetection() {
-		$this->db->cacheSources = $this->db->testing = false;
+		$this->db->cacheSources = false;
 
 		$name = $this->db->fullTableName('simple');
 		$this->db->query('CREATE TABLE ' . $name . ' (id int(11) AUTO_INCREMENT, bool tinyint(1), small_int tinyint(2), primary key(id));');
 		$expected = array('PRIMARY' => array('column' => 'id', 'unique' => 1));
-		$result = $this->db->index($name, false);
+		$result = $this->db->index('simple', false);
 		$this->assertEqual($expected, $result);
 		$this->db->query('DROP TABLE ' . $name);
 
@@ -322,7 +323,7 @@ class DboMysqlTest extends CakeTestCase {
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'pointless_bool' => array('column' => 'bool', 'unique' => 0),
 		);
-		$result = $this->db->index($name, false);
+		$result = $this->db->index('with_a_key', false);
 		$this->assertEqual($expected, $result);
 		$this->db->query('DROP TABLE ' . $name);
 
@@ -333,7 +334,7 @@ class DboMysqlTest extends CakeTestCase {
 			'pointless_bool' => array('column' => 'bool', 'unique' => 0),
 			'pointless_small_int' => array('column' => 'small_int', 'unique' => 0),
 		);
-		$result = $this->db->index($name, false);
+		$result = $this->db->index('with_two_keys', false);
 		$this->assertEqual($expected, $result);
 		$this->db->query('DROP TABLE ' . $name);
 
@@ -345,7 +346,7 @@ class DboMysqlTest extends CakeTestCase {
 			'pointless_small_int' => array('column' => 'small_int', 'unique' => 0),
 			'one_way' => array('column' => array('bool', 'small_int'), 'unique' => 0),
 		);
-		$result = $this->db->index($name, false);
+		$result = $this->db->index('with_compound_keys', false);
 		$this->assertEqual($expected, $result);
 		$this->db->query('DROP TABLE ' . $name);
 
@@ -358,7 +359,7 @@ class DboMysqlTest extends CakeTestCase {
 			'one_way' => array('column' => array('bool', 'small_int'), 'unique' => 0),
 			'other_way' => array('column' => array('small_int', 'bool'), 'unique' => 0),
 		);
-		$result = $this->db->index($name, false);
+		$result = $this->db->index('with_multiple_compound_keys', false);
 		$this->assertEqual($expected, $result);
 		$this->db->query('DROP TABLE ' . $name);
 	}
@@ -510,7 +511,7 @@ class DboMysqlTest extends CakeTestCase {
  */
 	function testAlterSchemaIndexes() {
 		App::import('Core', 'Schema');
-		$this->db->cacheSources = $this->db->testing = false;
+		$this->db->cacheSources = false;
 
 		$schema1 =& new CakeSchema(array(
 			'name' => 'AlterTest1',
@@ -573,6 +574,24 @@ class DboMysqlTest extends CakeTestCase {
 		$this->assertEqual(array(), $indexes);
 
 		$this->db->query($this->db->dropSchema($schema1));
+	}
+/**
+ * test saving and retrieval of blobs
+ *
+ * @return void
+ **/
+	function testBlobSaving() {
+		$this->db->cacheSources = false;
+		$data = "GIF87ab 
+		 Ò   4A¿¿¿ˇˇˇ   ,    b 
+		  ¢îè©ÀÌ#¥⁄ã≥ﬁ:¯Ü‚Héá¶jV∂ÓúÎL≥çÀóËıÎ…>ï ≈ vFE%ÒâLFI<†µw˝±≈£7˘ç^H“≤«>ÉÃ¢*∑Ç nÖA•Ù|ﬂêèj£:=ÿ6óUàµ5'∂®àA¬ñ∆ˆGE(gt’≈àÚyÁó«7	‚VìöÇ√˙Ç™
+		k”:;kÀAõ{*¡€Î˚˚[  ;;";
+
+		$model =& new AppModel(array('name' => 'BinaryTest', 'ds' => 'test_suite'));
+		$model->save(compact('data'));
+
+		$result = $model->find('first');
+		$this->assertEqual($result['BinaryTest']['data'], $data);
 	}
 }
 ?>

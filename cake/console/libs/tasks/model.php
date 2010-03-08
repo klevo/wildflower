@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.console.libs.tasks
@@ -65,6 +65,7 @@ class ModelTask extends Shell {
 
 		if (!empty($this->args[0])) {
 			$model = Inflector::camelize($this->args[0]);
+			$this->useDbConfig = 'default';
 			if ($this->bake($model)) {
 				if ($this->_checkUnitTest()) {
 					$this->bakeTest($model);
@@ -99,6 +100,7 @@ class ModelTask extends Shell {
 		if (count($connections) > 1) {
 			$useDbConfig = $this->in(__('Use Database Config', true) .':', $connections, 'default');
 		}
+		$this->useDbConfig = $useDbConfig;
 
 		$currentModelName = $this->getName($useDbConfig);
 		$db =& ConnectionManager::getDataSource($useDbConfig);
@@ -698,7 +700,7 @@ class ModelTask extends Shell {
 					}
 				}
 			}
-			$fixture = join(", ", $fixture);
+			$fixture = implode(", ", $fixture);
 
 			$import = $className;
 			if (isset($this->plugin)) {
@@ -843,7 +845,7 @@ class ModelTask extends Shell {
 			$out .= "\tvar \$table = '$useTable';\n";
 		}
 		$schema = new CakeSchema();
-		$data = $schema->read(array('models' => false));
+		$data = $schema->read(array('models' => false, 'connection' => $this->useDbConfig));
 
 		if (!isset($data['tables'][$useTable])) {
 			return false;
@@ -865,9 +867,11 @@ class ModelTask extends Shell {
 							$col = "\t\t'{$field}' => array('type'=>'" . $value['type'] . "', ";
 
 							switch ($value['type']) {
+								case 'float':
 								case 'integer':
 									$insert = 1;
 								break;
+								case 'binary':
 								case 'string';
 									$insert = "Lorem ipsum dolor sit amet";
 									if (!empty($value['length'])) {
@@ -898,26 +902,26 @@ class ModelTask extends Shell {
 									$insert .= "feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.'";
 								break;
 							}
-							$records[] = "\t\t'$field'  => $insert";
+							$records[] = "\t\t'$field' => $insert";
 							unset($value['type']);
-							$col .= join(', ',  $schema->__values($value));
+							$col .= implode(', ',  $schema->__values($value));
 						} else {
 							$col = "\t\t'indexes' => array(";
 							$props = array();
 							foreach ((array)$value as $key => $index) {
-								$props[] = "'{$key}' => array(" . join(', ',  $schema->__values($index)) . ")";
+								$props[] = "'{$key}' => array(" . implode(', ',  $schema->__values($index)) . ")";
 							}
-							$col .= join(', ', $props);
+							$col .= implode(', ', $props);
 						}
 						$col .= ")";
 						$cols[] = $col;
 					}
-					$out .= join(",\n", $cols);
+					$out .= implode(",\n", $cols);
 				}
 				$out .= "\n\t);\n";
 			}
 		}
-		$records = join(",\n", $records);
+		$records = implode(",\n", $records);
 		$out .= "\tvar \$records = array(array(\n$records\n\t));\n";
 		$out .= "}\n";
 		$path = TESTS . DS . 'fixtures' . DS;

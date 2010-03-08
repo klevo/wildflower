@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
@@ -142,11 +142,11 @@ class ThemeViewTest extends CakeTestCase {
  */
 	function setUp() {
 		Router::reload();
-		$this->Controller = new Controller();
-		$this->PostsController = new ThemePostsController();
+		$this->Controller =& new Controller();
+		$this->PostsController =& new ThemePostsController();
 		$this->PostsController->viewPath = 'posts';
 		$this->PostsController->index();
-		$this->ThemeView = new ThemeView($this->PostsController);
+		$this->ThemeView =& new ThemeView($this->PostsController);
 	}
 /**
  * tearDown method
@@ -158,6 +158,19 @@ class ThemeViewTest extends CakeTestCase {
 		unset($this->ThemeView);
 		unset($this->PostsController);
 		unset($this->Controller);
+		ClassRegistry::flush();
+	}
+/**
+ * test that the theme view can be constructed without going into the registry
+ *
+ * @return void
+ */
+	function testConstructionNoRegister() {
+		ClassRegistry::flush();
+		$controller = null;
+		$Theme =& new ThemeView($controller, false);
+		$ThemeTwo =& ClassRegistry::getObject('view');
+		$this->assertFalse($ThemeTwo);
 	}
 /**
  * testPluginGetTemplate method

@@ -130,7 +130,7 @@ class ListHelper extends AppHelper {
             if ($node[$model][$right] <> $node[$model][$left] + 1) { // Has some children
                 $hasChildren = true;
                 list ($parentLeft, $parentRight) = $this->_get_parent_indexes($node[$model][$left]);
-                $last= ife($parentRight == ($node[$model][$right] + 1), true, false);
+                $last= ($parentRight == ($node[$model][$right] + 1)) ? true : false;
                 $this->_limits[] = array($node[$model][$left], $node[$model][$right]);
             }
             if (!$hasChildren && (!isset ($data[$i +1]) || ($node[$model][$right] + 1 <> $data[$i +1][$model][$left]))) {

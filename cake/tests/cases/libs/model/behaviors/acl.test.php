@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2006-2008, Cake Software Foundation, Inc.
+ * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2006-2008, Cake Software Foundation, Inc.
+ * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
  * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP Project
  * @package       cake
  * @subpackage    cake.cake.libs.tests.model.behaviors.acl
@@ -285,7 +285,7 @@ class AclBehaviorTestCase extends CakeTestCase {
 		$this->assertEqual($result['Aro']['parent_id'], 5);
 
 		$node = $Person->node(array('model' => 'AclPerson', 'foreign_key' => 8));
-		$this->assertEqual(sizeof($node), 2);
+		$this->assertEqual(count($node), 2);
 		$this->assertEqual($node[0]['Aro']['parent_id'], 5);
 		$this->assertEqual($node[1]['Aro']['parent_id'], null);
 	}
@@ -315,7 +315,7 @@ class AclBehaviorTestCase extends CakeTestCase {
 		$Person->save($data);
 		$id = $Person->id;
 		$node = $Person->node();
-		$this->assertEqual(sizeof($node), 2);
+		$this->assertEqual(count($node), 2);
 		$this->assertEqual($node[0]['Aro']['parent_id'], 5);
 		$this->assertEqual($node[1]['Aro']['parent_id'], null);
 
@@ -362,7 +362,7 @@ class AclBehaviorTestCase extends CakeTestCase {
 		$Person->id = 2;
 		$result = $Person->node();
 		$this->assertTrue(is_array($result));
-		$this->assertEqual(sizeof($result), 1);
+		$this->assertEqual(count($result), 1);
 	}
 }
 ?>

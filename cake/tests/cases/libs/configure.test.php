@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
@@ -224,14 +224,17 @@ class ConfigureTest extends CakeTestCase {
 	function testStoreAndLoad() {
 		Configure::write('Cache.disable', false);
 
-		$expected = array('data' => 'value');
+		$expected = array('data' => 'value with backslash \, \'singlequote\' and "doublequotes"');
 		Configure::store('SomeExample', 'test', $expected);
 
 		Configure::load('test');
 		$config = Configure::read('SomeExample');
 		$this->assertEqual($config, $expected);
 
-		$expected = array('data' => array('first' => 'value', 'second' => 'value2'));
+		$expected = array(
+			'data' => array('first' => 'value with backslash \, \'singlequote\' and "doublequotes"', 'second' => 'value2'),
+			'data2' => 'value'
+		);
 		Configure::store('AnotherExample', 'test.config', $expected);
 
 		Configure::load('test.config');

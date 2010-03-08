@@ -271,18 +271,36 @@ class Page extends AppModel {
     function search($query) {
         $query = Sanitize::escape($query);
     	$fields = null;
-    	$titleResults = $this->findAll("{$this->name}.title LIKE '%$query%'", $fields, null, null, 1);
+    	$titleResults = $this->find(
+			'all',
+			array(
+				'conditions' => "{$this->name}.title LIKE '%$query%' and {$this->name}.draft=0",
+				'fields' => $fields
+			)
+		);
     	$contentResults = array();
     	if (empty($titleResults)) {
     		$titleResults = array();
-			$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')", $fields, null, null, 1);
+			$contentResults = $this->find(
+				'all',
+				array(
+					'conditions' => "MATCH ({$this->name}.content) AGAINST ('$query')",
+					'fields' => $fields
+				)
+			);
     	} else {
     		$alredyFoundIds = join(', ', Set::extract($titleResults, '{n}.' . $this->name . '.id'));
     		$notInQueryPart = '';
     		if (!empty($alredyFoundIds)) {
-    			$notInQueryPart = " AND {$this->name}.id NOT IN ($alredyFoundIds)";
+    			$notInQueryPart = " AND {$this->name}.id NOT IN ($alredyFoundIds) AND {$this->name}.draft=0";
     		}
-    		$contentResults = $this->findAll("MATCH ({$this->name}.content) AGAINST ('$query')$notInQueryPart", $fields, null, null, 1);
+    		$contentResults = $this->find(
+				'all',
+				array(
+					'conditions' => "MATCH ({$this->name}.content) AGAINST ('$query')$notInQueryPart",
+					'fields' => $fields
+				)
+			);
     	}
     	
     	if (!is_array(($contentResults))) {

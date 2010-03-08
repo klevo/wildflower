@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.controller
@@ -511,6 +511,22 @@ class ControllerTest extends CakeTestCase {
 		$Controller->paginate('ControllerPost');
 		$this->assertIdentical($Controller->params['paging']['ControllerPost']['page'], 1, 'XSS exploit opened %s');
 		$this->assertIdentical($Controller->params['paging']['ControllerPost']['options']['page'], 1, 'XSS exploit opened %s');
+
+		$Controller->passedArgs = array();
+		$Controller->paginate = array('limit' => 0);
+		$Controller->paginate('ControllerPost');
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['page'], 1);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['pageCount'], 3);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['prevPage'], false);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['nextPage'], true);
+		
+		$Controller->passedArgs = array();
+		$Controller->paginate = array('limit' => 'garbage!');
+		$Controller->paginate('ControllerPost');
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['page'], 1);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['pageCount'], 3);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['prevPage'], false);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['nextPage'], true);
 	}
 /**
  * testPaginateExtraParams method

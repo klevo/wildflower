@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
@@ -4786,6 +4786,10 @@ class MultibyteTest extends CakeTestCase {
  * @return void
  */
 	function testUsingMbStrrpos() {
+		$skip = extension_loaded('mbstring') && version_compare(PHP_VERSION, '5.2.0', '<');
+		if ($this->skipIf($skip, '%s PHP version does not support $offset parameter in mb_strrpos().')) {
+			return;
+		}
 		$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$find = 'F';
 		$result = mb_strrpos($string, $find);

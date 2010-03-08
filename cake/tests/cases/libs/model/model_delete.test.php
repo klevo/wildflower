@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.model
@@ -565,7 +565,22 @@ class ModelDeleteTest extends BaseModelTest {
 		));
 		$this->assertEqual($result['Monkey'], $expected);
 	}
+/**
+ * test that beforeDelete returning false can abort deletion.
+ *
+ * @return void
+ **/
+	function testBeforeDeleteDeleteAbortion() {
+		$this->loadFixtures('Post');
+		$Model =& new CallbackPostTestModel();
+		$Model->beforeDeleteReturn = false;
 
+		$result = $Model->delete(1);
+		$this->assertFalse($result);
+
+		$exists = $Model->findById(1);
+		$this->assertTrue(is_array($exists));
+	}
 }
 
 ?>

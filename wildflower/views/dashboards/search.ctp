@@ -3,9 +3,9 @@
 	<h2>Search</h2>
 	
 	<?php 
-	    echo $form->create('Dashboard', array('action' => 'search'));
+	    echo $form->create('Dashboard', array('action' => 'search', 'type' => 'get'));
 	    echo "<fieldset>\n";
-	    echo $form->input('query');
+	    echo $form->input('q', array('label' => 'search'));
 	    echo $form->submit('Search');
 	    echo "</fieldset>\n";
 	    echo $form->end();
@@ -30,8 +30,10 @@
 		}
 	?>
 	</ul>
+	<?php	}	else	{	?>
+		<p>No results found for "<?php echo hsc($_GET['q']) ?>"</p>
 	<?php } ?>
 	
 </div>
 
-<?php echo $this->renderElement('sidebar') ?>
+<?php echo $this->element('sidebar') ?>

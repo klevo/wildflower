@@ -8,13 +8,13 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.model
@@ -763,6 +763,18 @@ class Post extends CakeTestModel {
  * @access public
  */
 	var $belongsTo = array('Author');
+
+	function beforeFind($queryData) {
+		if (isset($queryData['connection'])) {
+			$this->useDbConfig = $queryData['connection'];
+		}
+		return true;
+	}
+
+	function afterFind($results) {
+		$this->useDbConfig = 'test_suite';
+		return $results;
+	}
 }
 /**
  * Author class
@@ -1749,7 +1761,58 @@ class AssociationTest2 extends CakeTestModel {
  * @subpackage    cake.tests.cases.libs.model
  */
 class Callback extends CakeTestModel {
-	//
+	
+}
+/**
+ * CallbackPostTestModel class
+ *
+ * @package       cake
+ * @subpackage    cake.tests.cases.libs.model
+ */
+class CallbackPostTestModel extends CakeTestModel {
+	var $useTable = 'posts';
+/**
+ * variable to control return of beforeValidate
+ *
+ * @var string
+ */
+	var $beforeValidateReturn = true;
+/**
+ * variable to control return of beforeSave
+ *
+ * @var string
+ */
+	var $beforeSaveReturn = true;
+/**
+ * variable to control return of beforeDelete
+ *
+ * @var string
+ */
+	var $beforeDeleteReturn = true;
+/**
+ * beforeSave callback
+ *
+ * @return void
+ **/
+	function beforeSave($options) {
+		return $this->beforeSaveReturn;
+	}
+/**
+ * beforeValidate callback
+ *
+ * @return void
+ **/
+	function beforeValidate($options) {
+		return $this->beforeValidateReturn;
+	}
+/**
+ * beforeDelete callback
+ *
+ * @return void
+ **/
+	function beforeDelete($cascade = true) {
+		return $this->beforeDeleteReturn;
+	}
 }
 /**
  * Uuid class
@@ -1875,6 +1938,16 @@ class ValidationTest1 extends CakeTestModel {
  */
 	function customValidatorWithMessage($data) {
 		return 'This field will *never* validate! Muhahaha!';
+	}
+/**
+ * Test validation with many parameters
+ *
+ * @return void
+ */
+	function customValidatorWithSixParams($data, $one = 1, $two = 2, $three = 3, $four = 4, $five = 5, $six = 6) {
+		$this->validatorParams = get_defined_vars();
+		unset($this->validatorParams['this']);
+		return true;
 	}
 }
 /**
@@ -2655,8 +2728,6 @@ class Uuiditem extends CakeTestModel {
  * @var array
  * @access public
  */
-	//var $hasAndBelongsToMany = array('Uuidportfolio' => array('unique' => true));
-//	var $hasAndBelongsToMany = array('Uuidportfolio' => array('with' => 'UuiditemsUuidportfolio'));
 	var $hasAndBelongsToMany = array('Uuidportfolio' => array('with' => 'UuiditemsUuidportfolioNumericid'));
 
 }
@@ -2720,6 +2791,35 @@ class TranslateTestModel extends CakeTestModel {
 	var $displayField = 'field';
 }
 /**
+ * TranslateTestModel class.
+ *
+ * @package       cake
+ * @subpackage    cake.tests.cases.libs.model
+ */
+class TranslateWithPrefix extends CakeTestModel {
+/**
+ * name property
+ *
+ * @var string 'TranslateTestModel'
+ * @access public
+ */
+	var $name = 'TranslateWithPrefix';
+/**
+ * tablePrefix property
+ *
+ * @var string 'i18n'
+ * @access public
+ */
+	var $tablePrefix = 'i18n_';
+/**
+ * displayField property
+ *
+ * @var string 'field'
+ * @access public
+ */
+	var $displayField = 'field';
+}
+/**
  * TranslatedItem class.
  *
  * @package       cake
@@ -2754,6 +2854,42 @@ class TranslatedItem extends CakeTestModel {
  * @access public
  */
 	var $translateModel = 'TranslateTestModel';
+}
+/**
+ * TranslatedItem class.
+ *
+ * @package       cake
+ * @subpackage    cake.tests.cases.libs.model
+ */
+class TranslatedItem2 extends CakeTestModel {
+/**
+ * name property
+ *
+ * @var string 'TranslatedItem'
+ * @access public
+ */
+	var $name = 'TranslatedItem';
+/**
+ * cacheQueries property
+ *
+ * @var bool false
+ * @access public
+ */
+	var $cacheQueries = false;
+/**
+ * actsAs property
+ *
+ * @var array
+ * @access public
+ */
+	var $actsAs = array('Translate' => array('content', 'title'));
+/**
+ * translateModel property
+ *
+ * @var string 'TranslateTestModel'
+ * @access public
+ */
+	var $translateModel = 'TranslateWithPrefix';
 }
 /**
  * TranslatedItemWithTable class.
