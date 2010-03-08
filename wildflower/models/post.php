@@ -94,28 +94,6 @@ class Post extends AppModel {
 		// savefield?
         return $this->query("UPDATE {$this->useTable} SET draft = 1 WHERE id = $id");
     }
-	
-	/**
-     * Mark a post as archived
-     *
-     * @param int $id
-     */
-    function archive($id) {
-        $id = intval($id);
-		// savefield?
-        return $this->query("UPDATE {$this->useTable} SET archive = 1 WHERE id = $id");
-    }
-	
-	/**
-     * Mark a post as not-archived
-     *
-     * @param int $id
-     */
-    function unarchive($id) {
-        $id = intval($id);
-		// savefield?
-        return $this->query("UPDATE {$this->useTable} SET archive = 0 WHERE id = $id");
-    }
     
 	/**
      * Search title and content fields

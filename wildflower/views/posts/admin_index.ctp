@@ -16,7 +16,7 @@
 
 <h2 class="section"><?php __('Blog Posts'); ?></h2>
 
-<?php echo $this->element('admin_select_actions', array('actions'=>array('Archive', 'Unarchive', 'Publish', 'Unpublish', 'Delete'))); ?>
+<?php echo $this->element('admin_select_actions', array('actions'=>array('Publish', 'Unpublish', 'Delete'))); ?>
 
 <ul class="list-of-posts list">
     <?php foreach ($posts as $post): ?>
