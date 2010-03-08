@@ -14,7 +14,7 @@
     ?>
     
     <div class="comment_meta">
-    <?
+    <?php
         echo 
         $html->link(
             $data['Comment']['name'], 
