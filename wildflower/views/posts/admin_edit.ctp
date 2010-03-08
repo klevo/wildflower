@@ -19,7 +19,6 @@
     '<div>',
     $form->hidden('id'),
     $form->hidden('draft'),
-    $form->hidden('archive'),
     $form->hidden('Category.Category'),
     '</div>';
 ?>
