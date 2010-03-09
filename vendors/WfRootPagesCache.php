@@ -39,7 +39,7 @@ class WildflowerRootPagesCache {
     }
     
     static function update() {
-        return Router::requestAction(array('controller' => 'pages', 'action' => 'update_root_cache'), array('return' => 1));
+        return Object::requestAction(array('controller' => 'pages', 'action' => 'update_root_cache'), array('return' => 1));
     }
     
     static function write($rootPages = array()) {
