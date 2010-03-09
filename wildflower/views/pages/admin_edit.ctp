@@ -15,6 +15,7 @@
         'div' => array('class' => 'input editor'))),
     '<div>',
     $form->hidden('id'),
+    $form->hidden('parent_id'),
     $form->hidden('draft'),
     $form->hidden('slug'),
     '</div>';
