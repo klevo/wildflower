@@ -19,7 +19,6 @@ class AppController extends Controller {
 	    'Html', 
 	    'Htmla', 
 	    'Form', 
-	    'Javascript', 
 	    'Wild', 
 	    'Navigation', 
 	    'PartialLayout', 

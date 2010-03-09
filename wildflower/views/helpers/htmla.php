@@ -46,7 +46,9 @@ class HtmlaHelper extends HtmlHelper {
 			unset($htmlAttributes['strict']);
 		}
 
-        return parent::link($title, $url, $htmlAttributes, $confirmMessage, $escapeTitle);
+		$options['escape'] = $escapeTitle ? true : false;
+
+        return parent::link($title, $url, $htmlAttributes, $confirmMessage);
     }
     
     function dateTimePicker($field, &$form) {

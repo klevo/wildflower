@@ -30,7 +30,7 @@
 <h3>Post a comment</h3>
 <?php
     if ($session->check('Message.flash')) {
-        $session->flash();
+        echo $session->flash();
     }
     
     $postUrl = Post::getUrl($post['Post']['slug']);

@@ -1,6 +1,6 @@
 <h2 class="section"><?php __('Editing menu'); ?></h2>
 
-<?php $session->flash(); ?>
+<?php echo $session->flash(); ?>
 
 <?php
     echo

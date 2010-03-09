@@ -342,7 +342,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (60,'a-test-posts','A test posts','<p>dasdasd</p>',1,NULL,NULL,'2009-06-29 18:44:28','2010-02-04 13:52:56',0,0,'755abcb0855fe16cc54f270e59a4efd6091783a9',0);
+INSERT INTO `posts` VALUES (60,'a-test-posts','A test posts','<p>dasdasd</p>',1,NULL,NULL,'2009-06-29 18:44:28','2010-02-04 13:52:56',0,'755abcb0855fe16cc54f270e59a4efd6091783a9',0);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
