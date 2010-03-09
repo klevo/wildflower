@@ -2,7 +2,7 @@
 class MenusController extends AppController {
     
     public $pageTitle = 'Navigation';
-    
+
     function admin_add() {
         if (!empty($this->data)) {
             $this->_addOrderToItems();

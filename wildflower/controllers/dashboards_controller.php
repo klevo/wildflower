@@ -2,8 +2,8 @@
 class DashboardsController extends AppController {
 	
 	public $helpers = array('List', 'Time', 'Text');
-	public $pageTitle = 'Dashboard';
 	public $uses = array('Dashboard','Post', 'Page');
+    public $pageTitle = 'Dashboard';
 	
 	function admin_index() {
         $items = $this->Dashboard->findRecentHappening();

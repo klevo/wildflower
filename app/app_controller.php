@@ -33,6 +33,8 @@ class AppController extends Controller {
 	public $isAuthorized = false;
     public $isHome = false;
 	private $_isDatabaseConnected = true;
+	// pageTitle is used by SeoComp to set the title of controllerActions
+	public $pageTitle = null;
 	
 	/**
 	 * Configure and initialize everything Wildflower needs

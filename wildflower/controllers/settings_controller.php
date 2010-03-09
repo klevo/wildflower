@@ -2,6 +2,7 @@
 class SettingsController extends AppController {
 
 	public $uses = array('Page', 'Setting');
+    public $pageTitle = 'Site Settings';
 	
 	function beforeFilter() {
 	    parent::beforeFilter();
@@ -26,7 +27,7 @@ class SettingsController extends AppController {
 	 * 
 	 */
 	function admin_index() {
-	    $this->pageTitle = 'Site settings';
+		$this->set('title_for_layout', 'Site settings');
 	    
 	    $homePageIdOptions = $this->Page->generatetreelist(null, null, null, ' - ');
 	    

@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
     public $helpers = array('Wildflower.List', 'Time');
-    public $pageTitle = 'User Accounts';
+	public $pageTitle = 'User Accounts';
 
     /**
      * @TODO shit code, refactor
@@ -33,8 +33,7 @@ class UsersController extends AppController {
      *
      */
     function login() {
-        $this->layout = 'login';   
-        $this->pageTitle = 'Login';
+		$this->set('title_for_layout', 'Login');
         $User = ClassRegistry::init('User');
 
         // Try to authorize user with POSTed data

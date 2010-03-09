@@ -17,6 +17,7 @@ class PostsController extends AppController {
         'limit' => 12,
         'order' => array('Post.created' => 'desc'),
     );
+    public $pageTitle = 'Posts';
 
     /**
      * Create a post and redirect to it's edit screen
@@ -106,7 +107,7 @@ class PostsController extends AppController {
         $categoriesForTree = $this->Post->Category->find('all', array('order' => 'lft ASC', 'recursive' => -1));
         
         $this->set(compact('isRevision', 'hasUser', 'isDraft', 'categoriesForTree', 'inCategories'));
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
     }
     
     function admin_categorize($id = null) {
@@ -121,7 +122,7 @@ class PostsController extends AppController {
         $categoriesForTree = $this->Post->Category->find('all', array('order' => 'lft ASC', 'recursive' => -1));
         $this->set(compact('categories', 'inCategories', 'isDraft', 'categoriesForTree'));
         
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
     }
     
     function admin_options($id = null) {
@@ -133,7 +134,7 @@ class PostsController extends AppController {
         $isDraft = ($this->data[$this->modelClass]['draft'] == 1) ? true : false;
         $this->set(compact('isDraft'));
         
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
     }
     
     function admin_update() {
@@ -177,7 +178,8 @@ class PostsController extends AppController {
     function beforeFilter() {
     	parent::beforeFilter();
     	
-    	$this->pageTitle = 'Blog';
+		// @todo Configure::read('Wildflower.blogTitle')
+		$this->set('title_for_layout', 'Blog');
     	
     	$this->params['current']['type'] = 'post';
     	$this->params['current']['slug'] = Configure::read('Wildflower.blogIndex');
@@ -234,8 +236,8 @@ class PostsController extends AppController {
      */
     function index() {
         $this->cacheAction = true;
-        
-        $this->pageTitle = 'Blog';
+
+		$this->set('title_for_layout', 'Blog');
         
         $this->paginate = array(
             'limit' => 4,
@@ -267,7 +269,7 @@ class PostsController extends AppController {
     function category() {
         //$this->cacheAction = true;
         
-        $this->pageTitle = 'Blog';
+		$this->set('title_for_layout', 'Blog');
         
         $this->Post->Category->recursive = -1;
         $category = $this->Post->Category->findBySlug($this->params['slug']);
@@ -335,7 +337,7 @@ class PostsController extends AppController {
 		}
         
         // Post title
-        $this->pageTitle = $post[$this->modelClass]['title'];
+		$this->set('title_for_layout', $post[$this->modelClass]['title']);
         
         if (isset($this->params['requested'])) {
             return $post;
