@@ -85,7 +85,7 @@
 		return;
 	} else {
 		$Dispatcher = new Dispatcher();
-		$Dispatcher->dispatch($url);
+		$Dispatcher->dispatch();
 	}
 	// For fucks sake CakePHP developers - nobody needs this - just breaks JSON
 	// ?
