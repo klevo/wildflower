@@ -25,7 +25,7 @@
             "<li$attr>",
             '<div class="list-item">',
             $html->link("{$time->niceShort($version['Revision']['created'])}",
-                "/" . Configure::read('Routing.admin.0') . "/pages/edit/{$version['Revision']['node_id']}/rev:$revParam"),
+                "/" . Configure::read('Routing.prefixes.0') . "/pages/edit/{$version['Revision']['node_id']}/rev:$revParam"),
             "<small>$first</small>",
             '</div>',
             '</li>';

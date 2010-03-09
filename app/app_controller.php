@@ -50,7 +50,7 @@ class AppController extends Controller {
 	    // AuthComponent config
         $this->Auth->userModel = 'User';
         $this->Auth->fields = array('username' => 'login', 'password' => 'password');
-        $prefix = Configure::read('Routing.admin.0');
+        $prefix = Configure::read('Routing.prefixes.0');
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false);
         $this->Auth->logoutAction = array('controller' => 'users', 'action' => 'logout', 'admin' => false);
         $this->Auth->autoRedirect = false;
@@ -316,7 +316,7 @@ class AppController extends Controller {
      * @return bool
      */
     function isAdminAction() {
-		$adminPrefix = Configure::read('Routing.admin.0');
+		$adminPrefix = Configure::read('Routing.prefixes.0');
         if (isset($this->params[$adminPrefix]) and $this->params[$adminPrefix]) {
             return true;
         }
