@@ -247,7 +247,7 @@ class PagesController extends AppController {
      * Maintenance function.
      */
     function admin_setUrlFields() {
-    	$pages = $this->Page->findAll();
+    	$pages = $this->Page->find('all');
     	
     	// Resave each page
     	$success = true;
