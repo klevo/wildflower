@@ -6,7 +6,7 @@ class MenuItemsController extends AppController {
         $this->MenuItem->id = $id;
         $item = $this->MenuItem->read();
         if (!empty($item)) {
-            $this->MenuItem->del($id);
+            $this->MenuItem->delete($id);
         }
         $this->redirect(array('controller' => 'menus', 'action' => 'edit', $item['MenuItem']['menu_id']));
     }

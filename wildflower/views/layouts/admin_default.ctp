@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="<?php echo $this->webroot; ?>favicon.ico" type="image/x-icon" />
 	
 	<?php 
-		$prefix = Configure::read('Routing.admin');
+		$prefix = Configure::read('Routing.admin.0');
         echo
         // Load your CSS files here
         $html->css(array(
@@ -29,7 +29,7 @@
     <![endif]-->
     
     <!-- JQuery Light MVC -->
-    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Routing.admin') . '/assets/jlm'); ?>"></script>
+    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Routing.admin.0') . '/assets/jlm'); ?>"></script>
     <script type="text/javascript">
     //<![CDATA[
         $.jlm.config({

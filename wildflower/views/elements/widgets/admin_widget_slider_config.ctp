@@ -1,7 +1,7 @@
 <h2 class="section">Editing a widget</h2>
 
 <?php
-    echo $form->create('Widget', array('url' => '/' . Configure::read('Routing.admin') . '/widgets/update', 'id' => 'edit_widget_form'));
+    echo $form->create('Widget', array('url' => '/' . Configure::read('Routing.admin.0') . '/widgets/update', 'id' => 'edit_widget_form'));
     
     if (!isset($this->data['Widget']['items']) or empty($this->data['Widget']['items'])) {
         echo '<div class="slider_block">';
