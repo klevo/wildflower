@@ -6,6 +6,13 @@ Wildflower 1.3 Beta - A CakePHP CMS
 	@todo check Cache
 	@todo update validation
 	@todo use Component triggerCallback 
+	@todo use views/elements/sql_dump.ctp in wf
+	@todo checkout helpers that override output they need to manually output it - check partial_layout
+	@todo check pagination changes
+	@todo make sure trun & highlight have correct options
+	@todo when a page/post has a refer of search use highlight to mark search string
+
+
 
 
 Requirements
