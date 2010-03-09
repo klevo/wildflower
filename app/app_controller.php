@@ -13,7 +13,7 @@ App::import('Core', 'l10n');
 
 class AppController extends Controller {
 
-	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Seo');
+	public $components = array('Auth', 'Cookie', 'RequestHandler', 'Session', 'Seo');
 	public $currentUserId;
 	public $helpers = array(
 	    'Html', 
@@ -23,6 +23,7 @@ class AppController extends Controller {
 	    'Wild', 
 	    'Navigation', 
 	    'PartialLayout', 
+	    'Session', 
 	    'Textile', 
 	    'Tree', 
 	    'Text',

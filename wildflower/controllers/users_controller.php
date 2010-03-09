@@ -75,7 +75,7 @@ class UsersController extends AppController {
                 );
                 if ($this->Auth->login($cookie)) {
                     //  Clear auth message, just in case we use it.
-                    $this->Session->del('Message.auth');
+                    $this->Session->delete('Message.auth');
                     
                     // Save last login time
                     $User->create($user);
@@ -84,7 +84,7 @@ class UsersController extends AppController {
                     return $this->redirect($this->Auth->redirect());
                 } else { 
                     // Delete invalid Cookie
-                    $this->Cookie->del('Auth.User');
+                    $this->Cookie->delete('Auth.User');
                 }
             }
         }
@@ -98,7 +98,7 @@ class UsersController extends AppController {
     function admin_logout() {
         $this->User->create($this->Auth->user());
         $this->User->saveField('cookie_token', '');
-        $this->Cookie->del('Auth.User');
+        $this->Cookie->delete('Auth.User');
         $this->redirect($this->Auth->logout());
     }
 
