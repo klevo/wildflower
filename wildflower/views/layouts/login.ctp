@@ -17,7 +17,7 @@
         )),
         // TinyMCE 
         // @TODO load only on pages with editor?
-        $javascript->link('/wildflower/js/tiny_mce/tiny_mce');
+        $html->script('/wildflower/js/tiny_mce/tiny_mce');
     ?>
      
     <!--[if lte IE 7]>

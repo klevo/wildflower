@@ -5,7 +5,7 @@
 
 <h2 class="section"><?php __('Modules'); ?></h2>
 
-<?php $session->flash(); ?>
+<?php echo $session->flash(); ?>
 
 <h3><?php __('Sidebars'); ?></h3>
 

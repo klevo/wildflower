@@ -16,7 +16,7 @@ echo $form->input('password',  array('between' => '<br />'));
 
 // Auth error message
 if ($session->check('Message.auth')) {
-	$session->flash('auth');
+	echo $session->flash('auth');
 }
 
 echo $form->submit('Log in');

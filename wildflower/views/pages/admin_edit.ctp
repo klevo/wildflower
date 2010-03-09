@@ -1,6 +1,6 @@
 <?php 
     if ($session->check('Message.flash')) {
-        $session->flash();
+        echo $session->flash();
     }
     
     echo 

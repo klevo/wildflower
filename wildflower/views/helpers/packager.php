@@ -75,7 +75,7 @@ class PackagerHelper extends AppHelper {
 	        fclose($file);
     	}
 
-		return $this->Javascript->link($jsBaseName);
+		return $this->Html->script($jsBaseName);
     }
 	
 	/**

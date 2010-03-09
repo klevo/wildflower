@@ -8,33 +8,6 @@ class WildHelper extends AppHelper {
 	private $itemCssClassPrefix;
 	
 	/**
-	 * @depracated Right now routes are so good the $html->link does all the magic
-	 *
-	 * Link to the Wildflower admin
-	 *
-	 * @TODO Support for all $html->link args, named params in route
-	 */
-	function link($label, $route, $attributes) {
-		if (is_array($route)) {
-			if (!isset($route['controller'])) {
-				$route['controller'] = $this->params['controller'];
-			}
-			// Wf shortcut
-			$route['controller'] = str_replace('', '', $route['controller']);
-			$_route = '/' . Configure::read('Wildflower.prefix') 
-				. '/' . $route['controller'];
-			if (isset($route['action'])) {
-				$_route .= '/' . $route['action'];
-			}
-			unset($route['controller'], $route['action']);
-			$_route .= '/' . join('/', $route);
-			$route = $_route;
-		}
-		
-		return $this->Html->link($label, $route, $attributes);
-	}
-	
-	/**
 	 * Get home (/) link tag with site name as label
 	 *
 	 * @param string $siteName

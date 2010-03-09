@@ -1,6 +1,6 @@
 <?php 
     if ($session->check('Message.flash')) {
-        $session->flash();
+        echo $session->flash();
     }
 
 	$partialLayout->setLayoutVar('form_for_layout', $form->create('Post', array('action' => 'update', 'class' => 'editor_form')));

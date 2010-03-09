@@ -9,7 +9,7 @@
         'Spam' => array('action' => 'admin_spam'),
     ), array('id' => 'sub-nav'));
     
-    $session->flash();
+    echo $session->flash();
     
     echo 
     $form->create('Comment', array('url' => $html->url(array('action' => 'admin_edit', 'base' => false)))),

@@ -1,7 +1,7 @@
 <h2><?php echo $page['Page']['title']; ?></h2>
 <?php echo $page['Page']['content']; ?>
 
-<?php $session->flash(); ?>
+<?php echo $session->flash(); ?>
 
 <?php
     $url = $html->url(array('controller' => 'messages', 'action' => 'index', 'base' => false));

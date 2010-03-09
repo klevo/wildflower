@@ -54,6 +54,7 @@ class PartialLayoutHelper extends AppHelper {
     }
     
     /**
+	 * @todo ensure that this manually outputs content
      * Output a variable only if it exists. If it does not exist you may optionally pass
      * in a second parameter to use as a default value.
      * 

@@ -22,4 +22,4 @@
     
 </div>
 
-<?php echo $this->renderElement('sidebar'); ?>
+<?php echo $this->element('sidebar'); ?>
