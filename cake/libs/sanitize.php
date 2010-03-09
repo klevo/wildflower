@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Washes strings from unwanted noise.
  *
@@ -7,23 +6,20 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Data Sanitization.
  *
@@ -34,10 +30,12 @@
  * @subpackage    cake.cake.libs
  */
 class Sanitize {
+
 /**
  * Removes any non-alphanumeric characters.
  *
  * @param string $string String to sanitize
+ * @param array $allowed An array of additional characters that are not to be removed.
  * @return string Sanitized string
  * @access public
  * @static
@@ -60,6 +58,7 @@ class Sanitize {
 		}
 		return $cleaned;
 	}
+
 /**
  * Makes a string SQL-safe.
  *
@@ -78,25 +77,44 @@ class Sanitize {
 		$string = substr($string, 0, -1);
 		return $string;
 	}
+
 /**
  * Returns given string safe for display as HTML. Renders entities.
+ * 
+ * strip_tags() does not validating HTML syntax or structure, so it might strip whole passages
+ * with broken HTML.
+ *
+ * ### Options:
+ *
+ * - remove (boolean) if true strips all HTML tags before encoding
+ * - charset (string) the charset used to encode the string
+ * - quotes (int) see http://php.net/manual/en/function.htmlentities.php
  *
  * @param string $string String from where to strip tags
- * @param boolean $remove If true, the string is stripped of all HTML tags
+ * @param array $options Array of options to use.
  * @return string Sanitized string
  * @access public
  * @static
  */
-	function html($string, $remove = false) {
-		if ($remove) {
+	function html($string, $options = array()) {
+		$default = array(
+			'remove' => false,
+			'charset' => 'UTF-8',
+			'quotes' => ENT_QUOTES
+		);
+
+		$options = array_merge($default, $options);
+
+		if ($options['remove']) {
 			$string = strip_tags($string);
-		} else {
-			$patterns = array("/\&/", "/%/", "/</", "/>/", '/"/', "/'/", "/\(/", "/\)/", "/\+/", "/-/");
-			$replacements = array("&amp;", "&#37;", "&lt;", "&gt;", "&quot;", "&#39;", "&#40;", "&#41;", "&#43;", "&#45;");
-			$string = preg_replace($patterns, $replacements, $string);
 		}
-		return $string;
+		$encoding = Configure::read('App.encoding');
+		if (empty($encoding)) {
+			$encoding = $options['charset'];
+		}
+		return htmlentities($string, $options['quotes'], $encoding);
 	}
+
 /**
  * Strips extra whitespace from output
  *
@@ -109,6 +127,7 @@ class Sanitize {
 		$r = preg_replace('/[\n\r\t]+/', '', $str);
 		return preg_replace('/\s{2,}/', ' ', $r);
 	}
+
 /**
  * Strips image tags from output
  *
@@ -123,6 +142,7 @@ class Sanitize {
 		$str = preg_replace('/<img[^>]*>/i', '', $str);
 		return $str;
 	}
+
 /**
  * Strips scripts and stylesheets from output
  *
@@ -134,6 +154,7 @@ class Sanitize {
 	function stripScripts($str) {
 		return preg_replace('/(<link[^>]+rel="[^"]*stylesheet"[^>]*>|<img[^>]*>|style="[^"]*")|<script[^>]*>.*?<\/script>|<style[^>]*>.*?<\/style>|<!--.*?-->/i', '', $str);
 	}
+
 /**
  * Strips extra whitespace, images, scripts and stylesheets from output
  *
@@ -147,9 +168,14 @@ class Sanitize {
 		$str = Sanitize::stripScripts($str);
 		return $str;
 	}
+
 /**
  * Strips the specified tags from output. First parameter is string from
  * where to remove tags. All subsequent parameters are tags.
+ *
+ * Ex.`$clean = Sanitize::stripTags($dirty, 'b', 'p', 'div');`
+ *
+ * Will remove all `<b>`, `<p>`, and `<div>` tags from the $dirty string.
  *
  * @param string $str String to sanitize
  * @param string $tag Tag to remove (add more parameters as needed)
@@ -167,11 +193,20 @@ class Sanitize {
 		}
 		return $str;
 	}
+
 /**
  * Sanitizes given array or value for safe input. Use the options to specify
  * the connection to use, and what filters should be applied (with a boolean
- * value). Valid filters: odd_spaces, encode, dollar, carriage, unicode,
- * escape, backslash.
+ * value). Valid filters: 
+ *
+ * - odd_spaces - removes any non space whitespace characters
+ * - encode - Encode any html entities. Encode must be true for the `remove_html` to work.
+ * - dollar - Escape `$` with `\$`
+ * - carriage - Remove `\r`
+ * - unicode - 
+ * - escape - Should the string be SQL escaped.
+ * - backslash - 
+ * - remove_html - Strip HTML with strip_tags. `encode` must be true for this option to work.
  *
  * @param mixed $data Data to sanitize
  * @param mixed $options If string, DB connection being used, otherwise set of options
@@ -193,6 +228,7 @@ class Sanitize {
 		$options = array_merge(array(
 			'connection' => 'default',
 			'odd_spaces' => true,
+			'remove_html' => false,
 			'encode' => true,
 			'dollar' => true,
 			'carriage' => true,
@@ -211,7 +247,7 @@ class Sanitize {
 				$data = str_replace(chr(0xCA), '', str_replace(' ', ' ', $data));
 			}
 			if ($options['encode']) {
-				$data = Sanitize::html($data);
+				$data = Sanitize::html($data, array('remove' => $options['remove_html']));
 			}
 			if ($options['dollar']) {
 				$data = str_replace("\\\$", "$", $data);
@@ -234,6 +270,7 @@ class Sanitize {
 			return $data;
 		}
 	}
+
 /**
  * Formats column data from definition in DBO's $columns array
  *

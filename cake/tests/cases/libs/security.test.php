@@ -1,30 +1,24 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * SecurityTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
  * @since         CakePHP(tm) v 1.2.0.5432
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 App::import('Core', 'Security');
+
 /**
  * SecurityTest class
  *
@@ -32,6 +26,7 @@ App::import('Core', 'Security');
  * @subpackage    cake.tests.cases.libs
  */
 class SecurityTest extends CakeTestCase {
+
 /**
  * sut property
  *
@@ -39,6 +34,7 @@ class SecurityTest extends CakeTestCase {
  * @access public
  */
 	var $sut = null;
+
 /**
  * setUp method
  *
@@ -48,6 +44,7 @@ class SecurityTest extends CakeTestCase {
 	function setUp() {
 		$this->sut =& Security::getInstance();
 	}
+
 /**
  * testInactiveMins method
  *
@@ -64,6 +61,7 @@ class SecurityTest extends CakeTestCase {
 		Configure::write('Security.level', 'low');
 		$this->assertEqual(300, Security::inactiveMins());
 	}
+
 /**
  * testGenerateAuthkey method
  *
@@ -73,6 +71,7 @@ class SecurityTest extends CakeTestCase {
 	function testGenerateAuthkey() {
 		$this->assertEqual(strlen(Security::generateAuthKey()), 40);
 	}
+
 /**
  * testValidateAuthKey method
  *
@@ -83,6 +82,7 @@ class SecurityTest extends CakeTestCase {
 		$authKey = Security::generateAuthKey();
 		$this->assertTrue(Security::validateAuthKey($authKey));
 	}
+
 /**
  * testHash method
  *
@@ -90,7 +90,7 @@ class SecurityTest extends CakeTestCase {
  * @return void
  */
 	function testHash() {
-		$Security = Security::getInstance();
+		$Security =& Security::getInstance();
 		$_hashType =  $Security->hashType;
 
 		$key = 'someKey';
@@ -132,6 +132,7 @@ class SecurityTest extends CakeTestCase {
 
 		Security::setHash($_hashType);
 	}
+
 /**
  * testCipher method
  *

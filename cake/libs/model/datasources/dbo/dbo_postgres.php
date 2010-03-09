@@ -1,30 +1,23 @@
 <?php
-/* SVN FILE: $Id$ */
-
 /**
  * PostgreSQL layer for DBO.
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 0.9.1.114
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * PostgreSQL layer for DBO.
  *
@@ -34,6 +27,7 @@
  * @subpackage    cake.cake.libs.model.datasources.dbo
  */
 class DboPostgres extends DboSource {
+
 /**
  * Driver description
  *
@@ -41,6 +35,7 @@ class DboPostgres extends DboSource {
  * @access public
  */
 	var $description = "PostgreSQL DBO Driver";
+
 /**
  * Index of basic SQL commands
  *
@@ -52,6 +47,7 @@ class DboPostgres extends DboSource {
 		'commit'   => 'COMMIT',
 		'rollback' => 'ROLLBACK'
 	);
+
 /**
  * Base driver configuration settings.  Merged with user settings.
  *
@@ -59,7 +55,6 @@ class DboPostgres extends DboSource {
  * @access protected
  */
 	var $_baseConfig = array(
-		'connect'	=> 'pg_pconnect',
 		'persistent' => true,
 		'host' => 'localhost',
 		'login' => 'root',
@@ -86,9 +81,22 @@ class DboPostgres extends DboSource {
 		'inet' => array('name'  => 'inet')
 	);
 
+/**
+ * Starting Quote
+ *
+ * @var string
+ * @access public
+ */
 	var $startQuote = '"';
 
+/**
+ * Ending Quote
+ *
+ * @var string
+ * @access public
+ */
 	var $endQuote = '"';
+
 /**
  * Contains mappings of custom auto-increment sequences, if a table uses a sequence name
  * other than what is dictated by convention.
@@ -96,6 +104,7 @@ class DboPostgres extends DboSource {
  * @var array
  */
 	var $_sequenceMap = array();
+
 /**
  * Connects to the database using options in the given configuration array.
  *
@@ -122,11 +131,12 @@ class DboPostgres extends DboSource {
 		}
 		return $this->connected;
 	}
+
 /**
  * Check if PostgreSQL is enabled/loaded
  *
  * @return boolean
- **/
+ */
 	function enabled() {
 		return extension_loaded('pgsql');
 	}
@@ -146,6 +156,7 @@ class DboPostgres extends DboSource {
 		}
 		return !$this->connected;
 	}
+
 /**
  * Executes given SQL statement.
  *
@@ -155,6 +166,7 @@ class DboPostgres extends DboSource {
 	function _execute($sql) {
 		return pg_query($this->connection, $sql);
 	}
+
 /**
  * Returns an array of tables in the database. If there are no tables, an error is raised and the application exits.
  *
@@ -184,6 +196,7 @@ class DboPostgres extends DboSource {
 			return $tables;
 		}
 	}
+
 /**
  * Returns an array of the fields in given table name.
  *
@@ -256,6 +269,7 @@ class DboPostgres extends DboSource {
 		}
 		return $fields;
 	}
+
 /**
  * Returns a quoted and escaped string of $data for use in an SQL statement.
  *
@@ -307,6 +321,7 @@ class DboPostgres extends DboSource {
 		}
 		return "'" . $data . "'";
 	}
+
 /**
  * Returns a formatted error message from previous database operation.
  *
@@ -316,6 +331,7 @@ class DboPostgres extends DboSource {
 		$error = pg_last_error($this->connection);
 		return ($error) ? $error : null;
 	}
+
 /**
  * Returns number of affected rows in previous database operation. If no previous operation exists, this returns false.
  *
@@ -324,6 +340,7 @@ class DboPostgres extends DboSource {
 	function lastAffected() {
 		return ($this->_result) ? pg_affected_rows($this->_result) : false;
 	}
+
 /**
  * Returns number of rows in previous resultset. If no previous resultset exists,
  * this returns false.
@@ -333,6 +350,7 @@ class DboPostgres extends DboSource {
 	function lastNumRows() {
 		return ($this->_result) ? pg_num_rows($this->_result) : false;
 	}
+
 /**
  * Returns the ID generated from the previous INSERT operation.
  *
@@ -345,6 +363,7 @@ class DboPostgres extends DboSource {
 		$data = $this->fetchRow("SELECT currval('{$seq}') as max");
 		return $data[0]['max'];
 	}
+
 /**
  * Gets the associated sequence for the given table/field
  *
@@ -362,6 +381,7 @@ class DboPostgres extends DboSource {
 			return "{$table}_{$field}_seq";
 		}
 	}
+
 /**
  * Deletes all the records in a table and drops all associated auto-increment sequences
  *
@@ -387,6 +407,7 @@ class DboPostgres extends DboSource {
 		}
 		return false;
 	}
+
 /**
  * Prepares field names to be quoted by parent
  *
@@ -399,6 +420,7 @@ class DboPostgres extends DboSource {
 		}
 		return parent::name($data);
 	}
+
 /**
  * Generates the fields list of an SQL query.
  *
@@ -438,6 +460,7 @@ class DboPostgres extends DboSource {
 		}
 		return $fields;
 	}
+
 /**
  * Returns an array of the indexes in given datasource name.
  *
@@ -450,13 +473,13 @@ class DboPostgres extends DboSource {
 		if ($table) {
 			$indexes = $this->query("SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true) as statement, c2.reltablespace
 			FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
-			WHERE c.oid  = ( 
-				SELECT c.oid 
-				FROM pg_catalog.pg_class c LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace 
-				WHERE c.relname ~ '^(" . $table . ")$' 
-					AND pg_catalog.pg_table_is_visible(c.oid) 
+			WHERE c.oid  = (
+				SELECT c.oid
+				FROM pg_catalog.pg_class c LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+				WHERE c.relname ~ '^(" . $table . ")$'
+					AND pg_catalog.pg_table_is_visible(c.oid)
 					AND n.nspname ~ '^(" . $this->config['schema'] . ")$'
-			) 
+			)
 			AND c.oid = i.indrelid AND i.indexrelid = c2.oid
 			ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname", false);
 			foreach ($indexes as $i => $info) {
@@ -476,6 +499,7 @@ class DboPostgres extends DboSource {
 		}
 		return $index;
 	}
+
 /**
  * Alter the Schema of a table.
  *
@@ -537,7 +561,7 @@ class DboPostgres extends DboSource {
 					}
 					$colList[] = 'ADD PRIMARY KEY (' . $cols . ')';
 				}
-				
+
 				if (!empty($colList)) {
 					$out .= "\t" . implode(",\n\t", $colList) . ";\n\n";
 				} else {
@@ -548,13 +572,14 @@ class DboPostgres extends DboSource {
 		}
 		return $out;
 	}
+
 /**
  * Generate PostgreSQL index alteration statements for a table.
  *
  * @param string $table Table to alter indexes for
  * @param array $new Indexes to add and drop
  * @return array Index alteration statements
- */	
+ */
 	function _alterIndexes($table, $indexes) {
 		$alter = array();
 		if (isset($indexes['drop'])) {
@@ -589,6 +614,7 @@ class DboPostgres extends DboSource {
 		}
 		return $alter;
 	}
+
 /**
  * Returns a limit statement in the correct format for the particular database.
  *
@@ -612,6 +638,7 @@ class DboPostgres extends DboSource {
 		}
 		return null;
 	}
+
 /**
  * Converts database-layer column types to basic types
  *
@@ -660,6 +687,7 @@ class DboPostgres extends DboSource {
 			break;
 		}
 	}
+
 /**
  * Gets the length of a database-native column description, or null if no length
  *
@@ -681,6 +709,7 @@ class DboPostgres extends DboSource {
 		}
 		return null;
 	}
+
 /**
  * Enter description here...
  *
@@ -705,6 +734,7 @@ class DboPostgres extends DboSource {
 			$j++;
 		}
 	}
+
 /**
  * Fetches the next row from the current result set
  *
@@ -736,6 +766,7 @@ class DboPostgres extends DboSource {
 			return false;
 		}
 	}
+
 /**
  * Translates between PHP boolean values and PostgreSQL boolean values
  *
@@ -758,6 +789,7 @@ class DboPostgres extends DboSource {
 			break;
 		}
 	}
+
 /**
  * Sets the database encoding
  *
@@ -767,6 +799,7 @@ class DboPostgres extends DboSource {
 	function setEncoding($enc) {
 		return pg_set_client_encoding($this->connection, $enc) == 0;
 	}
+
 /**
  * Gets the database encoding
  *
@@ -775,6 +808,7 @@ class DboPostgres extends DboSource {
 	function getEncoding() {
 		return pg_client_encoding($this->connection);
 	}
+
 /**
  * Generate a Postgres-native column schema string
  *
@@ -808,6 +842,7 @@ class DboPostgres extends DboSource {
 		}
 		return $out;
 	}
+
 /**
  * Format indexes for create table
  *
@@ -839,6 +874,7 @@ class DboPostgres extends DboSource {
 		}
 		return $join;
 	}
+
 /**
  * Overrides DboSource::renderStatement to handle schema generation with Postgres-style indexes
  *

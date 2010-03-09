@@ -1,30 +1,24 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * StringTest file
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
- *  Licensed under The Open Group Test Suite License
- *  Redistributions of files must retain the above copyright notice.
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
  * @since         CakePHP(tm) v 1.2.0.5432
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::import('Core', 'String');
+
 /**
  * StringTest class
  *
@@ -32,6 +26,7 @@ App::import('Core', 'String');
  * @subpackage    cake.tests.cases.libs
  */
 class StringTest extends CakeTestCase {
+
 /**
  * testUuidGeneration method
  *
@@ -44,6 +39,7 @@ class StringTest extends CakeTestCase {
 		$match = preg_match($pattern, $result);
 		$this->assertTrue($match);
 	}
+
 /**
  * testMultipleUuidGeneration method
  *
@@ -63,6 +59,7 @@ class StringTest extends CakeTestCase {
 			$check[] = $result;
 		}
 	}
+
 /**
  * testInsert method
  *
@@ -70,6 +67,11 @@ class StringTest extends CakeTestCase {
  * @return void
  */
 	function testInsert() {
+		$string = 'some string';
+		$expected = 'some string';
+		$result = String::insert($string, array());
+		$this->assertEqual($result, $expected);
+
 		$string = '2 + 2 = :sum. Cake is :adjective.';
 		$expected = '2 + 2 = 4. Cake is yummy.';
 		$result = String::insert($string, array('sum' => '4', 'adjective' => 'yummy'));
@@ -199,13 +201,16 @@ class StringTest extends CakeTestCase {
 		$expected = "Pre-pended result";
 		$this->assertEqual($result, $expected);
 	}
+
 /**
  * test Clean Insert
  *
  * @return void
- **/
+ */
 	function testCleanInsert() {
-		$result = String::cleanInsert(':incomplete', array('clean' => true, 'before' => ':', 'after' => ''));
+		$result = String::cleanInsert(':incomplete', array(
+			'clean' => true, 'before' => ':', 'after' => ''
+		));
 		$this->assertEqual($result, '');
 
 		$result = String::cleanInsert(':incomplete', array(
@@ -214,18 +219,40 @@ class StringTest extends CakeTestCase {
 		);
 		$this->assertEqual($result, 'complete');
 
-		$result = String::cleanInsert(':in.complete', array('clean' => true, 'before' => ':', 'after' => ''));
+		$result = String::cleanInsert(':in.complete', array(
+			'clean' => true, 'before' => ':', 'after' => ''
+		));
 		$this->assertEqual($result, '');
 
-		$result = String::cleanInsert(':in.complete and', array('clean' => true, 'before' => ':', 'after' => ''));
+		$result = String::cleanInsert(':in.complete and', array(
+			'clean' => true, 'before' => ':', 'after' => '')
+		);
 		$this->assertEqual($result, '');
 
-		$result = String::cleanInsert(':in.complete or stuff', array('clean' => true, 'before' => ':', 'after' => ''));
+		$result = String::cleanInsert(':in.complete or stuff', array(
+			'clean' => true, 'before' => ':', 'after' => ''
+		));
 		$this->assertEqual($result, 'stuff');
 
-		$result = String::cleanInsert('<p class=":missing" id=":missing">Text here</p>', array('clean' => 'html', 'before' => ':', 'after' => ''));
+		$result = String::cleanInsert(
+			'<p class=":missing" id=":missing">Text here</p>',
+			array('clean' => 'html', 'before' => ':', 'after' => '')
+		);
 		$this->assertEqual($result, '<p>Text here</p>');
 	}
+
+/**
+ * Tests that non-insertable variables (i.e. arrays) are skipped when used as values in
+ * String::insert().
+ *
+ * @return void
+ */
+	function testAutoIgnoreBadInsertData() {
+		$data = array('foo' => 'alpha', 'bar' => 'beta', 'fale' => array());
+		$result = String::insert('(:foo > :bar || :fale!)', $data, array('clean' => 'text'));
+		$this->assertEqual($result, '(alpha > beta || !)');
+	}
+
 /**
  * testTokenize method
  *
@@ -253,5 +280,13 @@ class StringTest extends CakeTestCase {
 		$expected = array('tagA', '"single tag"', 'tagB');
 		$this->assertEqual($expected, $result);
 	}
+	
+	function testReplaceWithQuestionMarkInString() {
+		$string = ':a, :b and :c?';
+		$expected = '2 and 3?';
+		$result = String::insert($string, array('b' => 2, 'c' => 3), array('clean' => true));
+		$this->assertEqual($expected, $result);
+	}
 }
+
 ?>

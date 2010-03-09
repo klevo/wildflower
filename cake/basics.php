@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Basic Cake functionality.
  *
@@ -7,33 +6,31 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake
  * @since         CakePHP(tm) v 0.2.9
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Basic defines for timing functions.
  */
 	define('SECOND', 1);
-	define('MINUTE', 60 * SECOND);
-	define('HOUR', 60 * MINUTE);
-	define('DAY', 24 * HOUR);
-	define('WEEK', 7 * DAY);
-	define('MONTH', 30 * DAY);
-	define('YEAR', 365 * DAY);
+	define('MINUTE', 60);
+	define('HOUR', 3600);
+	define('DAY', 86400);
+	define('WEEK', 604800);
+	define('MONTH', 2592000);
+	define('YEAR', 31536000);
+
 /**
  * Patch for PHP < 5.0
  */
@@ -46,6 +43,7 @@ if (!function_exists('clone')) {
 		}');
 	}
 }
+
 /**
  * Loads configuration files. Receives a set of configuration files
  * to load.
@@ -74,6 +72,7 @@ if (!function_exists('clone')) {
 		}
 		return true;
 	}
+
 /**
  * Loads component/components from LIBS. Takes optional number of parameters.
  *
@@ -82,6 +81,7 @@ if (!function_exists('clone')) {
  * `uses('flay', 'time');`
  *
  * @param string $name Filename without the .php part
+ * @deprecated Will be removed in 2.0
  */
 	function uses() {
 		$args = func_get_args();
@@ -89,6 +89,7 @@ if (!function_exists('clone')) {
 			require_once(LIBS . strtolower($file) . '.php');
 		}
 	}
+
 /**
  * Prints out debug information about given variable.
  *
@@ -116,6 +117,7 @@ if (!function_exists('clone')) {
 		}
 	}
 if (!function_exists('getMicrotime')) {
+
 /**
  * Returns microtime for execution time checking
  *
@@ -127,6 +129,7 @@ if (!function_exists('getMicrotime')) {
 	}
 }
 if (!function_exists('sortByKey')) {
+
 /**
  * Sorts given $array by key $sortby.
  *
@@ -158,6 +161,7 @@ if (!function_exists('sortByKey')) {
 	}
 }
 if (!function_exists('array_combine')) {
+
 /**
  * Combines given identical arrays by using the first array's values as keys,
  * and the second one's values as values. (Implemented for backwards compatibility with PHP4)
@@ -165,6 +169,7 @@ if (!function_exists('array_combine')) {
  * @param array $a1 Array to use for keys
  * @param array $a2 Array to use for values
  * @return mixed Outputs either combined array or false.
+ * @deprecated Will be removed in 2.0
  */
 	function array_combine($a1, $a2) {
 		$a1 = array_values($a1);
@@ -186,6 +191,7 @@ if (!function_exists('array_combine')) {
 		return $output;
 	}
 }
+
 /**
  * Convenience method for htmlspecialchars.
  *
@@ -198,14 +204,43 @@ if (!function_exists('array_combine')) {
 		if (is_array($text)) {
 			return array_map('h', $text);
 		}
-		if (empty($charset)) {
-			$charset = Configure::read('App.encoding');
+
+		static $defaultCharset = false;
+		if ($defaultCharset === false) {
+			$defaultCharset = Configure::read('App.encoding');
+			if ($defaultCharset === null) {
+				$defaultCharset = 'UTF-8';
+			}
 		}
-		if (empty($charset)) {
-			$charset = 'UTF-8';
+		if ($charset) {
+			return htmlspecialchars($text, ENT_QUOTES, $charset);
+		} else {
+			return htmlspecialchars($text, ENT_QUOTES, $defaultCharset);
 		}
-		return htmlspecialchars($text, ENT_QUOTES, $charset);
 	}
+
+/**
+ * Splits a dot syntax plugin name into its plugin and classname.
+ * If $name does not have a dot, then index 0 will be null.
+ *
+ * Commonly used like `list($plugin, $name) = pluginSplit($name);`
+ *
+ * @param string $name The name you want to plugin split.
+ * @param boolean $dotAppend Set to true if you want the plugin to have a '.' appended to it.
+ * @param string $plugin Optional default plugin to use if no plugin is found. Defaults to null.
+ * @return array Array with 2 indexes.  0 => plugin name, 1 => classname
+ */
+	function pluginSplit($name, $dotAppend = false, $plugin = null) {
+		if (strpos($name, '.') !== false) {
+			$parts = explode('.', $name, 2);
+			if ($dotAppend) {
+				$parts[0] .= '.';
+			}
+			return $parts;
+		}
+		return array($plugin, $name);
+	}
+
 /**
  * Returns an array of all the given parameters.
  *
@@ -219,11 +254,13 @@ if (!function_exists('array_combine')) {
  *
  * @return array Array of given parameters
  * @link http://book.cakephp.org/view/694/a
+ * @deprecated Will be removed in 2.0
  */
 	function a() {
 		$args = func_get_args();
 		return $args;
 	}
+
 /**
  * Constructs associative array from pairs of arguments.
  *
@@ -237,6 +274,7 @@ if (!function_exists('array_combine')) {
  *
  * @return array Associative array
  * @link http://book.cakephp.org/view/695/aa
+ * @deprecated Will be removed in 2.0
  */
 	function aa() {
 		$args = func_get_args();
@@ -251,35 +289,42 @@ if (!function_exists('array_combine')) {
 		}
 		return $a;
 	}
+
 /**
  * Convenience method for echo().
  *
  * @param string $text String to echo
  * @link http://book.cakephp.org/view/700/e
+ * @deprecated Will be removed in 2.0
  */
 	function e($text) {
 		echo $text;
 	}
+
 /**
  * Convenience method for strtolower().
  *
  * @param string $str String to lowercase
  * @return string Lowercased string
  * @link http://book.cakephp.org/view/705/low
+ * @deprecated Will be removed in 2.0
  */
 	function low($str) {
 		return strtolower($str);
 	}
+
 /**
  * Convenience method for strtoupper().
  *
  * @param string $str String to uppercase
  * @return string Uppercased string
  * @link http://book.cakephp.org/view/710/up
+ * @deprecated Will be removed in 2.0
  */
 	function up($str) {
 		return strtoupper($str);
 	}
+
 /**
  * Convenience method for str_replace().
  *
@@ -288,10 +333,12 @@ if (!function_exists('array_combine')) {
  * @param string $subject String to search
  * @return string Replaced string
  * @link http://book.cakephp.org/view/708/r
+ * @deprecated Will be removed in 2.0
  */
 	function r($search, $replace, $subject) {
 		return str_replace($search, $replace, $subject);
 	}
+
 /**
  * Print_r convenience function, which prints out <PRE> tags around
  * the output of given array. Similar to debug().
@@ -308,11 +355,13 @@ if (!function_exists('array_combine')) {
 			echo '</pre>';
 		}
 	}
+
 /**
  * Display parameters.
  *
  * @param mixed $p Parameter as string or array
  * @return string
+ * @deprecated Will be removed in 2.0
  */
 	function params($p) {
 		if (!is_array($p) || count($p) == 0) {
@@ -323,6 +372,7 @@ if (!function_exists('array_combine')) {
 		}
 		return $p;
 	}
+
 /**
  * Merge a group of arrays
  *
@@ -344,6 +394,7 @@ if (!function_exists('array_combine')) {
 		}
 		return $r;
 	}
+
 /**
  * Gets an environment variable from available sources, and provides emulation
  * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
@@ -420,6 +471,7 @@ if (!function_exists('array_combine')) {
 		return null;
 	}
 if (!function_exists('file_put_contents')) {
+
 /**
  * Writes data into file.
  *
@@ -428,6 +480,7 @@ if (!function_exists('file_put_contents')) {
  * @param string $fileName File name.
  * @param mixed  $data String or array.
  * @return boolean Success
+ * @deprecated Will be removed in 2.0
  */
 	function file_put_contents($fileName, $data) {
 		if (is_array($data)) {
@@ -447,6 +500,7 @@ if (!function_exists('file_put_contents')) {
 		return false;
 	}
 }
+
 /**
  * Reads/writes temporary data to cache files or session.
  *
@@ -498,6 +552,7 @@ if (!function_exists('file_put_contents')) {
 		}
 		return $data;
 	}
+
 /**
  * Used to delete files in the cache directories, or clear contents of cache directories
  *
@@ -559,6 +614,7 @@ if (!function_exists('file_put_contents')) {
 		}
 		return false;
 	}
+
 /**
  * Recursively strips slashes from all values in an array
  *
@@ -576,6 +632,7 @@ if (!function_exists('file_put_contents')) {
 		}
 		return $values;
 	}
+
 /**
  * Returns a translated string if one is found; Otherwise, the submitted message.
  *
@@ -598,6 +655,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($singular);
 		}
 	}
+
 /**
  * Returns correct plural form of message identified by $singular and $plural for count $count.
  * Some languages have more than one form for plural messages dependent on the count.
@@ -622,6 +680,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($singular, $plural, null, 6, $count);
 		}
 	}
+
 /**
  * Allows you to override the current domain for a single message lookup.
  *
@@ -644,6 +703,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($msg, null, $domain);
 		}
 	}
+
 /**
  * Allows you to override the current domain for a single plural message lookup.
  * Returns correct plural form of message identified by $singular and $plural for count $count
@@ -670,6 +730,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($singular, $plural, $domain, 6, $count);
 		}
 	}
+
 /**
  * Allows you to override the current domain for a single message lookup.
  * It also allows you to specify a category.
@@ -707,6 +768,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($msg, null, $domain, $category);
 		}
 	}
+
 /**
  * Allows you to override the current domain for a single plural message lookup.
  * It also allows you to specify a category.
@@ -748,6 +810,7 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($singular, $plural, $domain, $category, $count);
 		}
 	}
+
 /**
  * The category argument allows a specific category of the locale settings to be used for fetching a message.
  * Valid categories are: LC_CTYPE, LC_NUMERIC, LC_TIME, LC_COLLATE, LC_MONETARY, LC_MESSAGES and LC_ALL.
@@ -781,12 +844,14 @@ if (!function_exists('file_put_contents')) {
 			return I18n::translate($msg, null, null, $category);
 		}
 	}
+
 /**
  * Computes the difference of arrays using keys for comparison.
  *
  * @param array First array
  * @param array Second array
  * @return array Array with different keys
+ * @deprecated Will be removed in 2.0
  */
 	if (!function_exists('array_diff_key')) {
 		function array_diff_key() {
@@ -815,12 +880,14 @@ if (!function_exists('file_put_contents')) {
 			return $valuesDiff;
 		}
 	}
+
 /**
  * Computes the intersection of arrays using keys for comparison
  *
  * @param array First array
  * @param array Second array
  * @return array Array with interesected keys
+ * @deprecated Will be removed in 2.0
  */
 	if (!function_exists('array_intersect_key')) {
 		function array_intersect_key($arr1, $arr2) {
@@ -833,6 +900,7 @@ if (!function_exists('file_put_contents')) {
 			return $res;
 		}
 	}
+
 /**
  * Shortcut to Log::write.
  *
@@ -846,6 +914,7 @@ if (!function_exists('file_put_contents')) {
 		$good = ' ';
 		CakeLog::write('error', str_replace($bad, $good, $message));
 	}
+
 /**
  * Searches include path for files.
  *
@@ -866,6 +935,7 @@ if (!function_exists('file_put_contents')) {
 		}
 		return false;
 	}
+
 /**
  * Convert forward slashes to underscores and removes first and last underscores in a string
  *
@@ -879,6 +949,7 @@ if (!function_exists('file_put_contents')) {
 		$string = str_replace('/', '_', $string);
 		return $string;
 	}
+
 /**
  * Implements http_build_query for PHP4.
  *
@@ -888,6 +959,7 @@ if (!function_exists('file_put_contents')) {
  * @param string $baseKey Base key
  * @return string URL encoded query string
  * @see http://php.net/http_build_query
+ * @deprecated Will be removed in 2.0
  */
 	if (!function_exists('http_build_query')) {
 		function http_build_query($data, $prefix = null, $argSep = null, $baseKey = null) {
@@ -918,6 +990,7 @@ if (!function_exists('file_put_contents')) {
 			return implode($argSep, $out);
 		}
 	}
+
 /**
  * Wraps ternary operations. If $condition is a non-empty value, $val1 is returned, otherwise $val2.
  * Don't use for isset() conditions, or wrap your variable with @ operator:
@@ -930,6 +1003,7 @@ if (!function_exists('file_put_contents')) {
  * @param mixed $val2 Value to return if condition doesn't match
  * @return mixed $val1 or $val2, depending on whether $condition evaluates to a non-empty expression.
  * @link http://book.cakephp.org/view/704/ife
+ * @deprecated Will be removed in 2.0
  */
 	function ife($condition, $val1 = null, $val2 = null) {
 		if (!empty($condition)) {

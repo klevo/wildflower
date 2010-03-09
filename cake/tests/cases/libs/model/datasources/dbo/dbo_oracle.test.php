@@ -1,32 +1,28 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * DboOracleTest file
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 	define('CAKEPHP_UNIT_TEST_EXECUTION', 1);
 }
 require_once LIBS . 'model' . DS . 'datasources' . DS . 'dbo_source.php';
 require_once LIBS . 'model' . DS . 'datasources' . DS . 'dbo' . DS . 'dbo_oracle.php';
+
 /**
  * DboOracleTest class
  *
@@ -34,10 +30,12 @@ require_once LIBS . 'model' . DS . 'datasources' . DS . 'dbo' . DS . 'dbo_oracle
  * @subpackage    cake.tests.cases.libs.model.datasources.dbo
  */
 class DboOracleTest extends CakeTestCase {
+
 /**
  * fixtures property
  */
 	var $fixtures = array('core.oracle_user');
+
 /**
  * setup method
  *
@@ -47,6 +45,7 @@ class DboOracleTest extends CakeTestCase {
 	function setUp() {
 		$this->_initDb();
 	}
+
 /**
  * skip method
  *
@@ -57,6 +56,7 @@ class DboOracleTest extends CakeTestCase {
     	$this->_initDb();
     	$this->skipUnless($this->db->config['driver'] == 'oracle', '%s Oracle connection not available');
     }
+
 /**
  * testLastErrorStatement method
  *
@@ -74,6 +74,7 @@ class DboOracleTest extends CakeTestCase {
 		$r = 'ORA-01756: quoted string not properly terminated';
 		$this->assertEqual($e, $r);
 	}
+
 /**
  * testLastErrorConnect method
  *
@@ -95,6 +96,7 @@ class DboOracleTest extends CakeTestCase {
 		$this->db->config['password'] = $old_pw;
 		$this->db->connect();
 	}
+
 /**
  * testName method
  *

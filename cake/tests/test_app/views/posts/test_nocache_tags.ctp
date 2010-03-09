@@ -1,25 +1,20 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.view.templates.pages
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
 <p>
@@ -81,7 +76,9 @@
 </p>
 <?php
 if (!empty($filePresent)):
- 	uses('model' . DS . 'connection_manager');
+	if (!class_exists('ConnectionManager')) {
+		require LIBS . 'model' . DS . 'connection_manager.php';
+	}
 	$db = ConnectionManager::getInstance();
  	$connected = $db->getDataSource('default');
 ?>
@@ -99,7 +96,7 @@ if (!empty($filePresent)):
 	</span>
 </p>
 <?php endif; ?>
-<h2><?php echo sprintf(__('Release Notes for CakePHP %s.', true), Configure::version()); ?></h2>
+<h2><?php printf(__('Release Notes for CakePHP %s.', true), Configure::version()); ?></h2>
 <a href="https://trac.cakephp.org/wiki/notes/1.2.x.x"><?php __('Read the release notes and get the latest version'); ?> </a>
 <h2><?php __('Editing this Page'); ?></h2>
 <p>
@@ -122,7 +119,7 @@ if (!empty($filePresent)):
 <?php __('Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.'); ?>
 </p>
 <ul>
-	<li><a href="http://www.cakefoundation.org/"><?php __('Cake Software Foundation'); ?> </a>
+	<li><a href="http://cakefoundation.org/"><?php __('Cake Software Foundation'); ?> </a>
 	<ul><li><?php __('Promoting development related to CakePHP'); ?></li></ul></li>
 	<li><a href="http://bakery.cakephp.org"><?php __('The Bakery'); ?> </a>
 	<ul><li><?php __('Everything CakePHP'); ?></li></ul></li>

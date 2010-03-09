@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Tree behavior class.
  *
@@ -7,23 +6,20 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP :  Rapid Development Framework (http://www.cakephp.org)
+ * CakePHP :  Rapid Development Framework (http://cakephp.org)
  * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
  * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP Project
+ * @link          http://cakephp.org CakePHP Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
  * @since         CakePHP v 1.2.0.4487
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Tree Behavior.
  *
@@ -34,12 +30,14 @@
  * @subpackage    cake.cake.libs.model.behaviors
  */
 class TreeBehavior extends ModelBehavior {
+
 /**
  * Errors
  *
  * @var array
  */
 	var $errors = array();
+
 /**
  * Defaults
  *
@@ -50,6 +48,7 @@ class TreeBehavior extends ModelBehavior {
 		'parent' => 'parent_id', 'left' => 'lft', 'right' => 'rght',
 		'scope' => '1 = 1', 'type' => 'nested', '__parentChange' => false, 'recursive' => -1
 	);
+
 /**
  * Initiate Tree behavior
  *
@@ -72,6 +71,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		$this->settings[$Model->alias] = $settings;
 	}
+
 /**
  * After save method. Called after all saves
  *
@@ -94,6 +94,7 @@ class TreeBehavior extends ModelBehavior {
 			return $this->_setParent($Model, $Model->data[$Model->alias][$parent]);
 		}
 	}
+
 /**
  * Before delete method. Called before all deletes
  *
@@ -123,6 +124,7 @@ class TreeBehavior extends ModelBehavior {
 		$this->__sync($Model, $diff, '-', '> ' . $data[$right]);
 		return true;
 	}
+
 /**
  * Before save method. Called before all saves
  *
@@ -164,10 +166,15 @@ class TreeBehavior extends ModelBehavior {
 				$Model->data[$Model->alias][$parent] = null;
 				$this->_addToWhitelist($Model, $parent);
 			} else {
-				list($node) = array_values($Model->find('first', array(
+				$values = $Model->find('first', array(
 					'conditions' => array($scope,$Model->escapeField() => $Model->id),
 					'fields' => array($Model->primaryKey, $parent, $left, $right ), 'recursive' => $recursive)
-				));
+				);
+
+				if ($values === false) {
+					return false;
+				}
+				list($node) = array_values($values);
 
 				$parentNode = $Model->find('first', array(
 					'conditions' => array($scope, $Model->escapeField() => $Model->data[$Model->alias][$parent]),
@@ -187,6 +194,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Get the number of child nodes
  *
@@ -227,6 +235,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return ($data[$right] - $data[$left] - 1) / 2;
 	}
+
 /**
  * Get the child nodes of the current model
  *
@@ -288,6 +297,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return $Model->find('all', compact('conditions', 'fields', 'order', 'limit', 'page', 'recursive'));
 	}
+
 /**
  * A convenience method for returning a hierarchical array used for HTML select boxes
  *
@@ -343,6 +353,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return Set::combine($results, $keyPath, $valuePath);
 	}
+
 /**
  * Get the parent node
  *
@@ -376,6 +387,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return false;
 	}
+
 /**
  * Get the path to the given node
  *
@@ -411,6 +423,7 @@ class TreeBehavior extends ModelBehavior {
 		));
 		return $results;
 	}
+
 /**
  * Reorder the node without changing the parent.
  *
@@ -468,6 +481,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Reorder the node without changing the parent.
  *
@@ -526,6 +540,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Recover a corrupted tree
  *
@@ -600,6 +615,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Reorder method.
  *
@@ -645,6 +661,7 @@ class TreeBehavior extends ModelBehavior {
 		$Model->cacheQueries = $cacheQueries;
 		return true;
 	}
+
 /**
  * Remove the current node from the tree, and reparent all children up one level.
  *
@@ -714,6 +731,7 @@ class TreeBehavior extends ModelBehavior {
 			);
 		}
 	}
+
 /**
  * Check if the current tree is valid.
  *
@@ -783,6 +801,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * Sets the parent of the given node
  *
@@ -808,11 +827,16 @@ class TreeBehavior extends ModelBehavior {
 			$this->__sync($Model, $edge - $node[$left] + 1, '+', 'BETWEEN ' . $node[$left] . ' AND ' . $node[$right], $created);
 			$this->__sync($Model, $node[$right] - $node[$left] + 1, '-', '> ' . $node[$left], $created);
 		} else {
-			$parentNode = array_values($Model->find('first', array(
+			$values = $Model->find('first', array(
 				'conditions' => array($scope, $Model->escapeField() => $parentId),
 				'fields' => array($Model->primaryKey, $left, $right),
 				'recursive' => $recursive
-			)));
+			));
+
+			if ($values === false) {
+				return false;
+			}
+			$parentNode = array_values($values);
 
 			if (empty($parentNode) || empty($parentNode[0])) {
 				return false;
@@ -852,6 +876,7 @@ class TreeBehavior extends ModelBehavior {
 		}
 		return true;
 	}
+
 /**
  * get the maximum index value in the table.
  *
@@ -879,6 +904,7 @@ class TreeBehavior extends ModelBehavior {
 		)));
 		return (empty($edge[$right])) ? 0 : $edge[$right];
 	}
+
 /**
  * get the minimum index value in the table.
  *
@@ -898,6 +924,7 @@ class TreeBehavior extends ModelBehavior {
 		)));
 		return (empty($edge[$left])) ? 0 : $edge[$left];
 	}
+
 /**
  * Table sync method.
  *

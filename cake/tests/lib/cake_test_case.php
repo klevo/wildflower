@@ -1,27 +1,20 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * CakeTestCase file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.cake.tests.libs
  * @since         CakePHP(tm) v 1.2.0.4667
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 if (!class_exists('dispatcher')) {
@@ -30,6 +23,7 @@ if (!class_exists('dispatcher')) {
 require_once CAKE_TESTS_LIB . 'cake_test_model.php';
 require_once CAKE_TESTS_LIB . 'cake_test_fixture.php';
 App::import('Vendor', 'simpletest' . DS . 'unit_tester');
+
 /**
  * CakeTestDispatcher
  *
@@ -37,6 +31,7 @@ App::import('Vendor', 'simpletest' . DS . 'unit_tester');
  * @subpackage    cake.cake.tests.lib
  */
 class CakeTestDispatcher extends Dispatcher {
+
 /**
  * controller property
  *
@@ -45,6 +40,7 @@ class CakeTestDispatcher extends Dispatcher {
  */
 	var $controller;
 	var $testCase;
+
 /**
  * testCase method
  *
@@ -55,6 +51,7 @@ class CakeTestDispatcher extends Dispatcher {
 	function testCase(&$testCase) {
 		$this->testCase =& $testCase;
 	}
+
 /**
  * invoke method
  *
@@ -62,7 +59,7 @@ class CakeTestDispatcher extends Dispatcher {
  * @param array $params
  * @param boolean $missingAction
  * @return Controller
- * @access proptected
+ * @access protected
  */
 	function _invoke(&$controller, $params, $missingAction = false) {
 		$this->controller =& $controller;
@@ -80,6 +77,7 @@ class CakeTestDispatcher extends Dispatcher {
 		return $result;
 	}
 }
+
 /**
  * CakeTestCase class
  *
@@ -87,6 +85,7 @@ class CakeTestDispatcher extends Dispatcher {
  * @subpackage    cake.cake.tests.lib
  */
 class CakeTestCase extends UnitTestCase {
+
 /**
  * Methods used internally.
  *
@@ -94,6 +93,7 @@ class CakeTestCase extends UnitTestCase {
  * @access public
  */
 	var $methods = array('start', 'end', 'startcase', 'endcase', 'starttest', 'endtest');
+
 /**
  * By default, all fixtures attached to this class will be truncated and reloaded after each test.
  * Set this to false to handle manually
@@ -102,6 +102,7 @@ class CakeTestCase extends UnitTestCase {
  * @access public
  */
 	var $autoFixtures = true;
+
 /**
  * Set this to false to avoid tables to be dropped if they already exist
  *
@@ -109,6 +110,7 @@ class CakeTestCase extends UnitTestCase {
  * @access public
  */
 	var $dropTables = true;
+
 /**
  * Maps fixture class names to fixture identifiers as included in CakeTestCase::$fixtures
  *
@@ -116,6 +118,7 @@ class CakeTestCase extends UnitTestCase {
  * @access protected
  */
 	var $_fixtureClassMap = array();
+
 /**
  * truncated property
  *
@@ -123,6 +126,7 @@ class CakeTestCase extends UnitTestCase {
  * @access private
  */
 	var $__truncated = true;
+
 /**
  * savedGetData property
  *
@@ -130,6 +134,7 @@ class CakeTestCase extends UnitTestCase {
  * @access private
  */
 	var $__savedGetData = array();
+
 /**
  * Called when a test case (group of methods) is about to start (to be overriden when needed.)
  *
@@ -139,6 +144,7 @@ class CakeTestCase extends UnitTestCase {
  */
 	function startCase() {
 	}
+
 /**
  * Called when a test case (group of methods) has been executed (to be overriden when needed.)
  *
@@ -148,6 +154,7 @@ class CakeTestCase extends UnitTestCase {
  */
 	function endCase() {
 	}
+
 /**
  * Called when a test case method is about to start (to be overriden when needed.)
  *
@@ -157,6 +164,7 @@ class CakeTestCase extends UnitTestCase {
  */
 	function startTest($method) {
 	}
+
 /**
  * Called when a test case method has been executed (to be overriden when needed.)
  *
@@ -166,6 +174,7 @@ class CakeTestCase extends UnitTestCase {
  */
 	function endTest($method) {
 	}
+
 /**
  * Overrides SimpleTestCase::assert to enable calling of skipIf() from within tests
  *
@@ -181,6 +190,7 @@ class CakeTestCase extends UnitTestCase {
 		}
 		return parent::assert($expectation, $compare, $message);
 	}
+
 /**
  * Overrides SimpleTestCase::skipIf to provide a boolean return value
  *
@@ -193,6 +203,7 @@ class CakeTestCase extends UnitTestCase {
 		parent::skipIf($shouldSkip, $message);
 		return $shouldSkip;
 	}
+
 /**
  * Callback issued when a controller's action is about to be invoked through testAction().
  *
@@ -261,6 +272,7 @@ class CakeTestCase extends UnitTestCase {
 			}
 		}
 	}
+
 /**
  * Callback issued when a controller's action has been invoked through testAction().
  *
@@ -276,6 +288,7 @@ class CakeTestCase extends UnitTestCase {
 			}
 		}
 	}
+
 /**
  * Executes a Cake URL, and can get (depending on the $params['return'] value):
  *
@@ -376,6 +389,7 @@ class CakeTestCase extends UnitTestCase {
 
 		return $result;
 	}
+
 /**
  * Announces the start of a test.
  *
@@ -407,6 +421,7 @@ class CakeTestCase extends UnitTestCase {
 			$this->startTest($method);
 		}
 	}
+
 /**
  * Runs as first test to create tables.
  *
@@ -435,6 +450,7 @@ class CakeTestCase extends UnitTestCase {
 			}
 		}
 	}
+
 /**
  * Runs as last test to drop tables.
  *
@@ -456,6 +472,7 @@ class CakeTestCase extends UnitTestCase {
 			ClassRegistry::flush();
 		}
 	}
+
 /**
  * Announces the end of a test.
  *
@@ -482,6 +499,7 @@ class CakeTestCase extends UnitTestCase {
 
 		parent::after($method);
 	}
+
 /**
  * Gets a list of test names. Normally that will be all internal methods that start with the
  * name "test". This method should be overridden if you want a different rule.
@@ -496,6 +514,7 @@ class CakeTestCase extends UnitTestCase {
 			array('endCase', 'end')
 		);
 	}
+
 /**
  * Chooses which fixtures to load for a given test
  *
@@ -514,10 +533,11 @@ class CakeTestCase extends UnitTestCase {
 				$fixture->truncate($this->db);
 				$fixture->insert($this->db);
 			} else {
-				trigger_error("Referenced fixture class {$class} not found", E_USER_WARNING);
+				trigger_error(sprintf(__('Referenced fixture class %s not found', true), $class), E_USER_WARNING);
 			}
 		}
 	}
+
 /**
  * Takes an array $expected and generates a regex from it to match the provided $string.
  * Samples for $expected:
@@ -564,6 +584,9 @@ class CakeTestCase extends UnitTestCase {
 		}
 		$i = 0;
 		foreach ($normalized as $tags) {
+			if (!is_array($tags)) {
+				$tags = (string)$tags;
+			}
 			$i++;
 			if (is_string($tags) && $tags{0} == '<') {
 				$tags = array(substr($tags, 1) => array());
@@ -670,6 +693,7 @@ class CakeTestCase extends UnitTestCase {
 		}
 		return $this->assert(new TrueExpectation(), true, '%s');
 	}
+
 /**
  * Initialize DB connection.
  *
@@ -705,6 +729,7 @@ class CakeTestCase extends UnitTestCase {
 
 		ClassRegistry::config(array('ds' => 'test_suite'));
 	}
+
 /**
  * Load fixtures specified in var $fixtures.
  *
@@ -727,7 +752,7 @@ class CakeTestCase extends UnitTestCase {
 
 			if (strpos($fixture, 'core.') === 0) {
 				$fixture = substr($fixture, strlen('core.'));
-				foreach (Configure::corePaths('cake') as $key => $path) {
+				foreach (App::core('cake') as $key => $path) {
 					$fixturePaths[] = $path . 'tests' . DS . 'fixtures';
 				}
 			} elseif (strpos($fixture, 'app.') === 0) {
@@ -741,17 +766,10 @@ class CakeTestCase extends UnitTestCase {
 				$pluginName = $parts[1];
 				$fixture = $parts[2];
 				$fixturePaths = array(
-					APP . 'plugins' . DS . $pluginName . DS . 'tests' . DS . 'fixtures',
+					App::pluginPath($pluginName) . 'tests' . DS . 'fixtures',
 					TESTS . 'fixtures',
 					VENDORS . 'tests' . DS . 'fixtures'
 				);
-				$pluginPaths = Configure::read('pluginPaths');
-				foreach ($pluginPaths as $path) {
-					if (file_exists($path . $pluginName . DS . 'tests' . DS. 'fixtures')) {
-						$fixturePaths[0] = $path . $pluginName . DS . 'tests' . DS. 'fixtures';
-						break;
-					}
-				}
 			} else {
 				$fixturePaths = array(
 					TESTS . 'fixtures',
@@ -779,6 +797,7 @@ class CakeTestCase extends UnitTestCase {
 			unset($this->_fixtures);
 		}
 	}
+
 /**
  * Generates all permutation of an array $items and returns them in a new array.
  *

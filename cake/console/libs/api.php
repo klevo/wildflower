@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * API shell to get CakePHP core method signatures.
  *
@@ -7,22 +6,18 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5012
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
@@ -32,6 +27,7 @@
  * @subpackage    cake.cake.console.libs
  */
 class ApiShell extends Shell {
+
 /**
  * Map between short name for paths and real paths.
  *
@@ -39,12 +35,13 @@ class ApiShell extends Shell {
  * @access public
  */
 	var $paths = array();
+
 /**
  * Override intialize of the Shell
  *
  * @access public
  */
-	function initialize () {
+	function initialize() {
 		$this->paths = array_merge($this->paths, array(
 			'behavior' => LIBS . 'model' . DS . 'behaviors' . DS,
 			'cache' => LIBS . 'cache' . DS,
@@ -56,6 +53,7 @@ class ApiShell extends Shell {
 			'core' => LIBS
 		));
 	}
+
 /**
  * Override main() to handle action
  *
@@ -82,7 +80,7 @@ class ApiShell extends Shell {
 			$class = Inflector::camelize($file);
 		}
 
-		$objects = Configure::listObjects('class', $path);
+		$objects = App::objects('class', $path);
 		if (in_array($class, $objects)) {
 			if (in_array($type, array('behavior', 'component', 'helper')) && $type !== $file) {
 				if (!preg_match('/' . Inflector::camelize($type) . '$/', $class)) {

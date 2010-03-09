@@ -1,42 +1,36 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0.4116
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Included libraries.
  */
 App::import('Core', 'l10n');
+
 /**
- * Short description for file.
- *
- * Long description for file
+ * I18n handles translation of Text and time format strings.
  *
  * @package       cake
  * @subpackage    cake.cake.libs
  */
 class I18n extends Object {
+
 /**
  * Instance of the I10n class for localization
  *
@@ -44,6 +38,7 @@ class I18n extends Object {
  * @access public
  */
 	var $l10n = null;
+
 /**
  * Current domain of translation
  *
@@ -51,6 +46,7 @@ class I18n extends Object {
  * @access public
  */
 	var $domain = null;
+
 /**
  * Current category of translation
  *
@@ -58,6 +54,7 @@ class I18n extends Object {
  * @access public
  */
 	var $category = 'LC_MESSAGES';
+
 /**
  * Current language used for translations
  *
@@ -65,6 +62,7 @@ class I18n extends Object {
  * @access private
  */
 	var $__lang = null;
+
 /**
  * Translation strings for a specific domain read from the .mo or .po files
  *
@@ -72,6 +70,7 @@ class I18n extends Object {
  * @access private
  */
 	var $__domains = array();
+
 /**
  * Set to true when I18N::__bindTextDomain() is called for the first time.
  * If a translation file is found it is set to false again
@@ -80,6 +79,7 @@ class I18n extends Object {
  * @access private
  */
 	var $__noLocale = false;
+
 /**
  * Determine if $__domains cache should be wrote
  *
@@ -87,6 +87,7 @@ class I18n extends Object {
  * @access private
  */
 	var $__cache = false;
+
 /**
  * Set to true when I18N::__bindTextDomain() is called for the first time.
  * If a translation file is found it is set to false again
@@ -97,6 +98,7 @@ class I18n extends Object {
 	var $__categories = array(
 		 'LC_ALL', 'LC_COLLATE', 'LC_CTYPE', 'LC_MONETARY', 'LC_NUMERIC', 'LC_TIME', 'LC_MESSAGES'
 	);
+
 /**
  * Return a static instance of the I18n class
  *
@@ -111,16 +113,17 @@ class I18n extends Object {
 		}
 		return $instance[0];
 	}
+
 /**
  * Used by the translation functions in basics.php
  * Can also be used like I18n::translate(); but only if the App::import('I18n'); has been used to load the class.
  *
  * @param string $singular String to translate
  * @param string $plural Plural string (if any)
- * @param string $domain Domain
- * @param string $category Category
- * @param integer $count Count
- * @return string translated strings.
+ * @param string $domain Domain The domain of the translation.  Domains are often used by plugin translations
+ * @param string $category Category The integer value of the category to use.
+ * @param integer $count Count Count is used with $plural to choose the correct plural form.
+ * @return string translated string.
  * @access public
  */
 	function translate($singular, $plural = null, $domain = null, $category = 6, $count = null) {
@@ -161,6 +164,10 @@ class I18n extends Object {
 			$_this->__cache = true;
 		}
 
+		if ($_this->category == 'LC_TIME') {
+			return $_this->__translateTime($singular,$domain);
+		}
+
 		if (!isset($count)) {
 			$plurals = 0;
 		} elseif (!empty($_this->__domains[$_this->category][$_this->__lang][$domain]["%plural-c"]) && $_this->__noLocale === false) {
@@ -193,6 +200,7 @@ class I18n extends Object {
 		}
 		return($singular);
 	}
+
 /**
  * Attempts to find the plural form of a string.
  *
@@ -242,6 +250,7 @@ class I18n extends Object {
 			return $n == 1 ? 0 : ($n == 2 ? 1 : ($n >= 3 && $n <= 6 ? 2 : ($n >= 7 && $n <= 10 ? 3 : 4)));
 		}
 	}
+
 /**
  * Binds the given domain to a file in the specified directory.
  *
@@ -253,18 +262,14 @@ class I18n extends Object {
 		$this->__noLocale = true;
 		$core = true;
 		$merge = array();
-		$searchPaths = Configure::read('localePaths');
-		$plugins = Configure::listObjects('plugin');
+		$searchPaths = App::path('locales');
+		$plugins = App::objects('plugin');
 
 		if (!empty($plugins)) {
-			$pluginPaths = Configure::read('pluginPaths');
-
 			foreach ($plugins as $plugin) {
 				$plugin = Inflector::underscore($plugin);
 				if ($plugin === $domain) {
-					foreach ($pluginPaths as $pluginPath) {
-						$searchPaths[] = $pluginPath . $plugin . DS . 'locale' . DS;
-					}
+					$searchPaths[] = App::pluginPath($plugin) . DS . 'locale' . DS;
 					$searchPaths = array_reverse($searchPaths);
 					break;
 				}
@@ -276,6 +281,7 @@ class I18n extends Object {
 
 			foreach ($this->l10n->languagePath as $lang) {
 				$file = $directory . $lang . DS . $this->category . DS . $domain;
+				$localeDef = $directory . $lang . DS . $this->category;
 
 				if ($core) {
 					$app = $directory . $lang . DS . $this->category . DS . 'core';
@@ -301,6 +307,10 @@ class I18n extends Object {
 					$this->__loadPo($f, $domain);
 					$this->__noLocale = false;
 					break 2;
+				} elseif (is_file($localeDef) && ($f = fopen($localeDef, "r"))) {
+					$this->__loadLocaleDefinition($f, $domain);
+					$this->__noLocale = false;
+					return $domain;
 				}
 			}
 		}
@@ -330,6 +340,7 @@ class I18n extends Object {
 		}
 		return($domain);
 	}
+
 /**
  * Loads the binary .mo file for translation and sets the values for this translation in the var I18n::__domains
  *
@@ -369,6 +380,7 @@ class I18n extends Object {
 			}
 		}
 	}
+
 /**
  * Loads the text .po file for translation and sets the values for this translation in the var I18n::__domains
  *
@@ -385,7 +397,7 @@ class I18n extends Object {
 		$header = "";
 
 		do {
-			$line = trim(fgets($file, 1024));
+			$line = trim(fgets($file));
 			if ($line == "" || $line[0] == "#") {
 				continue;
 			}
@@ -439,6 +451,117 @@ class I18n extends Object {
 		$merge[""] = $header;
 		return $this->__domains[$this->category][$this->__lang][$domain] = array_merge($merge ,$translations);
 	}
+
+/**
+ * Parses a locale definition file following the POSIX standard
+ *
+ * @param resource $file file handler
+ * @param string $domain Domain where locale definitions will be stored
+ * @return void
+ * @access private
+ */
+	function __loadLocaleDefinition($file, $domain = null) {
+		$comment = '#';
+		$escape = '\\';
+		$currentToken = false;
+		$value = '';
+		while ($line = fgets($file)) {
+			$line = trim($line);
+			if (empty($line) || $line[0] === $comment) {
+				continue;
+			}
+			$parts = preg_split("/[[:space:]]+/",$line);
+			if ($parts[0] === 'comment_char') {
+				$comment = $parts[1];
+				continue;
+			}
+			if ($parts[0] === 'escape_char') {
+				$escape = $parts[1];
+				continue;
+			}
+			$count = count($parts);
+			if ($count == 2) {
+				$currentToken = $parts[0];
+				$value = $parts[1];
+			} elseif ($count == 1) {
+				$value .= $parts[0];
+			} else {
+				continue;
+			}
+
+			$len = strlen($value) - 1;
+			if ($value[$len] === $escape) {
+				$value = substr($value, 0, $len);
+				continue;
+			}
+
+			$mustEscape = array($escape . ',' , $escape . ';', $escape . '<', $escape . '>', $escape . $escape);
+			$replacements = array_map('crc32', $mustEscape);
+			$value = str_replace($mustEscape, $replacements, $value);
+			$value = explode(';', $value);
+			$this->__escape = $escape;
+			foreach ($value as $i => $val) {
+				$val = trim($val, '"');
+				$val = preg_replace_callback('/(?:<)?(.[^>]*)(?:>)?/', array(&$this, '__parseLiteralValue'), $val);
+				$val = str_replace($replacements, $mustEscape, $val);
+				$value[$i] = $val;
+			}
+			if (count($value) == 1) {
+				$this->__domains[$this->category][$this->__lang][$domain][$currentToken] = array_pop($value);
+			} else {
+				$this->__domains[$this->category][$this->__lang][$domain][$currentToken] = $value;
+			}
+		}
+	}
+
+/**
+ * Auxiliary function to parse a symbol from a locale definition file
+ *
+ * @param string $string Symbol to be parsed
+ * @return string parsed symbol
+ * @access private
+ */
+	function __parseLiteralValue($string) {
+		$string = $string[1];
+		if (substr($string, 0, 2) === $this->__escape . 'x') {
+			$delimiter = $this->__escape . 'x';
+			return join('', array_map('chr', array_map('hexdec',array_filter(explode($delimiter, $string)))));
+		}
+		if (substr($string, 0, 2) === $this->__escape . 'd') {
+			$delimiter = $this->__escape . 'd';
+			return join('', array_map('chr', array_filter(explode($delimiter, $string))));
+		}
+		if ($string[0] === $this->__escape && isset($string[1]) && is_numeric($string[1])) {
+			$delimiter = $this->__escape;
+			return join('', array_map('chr', array_filter(explode($delimiter, $string))));
+		}
+		if (substr($string, 0, 3) === 'U00') {
+			$delimiter = 'U00';
+			return join('', array_map('chr', array_map('hexdec', array_filter(explode($delimiter, $string)))));
+		}
+		if (preg_match('/U([0-9a-fA-F]{4})/', $string, $match)) {
+			return Multibyte::ascii(array(hexdec($match[1])));
+		}
+		return $string;
+	}
+
+/**
+ * Returns a Time format definition from corresponding domain
+ *
+ * @param string $format Format to be translated
+ * @param string $domain Domain where format is stored
+ * @return mixed translated format string if only value or array of translated strings for corresponding format.
+ * @access private
+ */
+	function __translateTime($format, $domain) {
+		if (!empty($this->__domains['LC_TIME'][$this->__lang][$domain][$format])) {
+			if (($trans = $this->__domains[$this->category][$this->__lang][$domain][$format])) {
+				return $trans;
+			}
+		}
+		return $format;
+	}
+
 /**
  * Object destructor
  *

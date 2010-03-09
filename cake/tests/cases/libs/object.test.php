@@ -1,30 +1,24 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * ObjectTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
  * @since         CakePHP(tm) v 1.2.0.5432
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 App::import('Core', array('Object', 'Controller', 'Model'));
+
 /**
  * RequestActionPost class
  *
@@ -32,6 +26,7 @@ App::import('Core', array('Object', 'Controller', 'Model'));
  * @subpackage    cake.tests.cases.libs.object
  */
 class RequestActionPost extends CakeTestModel {
+
 /**
  * name property
  *
@@ -39,6 +34,7 @@ class RequestActionPost extends CakeTestModel {
  * @access public
  */
 	var $name = 'RequestActionPost';
+
 /**
  * useTable property
  *
@@ -47,6 +43,7 @@ class RequestActionPost extends CakeTestModel {
  */
 	var $useTable = 'posts';
 }
+
 /**
  * RequestActionController class
  *
@@ -54,6 +51,7 @@ class RequestActionPost extends CakeTestModel {
  * @subpackage    cake.tests.cases.libs
  */
 class RequestActionController extends Controller {
+
 /**
 * uses property
 *
@@ -61,6 +59,7 @@ class RequestActionController extends Controller {
 * @access public
 */
 	var $uses = array('RequestActionPost');
+
 /**
 * test_request_action method
 *
@@ -70,6 +69,7 @@ class RequestActionController extends Controller {
 	function test_request_action() {
 		return 'This is a test';
 	}
+
 /**
 * another_ra_test method
 *
@@ -81,6 +81,7 @@ class RequestActionController extends Controller {
 	function another_ra_test($id, $other) {
 		return $id + $other;
 	}
+
 /**
  * normal_request_action method
  *
@@ -90,6 +91,7 @@ class RequestActionController extends Controller {
 	function normal_request_action() {
 		return 'Hello World';
 	}
+
 /**
  * paginate_request_action method
  *
@@ -100,14 +102,16 @@ class RequestActionController extends Controller {
 		$data = $this->paginate();
 		return true;
 	}
+
 /**
  * post pass, testing post passing
  *
  * @return array
- **/
+ */
 	function post_pass() {
 		return $this->data;
 	}
+
 /**
  * test param passing and parsing.
  *
@@ -117,6 +121,7 @@ class RequestActionController extends Controller {
 		return $this->params;
 	}
 }
+
 /**
  * RequestActionPersistentController class
  *
@@ -124,6 +129,7 @@ class RequestActionController extends Controller {
  * @subpackage    cake.tests.cases.libs
  */
 class RequestActionPersistentController extends Controller {
+
 /**
 * uses property
 *
@@ -139,15 +145,17 @@ class RequestActionPersistentController extends Controller {
 * @access public
 */
 	var $persistModel = true;
+
 /**
  * post pass, testing post passing
  *
  * @return array
- **/
+ */
 	function index() {
 		return 'This is a test';
 	}
 }
+
 /**
  * TestObject class
  *
@@ -155,6 +163,7 @@ class RequestActionPersistentController extends Controller {
  * @subpackage    cake.tests.cases.libs
  */
 class TestObject extends Object {
+
 /**
  * firstName property
  *
@@ -162,6 +171,7 @@ class TestObject extends Object {
  * @access public
  */
 	var $firstName = 'Joel';
+
 /**
  * lastName property
  *
@@ -169,6 +179,7 @@ class TestObject extends Object {
  * @access public
  */
 	var $lastName = 'Moss';
+
 /**
  * methodCalls property
  *
@@ -176,6 +187,7 @@ class TestObject extends Object {
  * @access public
  */
 	var $methodCalls = array();
+
 /**
  * emptyMethod method
  *
@@ -185,6 +197,7 @@ class TestObject extends Object {
 	function emptyMethod() {
 		$this->methodCalls[] = 'emptyMethod';
 	}
+
 /**
  * oneParamMethod method
  *
@@ -195,6 +208,7 @@ class TestObject extends Object {
 	function oneParamMethod($param) {
 		$this->methodCalls[] = array('oneParamMethod' => array($param));
 	}
+
 /**
  * twoParamMethod method
  *
@@ -206,6 +220,7 @@ class TestObject extends Object {
 	function twoParamMethod($param, $param2) {
 		$this->methodCalls[] = array('twoParamMethod' => array($param, $param2));
 	}
+
 /**
  * threeParamMethod method
  *
@@ -245,6 +260,7 @@ class TestObject extends Object {
 	function fiveParamMethod($param, $param2, $param3, $param4, $param5) {
 		$this->methodCalls[] = array('fiveParamMethod' => array($param, $param2, $param3, $param4, $param5));
 	}
+
 /**
  * crazyMethod method
  *
@@ -261,6 +277,7 @@ class TestObject extends Object {
 	function crazyMethod($param, $param2, $param3, $param4, $param5, $param6, $param7 = null) {
 		$this->methodCalls[] = array('crazyMethod' => array($param, $param2, $param3, $param4, $param5, $param6, $param7));
 	}
+
 /**
  * methodWithOptionalParam method
  *
@@ -271,15 +288,17 @@ class TestObject extends Object {
 	function methodWithOptionalParam($param = null) {
 		$this->methodCalls[] = array('methodWithOptionalParam' => array($param));
 	}
+
 /**
  * testPersist
  *
  * @return void
- **/
+ */
 	function testPersist($name, $return = null, &$object, $type = null) {
 		return $this->_persist($name, $return, $object, $type);
 	}
 }
+
 /**
  * ObjectTestModel class
  *
@@ -290,6 +309,7 @@ class ObjectTestModel extends CakeTestModel {
 	var $useTable = false;
 	var $name = 'ObjectTestModel';
 }
+
 /**
  * Object Test class
  *
@@ -297,12 +317,14 @@ class ObjectTestModel extends CakeTestModel {
  * @subpackage    cake.tests.cases.libs
  */
 class ObjectTest extends CakeTestCase {
+
 /**
  * fixtures
  *
  * @var string
- **/
-	var $fixtures = array('core.post', 'core.comment');
+ */
+	var $fixtures = array('core.post', 'core.test_plugin_comment', 'core.comment');
+
 /**
  * setUp method
  *
@@ -312,6 +334,7 @@ class ObjectTest extends CakeTestCase {
 	function setUp() {
 		$this->object = new TestObject();
 	}
+
 /**
  * tearDown method
  *
@@ -321,6 +344,17 @@ class ObjectTest extends CakeTestCase {
 	function tearDown() {
 		unset($this->object);
 	}
+
+/**
+ * endTest
+ *
+ * @access public
+ * @return void
+ */
+	function endTest() {
+		App::build();
+	}
+
 /**
  * testLog method
  *
@@ -350,6 +384,7 @@ class ObjectTest extends CakeTestCase {
 		$this->assertPattern('/^\)$/', $result[4]);
 		unlink(LOGS . 'error.log');
 	}
+
 /**
  * testSet method
  *
@@ -370,6 +405,7 @@ class ObjectTest extends CakeTestCase {
 		$this->assertEqual($this->object->firstName, 'Joel');
 		$this->assertEqual($this->object->lastName, 'Moose');
 	}
+
 /**
  * testPersist method
  *
@@ -412,6 +448,7 @@ class ObjectTest extends CakeTestCase {
 
 		Configure::write('Cache.disable', $cacheDisable);
 	}
+
 /**
  * testPersistWithRequestAction method
  *
@@ -424,9 +461,11 @@ class ObjectTest extends CakeTestCase {
 		$cacheDisable = Configure::read('Cache.disable');
 		Configure::write('Cache.disable', false);
 
-		Configure::write('modelPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS));
-		Configure::write('pluginPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'plugins'. DS));
-		Configure::write('behaviorPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS . 'behaviors' . DS));
+		App::build(array(
+			'models' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models' . DS),
+			'plugins' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'plugins'. DS),
+			'behaviors' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS . 'behaviors' . DS),
+		), true);
 
 		$this->assertFalse(class_exists('PersisterOneBehaviorBehavior'));
 		$this->assertFalse(class_exists('PersisterTwoBehaviorBehavior'));
@@ -465,6 +504,7 @@ class ObjectTest extends CakeTestCase {
 		@unlink(CACHE . 'persistent' . DS . 'persisterone.php');
 		@unlink(CACHE . 'persistent' . DS . 'persisteroneregistry.php');
 	}
+
 /**
  * testPersistWithBehaviorAndRequestAction method
  *
@@ -480,8 +520,10 @@ class ObjectTest extends CakeTestCase {
 
 		$this->assertFalse(class_exists('ContainableBehavior'));
 
-		Configure::write('modelPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS));
-		Configure::write('behaviorPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS . 'behaviors' . DS));
+		App::build(array(
+			'models' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models' . DS),
+			'behaviors' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models'. DS . 'behaviors' . DS),
+		), true);
 
 		$this->assertFalse(class_exists('PersistOneBehaviorBehavior'));
 		$this->assertFalse(class_exists('PersistTwoBehaviorBehavior'));
@@ -536,6 +578,7 @@ class ObjectTest extends CakeTestCase {
 
 		Configure::write('Cache.disable', $cacheDisable);
 	}
+
 /**
  * testToString method
  *
@@ -546,6 +589,7 @@ class ObjectTest extends CakeTestCase {
 		$result = strtolower($this->object->toString());
 		$this->assertEqual($result, 'testobject');
 	}
+
 /**
  * testMethodDispatching method
  *
@@ -612,6 +656,7 @@ class ObjectTest extends CakeTestCase {
 		$expected[] = array('methodWithOptionalParam' => array(null));
 		$this->assertIdentical($this->object->methodCalls, $expected);
 	}
+
 /**
  * testRequestAction method
  *
@@ -638,14 +683,14 @@ class ObjectTest extends CakeTestCase {
 		$expected = 12;
 		$this->assertEqual($result, $expected);
 
-		$_back = array(
-			'controller' => Configure::read('controllerPaths'),
-			'view' => Configure::read('viewPaths'),
-			'plugin' => Configure::read('pluginPaths')
-		);
-		Configure::write('controllerPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'controllers' . DS));
-		Configure::write('viewPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'views' . DS));
-		Configure::write('pluginPaths', array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'plugins' . DS));
+		App::build(array(
+			'plugins' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'plugins' . DS),
+			'models' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'models' . DS),
+			'views' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'views' . DS),
+			'controllers' => array(TEST_CAKE_CORE_INCLUDE_PATH . 'tests' . DS . 'test_app' . DS . 'controllers' . DS)
+		));
+		App::objects('plugin', null, false);
+		Router::reload();
 
 		$result = $this->object->requestAction('/tests_apps/index', array('return'));
 		$expected = 'This is the TestsAppsController index view';
@@ -700,10 +745,10 @@ class ObjectTest extends CakeTestCase {
 		$result = $this->object->requestAction(array('controller'=>'request_action', 'action'=>'paginate_request_action'), array('pass' => array(5), 'named' => array('param' => 'value')));
 		$this->assertTrue($result);
 
-		Configure::write('controllerPaths', $_back['controller']);
-		Configure::write('viewPaths', $_back['view']);
-		Configure::write('pluginPaths', $_back['plugin']);
+		App::build();
+		App::objects('plugin', null, false);
 	}
+
 /**
  * Test that requestAction() is populating $this->params properly
  *
@@ -726,6 +771,7 @@ class ObjectTest extends CakeTestCase {
 		$result = $this->object->requestAction(array('controller' => 'request_action', 'action' => 'params_pass'), array('named' => array('sort' => 'desc', 'limit' => 5)));
 		$this->assertEqual($result['named'], $expected);
 	}
+
 /**
  * test requestAction and POST parameter passing, and not passing when url is an array.
  *
@@ -752,11 +798,12 @@ class ObjectTest extends CakeTestCase {
 
 		$_POST = $_tmp;
 	}
+
 /**
  * testCakeError
  *
  * @return void
- **/
+ */
 	function testCakeError() {
 
 	}
