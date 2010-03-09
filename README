@@ -2,6 +2,8 @@ Wildflower 1.3 Beta - A CakePHP CMS
 ***********************************
 
 	@todo check inflections
+	@todo check routes
+	@todo check Cache
 	@todo update validation
 	@todo use Component triggerCallback 
 

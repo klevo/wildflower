@@ -194,57 +194,6 @@ class Page extends AppModel {
         $urls = Set::extract($pages, "{n}.{$this->name}.url");
         return array_combine($titles, $urls);
     }
-    
-    /**
-     * Find possible parents of a page for select box
-     * 
-     * @deprecated: Use Cake's TreeBehavior::genera...
-     * @param int $skipId id to skip
-     */
-    function getListThreaded($skipId = null, $alias = 'title') {
-        $parentPages = $this->findAll(null, null, "{$this->name}.lft ASC", null, 1, 0);
-        
-        // Array for form::select
-        $selectBoxData = array();
-        $skipLeft = false;
-        $skipRight = false;
-        
-        if (empty($parentPages)) return $selectBoxData;
-        
-        $rightNodes = array();
-        foreach ($parentPages as $key => $page) {
-            $level = 0;
-            // Check if we should remove a node from the stack
-            while (!empty($rightNodes) && ($rightNodes[count($rightNodes) - 1] < $page[$this->name]['rght'])) {
-               array_pop($rightNodes);
-            }
-            $level = count($rightNodes);
-            
-            $dashes = '';
-            if ($level > 0) {
-                $dashes = str_repeat('&nbsp;', $level) . '-';
-            }
-            
-            if ($skipId == $page[$this->name]['id']) {
-                $skipLeft = $page[$this->name]['lft'];
-                $skipRight = $page[$this->name]['rght'];
-            } else {
-                if (!($skipLeft 
-                   && $skipRight 
-                   && $page[$this->name]['lft'] > $skipLeft 
-                   && $page[$this->name]['rght'] < $skipRight)) {
-                       $alias = hsc($page[$this->name]['title']);
-                       if (!empty($dashes)) $alias = "$dashes $alias";
-                       $selectBoxData[$page[$this->name]['id']] = $alias;
-                       
-                }
-            }
-            
-            $rightNodes[] = $page[$this->name]['rght'];
-        }
-        
-        return $selectBoxData;
-    }
 
     /**
      * Mark a page(s) as published

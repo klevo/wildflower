@@ -51,7 +51,7 @@ class AppController extends Controller {
 	    // AuthComponent config
         $this->Auth->userModel = 'User';
         $this->Auth->fields = array('username' => 'login', 'password' => 'password');
-        $prefix = Configure::read('Routing.admin');
+        $prefix = Configure::read('Routing.admin.0');
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => false);
         $this->Auth->logoutAction = array('controller' => 'users', 'action' => 'logout', 'admin' => false);
         $this->Auth->autoRedirect = false;
@@ -107,7 +107,7 @@ class AppController extends Controller {
     	$model = $this->modelClass;
     	
         if ($this->RequestHandler->isAjax()) {
-            $success = $this->{$model}->del($id);
+            $success = $this->{$model}->delete($id);
             
             $responce = json_encode(array('success' => $success, 'id' => $id));
             header('Content-type: text/plain');
@@ -120,7 +120,7 @@ class AppController extends Controller {
                 $this->indexRedirect();
             }
         } else {
-            if ($this->{$model}->del($this->data[$model][$this->{$model}->primaryKey])) {
+            if ($this->{$model}->delete($this->data[$model][$this->{$model}->primaryKey])) {
                 $this->Session->setFlash("{$model} #$id was deleted.");
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -317,7 +317,8 @@ class AppController extends Controller {
      * @return bool
      */
     function isAdminAction() {
-        if (isset($this->params[Configure::read('Routing.admin')]) and $this->params[Configure::read('Routing.admin')]) {
+		$adminPrefix = Configure::read('Routing.admin.0');
+        if (isset($this->params[$adminPrefix]) and $this->params[$adminPrefix]) {
             return true;
         }
         return false;
