@@ -1,5 +1,7 @@
 <?php
 class WidgetsController extends AppController {
+	
+	public $pageTitle = 'Widgets';
     
     public $signatures = array(
         array('html' => '<div id="slider" class="admin_widget"></div>', 'action' => 'slider'),

@@ -85,7 +85,7 @@ class PagesController extends AppController {
         }
         
         $this->data = $page;
-        $this->pageTitle = $page[$this->modelClass]['title'];
+		$this->set('title_for_layout', $page[$this->modelClass]['title']);
 
         $newParentPageOptions = $this->Page->generatetreelist(null, null, null, ' - ');
         $revisions = $this->Page->getRevisions($id, 10);
@@ -114,7 +114,7 @@ class PagesController extends AppController {
         
         if (empty($this->data)) return $this->cakeError('object_not_found');
         
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
 
 	$parentPageOptions = $this->Page->generatetreelist(array(
 								 'Page.lft NOT BETWEEN ? AND ?' => array($this->data['Page']['lft'], $this->data['Page']['rght']),
@@ -124,7 +124,7 @@ class PagesController extends AppController {
     }
     
     function admin_reorder() {
-        $this->pageTitle = 'Reordering pages';
+		$this->set('title_for_layout', 'Reordering pages');
         $this->Page->recursive = -1;
         $order = 'lft ASC';
         $fields = array('id', 'lft', 'rght', 'parent_id', 'title');
@@ -138,7 +138,7 @@ class PagesController extends AppController {
         
         if (empty($this->data)) return $this->cakeError('object_not_found');
         
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
     }
     
     function admin_update() {
@@ -183,7 +183,7 @@ class PagesController extends AppController {
      * 
      */
     function admin_index() {
-        $this->pageTitle = 'Pages';
+		$this->set('title_for_layout', 'Pages');
         $this->Page->recursive = -1;
     	$pages = $this->Page->find('all', array('order' => 'lft ASC'));
     	$newParentPageOptions = $this->Page->generatetreelist(null, null, null, ' - ');;
@@ -355,7 +355,7 @@ class PagesController extends AppController {
 			return $this->do404();
         }
         
-        $this->pageTitle = $page[$this->modelClass]['title'];
+		$this->set('title_for_layout', $page[$this->modelClass]['title']);
         
         // Decode custom fields
         $page['Page']['custom_fields'] = json_decode($page['Page']['custom_fields'], true);
@@ -452,7 +452,7 @@ class PagesController extends AppController {
         $revisions = $this->Page->getRevisions($id);
         
         $this->set(compact('parentPageOptions', 'revisions'));
-        $this->pageTitle = 'Version of page ' . $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', 'Version of page ' . $this->data[$this->modelClass]['title']);
     }
     
     /**

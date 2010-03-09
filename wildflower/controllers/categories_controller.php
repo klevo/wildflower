@@ -2,7 +2,6 @@
 class CategoriesController extends AppController {
 
 	public $helpers = array('Tree');
-	public $pageTitle = 'Categories';
 
 	public $paginate = array(
         'limit' => 3,
@@ -89,7 +88,7 @@ class CategoriesController extends AppController {
     	
 		$parentCategories = $this->Category->generatetreelist(null, null, null, '-');
         $this->set(compact('parentCategories'));
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
     }
     
     function view($slug = null) {
@@ -115,7 +114,7 @@ class CategoriesController extends AppController {
     
     private function _renderNoEdit($id) {
         $this->data = $this->Category->findById($id);
-        $this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
         return $this->render('no_edit');
     }
     

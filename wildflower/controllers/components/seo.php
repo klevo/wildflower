@@ -45,8 +45,8 @@ class SeoComponent extends Object {
         } else {
             $this->controller->pageTitle = "$pageTitle &#8226; $nameAndDescription";
         }
-        
-        $this->controller->set('page_title_for_layout', $pageTitle);
+		// @todo check if($title_for_layout) has been set already if it has use that
+		$this->controller->set('title_for_layout', $pageTitle);
         $this->controller->set('site_title_for_layout', $nameAndDescription);
     }
 	

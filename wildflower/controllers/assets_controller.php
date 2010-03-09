@@ -7,6 +7,7 @@ class AssetsController extends AppController {
         'limit' => 12,
         'order' => array('created' => 'desc')
     );
+    public $pageTitle = 'Assets';
 	
 	function admin_create() {
 	    $this->Asset->create($this->data);
@@ -89,7 +90,7 @@ class AssetsController extends AppController {
 	 */
 	function admin_edit($id) {
 		$this->data = $this->Asset->findById($id);
-		$this->pageTitle = $this->data[$this->modelClass]['title'];
+		$this->set('title_for_layout', $this->data[$this->modelClass]['title']);
 	}
 	
 	/**
@@ -243,7 +244,7 @@ class AssetsController extends AppController {
     }
 	
 	private function feedFileManager() {
-	    $this->pageTitle = 'Files';
+		$this->set('title_for_layout', $this->pageTitle);
 	    $files = $this->paginate($this->modelClass);
         $this->set(compact('files'));
 	}

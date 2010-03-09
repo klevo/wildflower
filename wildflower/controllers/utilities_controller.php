@@ -3,6 +3,7 @@ class WildUtilitiesController extends AppController {
     
     public $components = array('Security');
     public $uses = array('Wildflower.Post', 'Wildflower.Utility');
+	public $pageTitle = 'Developer Utilities';
     
     function beforeFilter() {
         parent::beforeFilter();
@@ -13,7 +14,7 @@ class WildUtilitiesController extends AppController {
         }
         
         $this->Security->requireAuth('admin_index');
-        $this->pageTitle = 'Developer Utilities';
+		$this->set('title_for_layout', );
     }
         
     function admin_index() {

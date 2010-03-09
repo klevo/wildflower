@@ -1,9 +1,11 @@
 <?php
 class SidebarsController extends AppController {
+
+    public $pageTitle = 'Modules';
     
     function beforeFilter() {
         parent::beforeFilter();
-        $this->pageTitle = __('Modules', true);
+		$this->set('title_for_layout', __('Modules', true));
         $this->_bindCustomModel();
     }
     

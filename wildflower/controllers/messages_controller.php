@@ -11,15 +11,16 @@ class MessagesController extends AppController {
             'spam' => 0
         )
 	);
+    public $pageTitle = 'Messages';
 	
     function admin_index() {
-        $this->pageTitle = 'Contact form messages';
+		$this->set('title_for_layout', 'Contact form messages');
         $messages = $this->paginate('Message');
         $this->set(compact('messages'));
     }   
     
     function admin_spam() {
-        $this->pageTitle = 'Spam contact form messages';
+		$this->set('title_for_layout', 'Spam contact form messages');
         $messages = $this->paginate('Message', 'spam = 1');
         $this->set(compact('messages'));
         $this->render('admin_index');
@@ -27,7 +28,7 @@ class MessagesController extends AppController {
 	
 	function admin_view($id = null) {
 	    $message = $this->Message->findById($id);
-	    $this->pageTitle = $message['Message']['subject'];
+		$this->set('title_for_layout', $message['Message']['subject']);
 	    $this->set(compact('message'));
 	}
 
@@ -97,7 +98,7 @@ class MessagesController extends AppController {
         $this->params['Wildflower']['view']['isPage'] = true;
         $this->params['Wildflower']['page']['slug'] = $page[$this->Page->name]['slug'];
         $this->params['current']['slug'] = $page[$this->Page->name]['slug'];
-        $this->pageTitle = 'Contact';
+		$this->set('title_for_layout', 'Contact');
         $this->params['breadcrumb'][] = array('title' => 'Contact');
     }
     
