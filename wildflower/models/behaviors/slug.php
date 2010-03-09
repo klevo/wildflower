@@ -2,7 +2,7 @@
 /**
  * Slug behavior to a model
  * 
- * @author Mariano Iglesias, Róbert Starší
+ * @author Mariano Iglesias, Róbert Starší Sam Majic Removed FindAll
  * @package wildflower
  * @subpackage  models.behaviors
  */
@@ -20,7 +20,7 @@ class SlugBehavior extends ModelBehavior {
             $this->settings[$model->name] = $default;
         }
         
-        $this->settings[$model->name] = array_merge($this->settings[$model->name], (is_array($settings) ? $settings : array()));
+        $this->settings[$model->name] = array_merge($this->settings[$model->name], ife(is_array($settings), $settings, array()));
     }
     
     /**
@@ -46,7 +46,7 @@ class SlugBehavior extends ModelBehavior {
             $label = '';
             
             foreach($this->settings[$model->name]['label'] as $field) {
-                $label .= !empty($label) ? ' ' : '';
+                $label .= ife(!empty($label), ' ', '');
                 $label .= $model->data[$model->name][$field];
             }
             
@@ -68,8 +68,16 @@ class SlugBehavior extends ModelBehavior {
             if (!empty($model->{$model->primaryKey})) {
                 $conditions[$model->name . '.' . $model->primaryKey] = '!= ' . $model->{$model->primaryKey};
             }
-            
-            $result = $model->findAll($conditions, array($model->primaryKey, $this->settings[$model->name]['slug']), null, null, 1, 0);
+			$result = $model->find(
+				'all',
+				array(
+					'conditions' => $conditions, 
+					'fields' => array($model->primaryKey, $this->settings[$model->name]['slug']), 
+					'page' => 1, 
+					'recursive' => 0
+				)
+			);
+
             $sameUrls = null;
             
             if ($result !== false && !empty($result)) {
@@ -102,14 +110,7 @@ class SlugBehavior extends ModelBehavior {
      * @return string   Slug for given string.
      */
     private function _getSlug($string, $settings) {
-		/*
-		might pertain to cakephp 1.2.4
-		if (!class_exists('AppHelper')) {
-		  App::import('Core', 'AppHelper', false); 
-		} 
-		*/
-		require_once APP . 'app_helper.php';
-    	return AppHelper::slug($string, $settings['separator']);
+    	return AppController::slug($string, $settings['separator']);
     }
 
 }
