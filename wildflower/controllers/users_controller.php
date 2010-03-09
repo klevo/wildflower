@@ -14,7 +14,7 @@ class UsersController extends AppController {
     function admin_delete($id) {
         $id = intval($id);
         if ($this->RequestHandler->isAjax()) {
-            return $this->User->del($id);
+            return $this->User->delete($id);
         }
 
         if (empty($this->data)) {
@@ -23,7 +23,7 @@ class UsersController extends AppController {
                 $this->indexRedirect();
             }
         } else {
-            $this->User->del($this->data[$this->modelClass]['id']);
+            $this->User->delete($this->data[$this->modelClass]['id']);
             $this->indexRedirect();
         }
     }
@@ -112,7 +112,7 @@ class UsersController extends AppController {
      * 
      */
     function admin_index() {
-        $users = $this->User->findAll();
+        $users = $this->User->find('all');
         $this->set(compact('users'));
     }
     
