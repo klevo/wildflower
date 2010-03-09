@@ -1,9 +1,6 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * TestSuiteGroupTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
@@ -13,17 +10,14 @@
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
  * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc.
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.groups
  * @since         CakePHP(tm) v 1.2.0.4206
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
+
 /**
  * TestSuiteGroupTest class
  *
@@ -32,7 +26,8 @@
  * @package       cake
  * @subpackage    cake.tests.groups
  */
-class TestSuiteGroupTest extends GroupTest {
+class TestSuiteGroupTest extends TestSuite {
+
 /**
  * label property
  *
@@ -40,6 +35,7 @@ class TestSuiteGroupTest extends GroupTest {
  * @access public
  */
 	var $label = 'TestSuite';
+
 /**
  * TestSuiteGroupTest method
  *

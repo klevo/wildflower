@@ -1,27 +1,23 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Overload abstraction interface.  Merges differences between PHP4 and 5.
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Overloadable class selector
  *
@@ -31,12 +27,14 @@
  * @subpackage    cake.cake.libs
  */
 class Overloadable extends Object {
+
 /**
  * Overload implementation. No need for implementation in PHP5.
  *
  * @access public
  */
 	function overload() { }
+
 /**
  * Magic method handler.
  *
@@ -61,12 +59,14 @@ class Overloadable extends Object {
  * @package       cake
  */
 class Overloadable2 extends Object {
+
 /**
  * Overload implementation. No need for implementation in PHP5.
  *
  * @access public
  */
 	function overload() { }
+
 /**
  * Magic method handler.
  *
@@ -81,6 +81,7 @@ class Overloadable2 extends Object {
 		}
 		return $this->call__($method, $params);
 	}
+
 /**
  * Getter.
  *
@@ -92,6 +93,7 @@ class Overloadable2 extends Object {
 	function __get($name) {
 		return $this->get__($name);
 	}
+
 /**
  * Setter.
  *

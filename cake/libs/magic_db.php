@@ -1,30 +1,29 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * MagicDb parser and file analyzer
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2.0
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-if (!class_exists('File')) {
-	uses('object', 'file');
+if (!class_exists('Object')) {
+	require LIBS . 'object.php';
 }
+if (!class_exists('File')) {
+	require LIBS . 'file.php';
+}
+
 /**
  * A class to parse and use the MagicDb for file type analysis
  *
@@ -32,11 +31,12 @@ if (!class_exists('File')) {
  * @subpackage    cake.tests.cases.libs
  */
 class MagicDb extends Object {
+
 /**
  * Holds the parsed MagicDb for this class instance
  *
  * @var array
- **/
+ */
 	var $db = array();
 
 /**
@@ -45,7 +45,7 @@ class MagicDb extends Object {
  * @var $magicDb mixed Can be an array containing the db, a magic db as a string, or a filename pointing to a magic db in .db or magic.db.php format
  * @return boolean Returns false if reading / validation failed or true on success.
  * @author        Felix
- **/
+ */
 	function read($magicDb = null) {
 		if (!is_string($magicDb) && !is_array($magicDb)) {
 			return false;
@@ -179,6 +179,7 @@ class MagicDb extends Object {
  * @subpackage    cake.tests.cases.libs
  */
 class MagicFileResource extends Object{
+
 /**
  * undocumented variable
  *
@@ -186,6 +187,7 @@ class MagicFileResource extends Object{
  * @access public
  */
 	var $resource = null;
+
 /**
  * undocumented variable
  *
@@ -193,6 +195,7 @@ class MagicFileResource extends Object{
  * @access public
  */
 	var $offset = 0;
+
 /**
  * undocumented function
  *
@@ -207,6 +210,7 @@ class MagicFileResource extends Object{
 			$this->resource = $file;
 		}
 	}
+
 /**
  * undocumented function
  *
@@ -234,6 +238,7 @@ class MagicFileResource extends Object{
 		$val = $this->extract($offset, $type, $expected);
 		return $val == $expected;
 	}
+
 /**
  * undocumented function
  *
@@ -248,6 +253,7 @@ class MagicFileResource extends Object{
 		}
 		return $this->resource->read($length);
 	}
+
 /**
  * undocumented function
  *
@@ -267,6 +273,7 @@ class MagicFileResource extends Object{
 				break;
 		}
 	}
+
 /**
  * undocumented function
  *

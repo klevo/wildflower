@@ -1,42 +1,26 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * AjaxHelperTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.view.helpers
  * @since         CakePHP(tm) v 1.2.0.4206
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 	define('CAKEPHP_UNIT_TEST_EXECUTION', 1);
 }
-uses(
-	'view' . DS . 'helpers' . DS . 'app_helper',
-	'controller' . DS . 'controller',
-	'model' . DS . 'model',
-	'view' . DS . 'helper',
-	'view' . DS . 'helpers'.DS.'ajax',
-	'view' . DS . 'helpers' . DS . 'html',
-	'view' . DS . 'helpers' . DS . 'form',
-	'view' . DS . 'helpers' . DS . 'javascript'
-	);
+App::import('Helper', array('Html', 'Form', 'Javascript', 'Ajax'));
 /**
  * AjaxTestController class
  *
@@ -174,6 +158,12 @@ class AjaxHelperTest extends CakeTestCase {
 		$view =& new View(new AjaxTestController());
 		ClassRegistry::addObject('view', $view);
 		ClassRegistry::addObject('PostAjaxTest', new PostAjaxTest());
+
+		$this->Ajax->Form->params = array(
+			'plugin' => null,
+			'action' => 'view',
+			'controller' => 'users'
+		);
 	}
 /**
  * tearDown method
@@ -558,6 +548,13 @@ class AjaxHelperTest extends CakeTestCase {
 		$this->assertPattern("/Event.observe\('link[0-9]+', [\w\d,'\(\)\s{}]+Ajax\.Request\([\w\d\s,'\(\){}:\/]+onComplete:function\(request, json\) {test}/", $result);
 		$this->assertNoPattern('/^<a[^<>]+complete="test"[^<>]*>Ajax Link<\/a>/', $result);
 		$this->assertNoPattern('/^<a\s+[^<>]*url="[^"]*"[^<>]*>/', $result);
+
+		$result = $this->Ajax->link(
+			'Ajax Link',
+			array('controller' => 'posts', 'action' => 'index', '?' => array('one' => '1', 'two' => '2')),
+			array('update' => 'myDiv', 'id' => 'myLink')
+		);
+		$this->assertPattern('#/posts\?one\=1\&two\=2#', $result);
 	}
 /**
  * testRemoteTimer method

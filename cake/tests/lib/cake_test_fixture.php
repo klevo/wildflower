@@ -1,29 +1,23 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Short description for file.
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.cake.tests.libs
  * @since         CakePHP(tm) v 1.2.0.4667
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
+
 /**
  * Short description for class.
  *
@@ -31,35 +25,40 @@
  * @subpackage    cake.cake.tests.lib
  */
 class CakeTestFixture extends Object {
+
 /**
  * Name of the object
  *
  * @var string
- **/
+ */
 	var $name = null;
+
 /**
  * Cake's DBO driver (e.g: DboMysql).
  *
  * @access public
  */
 	var $db = null;
+
 /**
  * Full Table Name
  *
  * @access public
  */
 	var $table = null;
+
 /**
  * Instantiate the fixture.
  *
  * @access public
  */
 	function __construct() {
-		App::import('Model', 'Schema');
+		App::import('Model', 'CakeSchema');
 		$this->Schema = new CakeSchema(array('name' => 'TestSuite', 'connection' => 'test_suite'));
 
 		$this->init();
 	}
+
 /**
  * Initialize the fixture.
  *
@@ -122,6 +121,7 @@ class CakeTestFixture extends Object {
 			$this->primaryKey = 'id';
 		}
 	}
+
 /**
  * Run before all tests execute, should return SQL statement to create table for this fixture could be executed successfully.
  *
@@ -139,6 +139,7 @@ class CakeTestFixture extends Object {
 			$db->execute($db->createSchema($this->Schema), array('log' => false)) !== false
 		);
 	}
+
 /**
  * Run after all tests executed, should return SQL statement to drop table for this fixture.
  *
@@ -152,6 +153,7 @@ class CakeTestFixture extends Object {
 			$db->execute($db->dropSchema($this->Schema), array('log' => false)) !== false
 		);
 	}
+
 /**
  * Run before each tests is executed, should return a set of SQL statements to insert records for the table
  * of this fixture could be executed successfully.
@@ -174,6 +176,7 @@ class CakeTestFixture extends Object {
 			return true;
 		}
 	}
+
 /**
  * Truncates the current fixture. Can be overwritten by classes extending CakeFixture to trigger other events before / after
  * truncate.

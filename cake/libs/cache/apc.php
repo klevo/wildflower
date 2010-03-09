@@ -1,28 +1,24 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * APC storage engine for cache.
  *
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.cache
  * @since         CakePHP(tm) v 1.2.0.4933
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * APC storage engine for cache
  *
@@ -30,6 +26,7 @@
  * @subpackage    cake.cake.libs.cache
  */
 class ApcEngine extends CacheEngine {
+
 /**
  * Initialize the Cache Engine
  *
@@ -45,6 +42,7 @@ class ApcEngine extends CacheEngine {
 		parent::init(array_merge(array('engine' => 'Apc', 'prefix' => Inflector::slug(APP_DIR) . '_'), $settings));
 		return function_exists('apc_cache_info');
 	}
+
 /**
  * Write data for key into cache
  *
@@ -59,6 +57,7 @@ class ApcEngine extends CacheEngine {
 		apc_store($key.'_expires', $expires, $duration);
 		return apc_store($key, $value, $duration);
 	}
+
 /**
  * Read a key from the cache
  *
@@ -74,6 +73,33 @@ class ApcEngine extends CacheEngine {
 		}
 		return apc_fetch($key);
 	}
+
+/**
+ * Increments the value of an integer cached key
+ *
+ * @param string $key Identifier for the data
+ * @param integer $offset How much to increment
+ * @param integer $duration How long to cache the data, in seconds
+ * @return New incremented value, false otherwise
+ * @access public
+ */
+	function increment($key, $offset = 1) {
+		return apc_inc($key, $offset);
+	}
+
+/**
+ * Decrements the value of an integer cached key
+ *
+ * @param string $key Identifier for the data
+ * @param integer $offset How much to substract
+ * @param integer $duration How long to cache the data, in seconds
+ * @return New decremented value, false otherwise
+ * @access public
+ */
+	function decrement($key, $offset = 1) {
+		return apc_dec($key, $offset);
+	}
+
 /**
  * Delete a key from the cache
  *
@@ -84,6 +110,7 @@ class ApcEngine extends CacheEngine {
 	function delete($key) {
 		return apc_delete($key);
 	}
+
 /**
  * Delete all keys from the cache
  *

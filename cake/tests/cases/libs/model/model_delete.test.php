@@ -1,31 +1,24 @@
 <?php
-/* SVN FILE: $Id: model.test.php 8225 2009-07-08 03:25:30Z mark_story $ */
 /**
  * ModelDeleteTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.model
  * @since         CakePHP(tm) v 1.2.0.4206
- * @version       $Revision: 8225 $
- * @modifiedby    $LastChangedBy: mark_story $
- * @lastmodified  $Date: 2009-07-07 23:25:30 -0400 (Tue, 07 Jul 2009) $
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 require_once dirname(__FILE__) . DS . 'model.test.php';
-require_once dirname(__FILE__) . DS . 'model_delete.test.php';
+
 /**
  * ModelDeleteTest
  *
@@ -33,6 +26,7 @@ require_once dirname(__FILE__) . DS . 'model_delete.test.php';
  * @subpackage    cake.tests.cases.libs.model.operations
  */
 class ModelDeleteTest extends BaseModelTest {
+
 /**
  * testDeleteHabtmReferenceWithConditions method
  *
@@ -123,6 +117,7 @@ class ModelDeleteTest extends BaseModelTest {
 		));
 		$this->assertFalse($result);
 	}
+
 /**
  * testDeleteArticleBLinks method
  *
@@ -151,6 +146,7 @@ class ModelDeleteTest extends BaseModelTest {
 		);
 		$this->assertEqual($result, $expected);
 	}
+
 /**
  * testDeleteDependentWithConditions method
  *
@@ -163,7 +159,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$Cd =& new Cd();
 		$OverallFavorite =& new OverallFavorite();
 
-		$Cd->del(1);
+		$Cd->delete(1);
 
 		$result = $OverallFavorite->find('all', array(
 			'fields' => array('model_type', 'model_id', 'priority')
@@ -179,17 +175,18 @@ class ModelDeleteTest extends BaseModelTest {
 		$this->assertTrue(is_array($result));
 		$this->assertEqual($result, $expected);
 	}
+
 /**
  * testDel method
  *
  * @access public
  * @return void
  */
-	function testDel() {
+	function testDelete() {
 		$this->loadFixtures('Article');
 		$TestModel =& new Article();
 
-		$result = $TestModel->del(2);
+		$result = $TestModel->delete(2);
 		$this->assertTrue($result);
 
 		$result = $TestModel->read(null, 2);
@@ -210,7 +207,7 @@ class ModelDeleteTest extends BaseModelTest {
 		)));
 		$this->assertEqual($result, $expected);
 
-		$result = $TestModel->del(3);
+		$result = $TestModel->delete(3);
 		$this->assertTrue($result);
 
 		$result = $TestModel->read(null, 3);
@@ -228,7 +225,6 @@ class ModelDeleteTest extends BaseModelTest {
 
 		$this->assertEqual($result, $expected);
 
-
 		// make sure deleting a non-existent record doesn't break save()
 		// ticket #6293
 		$this->loadFixtures('Uuid');
@@ -240,8 +236,8 @@ class ModelDeleteTest extends BaseModelTest {
 		foreach ($data as $id) {
 			$Uuid->save(array('id' => $id));
 		}
-		$Uuid->del('52C8865C-10EE-4302-AE6C-6E7D8E12E2C8');
-		$Uuid->del('52C8865C-10EE-4302-AE6C-6E7D8E12E2C8');
+		$Uuid->delete('52C8865C-10EE-4302-AE6C-6E7D8E12E2C8');
+		$Uuid->delete('52C8865C-10EE-4302-AE6C-6E7D8E12E2C8');
 		foreach ($data as $id) {
 			$Uuid->save(array('id' => $id));
 		}
@@ -258,6 +254,7 @@ class ModelDeleteTest extends BaseModelTest {
 				'id' => 'B607DAB9-88A2-46CF-B57C-842CA9E3B3B3')));
 		$this->assertEqual($result, $expected);
 	}
+
 /**
  * testDeleteAll method
  *
@@ -399,6 +396,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$result = $TestModel->deleteAll(array('Article.user_id' => 999));
 		$this->assertTrue($result, 'deleteAll returned false when all no records matched conditions. %s');
 	}
+
 /**
  * testRecursiveDel method
  *
@@ -409,7 +407,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$this->loadFixtures('Article', 'Comment', 'Attachment');
 		$TestModel =& new Article();
 
-		$result = $TestModel->del(2);
+		$result = $TestModel->delete(2);
 		$this->assertTrue($result);
 
 		$TestModel->recursive = 2;
@@ -434,6 +432,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$result = $TestModel->Comment->Attachment->find('count');
 		$this->assertEqual($result, 0);
 	}
+
 /**
  * testDependentExclusiveDelete method
  *
@@ -452,6 +451,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$TestModel->delete(1);
 		$this->assertEqual($TestModel->Comment->find('count'), 2);
 	}
+
 /**
  * testDeleteLinks method
  *
@@ -499,6 +499,42 @@ class ModelDeleteTest extends BaseModelTest {
 		$result = $TestModel->deleteAll(array('Article.user_id' => 999));
 		$this->assertTrue($result, 'deleteAll returned false when all no records matched conditions. %s');
 	}
+
+/**
+ * test deleteLinks with Multiple habtm associations
+ *
+ * @return void
+ */
+	function testDeleteLinksWithMultipleHabtmAssociations() {
+		$this->loadFixtures('JoinA', 'JoinB', 'JoinC', 'JoinAB', 'JoinAC');
+		$JoinA =& new JoinA();
+
+		//create two new join records to expose the issue.
+		$JoinA->JoinAsJoinC->create(array(
+			'join_a_id' => 1,
+			'join_c_id' => 2,
+		));
+		$JoinA->JoinAsJoinC->save();
+		$JoinA->JoinAsJoinB->create(array(
+			'join_a_id' => 1,
+			'join_b_id' => 2,
+		));
+		$JoinA->JoinAsJoinB->save();
+
+		$result = $JoinA->delete(1);
+		$this->assertTrue($result, 'Delete failed %s');
+
+		$joinedBs = $JoinA->JoinAsJoinB->find('count', array(
+			'conditions' => array('JoinAsJoinB.join_a_id' => 1)
+		));
+		$this->assertEqual($joinedBs, 0, 'JoinA/JoinB link records left over. %s');
+
+		$joinedBs = $JoinA->JoinAsJoinC->find('count', array(
+			'conditions' => array('JoinAsJoinC.join_a_id' => 1)
+		));
+		$this->assertEqual($joinedBs, 0, 'JoinA/JoinC link records left over. %s');
+	}
+
 /**
  * testHabtmDeleteLinksWhenNoPrimaryKeyInJoinTable method
  *
@@ -569,7 +605,7 @@ class ModelDeleteTest extends BaseModelTest {
  * test that beforeDelete returning false can abort deletion.
  *
  * @return void
- **/
+ */
 	function testBeforeDeleteDeleteAbortion() {
 		$this->loadFixtures('Post');
 		$Model =& new CallbackPostTestModel();

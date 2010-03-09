@@ -1,29 +1,23 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Short description for file.
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.console.libs
  * @since         CakePHP(tm) v 1.2.0.5669
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Shell for I18N management.
  *
@@ -31,6 +25,7 @@
  * @subpackage    cake.cake.console.libs
  */
 class I18nShell extends Shell {
+
 /**
  * Contains database source to use
  *
@@ -38,6 +33,7 @@ class I18nShell extends Shell {
  * @access public
  */
 	var $dataSource = 'default';
+
 /**
  * Contains tasks to load and instantiate
  *
@@ -45,6 +41,7 @@ class I18nShell extends Shell {
  * @access public
  */
 	var $tasks = array('DbConfig', 'Extract');
+
 /**
  * Override startup of the Shell
  *
@@ -63,6 +60,7 @@ class I18nShell extends Shell {
 			}
 		}
 	}
+
 /**
  * Override main() for help message hook
  *
@@ -96,15 +94,17 @@ class I18nShell extends Shell {
 		$this->hr();
 		$this->main();
 	}
+
 /**
  * Initialize I18N database.
  *
  * @access public
  */
 	function initdb() {
-		$this->Dispatch->args = array('schema', 'run', 'create', 'i18n');
+		$this->Dispatch->args = array('schema', 'create', 'i18n');
 		$this->Dispatch->dispatch();
 	}
+
 /**
  * Show help screen.
  *
@@ -120,7 +120,7 @@ class I18nShell extends Shell {
 		$this->out(__('usage:', true));
 		$this->out('   cake i18n help');
 		$this->out('   cake i18n initdb [-datasource custom]');
-		$this->out('');
+		$this->out();
 		$this->hr();
 
 		$this->Extract->help();

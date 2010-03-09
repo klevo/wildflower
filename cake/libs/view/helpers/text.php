@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Text Helper
  *
@@ -7,23 +6,20 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
  * @since         CakePHP(tm) v 0.10.0.1076
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Included libraries.
  *
@@ -34,6 +30,7 @@ if (!class_exists('HtmlHelper')) {
 if (!class_exists('Multibyte')) {
 	App::import('Core', 'Multibyte');
 }
+
 /**
  * Text helper library.
  *
@@ -43,47 +40,59 @@ if (!class_exists('Multibyte')) {
  * @subpackage    cake.cake.libs.view.helpers
  */
 class TextHelper extends AppHelper {
+
 /**
  * Highlights a given phrase in a text. You can specify any expression in highlighter that
  * may include the \1 expression to include the $phrase found.
  *
+ * ### Options:
+ *
+ * - `format` The piece of html with that the phrase will be highlighted
+ * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
+ *
  * @param string $text Text to search the phrase in
  * @param string $phrase The phrase that will be searched
- * @param string $highlighter The piece of html with that the phrase will be highlighted
- * @param boolean $considerHtml If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
+ * @param array $options An array of html attributes and options.
  * @return string The highlighted text
  * @access public
  */
-	function highlight($text, $phrase, $highlighter = '<span class="highlight">\1</span>', $considerHtml = false) {
+	function highlight($text, $phrase, $options = array()) {
 		if (empty($phrase)) {
 			return $text;
 		}
+
+		$default = array(
+			'format' => '<span class="highlight">\1</span>',
+			'html' => false
+		);
+		$options = array_merge($default, $options);
+		extract($options);
 
 		if (is_array($phrase)) {
 			$replace = array();
 			$with = array();
 
-			foreach ($phrase as $key => $value) {
-				$key = $value;
-				$value = $highlighter;
-				$key = '(' . $key . ')';
-				if ($considerHtml) {
-					$key = '(?![^<]+>)' . $key . '(?![^<]+>)';
+			foreach ($phrase as $key => $segment) {
+				$segment = "($segment)";
+				if ($html) {
+					$segment = "(?![^<]+>)$segment(?![^<]+>)";
 				}
-				$replace[] = '|' . $key . '|iu';
-				$with[] = empty($value) ? $highlighter : $value;
+
+				$with[] = (is_array($format)) ? $format[$key] : $format;
+				$replace[] = "|$segment|iu";
 			}
 
 			return preg_replace($replace, $with, $text);
 		} else {
-			$phrase = '(' . $phrase . ')';
-			if ($considerHtml) {
-				$phrase = '(?![^<]+>)' . $phrase . '(?![^<]+>)';
+			$phrase = "($phrase)";
+			if ($html) {
+				$phrase = "(?![^<]+>)$phrase(?![^<]+>)";
 			}
 
-			return preg_replace('|'.$phrase.'|iu', $highlighter, $text);
+			return preg_replace("|$phrase|iu", $format, $text);
 		}
 	}
+
 /**
  * Strips given text of all links (<a href=....)
  *
@@ -94,83 +103,96 @@ class TextHelper extends AppHelper {
 	function stripLinks($text) {
 		return preg_replace('|<a\s+[^>]+>|im', '', preg_replace('|<\/a>|im', '', $text));
 	}
+
 /**
  * Adds links (<a href=....) to a given text, by finding text that begins with
  * strings like http:// and ftp://.
  *
  * @param string $text Text to add links to
- * @param array $htmlOptions Array of HTML options.
+ * @param array $options Array of HTML options.
  * @return string The text with links
  * @access public
  */
-	function autoLinkUrls($text, $htmlOptions = array()) {
-		$options = 'array(';
-		foreach ($htmlOptions as $option => $value) {
-				$value = var_export($value, true);
-				$options .= "'$option' => $value, ";
+	function autoLinkUrls($text, $options = array()) {
+		$linkOptions = 'array(';
+		foreach ($options as $option => $value) {
+			$value = var_export($value, true);
+			$linkOptions .= "'$option' => $value, ";
 		}
-		$options .= ')';
+		$linkOptions .= ')';
 
 		$text = preg_replace_callback('#(?<!href="|">)((?:http|https|ftp|nntp)://[^ <]+)#i', create_function('$matches',
-			'$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], $matches[0],' . $options . ');'), $text);
+			'$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], $matches[0],' . $linkOptions . ');'), $text);
 
 		return preg_replace_callback('#(?<!href="|">)(?<!http://|https://|ftp://|nntp://)(www\.[^\n\%\ <]+[^<\n\%\,\.\ <])(?<!\))#i',
-			create_function('$matches', '$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], "http://" . strtolower($matches[0]),' . $options . ');'), $text);
+			create_function('$matches', '$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], "http://" . strtolower($matches[0]),' . $linkOptions . ');'), $text);
 	}
+
 /**
  * Adds email links (<a href="mailto:....) to a given text.
  *
  * @param string $text Text
- * @param array $htmlOptions Array of HTML options.
+ * @param array $options Array of HTML options.
  * @return string The text with links
  * @access public
  */
-	function autoLinkEmails($text, $htmlOptions = array()) {
-		$options = 'array(';
-
-		foreach ($htmlOptions as $option => $value) {
-			$options .= "'$option' => '$value', ";
+	function autoLinkEmails($text, $options = array()) {
+		$linkOptions = 'array(';
+		foreach ($options as $option => $value) {
+			$value = var_export($value, true);
+			$linkOptions .= "'$option' => $value, ";
 		}
-		$options .= ')';
+		$linkOptions .= ')';
 
 		return preg_replace_callback('#([_A-Za-z0-9+-]+(?:\.[_A-Za-z0-9+-]+)*@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)#',
-						create_function('$matches', '$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], "mailto:" . $matches[0],' . $options . ');'), $text);
+						create_function('$matches', '$Html = new HtmlHelper(); $Html->tags = $Html->loadConfig(); return $Html->link($matches[0], "mailto:" . $matches[0],' . $linkOptions . ');'), $text);
 	}
+
 /**
  * Convert all links and email adresses to HTML links.
  *
  * @param string $text Text
- * @param array $htmlOptions Array of HTML options.
+ * @param array $options Array of HTML options.
  * @return string The text with links
  * @access public
  */
-	function autoLink($text, $htmlOptions = array()) {
-		return $this->autoLinkEmails($this->autoLinkUrls($text, $htmlOptions), $htmlOptions);
+	function autoLink($text, $options = array()) {
+		return $this->autoLinkEmails($this->autoLinkUrls($text, $options), $options);
 	}
+
 /**
  * Truncates text.
  *
  * Cuts a string to the length of $length and replaces the last characters
  * with the ending if the text is longer than length.
  *
+ * ### Options:
+ *
+ * - `ending` Will be used as Ending and appended to the trimmed string
+ * - `exact` If false, $text will not be cut mid-word
+ * - `html` If true, HTML tags would be handled correctly
+ *
  * @param string  $text String to truncate.
  * @param integer $length Length of returned string, including ellipsis.
- * @param mixed $ending If string, will be used as Ending and appended to the trimmed string. Can also be an associative array that can contain the last three params of this method.
- * @param boolean $exact If false, $text will not be cut mid-word
- * @param boolean $considerHtml If true, HTML tags would be handled correctly
+ * @param array $options An array of html attributes and options.
  * @return string Trimmed string.
+ * @access public
  */
-	function truncate($text, $length = 100, $ending = '...', $exact = true, $considerHtml = false) {
-		if (is_array($ending)) {
-			extract($ending);
-		}
-		if ($considerHtml) {
+	function truncate($text, $length = 100, $options = array()) {
+		$default = array(
+			'ending' => '...', 'exact' => true, 'html' => false
+		);
+		$options = array_merge($default, $options);
+		extract($options);
+
+		if ($html) {
 			if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
 				return $text;
 			}
-			$totalLength = mb_strlen($ending);
+			$totalLength = mb_strlen(strip_tags($ending));
 			$openTags = array();
 			$truncate = '';
+
 			preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
 			foreach ($tags as $tag) {
 				if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
@@ -210,18 +232,17 @@ class TextHelper extends AppHelper {
 					break;
 				}
 			}
-
 		} else {
 			if (mb_strlen($text) <= $length) {
 				return $text;
 			} else {
-				$truncate = mb_substr($text, 0, $length - strlen($ending));
+				$truncate = mb_substr($text, 0, $length - mb_strlen($ending));
 			}
 		}
 		if (!$exact) {
 			$spacepos = mb_strrpos($truncate, ' ');
 			if (isset($spacepos)) {
-				if ($considerHtml) {
+				if ($html) {
 					$bits = mb_substr($truncate, $spacepos);
 					preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
 					if (!empty($droppedTags)) {
@@ -235,10 +256,9 @@ class TextHelper extends AppHelper {
 				$truncate = mb_substr($truncate, 0, $spacepos);
 			}
 		}
-
 		$truncate .= $ending;
 
-		if ($considerHtml) {
+		if ($html) {
 			foreach ($openTags as $tag) {
 				$truncate .= '</'.$tag.'>';
 			}
@@ -246,6 +266,7 @@ class TextHelper extends AppHelper {
 
 		return $truncate;
 	}
+
 /**
  * Alias for truncate().
  *
@@ -253,11 +274,14 @@ class TextHelper extends AppHelper {
  * @access public
  */
 	function trim() {
+		trigger_error(__('TextHelper::trim() is deprecated. Use TextHelper::truncate() instead', true), E_USER_WARNING);
 		$args = func_get_args();
 		return call_user_func_array(array(&$this, 'truncate'), $args);
 	}
+
 /**
- * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side determined by radius.
+ * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
+ * determined by radius.
  *
  * @param string $text String to search the phrase in
  * @param string $phrase Phrase that will be searched for
@@ -266,31 +290,31 @@ class TextHelper extends AppHelper {
  * @return string Modified string
  * @access public
  */
-	function excerpt($text, $phrase, $radius = 100, $ending = "...") {
+	function excerpt($text, $phrase, $radius = 100, $ending = '...') {
 		if (empty($text) or empty($phrase)) {
-			return $this->truncate($text, $radius * 2, $ending);
+			return $this->truncate($text, $radius * 2, array('ending' => $ending));
 		}
 
-		$phraseLen = strlen($phrase);
+		$phraseLen = mb_strlen($phrase);
 		if ($radius < $phraseLen) {
 			$radius = $phraseLen;
 		}
 
-		$pos = strpos(strtolower($text), strtolower($phrase));
+		$pos = mb_strpos(mb_strtolower($text), mb_strtolower($phrase));
 
 		$startPos = 0;
 		if ($pos > $radius) {
 			$startPos = $pos - $radius;
 		}
 
-		$textLen = strlen($text);
+		$textLen = mb_strlen($text);
 
 		$endPos = $pos + $phraseLen + $radius;
 		if ($endPos >= $textLen) {
 			$endPos = $textLen;
 		}
 
-		$excerpt = substr($text, $startPos, $endPos - $startPos);
+		$excerpt = mb_substr($text, $startPos, $endPos - $startPos);
 		if ($startPos != 0) {
 			$excerpt = substr_replace($excerpt, $ending, 0, $phraseLen);
 		}
@@ -301,45 +325,22 @@ class TextHelper extends AppHelper {
 
 		return $excerpt;
 	}
+
 /**
  * Creates a comma separated list where the last two items are joined with 'and', forming natural English
  *
  * @param array $list The list to be joined
- * @return string
+ * @param string $and The word used to join the last and second last items together with. Defaults to 'and'
+ * @param string $separator The separator used to join all othe other items together. Defaults to ', '
+ * @return string The glued together string.
  * @access public
  */
-	function toList($list, $and = 'and') {
-		$return = '';
-		$count = count($list) - 1;
-	    $counter = 0;
-		foreach ($list as $i => $item) {
-			$return .= $item;
-			if ($count > 0 && $counter < $count) {
-				$return .= ($counter < $count - 1 ? ', ' : " {$and} ");
-			}
-		    $counter++;
+	function toList($list, $and = 'and', $separator = ', ') {
+		if (count($list) > 1) {
+			return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);
+		} else {
+			return array_pop($list);
 		}
-		return $return;
 	}
-/**
- * Text-to-html parser, similar to Textile or RedCloth, only with a little different syntax.
- *
- * @param string $text String to "flay"
- * @param boolean $allowHtml Set to true if if html is allowed
- * @return string "Flayed" text
- * @access public
- * @todo Change this. We need a real Textile parser.
- * @codeCoverageIgnoreStart
- */
-	function flay($text, $allowHtml = false) {
-		trigger_error(__('(TextHelper::flay) Deprecated: the Flay library is no longer supported and will be removed in a future version.', true), E_USER_WARNING);
-		if (!class_exists('Flay')) {
-			uses('flay');
-		}
-		return Flay::toHtml($text, false, $allowHtml);
-	}
-/**
- * @codeCoverageIgnoreEnd
- */
 }
 ?>

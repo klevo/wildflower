@@ -1,35 +1,26 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * FileEngineTest file
- *
- * Long description for file
  *
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.cache
  * @since         CakePHP(tm) v 1.2.0.5434
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 if (!class_exists('Cache')) {
 	require LIBS . 'cache.php';
 }
-if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
-	define('CAKEPHP_UNIT_TEST_EXECUTION', 1);
-}
+
 /**
  * FileEngineTest class
  *
@@ -37,6 +28,7 @@ if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
  * @subpackage    cake.tests.cases.libs.cache
  */
 class FileEngineTest extends CakeTestCase {
+
 /**
  * config property
  *
@@ -44,6 +36,7 @@ class FileEngineTest extends CakeTestCase {
  * @access public
  */
 	var $config = array();
+
 /**
  * startCase method
  *
@@ -56,6 +49,7 @@ class FileEngineTest extends CakeTestCase {
 		Configure::write('Cache.disable', false);
 		Cache::config('default', array('engine' => 'File', 'path' => CACHE));
 	}
+
 /**
  * endCase method
  *
@@ -66,6 +60,7 @@ class FileEngineTest extends CakeTestCase {
 		Configure::write('Cache.disable', $this->_cacheDisable);
 		Cache::config('default', $this->_cacheConfig['settings']);
 	}
+
 /**
  * testCacheDirChange method
  *
@@ -74,13 +69,13 @@ class FileEngineTest extends CakeTestCase {
  */
 	function testCacheDirChange() {
 		$result = Cache::config('sessions', array('engine'=> 'File', 'path' => TMP . 'sessions'));
-		$this->assertEqual($result['settings'], Cache::settings('File'));
-		$this->assertNotEqual($result, Cache::settings('File'));
+		$this->assertEqual($result['settings'], Cache::settings('sessions'));
 
-		$result = Cache::config('tests', array('engine'=> 'File', 'path' => TMP . 'tests'));
-		$this->assertEqual($result['settings'], Cache::settings('File'));
-		$this->assertNotEqual($result, Cache::settings('File'));
+		$result = Cache::config('sessions', array('engine'=> 'File', 'path' => TMP . 'tests'));
+		$this->assertEqual($result['settings'], Cache::settings('sessions'));
+		$this->assertNotEqual($result['settings'], Cache::settings('default'));
 	}
+
 /**
  * testReadAndWriteCache method
  *
@@ -109,6 +104,7 @@ class FileEngineTest extends CakeTestCase {
 
 		Cache::delete('test');
 	}
+
 /**
  * testExpiry method
  *
@@ -139,6 +135,7 @@ class FileEngineTest extends CakeTestCase {
 		$result = Cache::read('other_test');
 		$this->assertFalse($result);
 	}
+
 /**
  * testDeleteCache method
  *
@@ -156,8 +153,8 @@ class FileEngineTest extends CakeTestCase {
 
 		$result = Cache::delete('delete_test');
 		$this->assertFalse($result);
-
 	}
+
 /**
  * testSerialize method
  *
@@ -165,12 +162,12 @@ class FileEngineTest extends CakeTestCase {
  * @return void
  */
 	function testSerialize() {
-		Cache::engine('File', array('serialize' => true));
+		Cache::config('default', array('engine' => 'File', 'serialize' => true));
 		$data = 'this is a test of the emergency broadcasting system';
-		$write = Cache::write('serialize_test', $data, 1);
+		$write = Cache::write('serialize_test', $data);
 		$this->assertTrue($write);
 
-		Cache::engine('File', array('serialize' => false));
+		Cache::config('default', array('serialize' => false));
 		$read = Cache::read('serialize_test');
 
 		$newread = Cache::read('serialize_test');
@@ -180,8 +177,8 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertIdentical($read, serialize($data));
 
 		$this->assertIdentical(unserialize($newread), $data);
-
 	}
+
 /**
  * testClear method
  *
@@ -189,7 +186,7 @@ class FileEngineTest extends CakeTestCase {
  * @return void
  */
 	function testClear() {
-		Cache::engine('File', array('duration' => 1));
+		Cache::config('default', array('engine' => 'File', 'duration' => 1));
 		$data = 'this is a test of the emergency broadcasting system';
 		$write = Cache::write('serialize_test1', $data);
 		$write = Cache::write('serialize_test2', $data);
@@ -218,7 +215,7 @@ class FileEngineTest extends CakeTestCase {
 		$this->assertFalse(file_exists(CACHE . 'cake_serialize_test2'));
 		$this->assertFalse(file_exists(CACHE . 'cake_serialize_test3'));
 
-		$result = Cache::engine('File', array('path' => CACHE . 'views'));
+		Cache::config('default', array('engine' => 'File', 'path' => CACHE . 'views'));
 
 		$data = 'this is a test of the emergency broadcasting system';
 		$write = Cache::write('controller_view_1', $data);
@@ -273,8 +270,9 @@ class FileEngineTest extends CakeTestCase {
 
 		clearCache('controller_view');
 
-		Cache::engine('File', array('path' => CACHE));
+		Cache::config('default', array('engine' => 'File', 'path' => CACHE));
 	}
+
 /**
  * testKeyPath method
  *
@@ -292,6 +290,7 @@ class FileEngineTest extends CakeTestCase {
 		$result = Cache::clear();
 		$this->assertTrue($result);
 	}
+
 /**
  * testRemoveWindowsSlashesFromCache method
  *
@@ -299,41 +298,45 @@ class FileEngineTest extends CakeTestCase {
  * @return void
  */
 	function testRemoveWindowsSlashesFromCache() {
-		Cache::engine('File', array('isWindows' => true, 'prefix' => null, 'path' => TMP));
+		Cache::config('windows_test', array('engine' => 'File', 'isWindows' => true, 'prefix' => null, 'path' => TMP));
 
 		$expected = array (
-				'C:\dev\prj2\sites\cake\libs' => array(
-					0 => 'C:\dev\prj2\sites\cake\libs', 1 => 'C:\dev\prj2\sites\cake\libs\view',
-					2 => 'C:\dev\prj2\sites\cake\libs\view\scaffolds', 3 => 'C:\dev\prj2\sites\cake\libs\view\pages',
-					4 => 'C:\dev\prj2\sites\cake\libs\view\layouts', 5 => 'C:\dev\prj2\sites\cake\libs\view\layouts\xml',
-					6 => 'C:\dev\prj2\sites\cake\libs\view\layouts\rss', 7 => 'C:\dev\prj2\sites\cake\libs\view\layouts\js',
-					8 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email', 9 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email\text',
-					10 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email\html', 11 => 'C:\dev\prj2\sites\cake\libs\view\helpers',
-					12 => 'C:\dev\prj2\sites\cake\libs\view\errors', 13 => 'C:\dev\prj2\sites\cake\libs\view\elements',
-					14 => 'C:\dev\prj2\sites\cake\libs\view\elements\email', 15 => 'C:\dev\prj2\sites\cake\libs\view\elements\email\text',
-					16 => 'C:\dev\prj2\sites\cake\libs\view\elements\email\html', 17 => 'C:\dev\prj2\sites\cake\libs\model',
-					18 => 'C:\dev\prj2\sites\cake\libs\model\datasources', 19 => 'C:\dev\prj2\sites\cake\libs\model\datasources\dbo',
-					20 => 'C:\dev\prj2\sites\cake\libs\model\behaviors', 21 => 'C:\dev\prj2\sites\cake\libs\controller',
-					22 => 'C:\dev\prj2\sites\cake\libs\controller\components', 23 => 'C:\dev\prj2\sites\cake\libs\cache'),
-				'C:\dev\prj2\sites\main_site\vendors' => array(
-					0 => 'C:\dev\prj2\sites\main_site\vendors', 1 => 'C:\dev\prj2\sites\main_site\vendors\shells',
-					2 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates', 3 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates\cdc_project',
-					4 => 'C:\dev\prj2\sites\main_site\vendors\shells\tasks', 5 => 'C:\dev\prj2\sites\main_site\vendors\js',
-					6 => 'C:\dev\prj2\sites\main_site\vendors\css'),
-				'C:\dev\prj2\sites\vendors' => array(
-					0 => 'C:\dev\prj2\sites\vendors', 1 => 'C:\dev\prj2\sites\vendors\simpletest',
-					2 => 'C:\dev\prj2\sites\vendors\simpletest\test', 3 => 'C:\dev\prj2\sites\vendors\simpletest\test\support',
-					4 => 'C:\dev\prj2\sites\vendors\simpletest\test\support\collector', 5 => 'C:\dev\prj2\sites\vendors\simpletest\extensions',
-					6 => 'C:\dev\prj2\sites\vendors\simpletest\extensions\testdox', 7 => 'C:\dev\prj2\sites\vendors\simpletest\docs',
-					8 => 'C:\dev\prj2\sites\vendors\simpletest\docs\fr', 9 => 'C:\dev\prj2\sites\vendors\simpletest\docs\en'),
-				'C:\dev\prj2\sites\main_site\views\helpers' => array(
-					0 => 'C:\dev\prj2\sites\main_site\views\helpers'));
+			'C:\dev\prj2\sites\cake\libs' => array(
+				0 => 'C:\dev\prj2\sites\cake\libs', 1 => 'C:\dev\prj2\sites\cake\libs\view',
+				2 => 'C:\dev\prj2\sites\cake\libs\view\scaffolds', 3 => 'C:\dev\prj2\sites\cake\libs\view\pages',
+				4 => 'C:\dev\prj2\sites\cake\libs\view\layouts', 5 => 'C:\dev\prj2\sites\cake\libs\view\layouts\xml',
+				6 => 'C:\dev\prj2\sites\cake\libs\view\layouts\rss', 7 => 'C:\dev\prj2\sites\cake\libs\view\layouts\js',
+				8 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email', 9 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email\text',
+				10 => 'C:\dev\prj2\sites\cake\libs\view\layouts\email\html', 11 => 'C:\dev\prj2\sites\cake\libs\view\helpers',
+				12 => 'C:\dev\prj2\sites\cake\libs\view\errors', 13 => 'C:\dev\prj2\sites\cake\libs\view\elements',
+				14 => 'C:\dev\prj2\sites\cake\libs\view\elements\email', 15 => 'C:\dev\prj2\sites\cake\libs\view\elements\email\text',
+				16 => 'C:\dev\prj2\sites\cake\libs\view\elements\email\html', 17 => 'C:\dev\prj2\sites\cake\libs\model',
+				18 => 'C:\dev\prj2\sites\cake\libs\model\datasources', 19 => 'C:\dev\prj2\sites\cake\libs\model\datasources\dbo',
+				20 => 'C:\dev\prj2\sites\cake\libs\model\behaviors', 21 => 'C:\dev\prj2\sites\cake\libs\controller',
+				22 => 'C:\dev\prj2\sites\cake\libs\controller\components', 23 => 'C:\dev\prj2\sites\cake\libs\cache'),
+			'C:\dev\prj2\sites\main_site\vendors' => array(
+				0 => 'C:\dev\prj2\sites\main_site\vendors', 1 => 'C:\dev\prj2\sites\main_site\vendors\shells',
+				2 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates', 3 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates\cdc_project',
+				4 => 'C:\dev\prj2\sites\main_site\vendors\shells\tasks', 5 => 'C:\dev\prj2\sites\main_site\vendors\js',
+				6 => 'C:\dev\prj2\sites\main_site\vendors\css'),
+			'C:\dev\prj2\sites\vendors' => array(
+				0 => 'C:\dev\prj2\sites\vendors', 1 => 'C:\dev\prj2\sites\vendors\simpletest',
+				2 => 'C:\dev\prj2\sites\vendors\simpletest\test', 3 => 'C:\dev\prj2\sites\vendors\simpletest\test\support',
+				4 => 'C:\dev\prj2\sites\vendors\simpletest\test\support\collector', 5 => 'C:\dev\prj2\sites\vendors\simpletest\extensions',
+				6 => 'C:\dev\prj2\sites\vendors\simpletest\extensions\testdox', 7 => 'C:\dev\prj2\sites\vendors\simpletest\docs',
+				8 => 'C:\dev\prj2\sites\vendors\simpletest\docs\fr', 9 => 'C:\dev\prj2\sites\vendors\simpletest\docs\en'),
+			'C:\dev\prj2\sites\main_site\views\helpers' => array(
+				0 => 'C:\dev\prj2\sites\main_site\views\helpers')
+		);
 
-		$data = Cache::write('test_dir_map', $expected);
-		$data = Cache::read('test_dir_map');
-		Cache::delete('test_dir_map');
+		Cache::write('test_dir_map', $expected, 'windows_test');
+		$data = Cache::read('test_dir_map', 'windows_test');
+		Cache::delete('test_dir_map', 'windows_test');
 		$this->assertEqual($expected, $data);
+
+		Cache::drop('windows_test');
 	}
+
 /**
  * testWriteQuotedString method
  *
@@ -341,16 +344,34 @@ class FileEngineTest extends CakeTestCase {
  * @return void
  */
 	function testWriteQuotedString() {
-		Cache::engine('File', array('path' => TMP . 'tests'));
+		Cache::config('default', array('engine' => 'File', 'path' => TMP . 'tests'));
 		Cache::write('App.doubleQuoteTest', '"this is a quoted string"');
 		$this->assertIdentical(Cache::read('App.doubleQuoteTest'), '"this is a quoted string"');
 		Cache::write('App.singleQuoteTest', "'this is a quoted string'");
 		$this->assertIdentical(Cache::read('App.singleQuoteTest'), "'this is a quoted string'");
 
-		Cache::engine('File', array('isWindows' => true, 'path' => TMP . 'tests'));
+		Cache::config('default', array('isWindows' => true, 'path' => TMP . 'tests'));
 		$this->assertIdentical(Cache::read('App.doubleQuoteTest'), '"this is a quoted string"');
 		Cache::write('App.singleQuoteTest', "'this is a quoted string'");
 		$this->assertIdentical(Cache::read('App.singleQuoteTest'), "'this is a quoted string'");
+	}
+
+/**
+ * check that FileEngine generates an error when a configured Path does not exist.
+ *
+ * @return void
+ */
+	function testErrorWhenPathDoesNotExist() {
+		if ($this->skipIf(is_dir(TMP . 'tests' . DS . 'file_failure'), 'Cannot run test directory exists. %s')) {
+			return;
+		}
+		$this->expectError();
+		Cache::config('failure', array(
+			'engine' => 'File',
+			'path' => TMP . 'tests' . DS . 'file_failure'
+		));
+
+		Cache::drop('failure');
 	}
 }
 ?>

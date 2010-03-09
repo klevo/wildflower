@@ -1,30 +1,24 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * MySQLi layer for DBO
  *
- * Long description for file
- *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.model.datasources.dbo
  * @since         CakePHP(tm) v 1.1.4.2974
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::import('Core', 'DboMysql');
+App::import('Datasource', 'DboMysql');
+
 /**
  * MySQLi DBO driver object
  *
@@ -34,12 +28,14 @@ App::import('Core', 'DboMysql');
  * @subpackage    cake.cake.libs.model.datasources.dbo
  */
 class DboMysqli extends DboMysqlBase {
+
 /**
  * Enter description here...
  *
  * @var unknown_type
  */
 	var $description = "Mysqli DBO Driver";
+
 /**
  * Base configuration settings for Mysqli driver
  *
@@ -51,9 +47,9 @@ class DboMysqli extends DboMysqlBase {
 		'login' => 'root',
 		'password' => '',
 		'database' => 'cake',
-		'port' => '3306',
-		'connect' => 'mysqli_connect'
+		'port' => '3306'
 	);
+
 /**
  * Connects to the database using options in the given configuration array.
  *
@@ -75,19 +71,20 @@ class DboMysqli extends DboMysqlBase {
 		if ($this->connection !== false) {
 			$this->connected = true;
 		}
-		
+
 		$this->_useAlias = (bool)version_compare(mysqli_get_server_info($this->connection), "4.1", ">=");
-		
+
 		if (!empty($config['encoding'])) {
 			$this->setEncoding($config['encoding']);
 		}
 		return $this->connected;
 	}
+
 /**
  * Check that MySQLi is installed/enabled
  *
  * @return boolean
- **/
+ */
 	function enabled() {
 		return extension_loaded('mysqli');
 	}
@@ -103,6 +100,7 @@ class DboMysqli extends DboMysqlBase {
 		$this->connected = !@mysqli_close($this->connection);
 		return !$this->connected;
 	}
+
 /**
  * Executes given SQL statement.
  *
@@ -116,6 +114,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return mysqli_query($this->connection, $sql);
 	}
+
 /**
  * Executes given SQL statement (procedure call).
  *
@@ -133,6 +132,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return $firstResult;
 	}
+
 /**
  * Returns an array of sources (tables) in the database.
  *
@@ -140,7 +140,7 @@ class DboMysqli extends DboMysqlBase {
  */
 	function listSources() {
 		$cache = parent::listSources();
-		if ($cache != null) {
+		if ($cache !== null) {
 			return $cache;
 		}
 		$result = $this->_execute('SHOW TABLES FROM ' . $this->name($this->config['database']) . ';');
@@ -151,12 +151,13 @@ class DboMysqli extends DboMysqlBase {
 
 		$tables = array();
 
-		while ($line = mysqli_fetch_array($result)) {
+		while ($line = mysqli_fetch_row($result)) {
 			$tables[] = $line[0];
 		}
 		parent::listSources($tables);
 		return $tables;
 	}
+
 /**
  * Returns a quoted and escaped string of $data for use in an SQL statement.
  *
@@ -203,6 +204,7 @@ class DboMysqli extends DboMysqlBase {
 
 		return $data;
 	}
+
 /**
  * Returns a formatted error message from previous database operation.
  *
@@ -214,6 +216,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return null;
 	}
+
 /**
  * Returns number of affected rows in previous database operation. If no previous operation exists,
  * this returns false.
@@ -226,6 +229,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return null;
 	}
+
 /**
  * Returns number of rows in previous resultset. If no previous resultset exists,
  * this returns false.
@@ -238,6 +242,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return null;
 	}
+
 /**
  * Returns the ID generated from the previous INSERT operation.
  *
@@ -251,6 +256,7 @@ class DboMysqli extends DboMysqlBase {
 		}
 		return null;
 	}
+
 /**
  * Enter description here...
  *
@@ -275,6 +281,7 @@ class DboMysqli extends DboMysqlBase {
 			$j++;
 		}
 	}
+
 /**
  * Fetches the next row from the current result set
  *
@@ -283,19 +290,18 @@ class DboMysqli extends DboMysqlBase {
 	function fetchResult() {
 		if ($row = mysqli_fetch_row($this->results)) {
 			$resultRow = array();
-			$i = 0;
 			foreach ($row as $index => $field) {
 				$table = $column = null;
-				if (count($this->map[$index]) == 2) {
+				if (count($this->map[$index]) === 2) {
 					list($table, $column) = $this->map[$index];
 				}
 				$resultRow[$table][$column] = $row[$index];
-				$i++;
 			}
 			return $resultRow;
 		}
 		return false;
 	}
+
 /**
  * Gets the database encoding
  *
@@ -304,6 +310,23 @@ class DboMysqli extends DboMysqlBase {
 	function getEncoding() {
 		return mysqli_client_encoding($this->connection);
 	}
+
+/**
+ * Query charset by collation
+ *
+ * @param string $name Collation name
+ * @return string Character set name
+ */
+	function getCharsetName($name) {
+		if ((bool)version_compare(mysqli_get_server_info($this->connection), "5", ">=")) {
+			$cols = $this->query('SELECT CHARACTER_SET_NAME FROM INFORMATION_SCHEMA.COLLATIONS WHERE COLLATION_NAME= ' . $this->value($name) . ';');
+			if (isset($cols[0]['COLLATIONS']['CHARACTER_SET_NAME'])) {
+				return $cols[0]['COLLATIONS']['CHARACTER_SET_NAME'];
+			}
+		}
+		return false;
+	}
+
 /**
  * Checks if the result is valid
  *

@@ -1,27 +1,23 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Overload abstraction interface.  Merges differences between PHP4 and 5.
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs
  * @since         CakePHP(tm) v 1.2
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 /**
  * Overloadable class selector
  *
@@ -31,6 +27,7 @@
  * @subpackage    cake.cake.libs
  */
 class Overloadable extends Object {
+
 /**
  * Constructor.
  *
@@ -40,6 +37,7 @@ class Overloadable extends Object {
 		$this->overload();
 		parent::__construct();
 	}
+
 /**
  * Overload implementation.
  *
@@ -89,6 +87,7 @@ Overloadable::overload('Overloadable');
  * @subpackage    cake.cake.libs
  */
 class Overloadable2 extends Object {
+
 /**
  * Constructor
  *
@@ -98,6 +97,7 @@ class Overloadable2 extends Object {
 		$this->overload();
 		parent::__construct();
 	}
+
 /**
  * Overload implementation.
  *
@@ -118,6 +118,7 @@ class Overloadable2 extends Object {
 			}
 		}
 	}
+
 /**
  * Magic method handler.
  *
@@ -134,6 +135,7 @@ class Overloadable2 extends Object {
 		$return = $this->call__($method, $params);
 		return true;
 	}
+
 /**
  * Getter.
  *
@@ -146,6 +148,7 @@ class Overloadable2 extends Object {
 		$value = $this->get__($name);
 		return true;
 	}
+
 /**
  * Setter.
  *
