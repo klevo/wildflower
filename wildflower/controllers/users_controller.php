@@ -34,6 +34,7 @@ class UsersController extends AppController {
      */
     function login() {
 		$this->set('title_for_layout', 'Login');
+		$this->layout = 'login';
         $User = ClassRegistry::init('User');
 
         // Try to authorize user with POSTed data

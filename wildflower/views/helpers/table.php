@@ -126,7 +126,7 @@ class TableHelper extends AppHelper {
 	                    $dashes = '&ndash;';
 	                    $spaces = str_repeat('&nbsp;&nbsp;', $level - 1);
 	                }
-                	$cell = $this->Html->link($cell, "/" . Configure::read('Routing.admin.0') . "/$controller/edit/$id", array(
+                	$cell = $this->Html->link($cell, "/" . Configure::read('Routing.prefixes.0') . "/$controller/edit/$id", array(
                 	   'title' => "Edit this $modelLow"), null, false);
                 	$cell = "$spaces$dashes $cell";
                 	$tdClasses[] = 'primary-field';
@@ -150,7 +150,7 @@ class TableHelper extends AppHelper {
                     $viewPath = $node[$settings['model']]['url'];
                     break;
                 default:
-                    $viewPath = "/" . Configure::read('Routing.admin.0') . "/$controller/view/$id";
+                    $viewPath = "/" . Configure::read('Routing.prefixes.0') . "/$controller/view/$id";
             }
             
             // Actions
