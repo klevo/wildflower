@@ -340,6 +340,14 @@ class ArticlesTestController extends ArticlesTestAppController {
 	function admin_index() {
 		return true;
 	}
+/**
+ * fake index method.
+ *
+ * @return void
+ */
+	function index() {
+		return true;
+	}
 }
 
 /**
@@ -1358,6 +1366,11 @@ class DispatcherTest extends CakeTestCase {
 		$url = 'test_dispatch_pages/camelCased';
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 		$this->assertEqual('TestDispatchPages', $controller->name);
+	
+		$url = 'test_dispatch_pages/camelCased/something. .';
+		$controller = $Dispatcher->dispatch($url, array('return' => 1));
+		$this->assertEqual($controller->params['pass'][0], 'something. .', 'Period was chopped off. %s');
+		
 	}
 
 /**
@@ -1397,11 +1410,9 @@ class DispatcherTest extends CakeTestCase {
 		$Router =& Router::getInstance();
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 
-		$expected = 'TestDispatchPages';
-		$this->assertEqual($expected, $controller->name);
+		$this->assertEqual($controller->name, 'TestDispatchPages');
 
-		$expected = array('param' => 'value', 'param2' => 'value2');
-		$this->assertIdentical($expected, $controller->passedArgs);
+		$this->assertIdentical($controller->passedArgs, array('param' => 'value', 'param2' => 'value2'));
 		$this->assertTrue($controller->params['admin']);
 
 		$expected = '/cake/repo/branches/1.2.x.x/index.php/admin/test_dispatch_pages/index/param:value/param2:value2';
@@ -1423,7 +1434,10 @@ class DispatcherTest extends CakeTestCase {
 
 		Router::reload();
 		$Dispatcher =& new TestDispatcher();
-		Router::connect('/my_plugin/:controller/*', array('plugin'=>'my_plugin', 'controller'=>'pages', 'action'=>'display'));
+		Router::connect(
+			'/my_plugin/:controller/*', 
+			array('plugin' => 'my_plugin', 'controller' => 'pages', 'action' => 'display')
+		);
 
 		$Dispatcher->base = false;
 		$url = 'my_plugin/some_pages/home/param:value/param2:value2';
@@ -1441,17 +1455,10 @@ class DispatcherTest extends CakeTestCase {
 
 		$this->assertEqual($expected, $result);
 
-		$expected = 'my_plugin';
-		$this->assertIdentical($expected, $controller->plugin);
-
-		$expected = 'SomePages';
-		$this->assertIdentical($expected, $controller->name);
-
-		$expected = 'some_pages';
-		$this->assertIdentical($expected, $controller->params['controller']);
-
-		$expected = array('0' => 'home', 'param'=>'value', 'param2'=>'value2');
-		$this->assertIdentical($expected, $controller->passedArgs);
+		$this->assertIdentical($controller->plugin, 'my_plugin');
+		$this->assertIdentical($controller->name, 'SomePages');
+		$this->assertIdentical($controller->params['controller'], 'some_pages');
+		$this->assertIdentical($controller->passedArgs, array('0' => 'home', 'param'=>'value', 'param2'=>'value2'));
 
 		$expected = '/cake/repo/branches/1.2.x.x/my_plugin/some_pages/home/param:value/param2:value2';
 		$this->assertIdentical($expected, $controller->here);
@@ -1472,24 +1479,20 @@ class DispatcherTest extends CakeTestCase {
 
 		Router::reload();
 		$Dispatcher =& new TestDispatcher();
-		Router::connect('/my_plugin/:controller/:action/*', array('plugin'=>'my_plugin', 'controller'=>'pages', 'action'=>'display'));
+		Router::connect(
+			'/my_plugin/:controller/:action/*',
+			array('plugin' => 'my_plugin', 'controller' => 'pages', 'action' => 'display')
+		);
 
 		$Dispatcher->base = false;
 
 		$url = 'my_plugin/other_pages/index/param:value/param2:value2';
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 
-		$expected = 'my_plugin';
-		$this->assertIdentical($expected, $controller->plugin);
-
-		$expected = 'OtherPages';
-		$this->assertIdentical($expected, $controller->name);
-
-		$expected = 'index';
-		$this->assertIdentical($expected, $controller->action);
-
-		$expected = array('param' => 'value', 'param2' => 'value2');
-		$this->assertIdentical($expected, $controller->passedArgs);
+		$this->assertIdentical($controller->plugin, 'my_plugin');
+		$this->assertIdentical($controller->name, 'OtherPages');
+		$this->assertIdentical($controller->action, 'index');
+		$this->assertIdentical($controller->passedArgs, array('param' => 'value', 'param2' => 'value2'));
 
 		$expected = '/cake/repo/branches/1.2.x.x/my_plugin/other_pages/index/param:value/param2:value2';
 		$this->assertIdentical($expected, $controller->here);
@@ -1508,11 +1511,18 @@ class DispatcherTest extends CakeTestCase {
 		$_POST = array();
 		$_SERVER['PHP_SELF'] = '/cake/repo/branches/1.2.x.x/index.php';
 
+		$plugins = App::objects('plugin');
+		$plugins[] = 'MyPlugin';
+		$plugins[] = 'ArticlesTest';
+
+		$app = App::getInstance();
+		$app->__objects['plugin'] = $plugins;
+
 		Router::reload();
 		$Dispatcher =& new TestDispatcher();
 		$Dispatcher->base = false;
 
-		$url = 'my_plugin/add/param:value/param2:value2';
+		$url = 'my_plugin/my_plugin/add/param:value/param2:value2';
 
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 
@@ -1526,7 +1536,7 @@ class DispatcherTest extends CakeTestCase {
 		$Dispatcher =& new TestDispatcher();
 		$Dispatcher->base = false;
 
-		/* Simulates the Route for a real plugin, installed in APP/plugins */
+		// Simulates the Route for a real plugin, installed in APP/plugins
 		Router::connect('/my_plugin/:controller/:action/*', array('plugin' => 'my_plugin'));
 
 		$plugin = 'MyPlugin';
@@ -1534,15 +1544,9 @@ class DispatcherTest extends CakeTestCase {
 
 		$url = $pluginUrl;
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-
-		$expected = $pluginUrl;
-		$this->assertIdentical($controller->plugin, $expected);
-
-		$expected = $plugin;
-		$this->assertIdentical($controller->name, $expected);
-
-		$expected = 'index';
-		$this->assertIdentical($controller->action, $expected);
+		$this->assertIdentical($controller->plugin, 'my_plugin');
+		$this->assertIdentical($controller->name, 'MyPlugin');
+		$this->assertIdentical($controller->action, 'index');
 
 		$expected = $pluginUrl;
 		$this->assertEqual($controller->params['controller'], $expected);
@@ -1554,40 +1558,43 @@ class DispatcherTest extends CakeTestCase {
 		$Dispatcher =& new TestDispatcher();
 		$Dispatcher->base = false;
 
-		$url = 'admin/my_plugin/add/5/param:value/param2:value2';
+		$url = 'admin/my_plugin/my_plugin/add/5/param:value/param2:value2';
 		$controller = $Dispatcher->dispatch($url, array('return' => 1));
 
-		$expected = 'my_plugin';
-		$this->assertIdentical($controller->plugin, $expected);
-
-		$expected = 'MyPlugin';
-		$this->assertIdentical($controller->name, $expected);
-
-		$expected = 'admin_add';
-		$this->assertIdentical($controller->action, $expected);
+		$this->assertEqual($controller->params['plugin'], 'my_plugin');
+		$this->assertEqual($controller->params['controller'], 'my_plugin');
+		$this->assertEqual($controller->params['action'], 'admin_add');
+		$this->assertEqual($controller->params['pass'], array(5));
+		$this->assertEqual($controller->params['named'], array('param' => 'value', 'param2' => 'value2'));
+		$this->assertIdentical($controller->plugin, 'my_plugin');
+		$this->assertIdentical($controller->name, 'MyPlugin');
+		$this->assertIdentical($controller->action, 'admin_add');
 
 		$expected = array(0 => 5, 'param'=>'value', 'param2'=>'value2');
 		$this->assertEqual($controller->passedArgs, $expected);
 
+		Configure::write('Routing.prefixes', array('admin'));
 		Router::reload();
 
 		$Dispatcher =& new TestDispatcher();
 		$Dispatcher->base = false;
 
 		$controller = $Dispatcher->dispatch('admin/articles_test', array('return' => 1));
-
-		$expected = 'articles_test';
-		$this->assertIdentical($controller->plugin, $expected);
-
-		$expected = 'ArticlesTest';
-		$this->assertIdentical($controller->name, $expected);
-
-		$expected = 'admin_index';
-		$this->assertIdentical($controller->action, $expected);
+		$this->assertIdentical($controller->plugin, 'articles_test');
+		$this->assertIdentical($controller->name, 'ArticlesTest');
+		$this->assertIdentical($controller->action, 'admin_index');
 
 		$expected = array(
-			'pass'=> array(), 'named' => array(), 'controller' => 'articles_test', 'plugin' => 'articles_test', 'action' => 'admin_index',
-			'prefix' => 'admin', 'admin' =>  true, 'form' => array(), 'url' => array('url' => 'admin/articles_test'), 'return' => 1
+			'pass'=> array(),
+			'named' => array(),
+			'controller' => 'articles_test',
+			'plugin' => 'articles_test',
+			'action' => 'admin_index',
+			'prefix' => 'admin',
+			'admin' =>  true,
+			'form' => array(), 
+			'url' => array('url' => 'admin/articles_test'),
+			'return' => 1
 		);
 		$this->assertEqual($controller->params, $expected);
 	}
@@ -1602,9 +1609,13 @@ class DispatcherTest extends CakeTestCase {
 	function testAutomaticPluginDispatchWithShortAccess() {
 		$_POST = array();
 		$_SERVER['PHP_SELF'] = '/cake/repo/branches/1.2.x.x/index.php';
+		$plugins = App::objects('plugin');
+		$plugins[] = 'MyPlugin';
+
+		$app = App::getInstance();
+		$app->__objects['plugin'] = $plugins;
 
 		Router::reload();
-		Router::connect('/my_plugin/:controller/:action/*', array('plugin' => 'my_plugin'));
 
 		$Dispatcher =& new TestDispatcher();
 		$Dispatcher->base = false;
@@ -1615,45 +1626,6 @@ class DispatcherTest extends CakeTestCase {
 		$this->assertEqual($controller->params['plugin'], 'my_plugin');
 		$this->assertEqual($controller->params['action'], 'index');
 		$this->assertFalse(isset($controller->params['pass'][0]));
-
-		$url = 'my_plugin/my_plugin/add';
-		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-		$this->assertFalse(isset($controller->params['pass'][0]));
-
-		$Dispatcher =& new TestDispatcher();
-		$Dispatcher->base = false;
-
-		$url = 'my_plugin/my_plugin/add/0';
-		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-		$this->assertTrue(isset($controller->params['pass'][0]));
-
-		$Dispatcher =& new TestDispatcher();
-		$Dispatcher->base = false;
-
-		$url = 'my_plugin/add';
-		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-		$this->assertFalse(isset($controller->params['pass'][0]));
-
-		$Dispatcher =& new TestDispatcher();
-		$Dispatcher->base = false;
-
-		$url = 'my_plugin/add/0';
-		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-		$this->assertEqual($controller->params['controller'], 'my_plugin');
-		$this->assertEqual($controller->params['plugin'], 'my_plugin');
-		$this->assertEqual($controller->params['action'], 'add');
-		$this->assertIdentical('0', $controller->params['pass'][0]);
-
-		$Dispatcher =& new TestDispatcher();
-		$Dispatcher->base = false;
-
-		$url = 'my_plugin/add/1';
-		$controller = $Dispatcher->dispatch($url, array('return' => 1));
-
-		$this->assertEqual($controller->params['controller'], 'my_plugin');
-		$this->assertEqual($controller->params['plugin'], 'my_plugin');
-		$this->assertEqual($controller->params['action'], 'add');
-		$this->assertIdentical('1', $controller->params['pass'][0]);
 	}
 
 /**

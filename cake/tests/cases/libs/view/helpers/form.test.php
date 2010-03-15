@@ -129,6 +129,14 @@ class Contact extends CakeTestModel {
  * @access public
  */
 	var $hasAndBelongsToMany = array('ContactTag' => array('with' => 'ContactTagsContact'));
+
+/**
+ * hasAndBelongsToMany property
+ *
+ * @var array
+ * @access public
+ */
+	var $belongsTo = array('User' => array('className' => 'UserForm'));
 }
 
 /**
@@ -299,7 +307,7 @@ class UserForm extends CakeTestModel {
 		'id' => array('type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'),
 		'published' => array('type' => 'date', 'null' => true, 'default' => null, 'length' => null),
 		'other' => array('type' => 'text', 'null' => true, 'default' => null, 'length' => null),
-		'stuff' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 255),
+		'stuff' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 10),
 		'something' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 255),
 		'created' => array('type' => 'date', 'null' => '1', 'default' => '', 'length' => ''),
 		'updated' => array('type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null)
@@ -1225,6 +1233,31 @@ class FormHelperTest extends CakeTestCase {
 	}
 
 /**
+ * testDisableSecurityUsingForm method
+ *
+ * @access public
+ * @return void
+ */
+	function testDisableSecurityUsingForm() {
+		$this->Form->params['_Token']['key'] = 'testKey';
+		$this->Form->params['_Token']['disabledFields'] = array();
+		$this->Form->create();
+
+		$this->Form->hidden('Addresses.id', array('value' => '123456'));
+		$this->Form->input('Addresses.title');
+		$this->Form->input('Addresses.first_name', array('secure' => false));
+		$this->Form->input('Addresses.city', array('type' => 'textarea', 'secure' => false));
+		$this->Form->input('Addresses.zip', array(
+			'type' => 'select', 'options' => array(1,2), 'secure' => false
+		));
+
+		$result = $this->Form->fields;
+		$expected = array(
+			'Addresses.id' => '123456', 'Addresses.title',
+		);
+		$this->assertEqual($result, $expected);
+	}
+/**
  * testPasswordValidation method
  *
  * test validation errors on password input.
@@ -1751,7 +1784,12 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 
 		$this->Form->validationErrors['Model']['field'] = 'minLength';
-		$result = $this->Form->input('Model.field', array('error' => array('minLength' => __('Le login doit contenir au moins 2 caractères', true))));
+		$result = $this->Form->input('Model.field', array(
+			'error' => array(
+				'minLength' => 'Le login doit contenir au moins 2 caractères',
+				'maxLength' => 'login too large'
+			)
+		));
 		$expected = array(
 			'div' => array('class' => 'input text error'),
 			'label' => array('for' => 'ModelField'),
@@ -1761,6 +1799,28 @@ class FormHelperTest extends CakeTestCase {
 			array('div' => array('class' => 'error-message')),
 			'Le login doit contenir au moins 2 caractères',
 			'/div',
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$this->Form->validationErrors['Model']['field'] = 'maxLength';
+		$result = $this->Form->input('Model.field', array(
+			'error' => array(
+				'wrap' => 'span',
+				'attributes' => array('rel' => 'fake'),
+				'minLength' => 'Le login doit contenir au moins 2 caractères',
+				'maxLength' => 'login too large',
+			)
+		));
+		$expected = array(
+			'div' => array('class' => 'input text error'),
+			'label' => array('for' => 'ModelField'),
+			'Field',
+			'/label',
+			'input' => array('type' => 'text', 'name' => 'data[Model][field]', 'id' => 'ModelField', 'class' => 'form-error'),
+			array('span' => array('class' => 'error-message', 'rel' => 'fake')),
+			'login too large',
+			'/span',
 			'/div'
 		);
 		$this->assertTags($result, $expected);
@@ -3233,6 +3293,36 @@ class FormHelperTest extends CakeTestCase {
 			)),
 			array('label' => array('for' => 'ModelMultiField1')),
 			'first',
+			'/label',
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$this->Form->data = array('Model' => array('tags' => array(1)));
+		$result = $this->Form->select(
+			'Model.tags', array('1' => 'first', 'Array' => 'Array'), null, array('multiple' => 'checkbox')
+		);
+		$expected = array(
+			'input' => array(
+				'type' => 'hidden', 'name' => 'data[Model][tags]', 'value' => '', 'id' => 'ModelTags'
+			),
+			array('div' => array('class' => 'checkbox')),
+			array('input' => array(
+				'type' => 'checkbox', 'name' => 'data[Model][tags][]',
+				'value' => '1', 'id' => 'ModelTags1', 'checked' => 'checked'
+			)),
+			array('label' => array('for' => 'ModelTags1', 'class' => 'selected')),
+			'first',
+			'/label',
+			'/div',
+
+			array('div' => array('class' => 'checkbox')),
+			array('input' => array(
+				'type' => 'checkbox', 'name' => 'data[Model][tags][]',
+				'value' => 'Array', 'id' => 'ModelTagsArray'
+			)),
+			array('label' => array('for' => 'ModelTagsArray')),
+			'Array',
 			'/label',
 			'/div'
 		);
@@ -5268,6 +5358,23 @@ class FormHelperTest extends CakeTestCase {
 	}
 
 /**
+ * test that datetime() works with GET style forms.
+ *
+ * @return void
+ */
+	function testDateTimeWithGetForms() {
+		extract($this->dateRegex);
+		$this->Form->create('Contact', array('type' => 'get'));
+		$result = $this->Form->datetime('created');
+
+		$this->assertPattern('/name="created\[year\]"/', $result, 'year name attribute is wrong.');
+		$this->assertPattern('/name="created\[month\]"/', $result, 'month name attribute is wrong.');
+		$this->assertPattern('/name="created\[day\]"/', $result, 'day name attribute is wrong.');
+		$this->assertPattern('/name="created\[hour\]"/', $result, 'hour name attribute is wrong.');
+		$this->assertPattern('/name="created\[min\]"/', $result, 'min name attribute is wrong.');
+		$this->assertPattern('/name="created\[meridian\]"/', $result, 'meridian name attribute is wrong.');
+	}
+/**
  * testEditFormWithData method
  *
  * test auto populating form elements from submitted data.
@@ -5554,6 +5661,20 @@ class FormHelperTest extends CakeTestCase {
 			'*/select'
 		);
 		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('User.stuff');
+		$expected = array(
+			'div' => array('class' => 'input text'),
+			'label' => array('for' => 'UserStuff'),
+			'Stuff',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[User][stuff]',
+				'id' => 'UserStuff', 'maxlength' => 10
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected, true);
 	}
 
 /**

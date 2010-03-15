@@ -256,6 +256,20 @@ class JsHelperTestCase extends CakeTestCase {
 	}
 
 /**
+ * test that writeBuffer() sets domReady = false when the request is done by XHR.
+ * Including a domReady() when in XHR can cause issues as events aren't triggered by some libraries
+ *
+ * @return void
+ */
+	function testWriteBufferAndXhr() {
+		$this->_useMock();
+		$this->Js->params['isAjax'] = true;
+		$this->Js->buffer('alert("test");');
+		$this->Js->TestJsEngine->expectCallCount('dispatchMethod', 0);
+		$result = $this->Js->writeBuffer();
+	}
+
+/**
  * test that writeScripts makes files, and puts the events into them.
  *
  * @return void
@@ -438,6 +452,43 @@ CODE;
 			'div' => array('class' => 'submit'),
 			'input' => array('type' => 'submit', 'id' => $options['id'], 'value' => 'Save'),
 			'/div'
+		);
+		$this->assertTags($result, $expected);
+	}
+
+/**
+ * test that no buffer works with submit() and that parameters are leaking into the script tag.
+ *
+ * @return void
+ */
+	function testSubmitWithNoBuffer() {
+		$this->_useMock();
+		$options = array('update' => '#content', 'id' => 'test-submit', 'buffer' => false, 'safe' => false);
+		$this->Js->TestJsEngine->setReturnValue('dispatchMethod', 'serialize-code', array('serializeform', '*'));
+		$this->Js->TestJsEngine->setReturnValue('dispatchMethod', 'serialize-code', array('serializeForm', '*'));
+		$this->Js->TestJsEngine->setReturnValue('dispatchMethod', 'ajax-code', array('request', '*'));
+		$this->Js->TestJsEngine->setReturnValue('dispatchMethod', 'event-handler', array('event', '*'));
+
+		$this->Js->TestJsEngine->expectAt(0, 'dispatchMethod', array('get', '*'));
+		$this->Js->TestJsEngine->expectAt(1, 'dispatchMethod', array(new PatternExpectation('/serializeForm/i'), '*'));
+		$this->Js->TestJsEngine->expectAt(2, 'dispatchMethod', array('request', '*'));
+
+		$params = array(
+			'update' => $options['update'], 'buffer' => false, 'safe' => false, 'data' => 'serialize-code',
+			'method' => 'post', 'dataExpression' => true
+		);
+		$this->Js->TestJsEngine->expectAt(3, 'dispatchMethod', array(
+			'event', array('click', "ajax-code", $params)
+		));
+
+		$result = $this->Js->submit('Save', $options);
+		$expected = array(
+			'div' => array('class' => 'submit'),
+			'input' => array('type' => 'submit', 'id' => $options['id'], 'value' => 'Save'),
+			'/div',
+			'script' => array('type' => 'text/javascript'),
+			'event-handler',
+			'/script'
 		);
 		$this->assertTags($result, $expected);
 	}

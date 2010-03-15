@@ -25,6 +25,7 @@
  *
  * @package       cake
  * @subpackage    cake.cake.libs.view.helpers
+ * @link http://book.cakephp.org/view/1450/Javascript
  */
 class JavascriptHelper extends AppHelper {
 
@@ -264,7 +265,7 @@ class JavascriptHelper extends AppHelper {
 					$url .= '.js';
 				}
 			}
-			$url = $this->webroot($this->assetTimestamp($url));
+			$url = $this->assetTimestamp($this->webroot($url));
 
 			if (Configure::read('Asset.filter.js')) {
 				$pos = strpos($url, JS_URL);

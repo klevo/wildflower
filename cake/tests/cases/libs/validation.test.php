@@ -1784,12 +1784,12 @@ class ValidationTest extends CakeTestCase {
  *
  * @return void
  * @access public
- */	
+ */
 	function testIpBoth() {
 		$this->assertTrue(Validation::ip('0.0.0.0'));
 		$this->assertTrue(Validation::ip('192.168.1.156'));
 		$this->assertTrue(Validation::ip('255.255.255.255'));
-		
+
 		$this->assertFalse(Validation::ip('127.0.0'));
 		$this->assertFalse(Validation::ip('127.0.0.a'));
 		$this->assertFalse(Validation::ip('127.0.0.256'));
@@ -1876,6 +1876,9 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::url('www.cakephp.org', true));
 		$this->assertTrue(Validation::url('http://www.cakephp.org', true));
 		$this->assertTrue(Validation::url('http://example.com/~userdir/'));
+		$this->assertTrue(Validation::url('http://example.com/~userdir/subdir/index.html'));
+		$this->assertTrue(Validation::url('http://www.zwischenraume.de'));
+		$this->assertTrue(Validation::url('http://www.zwischenraume.cz'));
 
 		$this->assertTrue(Validation::url('http://cakephp.org:80'));
 		$this->assertTrue(Validation::url('http://cakephp.org:443'));
@@ -2201,12 +2204,5 @@ class ValidationTest extends CakeTestCase {
 		$this->assertTrue(Validation::userDefined('333', $validator, 'customValidate'));
 	}
 
-	// function testFile() {
-	// 	$this->assertTrue(Validation::file(WWW_ROOT . 'img' . DS . 'cake.icon.gif'));
-	// 	$this->assertTrue(Validation::file(WWW_ROOT. 'favicon.ico'));
-	// 	$this->assertTrue(Validation::file(WWW_ROOT. 'index.php'));
-	// 	$this->assertTrue(Validation::file(WWW_ROOT. 'css' . DS . 'cake.generic.css'));
-	// 	$this->assertTrue(Validation::file(TEST_CAKE_CORE_INCLUDE_PATH. 'VERSION.txt'));
-	// }
 }
 ?>

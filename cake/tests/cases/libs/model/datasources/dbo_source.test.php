@@ -4044,6 +4044,33 @@ class DboSourceTest extends CakeTestCase {
 	}
 
 /**
+ * test that cacheMethod works as exepected
+ *
+ * @return void
+ */
+	function testCacheMethod() {
+		$this->testDb->cacheMethods = true;
+		$result = $this->testDb->cacheMethod('name', 'some-key', 'stuff');
+		$this->assertEqual($result, 'stuff');
+
+		$result = $this->testDb->cacheMethod('name', 'some-key');
+		$this->assertEqual($result, 'stuff');
+
+		$result = $this->testDb->cacheMethod('conditions', 'some-key');
+		$this->assertNull($result);
+
+		$result = $this->testDb->cacheMethod('name', 'other-key');
+		$this->assertNull($result);
+
+		$this->testDb->cacheMethods = false;
+		$result = $this->testDb->cacheMethod('name', 'some-key', 'stuff');
+		$this->assertEqual($result, 'stuff');
+
+		$result = $this->testDb->cacheMethod('name', 'some-key');
+		$this->assertNull($result);
+	}
+
+/**
  * testLog method
  *
  * @access public
@@ -4238,6 +4265,24 @@ class DboSourceTest extends CakeTestCase {
 		$expected = array(
 			'`Article`.`title`',
 			'(NOW()) AS  `Article__this_moment`',
+		);
+		$this->assertEqual($expected, $result);
+
+		$result = $this->db->fields($Article, null, array('Article.*'));
+		$expected = array(
+			'`Article`.*',
+			'(NOW()) AS  `Article__this_moment`',
+			'(1 + 1) AS  `Article__two`',
+			'(SELECT COUNT(*) FROM comments WHERE `Article`.`id` = `comments`.`article_id`) AS  `Article__comment_count`'
+		);
+		$this->assertEqual($expected, $result);
+
+		$result = $this->db->fields($Article, null, array('*'));
+		$expected = array(
+			'*',
+			'(NOW()) AS  `Article__this_moment`',
+			'(1 + 1) AS  `Article__two`',
+			'(SELECT COUNT(*) FROM comments WHERE `Article`.`id` = `comments`.`article_id`) AS  `Article__comment_count`'
 		);
 		$this->assertEqual($expected, $result);
 	}

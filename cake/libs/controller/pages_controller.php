@@ -27,6 +27,7 @@
  *
  * @package       cake
  * @subpackage    cake.cake.libs.controller
+ * @link http://book.cakephp.org/view/958/The-Pages-Controller
  */
 class PagesController extends AppController {
 
@@ -67,7 +68,7 @@ class PagesController extends AppController {
 		if (!$count) {
 			$this->redirect('/');
 		}
-		$page = $subpage = $title = null;
+		$page = $subpage = $title_for_layout = null;
 
 		if (!empty($path[0])) {
 			$page = $path[0];
@@ -76,9 +77,9 @@ class PagesController extends AppController {
 			$subpage = $path[1];
 		}
 		if (!empty($path[$count - 1])) {
-			$title = Inflector::humanize($path[$count - 1]);
+			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
-		$this->set(compact('page', 'subpage', 'title'));
+		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
 	}
 }

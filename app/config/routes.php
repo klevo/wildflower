@@ -4,6 +4,10 @@
  *
  * To add your custom routes, create file my_routes.php in this folder and add them there. When you update Wildflower you won't have to  merge this file with a new version.
  */
+ // 2 prefixes used by wf routes media & admin prefix
+$mediaPrefix = 'wildflower'; // change to i or what to use a prefix for serving image assets
+$adminPrefix = Configure::read('Routing.prefixes.0');
+
 $myRoutesPath = dirname(__FILE__) . DS . 'my_routes.php';
 if (file_exists($myRoutesPath)) {
 	require_once($myRoutesPath);
@@ -12,11 +16,12 @@ if (file_exists($myRoutesPath)) {
 /**
  * Wildflower routes
  *
- * Wildflower reservers these URL's:
+ * Wildflower reserves these URL's:
  */
  
 // Home page
 Router::connect('/', array('controller' => 'pages', 'action' => 'view'));
+// maybe this is no longer needed
 Router::connect('/app/webroot/', array('controller' => 'pages', 'action' => 'view'));
 
 // Contact form
@@ -28,16 +33,16 @@ Router::connect('/rss', array('controller' => 'posts', 'action' => 'rss'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex'), array('controller' => 'posts', 'action' => 'index'));
 Router::connect('/' . Configure::read('Wildflower.blogIndex') . '/*', array('controller' => 'posts', 'action' => 'index'));
 Router::connect('/' . Configure::read('Wildflower.postsParent') . '/:slug', array('controller' => 'posts', 'action' => 'view'));
-Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category'));
+Router::connect('/c/:slug/*', array('controller' => 'posts', 'action' => 'category'), array('pass' => array('slug')));
+Router::connect('/c/:slug', array('controller' => 'posts', 'action' => 'category'), array('pass' => array('slug')));
 
 // Wildflower admin routes
-$adminPrefix = Configure::read('Routing.prefixes.0');
-Router::connect("/$adminPrefix", array('controller' => 'dashboards', 'action' => 'index', $adminPrefix => true));
+Router::connect('/' . $adminPrefix, array('controller' => 'dashboards', 'action' => 'index', $adminPrefix => true));
 
 // Image thumbnails
 // @TODO shorten to '/i/*'
-Router::connect('/wildflower/thumbnail/*', array('controller' => 'assets', 'action' => 'thumbnail'));
-Router::connect('/wildflower/thumbnail_by_id/*', array('controller' => 'assets', 'action' => 'thumbnail_by_id'));
+Router::connect('/'. $mediaPrefix .'/thumbnail/*', array('controller' => 'assets', 'action' => 'thumbnail'));
+Router::connect('/'. $mediaPrefix .'/thumbnail_by_id/*', array('controller' => 'assets', 'action' => 'thumbnail_by_id'));
 
 // Search
 Router::connect('/search', array('controller' => 'dashboards', 'action' => 'search'));

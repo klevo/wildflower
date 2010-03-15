@@ -27,6 +27,7 @@ App::import('Core', 'Multibyte');
  *
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
+ * @link http://book.cakephp.org/view/1283/Email
  *
  */
 class EmailComponent extends Object{
@@ -225,6 +226,7 @@ class EmailComponent extends Object{
  *
  * @var array
  * @access public
+ * @link http://book.cakephp.org/view/1290/Sending-A-Message-Using-SMTP
  */
 	var $smtpOptions = array(
 		'port'=> 25, 'host' => 'localhost', 'timeout' => 30
@@ -390,6 +392,7 @@ class EmailComponent extends Object{
  * Reset all EmailComponent internal variables to be able to send out a new email.
  *
  * @access public
+ * @link http://book.cakephp.org/view/1285/Sending-Multiple-Emails-in-a-loop
  */
 	function reset() {
 		$this->template = null;
@@ -556,15 +559,15 @@ class EmailComponent extends Object{
 		if ($this->delivery == 'smtp') {
 			$headers['Subject'] = $this->_encode($this->subject);
 		}
-		
+
 		if ($this->messageId !== false) {
 			if ($this->messageId === true) {
 				$headers['Message-ID'] = '<' . String::UUID() . '@' . env('HTTP_HOST') . '>';
 			} else {
-				$headers['Message-ID'] = $this->messageId; 
+				$headers['Message-ID'] = $this->messageId;
 			}
 		}
-		
+
 		$headers['X-Mailer'] = $this->xMailer;
 
 		if (!empty($this->headers)) {
@@ -624,14 +627,17 @@ class EmailComponent extends Object{
  */
 	function _attachFiles() {
 		$files = array();
-		foreach ($this->attachments as $attachment) {
+		foreach ($this->attachments as $filename => $attachment) {
 			$file = $this->_findFiles($attachment);
 			if (!empty($file)) {
-				$files[] = $file;
+				if (is_int($filename)) {
+					$filename = basename($file);
+				}
+				$files[$filename] = $file;
 			}
 		}
 
-		foreach ($files as $file) {
+		foreach ($files as $filename => $file) {
 			$handle = fopen($file, 'rb');
 			$data = fread($handle, filesize($file));
 			$data = chunk_split(base64_encode($data)) ;
@@ -640,7 +646,7 @@ class EmailComponent extends Object{
 			$this->__message[] = '--' . $this->__boundary;
 			$this->__message[] = 'Content-Type: application/octet-stream';
 			$this->__message[] = 'Content-Transfer-Encoding: base64';
-			$this->__message[] = 'Content-Disposition: attachment; filename="' . basename($file) . '"';
+			$this->__message[] = 'Content-Disposition: attachment; filename="' . basename($filename) . '"';
 			$this->__message[] = '';
 			$this->__message[] = $data;
 			$this->__message[] = '';
@@ -914,8 +920,11 @@ class EmailComponent extends Object{
 		$fm .= sprintf('%s%3$s%3$s%s', 'Message:', $message, $nl);
 		$fm .= '</pre>';
 
-		$this->Controller->Session->setFlash($fm, 'default', null, 'email');
-		return true;
+		if (isset($this->Controller->Session)) {
+			$this->Controller->Session->setFlash($fm, 'default', null, 'email');
+			return true;
+		}
+		return $fm;
 	}
 
 }

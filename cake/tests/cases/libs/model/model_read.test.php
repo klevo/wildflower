@@ -51,17 +51,20 @@ class ModelReadTest extends BaseModelTest {
 				'updated' => '2007-03-18 10:41:31'
 			)
 		);
+
 		$Something->JoinThing->create($joinThingData);
 		$Something->JoinThing->save();
 
 		$result = $Something->JoinThing->find('all', array('conditions' => array('something_else_id' => 2)));
-		$this->assertEqual($result[0]['JoinThing']['doomed'], 1);
-		$this->assertEqual($result[1]['JoinThing']['doomed'], 0);
+		$this->assertEqual($result[0]['JoinThing']['doomed'], true);
+		$this->assertEqual($result[1]['JoinThing']['doomed'], false);
 
 		$result = $Something->find('first');
 		$this->assertEqual(count($result['SomethingElse']), 2);
-		$this->assertEqual($result['SomethingElse'][0]['JoinThing']['doomed'], 1);
-		$this->assertEqual($result['SomethingElse'][1]['JoinThing']['doomed'], 0);
+
+		$doomed = Set::extract('/JoinThing/doomed', $result['SomethingElse']);
+		$this->assertTrue(in_array(true, $doomed));
+		$this->assertTrue(in_array(false, $doomed));
 	}
 
 /**
@@ -76,7 +79,7 @@ class ModelReadTest extends BaseModelTest {
 	function testGroupBy() {
 		$db = ConnectionManager::getDataSource('test_suite');
 		$isStrictGroupBy = in_array($db->config['driver'], array('postgres', 'oracle'));
-		$message = '%s Postgresql and Oracle have strict GROUP BY and are incompatible with this test.';
+		$message = '%s Postgres and Oracle have strict GROUP BY and are incompatible with this test.';
 
 		if ($this->skipIf($isStrictGroupBy, $message )) {
 			return;
@@ -4030,6 +4033,9 @@ class ModelReadTest extends BaseModelTest {
 		$result = $TestModel->find('all', compact('conditions', 'recursive', 'order'));
 		$this->assertEqual($result, $expected);
 
+		if ($this->skipIf($this->db->config['driver'] == 'postgres', 'The rest of testFindAllWithConditionsHavingMixedDataTypes test is not compatible with Postgres')) {
+			return;
+		}
 		$conditions = array('id' => array('1', 2, '3.0'));
 		$order = 'Article.id ASC';
 		$result = $TestModel->find('all', compact('recursive', 'conditions', 'order'));
@@ -7240,6 +7246,9 @@ class ModelReadTest extends BaseModelTest {
 		$result = $Post->field('other_field');
 		$this->assertEqual($result, 4);
 
+		if ($this->skipIf($this->db->config['driver'] == 'postgres', 'The rest of virtualFieds test is not compatible with Postgres')) {
+			return;
+		}
 		ClassRegistry::flush();
 		$Post =& ClassRegistry::init('Post');
 

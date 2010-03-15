@@ -52,6 +52,9 @@
  */
 	define('VALID_YEAR', '/^[12][0-9]{3}$/');
 
+Cache::config('default', array('engine' => 'File'));
+Configure::load('wildflower');
+
 /**
  * Wrapper for application encoding respecting htmlspecialchars
  * 
@@ -78,10 +81,6 @@ function fb() {
     return call_user_func_array(array($instance,'fb'),$args);
     return true;
 }
- 
-// Wildflower include core settings - bootstrap may not be needed in cake1.3
-App::import('Vendor', 'wf_bootsrap', array('file' => 'wf_bootstrap.php'));
-App::import('Vendor', 'wf_core', array('file' => 'wf_core.php'));
 
 /**
  * Wildflower Additional Class Paths
@@ -137,3 +136,7 @@ App::build(array(
 		)
 	)
 );
+
+$wfversion = App::import('File', 'Name', false, array(), WILDFLOWER_DIR  . 'version.php', true);
+Configure::write('Wildflower.version', $wfversion);
+

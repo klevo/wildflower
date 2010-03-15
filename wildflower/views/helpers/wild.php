@@ -3,7 +3,7 @@ App::import('Vendor', 'SimpleHtmlDom', array('file' => 'simple_html_dom.php'));
 
 class WildHelper extends AppHelper {
 	
-	public $helpers = array('Html', 'Textile', 'Htmla');
+	public $helpers = array('Html', 'Textile', 'Htmla', 'Form');
 	private $_isFirstChild = true;
 	private $itemCssClassPrefix;
 	
@@ -24,6 +24,94 @@ class WildHelper extends AppHelper {
 	    }
 	    
 	    return $default;
+	}
+	
+	/**
+	 * returns a link to favicon to be echoed in head of layout
+	 *
+	 * @return string
+	 */
+	function icon($icon = 'favicon.ico') {
+		return $this->Html->tag('link', null, array('rel' => 'shortcut icon', 'href' => $this->webroot . $icon, 'type' => 'image/x-icon'));
+	}
+	
+	/**
+	 * Generate <body> tag with class attribute. Values are
+	 * home-page, page-view, post-view.
+	 *
+	 * @return string
+	 */
+	function rss($options = array()) {
+
+		$head = true; $url = '/rss'; $display = $title = 'rss'; $options = array();
+
+		if($options > array())	{
+			extract($options);
+		}
+
+		$url = $this->Html->url($url);
+
+		if($head)	{
+			$options = array(
+					'rel' => 'alternate', 
+					'href' => $url, 
+					'type' => 'application/rss+xml'
+				);
+			return $this->Html->tag('link', null, $options);
+		} else {
+			if(isset($options['display']))	unset($options['display']);
+			if(isset($options['url']))	unset($options['url']);
+			return $this->Html->link($display, $url, $options);
+		}
+	}
+
+	function title($title) {
+		if(Configure::read('debug'))	{
+			$title.= ' Cake: ' . Configure::read('Cake.version');
+			$title.= ' WF: ' . Configure::read('Wildflower.version');
+			$title.= ' Theme: ' . 'later';
+		}
+		return $this->Html->tag('title', $title);
+	}
+	
+	/**
+	 * display search form
+	 *
+	 * $mData is array of meta, blank empty array use preset
+	 *
+	 * @return string
+	 */
+	function search() {
+		$return = $this->Form->create("Dashboard", array('url' => '/search', 'type' => 'get'));
+	    $return.= $this->Form->input("q", array('label' => false));
+	    $return.= $this->Form->end('Search');
+		return $return;
+	}
+	
+	/**
+	 * Generate metatags
+	 *
+	 * $mData is array of meta, blank empty array use preset
+	 *
+	 * @return string
+	 */
+	function meta($mData = array()) {
+		$return = '';
+		$meta = array('description' => true, 'keywords' => true);
+
+		$mData = array_merge($meta, $mData);
+
+		extract($mData);
+		$meta = array();
+		$meta['keywords'] = (isset($keywords) && $keywords !== true) ? $keywords : Configure::read('Wildflower.settings.keywords');
+		$meta['description'] = (isset($description) && $description !== true) ? $description : Configure::read('Wildflower.settings.description');
+
+		foreach($meta as $name => $content)	{
+			if($content)	{
+				$return.= $this->Html->meta($name, $content);
+			}
+		}
+		return $return;
 	}
 	
 	/**

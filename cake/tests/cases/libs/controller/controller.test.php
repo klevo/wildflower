@@ -595,6 +595,14 @@ class ControllerTest extends CakeTestCase {
 		$this->assertIdentical($Controller->params['paging']['ControllerPost']['pageCount'], 3);
 		$this->assertIdentical($Controller->params['paging']['ControllerPost']['prevPage'], false);
 		$this->assertIdentical($Controller->params['paging']['ControllerPost']['nextPage'], true);
+
+		$Controller->passedArgs = array();
+		$Controller->paginate = array('limit' => '-1');
+		$Controller->paginate('ControllerPost');
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['page'], 1);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['pageCount'], 3);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['prevPage'], false);
+		$this->assertIdentical($Controller->params['paging']['ControllerPost']['nextPage'], true);
 	}
 
 /**
@@ -821,7 +829,7 @@ class ControllerTest extends CakeTestCase {
 
 		$Controller->set('title', 'someTitle');
 		$this->assertIdentical($Controller->viewVars['title'], 'someTitle');
-		$this->assertNotEqual($Controller->pageTitle, 'someTitle');
+		$this->assertTrue(empty($Controller->pageTitle));
 
 		$Controller->viewVars = array();
 		$expected = array('ModelName' => 'name', 'ModelName2' => 'name2');

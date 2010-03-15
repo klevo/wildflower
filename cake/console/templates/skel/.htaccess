@@ -1,5 +1,8 @@
+#1AND1#		AddType x-mapp-php5 .php
+#MTGS#		AddHandler php5-script .php
 <IfModule mod_rewrite.c>
     RewriteEngine on
+    #RewriteBase /
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]
  </IfModule>

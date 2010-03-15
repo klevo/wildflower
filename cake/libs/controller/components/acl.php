@@ -23,10 +23,13 @@
 /**
  * Access Control List factory class.
  *
- * Looks for ACL implementation class in core config, and returns an instance of that class.
+ * Uses a strategy pattern to allow custom ACL implementations to be used with the same component interface.
+ * You can define by changing `Configure::write('Acl.classname', 'DbAcl');` in your core.php. Concrete ACL
+ * implementations should extend `AclBase` and implement the methods it defines.
  *
  * @package       cake
  * @subpackage    cake.cake.libs.controller.components
+ * @link http://book.cakephp.org/view/1242/Access-Control-Lists
  */
 class AclComponent extends Object {
 
@@ -39,7 +42,7 @@ class AclComponent extends Object {
 	var $_Instance = null;
 
 /**
- * Constructor. Will return an instance of the correct ACL class.
+ * Constructor. Will return an instance of the correct ACL class as defined in `Configure::read('Acl.classname')`
  *
  */
 	function __construct() {
@@ -76,10 +79,11 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL check instance.
+ * Pass-thru function for ACL check instance.  Check methods
+ * are used to check whether or not an ARO can access an ACO
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -89,10 +93,11 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL allow instance.
+ * Pass-thru function for ACL allow instance. Allow methods
+ * are used to grant an ARO access to an ACO.
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -102,10 +107,11 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL deny instance.
+ * Pass-thru function for ACL deny instance. Deny methods
+ * are used to remove permission from an ARO to access an ACO.
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -115,10 +121,11 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL inherit instance.
+ * Pass-thru function for ACL inherit instance. Inherit methods
+ * modify the permission for an ARO to be that of its parent object.
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -128,10 +135,10 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL grant instance.
+ * Pass-thru function for ACL grant instance. An alias for AclComponent::allow()
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -141,10 +148,10 @@ class AclComponent extends Object {
 	}
 
 /**
- * Pass-thru function for ACL grant instance.
+ * Pass-thru function for ACL grant instance. An alias for AclComponent::deny()
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -178,8 +185,8 @@ class AclBase extends Object {
 /**
  * Empty method to be overridden in subclasses
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @access public
  */
@@ -197,7 +204,21 @@ class AclBase extends Object {
 }
 
 /**
- * In this file you can extend the AclBase.
+ * DbAcl implements an ACL control system in the database.  ARO's and ACO's are 
+ * structured into trees and a linking table is used to define permissions.  You 
+ * can install the schema for DbAcl with the Schema Shell.
+ *
+ * `$aco` and `$aro` parameters can be slash delimited paths to tree nodes.
+ *
+ * eg. `controllers/Users/edit`
+ *
+ * Would point to a tree structure like
+ *
+ * {{{
+ *	controllers
+ *		Users
+ *			edit
+ * }}}
  *
  * @package       cake
  * @subpackage    cake.cake.libs.model
@@ -218,9 +239,9 @@ class DbAcl extends AclBase {
 	}
 
 /**
- * Enter description here...
+ * Initializes the containing component and sets the Aro/Aco objects to it.
  *
- * @param object $component
+ * @param AclComponent $component
  * @return void
  * @access public
  */
@@ -232,11 +253,12 @@ class DbAcl extends AclBase {
 /**
  * Checks if the given $aro has access to action $action in $aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  * @return boolean Success (true if ARO has access to action in ACO, false otherwise)
  * @access public
+ * @link http://book.cakephp.org/view/1249/Checking-Permissions-The-ACL-Component
  */
 	function check($aro, $aco, $action = "*") {
 		if ($aro == null || $aco == null) {
@@ -322,12 +344,13 @@ class DbAcl extends AclBase {
 /**
  * Allow $aro to have access to action $actions in $aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $actions Action (defaults to *)
  * @param integer $value Value to indicate access type (1 to give access, -1 to deny, 0 to inherit)
  * @return boolean Success
  * @access public
+ * @link http://book.cakephp.org/view/1248/Assigning-Permissions
  */
 	function allow($aro, $aco, $actions = "*", $value = 1) {
 		$perms = $this->getAclLink($aro, $aco);
@@ -374,11 +397,12 @@ class DbAcl extends AclBase {
 /**
  * Deny access for $aro to action $action in $aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $actions Action (defaults to *)
  * @return boolean Success
  * @access public
+ * @link http://book.cakephp.org/view/1248/Assigning-Permissions
  */
 	function deny($aro, $aco, $action = "*") {
 		return $this->allow($aro, $aco, $action, -1);
@@ -387,8 +411,8 @@ class DbAcl extends AclBase {
 /**
  * Let access for $aro to action $action in $aco be inherited
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $actions Action (defaults to *)
  * @return boolean Success
  * @access public
@@ -400,8 +424,8 @@ class DbAcl extends AclBase {
 /**
  * Allow $aro to have access to action $actions in $aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $actions Action (defaults to *)
  * @return boolean Success
  * @see allow()
@@ -414,8 +438,8 @@ class DbAcl extends AclBase {
 /**
  * Deny access for $aro to action $action in $aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @param string $actions Action (defaults to *)
  * @return boolean Success
  * @see deny()
@@ -428,8 +452,8 @@ class DbAcl extends AclBase {
 /**
  * Get an array of access-control links between the given Aro and Aco
  *
- * @param string $aro ARO
- * @param string $aco ACO
+ * @param string $aro ARO The requesting object identifier.
+ * @param string $aco ACO The controlled object identifier.
  * @return array Indexed array with: 'aro', 'aco' and 'link'
  * @access public
  */
@@ -472,7 +496,8 @@ class DbAcl extends AclBase {
 }
 
 /**
- * In this file you can extend the AclBase.
+ * IniAcl implements an access control system using an INI file.  An example 
+ * of the ini file used can be found in /config/acl.ini.php.
  *
  * @package       cake
  * @subpackage    cake.cake.libs.model.iniacl
@@ -495,8 +520,9 @@ class IniAcl extends AclBase {
 	}
 
 /**
- * Main ACL check function. Checks to see if the ARO (access request object) has access to the ACO (access control object).
- * Looks at the acl.ini.php file for permissions (see instructions in /config/acl.ini.php).
+ * Main ACL check function. Checks to see if the ARO (access request object) has access to the 
+ * ACO (access control object).Looks at the acl.ini.php file for permissions 
+ * (see instructions in /config/acl.ini.php).
  *
  * @param string $aro ARO
  * @param string $aco ACO

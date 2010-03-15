@@ -385,6 +385,19 @@ class HelperTest extends CakeTestCase {
 		$this->Helper->setEntity('HelperTestTag.HelperTestTag');
 		$result = $this->Helper->value('HelperTestTag.HelperTestTag');
 		$this->assertEqual($result, array(3 => 3, 5 => 5));
+
+		$this->Helper->data = array('zero' => 0);
+		$this->Helper->setEntity('zero');
+		$result = $this->Helper->value(array('default' => 'something'), 'zero');
+		$this->assertEqual($result, array('value' => 0));
+
+		$this->Helper->data = array('zero' => '0');
+		$result = $this->Helper->value(array('default' => 'something'), 'zero');
+		$this->assertEqual($result, array('value' => '0'));
+
+		$this->Helper->setEntity('inexistent');
+		$result = $this->Helper->value(array('default' => 'something'), 'inexistent');
+		$this->assertEqual($result, array('value' => 'something'));
 	}
 
 /**
@@ -453,6 +466,10 @@ class HelperTest extends CakeTestCase {
 
 		$result = $this->Helper->assetTimestamp(CSS_URL . 'cake.generic.css?someparam');
 		$this->assertEqual($result, CSS_URL . 'cake.generic.css?someparam');
+
+		$this->Helper->webroot = '/some/dir/';
+		$result = $this->Helper->assetTimestamp('/some/dir/' . CSS_URL . 'cake.generic.css');
+		$this->assertPattern('/' . preg_quote(CSS_URL . 'cake.generic.css?', '/') . '[0-9]+/', $result);
 
 		Configure::write('debug', $_debug);
 		Configure::write('Asset.timestamp', $_timestamp);

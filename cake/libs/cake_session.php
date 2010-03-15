@@ -115,6 +115,22 @@ class CakeSession extends Object {
 	var $id = null;
 
 /**
+ * Session Started
+ *
+ * @var boolean
+ * @access protected
+ */
+	var $_started = false;
+
+/**
+ * Hostname
+ *
+ * @var string
+ * @access public
+ */
+	var $host = null;
+
+/**
  * Constructor.
  *
  * @param string $base The base path for the Session
@@ -181,16 +197,19 @@ class CakeSession extends Object {
 /**
  * Starts the Session.
  *
- * @param string $name Variable name to check for
- * @return boolean True if variable is there
+ * @return boolean True if session was started
  * @access public
  */
 	function start() {
+		if ($this->started()) {
+			return true;
+		}
 		if (function_exists('session_write_close')) {
 			session_write_close();
 		}
 		$this->__initSession();
-		return $this->__startSession();
+		$this->_started = $this->__startSession();
+		return $this->started();
 	}
 
 /**
@@ -200,7 +219,7 @@ class CakeSession extends Object {
  * @return boolean True if session has been started.
  */
 	function started() {
-		if (isset($_SESSION)) {
+		if (isset($_SESSION) && $this->_started) {
 			return true;
 		}
 		return false;
@@ -233,7 +252,7 @@ class CakeSession extends Object {
 			$this->id = $id;
 			session_id($this->id);
 		}
-		if (isset($_SESSION)) {
+		if ($this->started()) {
 			return session_id();
 		} else {
 			return $this->id;
@@ -564,7 +583,7 @@ class CakeSession extends Object {
 			if (empty($_SESSION)) {
 				$_SESSION = array();
 			}
-			return false;
+			return true;
 		} elseif (!isset($_SESSION)) {
 			session_cache_limiter ("must-revalidate");
 			session_start();
