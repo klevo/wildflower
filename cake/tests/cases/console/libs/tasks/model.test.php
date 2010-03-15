@@ -42,7 +42,7 @@ Mock::generatePartial(
 );
 Mock::generatePartial(
 	'ModelTask', 'MockModelTask',
-	array('in', 'out', 'err', 'createFile', '_stop', '_checkUnitTest')
+	array('in', 'out', 'hr', 'err', 'createFile', '_stop', '_checkUnitTest')
 );
 
 Mock::generate(
@@ -230,6 +230,40 @@ class ModelTaskTest extends CakeTestCase {
 
 		$result = $this->Task->fieldValidation('text', array('type' => 'string', 'length' => 10, 'null' => false));
 		$expected = array('notempty' => 'notempty', 'maxlength' => 'maxlength');
+		$this->assertEqual($result, $expected);
+	}
+
+/**
+ * test that a bogus response doesn't cause errors to bubble up.
+ *
+ * @return void
+ */
+	function testInteractiveFieldValidationWithBogusResponse() {
+		$this->Task->initValidations();
+		$this->Task->interactive = true;
+		$this->Task->setReturnValueAt(0, 'in', '999999');
+		$this->Task->setReturnValueAt(1, 'in', '19');
+		$this->Task->setReturnValueAt(2, 'in', 'n');
+		$this->Task->expectAt(4, 'out', array(new PatternExpectation('/make a valid/')));
+
+		$result = $this->Task->fieldValidation('text', array('type' => 'string', 'length' => 10, 'null' => false));
+		$expected = array('notempty' => 'notempty');
+		$this->assertEqual($result, $expected);
+	}
+
+/**
+ * test that a regular expression can be used for validation.
+ *
+ * @return void
+ */
+	function testInteractiveFieldValidationWithRegexp() {
+		$this->Task->initValidations();
+		$this->Task->interactive = true;
+		$this->Task->setReturnValueAt(0, 'in', '/^[a-z]{0,9}$/');
+		$this->Task->setReturnValueAt(1, 'in', 'n');
+
+		$result = $this->Task->fieldValidation('text', array('type' => 'string', 'length' => 10, 'null' => false));
+		$expected = array('a_z_0_9' => '/^[a-z]{0,9}$/');
 		$this->assertEqual($result, $expected);
 	}
 

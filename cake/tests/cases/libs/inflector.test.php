@@ -110,6 +110,7 @@ class InflectorTest extends CakeTestCase {
 		$this->assertEqual(Inflector::singularize('taxis'), 'taxi');
 		$this->assertEqual(Inflector::singularize('taxes'), 'tax');
 		$this->assertEqual(Inflector::singularize('Taxes'), 'Tax');
+		$this->assertEqual(Inflector::singularize('AwesomeTaxes'), 'AwesomeTax');
 		$this->assertEqual(Inflector::singularize('faxes'), 'fax');
 		$this->assertEqual(Inflector::singularize('waxes'), 'wax');
 		$this->assertEqual(Inflector::singularize('niches'), 'niche');
@@ -379,6 +380,24 @@ class InflectorTest extends CakeTestCase {
 		$this->assertEqual(Inflector::singularize('contributors'), 'contributa');
 		$this->assertEqual(Inflector::singularize('spins'), 'spinor');
 		$this->assertEqual(Inflector::singularize('singulars'), 'singulars');
+	}
+
+/**
+ * testCustomTransliterationRule method
+ *
+ * @access public
+ * @return void
+ */
+	function testCustomTransliterationRule() {
+		$this->assertEqual(Inflector::slug('Testing æ ø å'), 'Testing_ae_o_a');
+
+		Inflector::rules('transliteration', array('/å/' => 'aa', '/ø/' => 'oe'));
+		$this->assertEqual(Inflector::slug('Testing æ ø å'), 'Testing_ae_oe_aa');
+
+		Inflector::rules('transliteration', array('/ä|æ/' => 'ae', '/å/' => 'aa'), true);
+		$this->assertEqual(Inflector::slug('Testing æ ø å'), 'Testing_ae_ø_aa');
+
+		$this->assertEqual(Inflector::slug('Testing æ ø å', '-', array('/ø/' => 'oe')), 'Testing-ae-oe-aa');
 	}
 
 /**
