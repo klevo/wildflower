@@ -2,11 +2,11 @@
 class Asset extends AppModel {
     
     public $validate = array(
-        // 'file' => array(
-        //     'rule' => array('isFileArray'),
-        //     'required' => true,
-        //     'message' => 'Select a file to upload'
-        // )
+		'file' => array(
+			'rule' => array('isFileArray'),
+			'required' => true,
+			'message' => 'Select a file to upload'
+		)
 	);
 	
 	function delete($id) {
@@ -64,13 +64,34 @@ class Asset extends AppModel {
 	 */
 	static function upload($fileArray) {
         // @TODO better array check
-	    if (!is_array($fileArray) or empty($fileArray['name'])) {
-	        return '';
-	    }
+	    //if (!is_array($fileArray) or empty($fileArray['name'])) {
+	    //    return false;
+	    //}
 	    
+	    // Check if file with the same name does not already exist
 	    $fileName = trim($fileArray['name']);
         $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $fileName;
         
+        // Rename file if already exists
+        $i = 1;
+        while (file_exists($uploadPath)) {
+            // Append a number to the end of the file,
+            // if it alredy has one increase it
+            $newFileName = explode('.', $fileName);
+			if(is_array($newFileName))	{
+				$lastChar = mb_strlen($newFileName[0], Configure::read('App.encoding')) - 1;
+				if (is_numeric($newFileName[0][$lastChar]) and $newFileName[0][$lastChar - 1] == '-') {
+					$i = intval($newFileName[0][$lastChar]) + 1;
+					$newFileName[0][$lastChar] = $i;
+				} else {
+					$newFileName[0] = $newFileName[0] . "-$i";
+				}
+				$newFileName = implode('.', $newFileName);
+			}
+            $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $newFileName;
+            $fileName = $newFileName;
+        }
+
         // Rename file if already exists
         $i = 1;
         while (file_exists($uploadPath)) {

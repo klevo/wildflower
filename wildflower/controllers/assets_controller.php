@@ -15,44 +15,15 @@ class AssetsController extends AppController {
 	        $this->feedFileManager();
 	        return $this->render('admin_index');
 	    }
-	    
-	    // @TODO replace upload logic with Asset::upload()
-	    
-	    // Check if file with the same name does not already exist
-	    $fileName = trim($this->data[$this->modelClass]['file']['name']);
-        $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $fileName;
+
+        $this->Asset->data[$this->modelClass]['name'] = Asset::upload($this->Asset->data[$this->modelClass]['file']);
         
-        // Rename file if already exists
-        $i = 1;
-        while (file_exists($uploadPath)) {
-            // Append a number to the end of the file,
-            // if it alredy has one increase it
-            $newFileName = explode('.', $fileName);
-            $lastChar = mb_strlen($newFileName[0], Configure::read('App.encoding')) - 1;
-            if (is_numeric($newFileName[0][$lastChar]) and $newFileName[0][$lastChar - 1] == '-') {
-                $i = intval($newFileName[0][$lastChar]) + 1;
-                $newFileName[0][$lastChar] = $i;
-            } else {
-                $newFileName[0] = $newFileName[0] . "-$i";
-            }
-            $newFileName = implode('.', $newFileName);
-            $uploadPath = Configure::read('Wildflower.uploadDirectory') . DS . $newFileName;
-            $fileName = $newFileName;
-        }
-   
-        // Upload file
-        $isUploaded = @move_uploaded_file($this->data[$this->modelClass]['file']['tmp_name'], $uploadPath);
-        
-        if (!$isUploaded) {
-            $this->Asset->invalidate('file', 'File can`t be moved to the uploads directory. Check permissions.');
+        if (!$this->Asset->data[$this->modelClass]['name']) {
+            $this->Asset->invalidate('file', 'File can`t be moved to the uploads directory. Check permissions.');	
             $this->feedFileManager();
             return $this->render('admin_index');
         }
-        
-        // Make this file writable and readable
-        chmod($uploadPath, 0777);
-        
-        $this->Asset->data[$this->modelClass]['name'] = $fileName;
+
         if (empty($this->Asset->data[$this->modelClass]['title'])) {
             $this->Asset->data[$this->modelClass]['title'] = str_replace(array('.jpg', '.jpeg', '.gif', '.png'), array('', '', '', ''), $fileName);
         }
