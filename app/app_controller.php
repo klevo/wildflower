@@ -53,14 +53,19 @@ class AppController extends Controller {
         $this->Auth->autoRedirect = false;
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
-	    
+
+		// if prefix is not admin we need to switch the action prefix back to admin so that controller actions are loaded
+		if($prefix != 'admin')	{
+			$this->action = str_replace($prefix . '_', 'admin_', $this->action);
+		}
+
 	    // Site settings
 		$settings = ClassRegistry::init('Setting')->getKeyValuePairs();
         Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
         Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
         
         // Admin area requires authentification
-		if ($this->isAdminAction()) {
+		if ($this->isAdminAction($prefix)) {
 			$this->layout = 'admin_default';
 		} else {
 			$this->layout = 'default';
@@ -308,10 +313,11 @@ class AppController extends Controller {
     /**
      * Tell wheather the current action should be protected
      *
+     * @param $prefix
      * @return bool
      */
-    function isAdminAction() {
-        if (isset($this->params[Configure::read('Routing.admin')]) and $this->params[Configure::read('Routing.admin')]) {
+    function isAdminAction($prefix = false) {
+		if ((isset($this->params[Configure::read('Routing.admin')]) and $this->params[Configure::read('Routing.admin')]) || ($this->here == "/$prefix")) {
             return true;
         }
         return false;

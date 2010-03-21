@@ -1,4 +1,6 @@
-<?php echo $html->doctype('xhtml-strict') ?>
+<?php
+	$prefix = Configure::read('Routing.admin');
+	echo $html->doctype('xhtml-strict') ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <?php echo $html->charset(); ?>
@@ -28,7 +30,7 @@
     <![endif]-->
     
     <!-- JQuery Light MVC -->
-    <script type="text/javascript" src="<?php echo $html->url('/' . Configure::read('Routing.admin') . '/assets/jlm'); ?>"></script>
+    <script type="text/javascript" src="<?php echo $html->url('/' . $prefix . '/assets/jlm'); ?>"></script>
     <script type="text/javascript">
     //<![CDATA[
         $.jlm.config({
