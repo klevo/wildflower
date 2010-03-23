@@ -37,7 +37,7 @@
             base: '<?php echo $this->base ?>',
             controller: '<?php echo $this->params['controller'] ?>',
             action: '<?php echo $this->params['action'] ?>', 
-            prefix: '<?php echo Configure::read('Routing.admin') ?>',
+            prefix: '<?php echo $prefix; ?>',
             custom: {
                 wildflowerUploads: '<?php echo Configure::read('Wildflower.uploadsDirectoryName'); ?>',
                 wildflowerMPrefix: '<?php echo Configure::read('Wildflower.mediaRoute'); ?>'
@@ -64,16 +64,16 @@
     </div>
 
     <ul id="nav">
-        <li><?php echo $htmla->link(__('Dashboard', true), '/' . Configure::read('Routing.admin'), array('strict' => true)); ?></li>
-        <li><?php echo $htmla->link(__('Pages', true), array('controller' => 'pages', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Modules', true), array('controller' => 'sidebars', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Posts', true), array('controller' => 'posts', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Categories', true), array('controller' => 'categories', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Comments', true), array('controller' => 'comments', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Messages', true), array('controller' => 'messages', 'action' => 'index')); ?></li>
-        <li><?php echo $htmla->link(__('Files', true), array('controller' => 'assets', 'action' => 'index')); ?></li>
-        <li class="nav_item_on_right"><?php echo $htmla->link(__('Users', true), array('controller' => 'users', 'action' => 'index')); ?></li>
-        <li class="nav_item_on_right"><?php echo $htmla->link(__('Site Settings', true), array('controller' => 'settings', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Dashboard', true), '/' . $prefix, array('strict' => true)); ?></li>
+        <li><?php echo $htmla->link(__('Pages', true), array($prefix => true, 'plugin' => null, 'controller' => 'pages', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Modules', true), array($prefix => true, 'plugin' => null, 'controller' => 'sidebars', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Posts', true), array($prefix => true, 'plugin' => null, 'controller' => 'posts', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Categories', true), array($prefix => true, 'plugin' => null, 'controller' => 'categories', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Comments', true), array($prefix => true, 'plugin' => null, 'controller' => 'comments', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Messages', true), array($prefix => true, 'plugin' => null, 'controller' => 'messages', 'action' => 'index')); ?></li>
+        <li><?php echo $htmla->link(__('Files', true), array($prefix => true, 'plugin' => null, 'controller' => 'assets', 'action' => 'index')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Users', true), array($prefix => true, 'plugin' => null, 'controller' => 'users', 'action' => 'index')); ?></li>
+        <li class="nav_item_on_right"><?php echo $htmla->link(__('Site Settings', true), array($prefix => true, 'plugin' => null, 'controller' => 'settings', 'action' => 'index')); ?></li>
     </ul>
 </div>
 
