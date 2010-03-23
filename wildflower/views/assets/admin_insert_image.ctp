@@ -31,7 +31,7 @@
     <div id="resize_image">
         <h5>Resize</h5>
         Width: <input type="text" id="resize_x" name="data[Resize][width]" size="4"> px&nbsp;&nbsp; Height: <input type="text" name="data[Resize][height]" id="resize_y" size="4" /> px
-		<br />Crop: <input type="text" name="data[Resize][crop]" id="crop" size="5" />
+		<br />Crop: <input type="checkbox" name="data[Resize][crop]" id="crop" />
     </div>
     
     <!-- div id="image_meta">
