@@ -85,9 +85,9 @@ class DATABASE_CONFIG {
 	    'encoding' => 'utf8',
 		'persistent' => false,
 		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'wildflower',
+		'login' => 'webmaster',
+		'password' => 'cakemonkey',
+		'database' => 'wildcake',
 	    'port' => 3306
 	);
 	

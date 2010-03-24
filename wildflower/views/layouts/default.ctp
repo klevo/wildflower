@@ -12,6 +12,7 @@
     <link rel="alternate" type="application/rss+xml" title="<?php echo $siteName; ?> RSS Feed" href="<?php echo $html->url('/rss'); ?>" />
     
     <?php echo $html->css('wfsite'); ?>
+    <?php echo $scripts_for_layout; ?>
 </head>
 <body>
 <div id="wrap">
