@@ -52,6 +52,7 @@ if (!function_exists('clone')) {
  * `config('config1', 'config2');`
  *
  * @return boolean Success
+ * @link http://book.cakephp.org/view/1125/config
  */
 	function config() {
 		$args = func_get_args();
@@ -82,6 +83,7 @@ if (!function_exists('clone')) {
  *
  * @param string $name Filename without the .php part
  * @deprecated Will be removed in 2.0
+ * @link http://book.cakephp.org/view/1140/uses
  */
 	function uses() {
 		$args = func_get_args();
@@ -98,7 +100,8 @@ if (!function_exists('clone')) {
  * @param boolean $var Variable to show debug information for.
  * @param boolean $showHtml If set to true, the method prints the debug data in a screen-friendly way.
  * @param boolean $showFrom If set to true, the method prints from where the function was called.
- * @link http://book.cakephp.org/view/458/Basic-Debugging
+ * @link http://book.cakephp.org/view/1190/Basic-Debugging
+ * @link http://book.cakephp.org/view/1128/debug
  */
 	function debug($var = false, $showHtml = false, $showFrom = true) {
 		if (Configure::read() > 0) {
@@ -198,7 +201,7 @@ if (!function_exists('array_combine')) {
  * @param string $text Text to wrap through htmlspecialchars
  * @param string $charset Character set to use when escaping.  Defaults to config value in 'App.encoding' or 'UTF-8'
  * @return string Wrapped text
- * @link http://book.cakephp.org/view/703/h
+ * @link http://book.cakephp.org/view/1132/h
  */
 	function h($text, $charset = null) {
 		if (is_array($text)) {
@@ -253,7 +256,7 @@ if (!function_exists('array_combine')) {
  * `array('a', 'b')`
  *
  * @return array Array of given parameters
- * @link http://book.cakephp.org/view/694/a
+ * @link http://book.cakephp.org/view/1122/a
  * @deprecated Will be removed in 2.0
  */
 	function a() {
@@ -273,7 +276,7 @@ if (!function_exists('array_combine')) {
  * `array('a'=>'b')`
  *
  * @return array Associative array
- * @link http://book.cakephp.org/view/695/aa
+ * @link http://book.cakephp.org/view/1123/aa
  * @deprecated Will be removed in 2.0
  */
 	function aa() {
@@ -294,7 +297,7 @@ if (!function_exists('array_combine')) {
  * Convenience method for echo().
  *
  * @param string $text String to echo
- * @link http://book.cakephp.org/view/700/e
+ * @link http://book.cakephp.org/view/1129/e
  * @deprecated Will be removed in 2.0
  */
 	function e($text) {
@@ -306,7 +309,7 @@ if (!function_exists('array_combine')) {
  *
  * @param string $str String to lowercase
  * @return string Lowercased string
- * @link http://book.cakephp.org/view/705/low
+ * @link http://book.cakephp.org/view/1134/low
  * @deprecated Will be removed in 2.0
  */
 	function low($str) {
@@ -318,7 +321,7 @@ if (!function_exists('array_combine')) {
  *
  * @param string $str String to uppercase
  * @return string Uppercased string
- * @link http://book.cakephp.org/view/710/up
+ * @link http://book.cakephp.org/view/1139/up
  * @deprecated Will be removed in 2.0
  */
 	function up($str) {
@@ -332,7 +335,7 @@ if (!function_exists('array_combine')) {
  * @param string $replace String to insert
  * @param string $subject String to search
  * @return string Replaced string
- * @link http://book.cakephp.org/view/708/r
+ * @link http://book.cakephp.org/view/1137/r
  * @deprecated Will be removed in 2.0
  */
 	function r($search, $replace, $subject) {
@@ -345,8 +348,7 @@ if (!function_exists('array_combine')) {
  *
  * @see	debug()
  * @param array $var Variable to print out
- * @param boolean $showFrom If set to true, the method prints from where the function was called
- * @link http://book.cakephp.org/view/707/pr
+ * @link http://book.cakephp.org/view/1136/pr
  */
 	function pr($var) {
 		if (Configure::read() > 0) {
@@ -381,7 +383,7 @@ if (!function_exists('array_combine')) {
  * @param array Third array
  * @param array Etc...
  * @return array All array parameters merged into one
- * @link http://book.cakephp.org/view/696/am
+ * @link http://book.cakephp.org/view/1124/am
  */
 	function am() {
 		$r = array();
@@ -403,7 +405,7 @@ if (!function_exists('array_combine')) {
  *
  * @param  string $key Environment variable name.
  * @return string Environment variable setting.
- * @link http://book.cakephp.org/view/701/env
+ * @link http://book.cakephp.org/view/1130/env
  */
 	function env($key) {
 		if ($key == 'HTTPS') {
@@ -579,7 +581,7 @@ if (!function_exists('file_put_contents')) {
 				}
 
 				foreach ($files as $file) {
-					if (is_file($file)) {
+					if (is_file($file) && strrpos($file, DS . 'empty') !== strlen($file) - 6) {
 						@unlink($file);
 					}
 				}
@@ -600,7 +602,7 @@ if (!function_exists('file_put_contents')) {
 					return false;
 				}
 				foreach ($files as $file) {
-					if (is_file($file)) {
+					if (is_file($file) && strrpos($file, DS . 'empty') !== strlen($file) - 6) {
 						@unlink($file);
 					}
 				}
@@ -620,7 +622,7 @@ if (!function_exists('file_put_contents')) {
  *
  * @param array $values Array of values to strip slashes
  * @return mixed What is returned from calling stripslashes
- * @link http://book.cakephp.org/view/709/stripslashes_deep
+ * @link http://book.cakephp.org/view/1138/stripslashes_deep
  */
 	function stripslashes_deep($values) {
 		if (is_array($values)) {
@@ -639,7 +641,7 @@ if (!function_exists('file_put_contents')) {
  * @param string $singular Text to translate
  * @param boolean $return Set to true to return translated string, or false to echo
  * @return mixed translated string if $return is false string will be echoed
- * @link http://book.cakephp.org/view/693/__
+ * @link http://book.cakephp.org/view/1121/__
  */
 	function __($singular, $return = false) {
 		if (!$singular) {
@@ -920,7 +922,7 @@ if (!function_exists('file_put_contents')) {
  *
  * @param string $file File to look for
  * @return Full path to file if exists, otherwise false
- * @link http://book.cakephp.org/view/702/fileExistsInPath
+ * @link http://book.cakephp.org/view/1131/fileExistsInPath
  */
 	function fileExistsInPath($file) {
 		$paths = explode(PATH_SEPARATOR, ini_get('include_path'));
@@ -941,7 +943,7 @@ if (!function_exists('file_put_contents')) {
  *
  * @param string String to convert
  * @return string with underscore remove from start and end of string
- * @link http://book.cakephp.org/view/697/convertSlash
+ * @link http://book.cakephp.org/view/1126/convertSlash
  */
 	function convertSlash($string) {
 		$string = trim($string, '/');
@@ -1002,7 +1004,7 @@ if (!function_exists('file_put_contents')) {
  * @param mixed $val1 Value to return in case condition matches
  * @param mixed $val2 Value to return if condition doesn't match
  * @return mixed $val1 or $val2, depending on whether $condition evaluates to a non-empty expression.
- * @link http://book.cakephp.org/view/704/ife
+ * @link http://book.cakephp.org/view/1133/ife
  * @deprecated Will be removed in 2.0
  */
 	function ife($condition, $val1 = null, $val2 = null) {

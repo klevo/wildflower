@@ -82,7 +82,8 @@ class Dispatcher extends Object {
 	}
 
 /**
- * Dispatches and invokes given URL, handing over control to the involved controllers, and then renders the results (if autoRender is set).
+ * Dispatches and invokes given URL, handing over control to the involved controllers, and then renders the 
+ * results (if autoRender is set).
  *
  * If no controller of given name can be found, invoke() shows error messages in
  * the form of Missing Controllers information. It does the same with Actions (methods of Controllers are called
@@ -171,8 +172,9 @@ class Dispatcher extends Object {
 	}
 
 /**
- * Invokes given controller's render action if autoRender option is set. Otherwise the
- * contents of the operation are returned as a string.
+ * Initializes the components and models a controller will be using.
+ * Triggers the controller action, and invokes the rendering if Controller::$autoRender is true and echo's the output.
+ * Otherwise the return value of the controller action are returned.
  *
  * @param object $controller Controller to invoke
  * @param array $params Parameters with at least the 'action' to invoke
@@ -216,10 +218,11 @@ class Dispatcher extends Object {
 
 /**
  * Sets the params when $url is passed as an array to Object::requestAction();
+ * Merges the $url and $additionalParams and creates a string url.
  *
- * @param array $url
- * @param array $additionalParams
- * @return string $url
+ * @param array $url Array or request parameters
+ * @param array $additionalParams Array of additional parameters.
+ * @return string $url The generated url string.
  * @access private
  */
 	function __extractParams($url, $additionalParams = array()) {
@@ -363,29 +366,6 @@ class Dispatcher extends Object {
 		}
 		return $base . $file;
 	}
-/**
- * Restructure params in case we're serving a plugin.
- *
- * @param array $params Array on where to re-set 'controller', 'action', and 'pass' indexes
- * @param boolean $reverse  If true all the params are shifted one forward, so plugin becomes
- *   controller, controller becomes action etc.  If false, plugin is made equal to controller
- * @return array Restructured array
- * @access protected
- */
-	function _restructureParams($params, $reverse = false) {
-		if ($reverse === true) {
-			extract(Router::getArgs($params['action']));
-			$params = array_merge($params, array(
-				'controller'=> $params['plugin'],
-				'action'=> $params['controller'],
-				'pass' => array_merge($pass, $params['pass']),
-				'named' => array_merge($named, $params['named'])
-			));
-		} else {
-			$params['plugin'] = $params['controller'];
-		}
-		return $params;
-	}
 
 /**
  * Get controller to use, either plugin controller or application controller
@@ -395,36 +375,20 @@ class Dispatcher extends Object {
  * @access private
  */
 	function &__getController() {
-		$original = $params = $this->params;
-
 		$controller = false;
-		$ctrlClass = $this->__loadController($params);
+		$ctrlClass = $this->__loadController($this->params);
 		if (!$ctrlClass) {
-			if (!isset($params['plugin'])) {
-				$params = $this->_restructureParams($params);
-			} else {
-				$params = $this->_restructureParams($params, true);
-			}
-			$ctrlClass = $this->__loadController($params);
-			if (!$ctrlClass) {
-				$this->params = $original;
-				return $controller;
-			}
+			return $controller;
 		}
-		$name = $ctrlClass;
 		$ctrlClass .= 'Controller';
 		if (class_exists($ctrlClass)) {
-			if (empty($params['plugin']) && strtolower(get_parent_class($ctrlClass)) === strtolower($name . 'AppController')) {
-				$params = $this->_restructureParams($params);
-			}
-			$this->params = $params;
 			$controller =& new $ctrlClass();
 		}
 		return $controller;
 	}
 
 /**
- * Load controller and return controller class
+ * Load controller and return controller classname
  *
  * @param array $params Array of parameters
  * @return string|bool Name of controller class name
@@ -433,13 +397,10 @@ class Dispatcher extends Object {
 	function __loadController($params) {
 		$pluginName = $pluginPath = $controller = null;
 		if (!empty($params['plugin'])) {
-			$pluginName = Inflector::camelize($params['plugin']);
+			$pluginName = $controller = Inflector::camelize($params['plugin']);
 			$pluginPath = $pluginName . '.';
-			$this->params['controller'] = $params['plugin'];
-			$controller = $pluginName;
 		}
 		if (!empty($params['controller'])) {
-			$this->params['controller'] = $params['controller'];
 			$controller = Inflector::camelize($params['controller']);
 		}
 		if ($pluginPath . $controller) {
@@ -580,7 +541,6 @@ class Dispatcher extends Object {
 				return $return;
 			}
 		}
-
 		return false;
 	}
 

@@ -437,7 +437,8 @@ class Set {
 						$items = array($items);
 					} elseif (!isset($items[0])) {
 						$current = current($items);
-						if ((is_array($current) && count($items) <= 1) || !is_array($current)) {
+						$currentKey = key($items);
+						if (!is_array($current) || (is_array($current) && count($items) <= 1 && !is_numeric($currentKey))) {
 							$items = array($items);
 						}
 					}
@@ -446,18 +447,18 @@ class Set {
 						$ctext = array($context['key']);
 						if (!is_numeric($key)) {
 							$ctext[] = $token;
-							$token = array_shift($tokens);
-							if (isset($items[$token])) {
-								$ctext[] = $token;
-								$item = $items[$token];
+							$tok = array_shift($tokens);
+							if (isset($items[$tok])) {
+								$ctext[] = $tok;
+								$item = $items[$tok];
 								$matches[] = array(
 									'trace' => array_merge($context['trace'], $ctext),
-									'key' => $token,
+									'key' => $tok,
 									'item' => $item,
 								);
 								break;
-							} else {
-								array_unshift($tokens, $token);
+							} elseif ($tok !== null) {
+								array_unshift($tokens, $tok);
 							}
 						} else {
 							$key = $token;
@@ -484,7 +485,7 @@ class Set {
 					$length = count($matches);
 					foreach ($matches as $i => $match) {
 						if (Set::matches(array($condition), $match['item'], $i + 1, $length)) {
-							$filtered[] = $match;
+							$filtered[$i] = $match;
 						}
 					}
 					$matches = $filtered;
@@ -936,6 +937,9 @@ class Set {
 		} else {
 			$keys = Set::extract($data, $path1);
 		}
+		if (empty($keys)) {
+			return array();
+		}
 
 		if (!empty($path2) && is_array($path2)) {
 			$format = array_shift($path2);
@@ -967,7 +971,9 @@ class Set {
 				return $out;
 			}
 		}
-
+		if (empty($vals)) {
+			return array();
+		}
 		return array_combine($keys, $vals);
 	}
 

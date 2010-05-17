@@ -163,6 +163,29 @@ class ModelWriteTest extends BaseModelTest {
 	}
 
 /**
+ * Ensure that if the id key is null but present the save doesn't fail (with an
+ * x sql error: "Column id specified twice")
+ *
+ * @return void
+ * @access public
+ */
+	function testSaveUuidNull() {
+		// SQLite does not support non-integer primary keys
+		$this->skipIf($this->db->config['driver'] == 'sqlite');
+
+		$this->loadFixtures('Uuid');
+		$TestModel =& new Uuid();
+
+		$TestModel->save(array('title' => 'Test record', 'id' => null));
+		$result = $TestModel->findByTitle('Test record');
+		$this->assertEqual(
+			array_keys($result['Uuid']),
+			array('id', 'title', 'count', 'created', 'updated')
+		);
+		$this->assertEqual(strlen($result['Uuid']['id']), 36);
+	}
+
+/**
  * testZeroDefaultFieldValue method
  *
  * @access public
@@ -328,6 +351,7 @@ class ModelWriteTest extends BaseModelTest {
 
 		$data = array(
 			'OverallFavorite' => array(
+				'id' => 22,
 		 		'model_type' => '8-track',
 				'model_id' => '3',
 				'priority' => '1'
@@ -391,6 +415,7 @@ class ModelWriteTest extends BaseModelTest {
 		$User = new CounterCacheUser();
 		$Post = new CounterCachePost();
 		$data = array('Post' => array(
+			'id' => 22,
 			'title' => 'New Post',
 			'user_id' => 66
 		));
@@ -1565,7 +1590,7 @@ class ModelWriteTest extends BaseModelTest {
 		$result = $Story->save();
 		$this->assertTrue($result);
 
-		$result = $Story->find('all');
+		$result = $Story->find('all', array('order' => array('Story.story')));
 		$expected = array(
 			array(
 				'Story' => array(
@@ -1611,7 +1636,7 @@ class ModelWriteTest extends BaseModelTest {
 				'DoomedSomethingElse' => array(
 					'className' => 'SomethingElse',
 					'joinTable' => 'join_things',
-					'conditions' => 'JoinThing.doomed = 1',
+					'conditions' => 'JoinThing.doomed = true',
 					'unique' => true
 				),
 				'NotDoomedSomethingElse' => array(
@@ -2846,7 +2871,8 @@ class ModelWriteTest extends BaseModelTest {
 				'title' => '',
 				'body' => 'Trying to get away with an empty title'
 			)
-		), array('atomic' => false));
+		), array('validate' => true, 'atomic' => false));
+
 		$this->assertIdentical($result, array(true, false));
 
 		$result = $TestModel->saveAll(array(
@@ -2862,7 +2888,7 @@ class ModelWriteTest extends BaseModelTest {
 					'published' => 'Y',
 					'user_id' => 2
 			))
-		), array('atomic' => false));
+		), array('validate' => true, 'atomic' => false));
 		$this->assertIdentical($result, array('Article' => true, 'Comment' => array(true, true)));
 	}
 
@@ -2960,7 +2986,7 @@ class ModelWriteTest extends BaseModelTest {
 			'Comment' => array(
 				array('comment' => '', 'published' => 'Y', 'user_id' => 1),
 			)
-		));
+		), array('validate' => true));
 		$expected = array('Comment' => array(false));
 		$this->assertEqual($result, $expected);
 
@@ -3293,7 +3319,7 @@ class ModelWriteTest extends BaseModelTest {
 				'title' => '',
 				'body' => 'Trying to get away with an empty title'
 		));
-		$result = $TestModel->saveAll($data, array('atomic' => false));
+		$result = $TestModel->saveAll($data, array('validate' => true, 'atomic' => false));
 		$this->assertEqual($result, array(true, false));
 		$result = $TestModel->find('all', array('recursive' => -1, 'order' => 'Post.id ASC'));
 		$errors = array(1 => array('title' => 'This field cannot be left blank'));
@@ -3683,6 +3709,10 @@ class ModelWriteTest extends BaseModelTest {
  * @return void
  */
     function testProductUpdateAll() {
+		$this->skipIf(
+			$this->db->config['driver'] == 'postgres',
+			'%s Currently, there is no way of doing joins in an update statement in postgresql'
+		);
 		$this->loadFixtures('ProductUpdateAll', 'GroupUpdateAll');
 		$ProductUpdateAll =& new ProductUpdateAll();
 
@@ -3721,6 +3751,7 @@ class ModelWriteTest extends BaseModelTest {
 
         $this->assertEqual($results, $expected);
     }
+
 /**
  * testProductUpdateAllWithoutForeignKey
  *
@@ -3729,6 +3760,10 @@ class ModelWriteTest extends BaseModelTest {
  * @return void
  */
     function testProductUpdateAllWithoutForeignKey() {
+		$this->skipIf(
+			$this->db->config['driver'] == 'postgres',
+			'%s Currently, there is no way of doing joins in an update statement in postgresql'
+		);
 		$this->loadFixtures('ProductUpdateAll', 'GroupUpdateAll');
 		$ProductUpdateAll =& new ProductUpdateAll();
 
@@ -3772,6 +3807,24 @@ class ModelWriteTest extends BaseModelTest {
                     'code' => 120)));
         $this->assertEqual($resultsFkFalse, $expected);
     }
+
+/**
+ * test that saveAll behaves like plain save() when suplied empty data
+ *
+ * @link http://cakephp.lighthouseapp.com/projects/42648/tickets/277-test-saveall-with-validation-returns-incorrect-boolean-when-saving-empty-data
+ * @access public
+ * @return void
+ */
+	function testSaveAllEmptyData() {
+		$this->loadFixtures('Article', 'ProductUpdateAll');
+		$model =& new Article();
+		$result = $model->saveAll(array(), array('validate' => 'first'));
+		$this->assertTrue($result);
+
+		$model =& new ProductUpdateAll();
+		$result = $model->saveAll(array());
+		$this->assertFalse($result);
+	}
 
 }
 

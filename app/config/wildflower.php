@@ -8,7 +8,7 @@
  */
 
 /** Wildflower config. Access like Configure::read('Wildflower.settings.settingName'); */
-Configure::write(array('Wildflower' => array(
+$config['Wildflower'] = array(
     'cookie' => array(
         'name' => 'WildflowerUser',
         'expire' => 2592000,
@@ -19,13 +19,13 @@ Configure::write(array('Wildflower' => array(
     'rootPageCache' => CACHE . 'wf_root_pages',
     'previewCache' => CACHE . 'wf_previews',
     'thumbnailsCache' => CACHE . 'wf_thumbnails',
-    'mediaRoute' => 'i',
-    'postsParent' => 'p',
-    'blogIndex' => 'blog',
+    'postsParent' => 'p', // prefix to view blog posts
+    'blogIndex' => 'blog', // the index of blog posting system
+    'mediaRoute' => 'i',	//	media route for wildflower thumbnails
     // Disabling the root page cache may be useful in debugging 
     // (the cache file won't be created, page routes load from the database)
     'disableRootPageCache' => false,
     // 60000% speed increase with pure HTML caching into the webroot
     // @TODO cache expire not implemented yet, so don't use if you can't get around it
     'htmlCache' => false,
-)));
+);

@@ -10,11 +10,11 @@ class PostsController extends AppController {
 	    'Time',
 	    'Paginator',
 	);
-	public $components = array('Email');
+	public $components = array('Email', 'RequestHandler');
 	
 	/** Pagination options for the admin_index action **/
     public $paginate = array(
-        'limit' => 12,
+        'limit' => 6,
         'order' => array('Post.created' => 'desc'),
     );
     public $pageTitle = 'Posts';
@@ -282,7 +282,7 @@ class PostsController extends AppController {
         
 		
         $this->paginate = array(
-            'limit' => 10,
+            'limit' => 6,
             'order' => array(
                 'Post.created' => 'desc'
             ),

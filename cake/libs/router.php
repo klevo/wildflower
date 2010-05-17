@@ -497,7 +497,7 @@ class Router {
 			}
 		}
 
-		if (!empty($ext)) {
+		if (!empty($ext) && !isset($out['url']['ext'])) {
 			$out['url']['ext'] = $ext;
 		}
 		return $out;
@@ -540,17 +540,29 @@ class Router {
  * Connects the default, built-in routes, including prefix and plugin routes. The following routes are created
  * in the order below:
  *
+ * For each of the Routing.prefixes the following routes are created. Routes containing `:plugin` are only
+ * created when your application has one or more plugins.
+ *
+ * - `/:prefix/:plugin` a plugin shortcut route.
+ * - `/:prefix/:plugin/:action/*` a plugin shortcut route.
  * - `/:prefix/:plugin/:controller`
  * - `/:prefix/:plugin/:controller/:action/*`
  * - `/:prefix/:controller`
  * - `/:prefix/:controller/:action/*`
+ *
+ * If plugins are found in your application the following routes are created:
+ *
+ * - `/:plugin` a plugin shortcut route.
+ * - `/:plugin/:action/*` a plugin shortcut route.
  * - `/:plugin/:controller`
  * - `/:plugin/:controller/:action/*`
+ *
+ * And lastly the following catch-all routes are connected.
+ *
  * - `/:controller'
  * - `/:controller/:action/*'
  *
- * A prefix route is generated for each Routing.prefixes declared in core.php. You can disable the
- * connection of default routes with Router::defaults().
+ * You can disable the connection of default routes with Router::defaults().
  *
  * @return void
  * @access private
@@ -560,14 +572,18 @@ class Router {
 			foreach ($plugins as $key => $value) {
 				$plugins[$key] = Inflector::underscore($value);
 			}
-			$match = array('plugin' => implode('|', $plugins));
+			$pluginPattern = implode('|', $plugins);
+			$match = array('plugin' => $pluginPattern);
+			$shortParams = array('routeClass' => 'PluginShortRoute', 'plugin' => $pluginPattern);
 
 			foreach ($this->__prefixes as $prefix) {
 				$params = array('prefix' => $prefix, $prefix => true);
 				$indexParams = $params + array('action' => 'index');
+				$this->connect("/{$prefix}/:plugin", $indexParams, $shortParams);
 				$this->connect("/{$prefix}/:plugin/:controller", $indexParams, $match);
 				$this->connect("/{$prefix}/:plugin/:controller/:action/*", $params, $match);
 			}
+			$this->connect('/:plugin', array('action' => 'index'), $shortParams);
 			$this->connect('/:plugin/:controller', array('action' => 'index'), $match);
 			$this->connect('/:plugin/:controller/:action/*', array(), $match);
 		}
@@ -754,9 +770,6 @@ class Router {
 			} else {
 				$params = end($self->__params);
 			}
-			if (isset($params['prefix']) && strpos($params['action'], $params['prefix']) === 0) {
-				$params['action'] = substr($params['action'], strlen($params['prefix']) + 1);
-			}
 		}
 		$path = array('base' => null);
 
@@ -801,6 +814,9 @@ class Router {
 					$url[$prefix] = true;
 				} elseif (isset($url[$prefix]) && !$url[$prefix]) {
 					unset($url[$prefix]);
+				}
+				if (isset($url[$prefix]) && strpos($url['action'], $prefix) === 0) {
+					$url['action'] = substr($url['action'], strlen($prefix) + 1);
 				}
 			}
 
@@ -907,7 +923,7 @@ class Router {
 
 		$urlOut = array_filter(array($url['controller'], $url['action']));
 
-		if (isset($url['plugin']) && $url['plugin'] != $url['controller']) {
+		if (isset($url['plugin'])) {
 			array_unshift($urlOut, $url['plugin']);
 		}
 
@@ -1047,9 +1063,11 @@ class Router {
 	}
 
 /**
- * Normalizes a URL for purposes of comparison
+ * Normalizes a URL for purposes of comparison.  Will strip the base path off
+ * and replace any double /'s.  It will not unify the casing and underscoring
+ * of the input value.
  *
- * @param mixed $url URL to normalize
+ * @param mixed $url URL to normalize Either an array or a string url.
  * @return string Normalized URL
  * @access public
  * @static
@@ -1331,11 +1349,12 @@ class CakeRoute {
 			return;
 		}
 		$route = $this->template;
-		$names = $replacements = $search = array();
+		$names = $routeParams = array();
 		$parsed = preg_quote($this->template, '#');
 
 		preg_match_all('#:([A-Za-z0-9_-]+[A-Z0-9a-z])#', $route, $namedElements);
 		foreach ($namedElements[1] as $i => $name) {
+			$search = '\\' . $namedElements[0][$i];
 			if (isset($this->options[$name])) {
 				$option = null;
 				if ($name !== 'plugin' && array_key_exists($name, $this->defaults)) {
@@ -1343,15 +1362,12 @@ class CakeRoute {
 				}
 				$slashParam = '/\\' . $namedElements[0][$i];
 				if (strpos($parsed, $slashParam) !== false) {
-					$replacements[] = '(?:/(?P<' . $name . '>' . $this->options[$name] . ')' . $option . ')' . $option;
-					$search[] = $slashParam;
+					$routeParams[$slashParam] = '(?:/(?P<' . $name . '>' . $this->options[$name] . ')' . $option . ')' . $option;
 				} else {
-					$search[] = '\\' . $namedElements[0][$i];
-					$replacements[] = '(?:(?P<' . $name . '>' . $this->options[$name] . ')' . $option . ')' . $option;
+					$routeParams[$search] = '(?:(?P<' . $name . '>' . $this->options[$name] . ')' . $option . ')' . $option;
 				}
 			} else {
-				$replacements[] = '(?:(?P<' . $name . '>[^/]+))';
-				$search[] = '\\' . $namedElements[0][$i];
+				$routeParams[$search] = '(?:(?P<' . $name . '>[^/]+))';
 			}
 			$names[] = $name;
 		}
@@ -1359,7 +1375,8 @@ class CakeRoute {
 			$parsed = preg_replace('#/\\\\\*$#', '(?:/(?P<_args_>.*))?', $parsed);
 			$this->_greedy = true;
 		}
-		$parsed = str_replace($search, $replacements, $parsed);
+		krsort($routeParams);
+		$parsed = str_replace(array_keys($routeParams), array_values($routeParams), $parsed);
 		$this->_compiledRoute = '#^' . $parsed . '[/]*$#';
 		$this->keys = $names;
 	}
@@ -1409,6 +1426,7 @@ class CakeRoute {
 			$route['pass'] = $route['named'] = array();
 			$route += $this->defaults;
 
+			//move numerically indexed elements from the defaults into pass.
 			foreach ($route as $key => $value) {
 				if (is_integer($key)) {
 					$route['pass'][] = $value;
@@ -1529,10 +1547,6 @@ class CakeRoute {
  * @access protected
  */
 	function _writeUrl($params) {
-		if (isset($params['plugin'], $params['controller']) && $params['plugin'] === $params['controller']) {
-			unset($params['controller']);
-		}
-
 		if (isset($params['prefix'], $params['action'])) {
 			$params['action'] = str_replace($params['prefix'] . '_', '', $params['action']);
 			unset($params['prefix']);
@@ -1574,4 +1588,47 @@ class CakeRoute {
 		return $out;
 	}
 }
+
+/**
+ * Plugin short route, that copies the plugin param to the controller parameters
+ * It is used for supporting /:plugin routes.
+ *
+ * @package cake.libs
+ */
+class PluginShortRoute extends CakeRoute {
+
+/**
+ * Parses a string url into an array.  If a plugin key is found, it will be copied to the 
+ * controller parameter
+ *
+ * @param string $url The url to parse
+ * @return mixed false on failure, or an array of request parameters
+ */
+	function parse($url) {
+		$params = parent::parse($url);
+		if (!$params) {
+			return false;
+		}
+		$params['controller'] = $params['plugin'];
+		return $params;
+	}
+
+/**
+ * Reverse route plugin shortcut urls.  If the plugin and controller
+ * are not the same the match is an auto fail.
+ *
+ * @param array $url Array of parameters to convert to a string.
+ * @return mixed either false or a string url.
+ */
+	function match($url) {
+		if (isset($url['controller']) && isset($url['plugin']) && $url['plugin'] != $url['controller']) {
+			return false;
+		}
+		$this->defaults['controller'] = $url['controller'];
+		$result = parent::match($url);
+		unset($this->defaults['controller']);
+		return $result;
+	}
+}
+
 ?>

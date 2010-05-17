@@ -86,8 +86,8 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '',
-		'database' => 'wildflower',
+		'password' => 'majic',
+		'database' => 'wildflower_klevo13',
 	    'port' => 3306
 	);
 	
@@ -96,14 +96,14 @@ class DATABASE_CONFIG {
 	 *
 	 * @var array
 	 */
-	public $test_suite = array(
+	public $test = array(
 		'driver' => 'mysqli',
 	    'encoding' => 'utf8',
         'persistent' => false,
         'host' => 'localhost',
         'login' => 'root',
         'password' => '',
-        'database' => 'test_wildflower',
+        'database' => 'wildflower_test',
 	    'port' => 3306
 	);
 	

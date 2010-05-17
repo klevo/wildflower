@@ -1,6 +1,5 @@
 <?php
 /**
- * Core Configurations.
  *
  * PHP versions 4 and 5
  *
@@ -13,9 +12,10 @@
  * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
- * @subpackage    cake.app.config
- * @since         CakePHP(tm) v 1.1.11.4062
+ * @subpackage    cake.cake.libs.view.templates.layouts
+ * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-return $config['Cake.version'] = '1.3.0';
-?>
+class BananaHelper extends Helper {
+	
+}
