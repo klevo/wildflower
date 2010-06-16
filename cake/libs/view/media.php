@@ -95,7 +95,7 @@ class MediaView extends View {
  *
  * @param object $controller
  */
-	function __construct(&$controller = null) {
+	function __construct(&$controller) {
 		parent::__construct($controller);
 	}
 
@@ -283,4 +283,3 @@ class MediaView extends View {
 		@ob_flush();
 	}
 }
-?>

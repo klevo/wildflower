@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Internationalization Management Shell
  *
  * PHP versions 4 and 5
  *
@@ -126,4 +126,3 @@ class I18nShell extends Shell {
 		$this->Extract->help();
 	}
 }
-?>

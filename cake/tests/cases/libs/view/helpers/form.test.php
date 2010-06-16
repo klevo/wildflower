@@ -4,14 +4,14 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
+ * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
  * Copyright 2006-2010, Cake Software Foundation, Inc.
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
- * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
+ * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs.view.helpers
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -109,8 +109,12 @@ class Contact extends CakeTestModel {
 		'imrequiredtoo' => array('rule' => 'notEmpty'),
 		'required_one' => array('required' => array('rule' => array('notEmpty'))),
 		'imnotrequired' => array('required' => false, 'rule' => 'alphaNumeric', 'allowEmpty' => true),
-		'imalsonotrequired' => array('alpha' => array('rule' => 'alphaNumeric','allowEmpty' => true),
-		'between' => array('rule' => array('between', 5, 30))));
+		'imalsonotrequired' => array(
+			'alpha' => array('rule' => 'alphaNumeric','allowEmpty' => true),
+			'between' => array('rule' => array('between', 5, 30)),
+		),
+		'imnotrequiredeither' => array('required' => true, 'rule' => array('between', 5, 30), 'allowEmpty' => true),
+	);
 
 /**
  * schema method
@@ -2110,6 +2114,29 @@ class FormHelperTest extends CakeTestCase {
 			'/option',
 			'/select',
 			'/div'
+		);
+		$this->assertTags($result, $expected);
+	}
+
+/**
+ * test that input() and a non standard primary key makes a hidden input by default.
+ *
+ * @return void
+ */
+	function testInputWithNonStandardPrimaryKeyMakesHidden() {
+		$this->Form->create('User');
+		$this->Form->fieldset = array(
+			'User' => array(
+				'fields' => array(
+					'model_id' => array('type' => 'integer')
+				),
+				'validates' => array(),
+				'key' => 'model_id'
+			)
+		);
+		$result = $this->Form->input('model_id');
+		$expected = array(
+			'input' => array('type' => 'hidden', 'name' => 'data[User][model_id]', 'id' => 'UserModelId'),
 		);
 		$this->assertTags($result, $expected);
 	}
@@ -5593,6 +5620,20 @@ class FormHelperTest extends CakeTestCase {
 		);
 		$this->assertTags($result, $expected);
 
+		$result = $this->Form->input('Contact.imnotrequiredeither');
+		$expected = array(
+			'div' => array('class' => 'input text'),
+			'label' => array('for' => 'ContactImnotrequiredeither'),
+			'Imnotrequiredeither',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imnotrequiredeither]',
+				'id' => 'ContactImnotrequiredeither'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
 		extract($this->dateRegex);
 		$now = strtotime('now');
 
@@ -6247,4 +6288,3 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 }
-?>

@@ -209,7 +209,11 @@ class FileEngine extends CacheEngine {
 			$now = time();
 			$threshold = $now - $this->settings['duration'];
 		}
+		$prefixLength = strlen($this->settings['prefix']);
 		while (($entry = $dir->read()) !== false) {
+			if (substr($entry, 0, $prefixLength) !== $this->settings['prefix']) {
+				continue;
+			}
 			if ($this->_setKey($entry) === false) {
 				continue;
 			}
@@ -265,4 +269,3 @@ class FileEngine extends CacheEngine {
 		return true;
 	}
 }
-?>

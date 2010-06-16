@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Translate behavior
  *
  * PHP versions 4 and 5
  *
@@ -19,7 +19,7 @@
  */
 
 /**
- * Short description for file.
+ * Translate behavior
  *
  * @package       cake
  * @subpackage    cake.cake.libs.model.behaviors
@@ -523,4 +523,3 @@ if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 		var $displayField = 'field';
 	}
 }
-?>

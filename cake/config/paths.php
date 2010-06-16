@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Path configuration
  *
  * In this file you set paths to different directories used by Cake.
  *
@@ -229,4 +229,3 @@ if (!defined('CSS_URL')) {
 if (!defined('JS_URL')) {
 	define('JS_URL', 'js/');
 }
-?>

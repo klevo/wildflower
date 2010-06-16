@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Core Security
  *
  * PHP versions 4 and 5
  *
@@ -189,4 +189,3 @@ class Security extends Object {
 		return $out;
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Internationalization
  *
  * PHP versions 4 and 5
  *
@@ -573,4 +573,3 @@ class I18n extends Object {
 		}
 	}
 }
-?>

@@ -4,14 +4,14 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
+ * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
  * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
+ * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -72,6 +72,7 @@ class TestDispatcher extends Dispatcher {
  * @access protected
  */
 	function _stop() {
+		$this->stopped = true;
 		return true;
 	}
 }
@@ -1965,13 +1966,48 @@ class DispatcherTest extends CakeTestCase {
 		));
 		$this->assertNoErrors();
 
-		$Dispatcher->params = $Dispatcher->parseParams('ccss/cake.generic.css');
 		ob_start();
 		$Dispatcher->asset('ccss/cake.generic.css');
+		$result = ob_get_clean();
+		$this->assertTrue($Dispatcher->stopped);
 
 		header('HTTP/1.1 200 Ok');
 	}
 
+/**
+ * test that asset filters work for theme and plugin assets	
+ *
+ * @return void
+ */
+	function testAssetFilterForThemeAndPlugins() {
+		$Dispatcher =& new TestDispatcher();
+		Configure::write('Asset.filter', array(
+			'js' => '',
+			'css' => ''
+		));
+		$Dispatcher->asset('theme/test_theme/ccss/cake.generic.css');
+		$this->assertTrue($Dispatcher->stopped);
+
+		$Dispatcher->stopped = false;
+		$Dispatcher->asset('theme/test_theme/cjs/debug_kit.js');
+		$this->assertTrue($Dispatcher->stopped);
+
+		$Dispatcher->stopped = false;
+		$Dispatcher->asset('test_plugin/ccss/cake.generic.css');
+		$this->assertTrue($Dispatcher->stopped);
+
+		$Dispatcher->stopped = false;
+		$Dispatcher->asset('test_plugin/cjs/debug_kit.js');
+		$this->assertTrue($Dispatcher->stopped);
+
+		$Dispatcher->stopped = false;
+		$Dispatcher->asset('css/ccss/debug_kit.css');
+		$this->assertFalse($Dispatcher->stopped);
+		
+		$Dispatcher->stopped = false;
+		$Dispatcher->asset('js/cjs/debug_kit.js');
+		$this->assertFalse($Dispatcher->stopped);
+	}
 /**
  * testFullPageCachingDispatch method
  *
@@ -2446,4 +2482,3 @@ class DispatcherTest extends CakeTestCase {
 		return $filename;
 	}
 }
-?>

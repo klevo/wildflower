@@ -1,6 +1,6 @@
 <?php
 /**
- * Short description for file.
+ * Email Component
  *
  * PHP versions 4 and 5
  *
@@ -228,9 +228,7 @@ class EmailComponent extends Object{
  * @access public
  * @link http://book.cakephp.org/view/1290/Sending-A-Message-Using-SMTP
  */
-	var $smtpOptions = array(
-		'port'=> 25, 'host' => 'localhost', 'timeout' => 30
-	);
+	var $smtpOptions = array();
 
 /**
  * Placeholder for any errors that might happen with the
@@ -326,6 +324,7 @@ class EmailComponent extends Object{
  * Send an email using the specified content, template and layout
  *
  * @param mixed $content Either an array of text lines, or a string with contents
+ *  If you are rendering a template this variable will be sent to the templates as `$content`
  * @param string $template Template to use when sending email
  * @param string $layout Layout to use to enclose email body
  * @return boolean Success
@@ -788,7 +787,14 @@ class EmailComponent extends Object{
 	function _smtp() {
 		App::import('Core', array('CakeSocket'));
 
-		$this->__smtpConnection =& new CakeSocket(array_merge(array('protocol'=>'smtp'), $this->smtpOptions));
+		$defaults = array(
+			'host' => 'localhost',
+			'port' => 25,
+			'protocol' => 'smtp',
+			'timeout' => 30
+		);
+		$this->smtpOptions = array_merge($defaults, $this->smtpOptions);
+		$this->__smtpConnection =& new CakeSocket($this->smtpOptions);
 
 		if (!$this->__smtpConnection->connect()) {
 			$this->smtpError = $this->__smtpConnection->lastError();
@@ -807,7 +813,7 @@ class EmailComponent extends Object{
 			$host = 'localhost';
 		}
 
-		if (!$this->_smtpSend("HELO {$host}", '250')) {
+		if (!$this->_smtpSend("EHLO {$host}", '250') || !$this->_smtpSend("HELO {$host}", '250')) {
 			return false;
 		}
 
@@ -867,22 +873,34 @@ class EmailComponent extends Object{
 	}
 
 /**
- * Private method for sending data to SMTP connection
+ * Protected method for sending data to SMTP connection
  *
  * @param string $data data to be sent to SMTP server
  * @param mixed $checkCode code to check for in server response, false to skip
  * @return bool Success
- * @access private
+ * @access protected
  */
 	function _smtpSend($data, $checkCode = '250') {
 		if (!is_null($data)) {
 			$this->__smtpConnection->write($data . "\r\n");
 		}
-		if ($checkCode !== false) {
-			$response = $this->__smtpConnection->read();
+		while ($checkCode !== false) {
+			$response = '';
+			$startTime = time();
+			while (substr($response, -2) !== "\r\n" && ((time() - $startTime) < $this->smtpOptions['timeout'])) {
+				$response .= $this->__smtpConnection->read();
+			}
+			if (substr($response, -2) !== "\r\n") {
+				$this->smtpError = 'timeout';
+				return false;
+			}
+			$response = end(explode("\r\n", rtrim($response, "\r\n")));
 
-			if (preg_match('/^(' . $checkCode . ')/', $response, $code)) {
-				return $code[0];
+			if (preg_match('/^(' . $checkCode . ')(.)/', $response, $code)) {
+				if ($code[2] === '-') {
+					continue;
+				}
+				return $code[1];
 			}
 			$this->smtpError = $response;
 			return false;
@@ -926,6 +944,4 @@ class EmailComponent extends Object{
 		}
 		return $fm;
 	}
-
 }
-?>
