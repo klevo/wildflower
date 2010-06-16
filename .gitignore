@@ -22,4 +22,4 @@ vendors/ruckusing/logs/development.log
 app/webroot/cache/*
 
 # Local db settings
-app/config/database.php.local
+app/config/database.php.*
