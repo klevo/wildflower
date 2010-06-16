@@ -2,7 +2,8 @@
 /**
  * Wildflower plugin core configuration
  *
- * This file should be included in app/bootsrap.php.
+ * This file should be included in app/config/bootsrap.php.
+ * Configure::load('wildflower');
  * 
  * @package wildflower
  */

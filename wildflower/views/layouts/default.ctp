@@ -41,7 +41,7 @@
     <div id="footer">
         <p><?php echo isset($credits)? $credits : ''; echo $this->element('admin_link'); ?></p>
         
-        <?php echo $this->element('debug_notice'), $this->element('sql_dump');; ?>
+        <?php echo $this->element('debug_notice'), $this->element('sql_dump'); ?>
     </div>
     
 </div>

@@ -52,8 +52,7 @@
  */
 	define('VALID_YEAR', '/^[12][0-9]{3}$/');
 
-Cache::config('default', array('engine' => 'File'));
-Configure::load('wildflower');
+	Configure::load('wildflower');
 
 /**
  * Wrapper for application encoding respecting htmlspecialchars
@@ -133,6 +132,10 @@ App::build(array(
 	'locales' => array(
 		WILDFLOWER_DIR . 'locales' . DS,
 		APP . 'locales' . DS
+		),
+	'libs' => array(
+		WILDFLOWER_DIR . 'libs' . DS,
+		APP . 'libs' . DS
 		)
 	)
 );
