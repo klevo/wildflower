@@ -31,21 +31,20 @@ class AppController extends Controller {
 	public $view = 'Theme';
 	public $homePageId;
 	public $isAuthorized = false;
-    public $isHome = false;
+	public $isHome = false;
 	private $_isDatabaseConnected = true;
-	// pageTitle is used by SeoComp to set the title of controllerActions
 	public $pageTitle = null;
 	
 	/**
 	 * Configure and initialize everything Wildflower needs
 	 *
-     * Should be called before all controller actions in AppController::beforeFilter().
-     * 
-     * Does 3 things:
-     *   1. protect admin area
-     *   2. check for user sessions
-     *   3. set site settings, parameters and global view vars
-     */
+	 * Should be called before all controller actions in AppController::beforeFilter().
+	 * 
+	 * Does 3 things:
+	 *   1. protect admin area
+	 *   2. check for user sessions
+	 *   3. set site settings, parameters and global view vars
+	*/
 	private function _configureWildflower() {
 	    // AuthComponent config
         $this->Auth->userModel = 'User';
@@ -56,13 +55,13 @@ class AppController extends Controller {
         $this->Auth->autoRedirect = false;
         $this->Auth->allow('update_root_cache'); // requestAction() actions need to be allowed
         $this->Auth->loginRedirect = "/$prefix";
-	    
-	    // Site settings
+
+		// Site settings
 		$settings = ClassRegistry::init('Setting')->getKeyValuePairs();
-        Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
-        Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
-        
-        // Admin area requires authentification
+		Configure::write('AppSettings', $settings); // @TODO add under Wildlfower. configure namespace
+		Configure::write('Wildflower.settings', $settings); // The new namespace for WF settings
+
+		// Admin area requires authentification
 		if ($this->isAdminAction()) {
 			$this->layout = 'admin_default';
 		} else {
@@ -72,8 +71,8 @@ class AppController extends Controller {
 		
 		// Internationalization
 		$this->L10n = new L10n();
-        $this->L10n->get('eng');
-        Configure::write('Config.language', 'en');
+		$this->L10n->get('eng');
+		Configure::write('Config.language', 'en');
 
 		// Home page ID
 		$this->homePageId = intval(Configure::read('AppSettings.home_page_id'));
@@ -85,14 +84,14 @@ class AppController extends Controller {
 
 		// Compress output to save bandwith / speed site up
 		if (!isset($this->params['requested']) && Configure::read('Wildflower.gzipOutput')) {
-		    $this->gzipOutput();
+			$this->gzipOutput();
 		}
 	}
 	
-    function beforeFilter() {
-        parent::beforeFilter();
+	function beforeFilter() {
+		parent::beforeFilter();
 		$this->_configureWildflower();
-    }
+	}
 
     /**
      * @TODO legacy code, refactor!
