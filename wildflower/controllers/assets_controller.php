@@ -161,7 +161,7 @@ class AssetsController extends AppController {
         
         Configure::write('debug', 0);
     }
-    
+
     function thumbnail_by_id($id, $width = 120, $height = 120, $crop = 0) {
         $asset = $this->Asset->read(null, $id);
         $this->thumbnail($asset['Asset']['name'], $width, $height, $crop);
@@ -173,9 +173,16 @@ class AssetsController extends AppController {
      * @param $imageName File name from webroot/uploads/
      */
     function thumbnail($imageName, $width = 120, $height = 120, $crop = 0) {
-        $this->autoRender = false;
-        
-        $imageName = str_replace(array('..', '/'), '', $imageName); // Don't allow escaping to upper directories
+
+		Configure::write('debug', '0');
+		$this->autoRender = false;
+
+		$imageName = str_replace(array('..', '/'), '', $imageName); // Don't allow escaping to upper directories
+
+		//$imgType = explode('.', $imageName);
+		//$imageType = $imgType[1];
+		$enlarge = false;
+		$mimeSuffix = $this->_getMimeSuffix($imageName);
 
         $width = intval($width);
         if ($width > 2560) {
@@ -204,7 +211,7 @@ class AssetsController extends AppController {
         }
 
         if ($cacheFileExists && !$refreshCache) {
-        	return $this->_renderJpeg($cachedFilePath);
+        	return $this->_renderImage($cachedFilePath, $mime);
         } else {
         	// Create cache and render it
         	$sourceFile = Configure::read('Wildflower.uploadDirectory') . DS . $imageName;
@@ -212,28 +219,22 @@ class AssetsController extends AppController {
         		return trigger_error("Thumbnail generator: Source file $sourceFile does not exists.");
         	}
 
-        	App::import('Vendor', 'phpThumb', array('file' => 'phpthumb.class.php'));
+        	App::import('Vendor', 'PhpThumbFactory', array('file' => 'phpThumb'.DS.'ThumbLib.inc.php'));
 
-        	$phpThumb = new phpThumb();
+        	$phpThumb = PhpThumbFactory::create($sourceFile);
+			
+			$phpThumb->adaptiveResize(intval($width),intval($height));
 
-        	$phpThumb->setSourceFilename($sourceFile);
-        	$phpThumb->setParameter('config_output_format', 'jpeg');
-
-        	$phpThumb->setParameter('w', intval($width));
-        	$phpThumb->setParameter('h', intval($height));
-        	$phpThumb->setParameter('zc', intval($crop));
-
-        	if ($phpThumb->GenerateThumbnail()) {
-        		$phpThumb->RenderToFile($cachedFilePath);
-        		return $this->_renderJpeg($cachedFilePath);
+        	if ($phpThumb->save($cachedFilePath)) {
+        		return $this->_renderImage($cachedFilePath, $imageMime);
         	} else {
         		return trigger_error("Thumbnail generator: Can't GenerateThumbnail.");
         	}
         }
     }
     
-    function _renderJpeg($cachedFilePath) {
-        $this->JlmPackager->browserCacheHeaders(filemtime($cachedFilePath), 'image/jpeg');
+    private function _renderImage($cachedFilePath, $mime = 'image/jpeg') {
+        $this->JlmPackager->browserCacheHeaders(filemtime($cachedFilePath), $mime);
         
         $fileSize = filesize($cachedFilePath);
         header("Content-Length: $fileSize");
@@ -241,12 +242,20 @@ class AssetsController extends AppController {
         $cache = fopen($cachedFilePath, 'r');
         fpassthru($cache);
         fclose($cache);
-    }
+	}
 	
 	private function feedFileManager() {
 		$this->set('title_for_layout', $this->pageTitle);
-	    $files = $this->paginate($this->modelClass);
-        $this->set(compact('files'));
+		$files = $this->paginate($this->modelClass);
+		$this->set(compact('files'));
 	}
-    
+
+	private function _getMimeSuffix($fname) {
+		$type = explode('.', $fname);
+		$Type = $type[1];
+
+		$Mime = ($Type == 'jpg') ? 'image/jpeg' : ('image/' . $Type);
+
+		return array($Mime, $Type);
+	}
 }

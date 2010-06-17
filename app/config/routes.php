@@ -5,7 +5,7 @@
  * To add your custom routes, create file my_routes.php in this folder and add them there. When you update Wildflower you won't have to  merge this file with a new version.
  */
  // 2 prefixes used by wf routes media & admin prefix
-$mediaPrefix = 'wildflower'; // change to i or what to use a prefix for serving image assets
+$mediaPrefix = Configure::read('Wildflower.mediaRoute'); // change to i or what to use a prefix for serving image assets
 $adminPrefix = Configure::read('Routing.prefixes.0');
 
 $myRoutesPath = dirname(__FILE__) . DS . 'my_routes.php';
