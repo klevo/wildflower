@@ -8,13 +8,12 @@
  * PHP versions 4 and 5
  *
  * CakePHP(tm) Tests <https://trac.cakephp.org/wiki/Developement/TestSuite>
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *  Licensed under The Open Group Test Suite License
  *  Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          https://trac.cakephp.org/wiki/Developement/TestSuite CakePHP(tm) Tests
  * @package       cake
  * @subpackage    cake.tests.cases.libs
@@ -503,6 +502,31 @@ class HttpSocketTest extends CakeTestCase {
 		$this->RequestSocket->expect('request', a(array('method' => 'GET', 'uri' => 'http://www.google.com/', 'auth' => array('user' => 'foo', 'pass' => 'bar'))));
 		$this->RequestSocket->get('http://www.google.com/', null, array('auth' => array('user' => 'foo', 'pass' => 'bar')));
 	}
+/**
+ * test that two consecutive get() calls reset the authentication credentials.
+ *
+ * @return void
+ */
+	function testConsecutiveGetResetsAuthCredentials() {
+		$socket = new TestHttpSocket();
+		$socket->config['request']['auth'] = array(
+			'method' => 'Basic',
+			'user' => 'mark',
+			'pass' => 'secret'
+		);
+		$socket->get('http://mark:secret@example.com/test');
+		$this->assertEqual($socket->request['uri']['user'], 'mark');
+		$this->assertEqual($socket->request['uri']['pass'], 'secret');
+
+		$socket->get('/test2');
+		$this->assertEqual($socket->request['auth']['user'], 'mark');
+		$this->assertEqual($socket->request['auth']['pass'], 'secret');
+
+		$socket->get('/test3');
+		$this->assertEqual($socket->request['auth']['user'], 'mark');
+		$this->assertEqual($socket->request['auth']['pass'], 'secret');
+	}
+
 /**
  * testPostPutDelete method
  *
@@ -1229,7 +1253,7 @@ class HttpSocketTest extends CakeTestCase {
 				'path' => '/accounts'
 			)
 		);
-		$expect = "Cookie: foo=bar\r\nCookie: people=jim,jack,johnny\";\"\r\n";
+		$expect = "Cookie: foo=bar; people=jim,jack,johnny\";\"\r\n";
 		$result = $this->Socket->buildCookies($cookies);
 		$this->assertEqual($result, $expect);
 	}

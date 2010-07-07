@@ -5,15 +5,14 @@
  *
  * PHP versions 4 and 5
  *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
  * @subpackage    cake.cake.libs.controller
  * @since         CakePHP(tm) v 0.2.9
@@ -743,8 +742,11 @@ class Controller extends Object {
 
 		$errors = array();
 		foreach ($objects as $object) {
-			$this->{$object->alias}->set($object->data);
-			$errors = array_merge($errors, $this->{$object->alias}->invalidFields());
+			if (isset($this->{$object->alias})) {
+				$object =& $this->{$object->alias};
+			}
+			$object->set($object->data);
+			$errors = array_merge($errors, $object->invalidFields());
 		}
 
 		return $this->validationErrors = (!empty($errors) ? $errors : false);
@@ -1047,8 +1049,13 @@ class Controller extends Object {
 			$type = $defaults[0];
 			unset($defaults[0]);
 		}
+
 		$options = array_merge(array('page' => 1, 'limit' => 20), $defaults, $options);
-		$options['limit'] = (empty($options['limit']) || !is_numeric($options['limit'])) ? 1 : $options['limit'];
+		$options['limit'] = (int) $options['limit'];
+		if (empty($options['limit']) || $options['limit'] < 1) {
+			$options['limit'] = 1;
+		}
+
 		extract($options);
 
 		if (is_array($scope) && !empty($scope)) {
